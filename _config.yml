@@ -1,14 +1,14 @@
 baseurl:
-title: Tufte-Jekyll
-subtitle: Content-centric blogging
-author: clay harmon
+title: Z-Hat
+subtitle: Finding better representations
+author: pragmanym
 simple_search: http://google.com/search
-description: A Jekyll theme for content-rich sites
-name: tufte
+description: A (we)blog devoted to finding better representations
+name: zhat
 markdown: kramdown
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 permalink: /articles/:short_year/:title
-timezone: America/New_York
+timezone: America/Los_Angeles
 excerpt_separator: <!--more-->  # you can specify your own separator, of course.
 exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'UploadToGithub.Rakefile', 'README.md']
 post:
