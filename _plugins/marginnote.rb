@@ -2,6 +2,7 @@ module Jekyll
   class RenderMarginNoteTag < Liquid::Tag
 
     require "shellwords"
+    require_relative "uuid"
 
     def initialize(tag_name, text, tokens)
       super
@@ -9,7 +10,11 @@ module Jekyll
     end
 
     def render(context)
-      "<label for='#{@text[0]}' class='margin-toggle'> &#8853;</label><input type='checkbox' id='#{@text[0]}' class='margin-toggle'/><span class='marginnote'>#{@text[1]} </span>"
+      id = UUID.create.to_s
+      "<span class='noted'>#{@text[0]}</span>"\
+      "<label for='#{id}' class='margin-toggle'> &#8853;</label>"\
+      "<input type='checkbox' id='#{id}' class='margin-toggle'/>"\
+      "<span class='marginnote'>#{@text[1]} </span>"
     end
   end
 end
