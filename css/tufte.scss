@@ -213,9 +213,10 @@ ul,ol { width: 45%;
      -webkit-padding-end: 5%;
      list-style-type: none; }
 
-.toc, .toc * { width: 100%;
+.toc * { width: 100%;
                margin-top: 0; }
-.toc {background-color: #fff;
+.toc {width: 75%;
+      background-color: #fff;
       margin: 5px 0;
       padding: 10px 30px;
       border: 1px solid #e8e8e8;
