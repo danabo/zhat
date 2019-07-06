@@ -13,7 +13,6 @@ nav_exclude: true
 
 // Imports to create final
 
-@import "../_sass/fonts";
 @import "../_sass/settings";
 @import "../_sass/syntax-highlighting";
 
@@ -213,6 +212,14 @@ ul,ol { width: 45%;
      -webkit-padding-start: 5%;
      -webkit-padding-end: 5%;
      list-style-type: none; }
+
+.toc, .toc * { width: 100%;
+               margin-top: 0; }
+.toc {background-color: #fff;
+      margin: 5px 0;
+      padding: 10px 30px;
+      border: 1px solid #e8e8e8;
+      border-radius: 3px;}
 
 //li { padding: 0.5em 0; } //vertical padding on list items screws up vertical rhythym
 
