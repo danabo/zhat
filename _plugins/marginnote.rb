@@ -11,10 +11,12 @@ module Jekyll
 
     def render(context)
       id = UUID.create.to_s
-      "<span class='noted'>#{@text[0]}</span>"\
+      "<span class='marginnote-outer'>"\
+      "<span class='marginnote-ref'>#{@text[0]}</span>"\
       "<label for='#{id}' class='margin-toggle'> &#8853;</label>"\
       "<input type='checkbox' id='#{id}' class='margin-toggle'/>"\
-      "<span class='marginnote'>#{@text[1]} </span>"
+      "<span class='marginnote'><span class='marginnote-inner'>#{@text[1]}</span></span>"\
+      "</span>"
     end
   end
 end

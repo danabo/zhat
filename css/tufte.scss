@@ -247,6 +247,13 @@ img { max-width: 100%; }
                          vertical-align: baseline;
                          position: relative; }
 
+// Margin-note style and hover effect
+.marginnote-ref {background-color: #e9eeff}
+.marginnote-inner {padding: 0.25rem; padding-left: 0.5rem; padding-right: 0.5rem}
+.marginnote-outer:hover>.marginnote-ref {background-color: #b0b8ff;}
+.marginnote-outer:hover>.marginnote>.marginnote-inner {background-color: #e8eeff; border: 2px dashed gray}
+
+
 li .sidenote, li .marginnote{ margin-right: -80%; } //added to allow for the fact that lists are indented and marginnotes and sidenotes push to right
 
 blockquote .sidenote, blockquote .marginnote { margin-right: -79% }
