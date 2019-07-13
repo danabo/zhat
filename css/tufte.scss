@@ -118,10 +118,9 @@ p .subtitle { font-style: italic;
              line-height: 1.08888888888889; }
 
 
-p, ol, ul { font-size: 1.4rem; }
+p, ol, ul { font-size: 1.2rem; }
 
-p, li { line-height: 2rem;
-        margin-top: 1.4rem;
+p, li { margin-top: 1.4rem;
         padding-right: 2rem; //removed because,  why?
         vertical-align: baseline; }
 
@@ -251,15 +250,14 @@ img { max-width: 100%; }
                          margin-top: 0;
                          margin-bottom: 1.96rem;
                          font-size: 1.0rem;
-                         line-height: 1.96; //changed to bring line heights into rational pattern
                          vertical-align: baseline;
                          position: relative; }
 
 // Margin-note style and hover effect
-.marginnote-ref {background-color: #e9eeff}
-.marginnote-inner {padding: 0.25rem; padding-left: 0.5rem; padding-right: 0.5rem}
+.marginnote-ref {background-color: #e9eeff; padding: 0.2rem; margin: -0.2rem; border-radius: 0.5rem;}
+.marginnote-inner {padding: 0.25rem; padding-left: 0.5rem; padding-right: 0.5rem; display: inline-block; border: 1px dashed transparent; border-radius: 0.75rem;}
 .marginnote-outer:hover>.marginnote-ref {background-color: #b0b8ff;}
-.marginnote-outer:hover>.marginnote>.marginnote-inner {background-color: #e8eeff; border: 2px dashed gray}
+.marginnote-outer:hover>.marginnote>.marginnote-inner {background-color: #e8eeff; border: 1px dashed gray}
 
 
 li .sidenote, li .marginnote{ margin-right: -80%; } //added to allow for the fact that lists are indented and marginnotes and sidenotes push to right
