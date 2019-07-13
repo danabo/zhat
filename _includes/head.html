@@ -25,9 +25,20 @@
       "HTML-CSS": {
         fonts: ["TeX"],
         styles: {
-          ".MathJax_Display": {"font-size": "100%"},
+          ".MathJax_Display": {"font-size": "125%"},
         }
-      }
+      },
+      // https://github.com/mathjax/MathJax/issues/1081#issuecomment-399878942
+      TeX: {Augment: {
+        Definitions: {macros: {xfrac: 'XFrac'}},
+        Parse: {prototype: {
+          XFrac: function (name) {
+            var num = this.ParseArg(name);
+            var den = this.ParseArg(name);
+            this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+          }
+        }}
+      }}
     });
     </script>
   {% endif %}
