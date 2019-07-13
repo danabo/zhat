@@ -223,21 +223,15 @@ ul,ol { width: 45%;
 
 //li { padding: 0.5em 0; } //vertical padding on list items screws up vertical rhythym
 
-figure, figure img.maincolumn { max-width: 55%;
+figure, figure img.maincolumn { max-width: $col-width;
          -webkit-margin-start: 0;
          -webkit-margin-end: 0;
          margin-bottom: 3em; }
 
-figcaption { float: right;
-             clear: right;
-             margin-right: -48%;
-             margin-top: 0;
+figcaption { margin-top: 0;
              margin-bottom: 0;
              font-size: 1.0rem;
-             line-height: 1.6;
-             vertical-align: baseline;
-             position: relative;
-             max-width: 40%; }
+             position: relative; }
 
 figure.fullwidth figcaption { float: left; margin-right: 0%; margin-left: 36%; }
 
@@ -281,7 +275,7 @@ blockquote .sidenote, blockquote .marginnote { margin-right: -79% }
                    color: $contrast-color;
                    top: 0rem; } //removed superscripting for numerical reference in sidenote
 
-p, footer, div.table-wrapper, div.mathblock, div.MathJax_Display { width: 55%; }
+p, footer, div.table-wrapper, div.mathblock, div.MathJax_Display { width: $col-width; }
 
 div.table-wrapper { overflow-x: auto; } //changed all overflow values to 'auto' so scroll bars appear only as needed
 
