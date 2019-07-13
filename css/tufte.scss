@@ -150,7 +150,6 @@ h1 code, h2 code, h3 code { font-size: 0.80em; } //left in for no real reason
 /*-- Table styling section - For Tufte-Jekyll, booktabs style is default for Markdown tables  --*/
 
 table, table.booktabs { width: auto;  //making booktabs style tables the unstyled default in case someone uses Markdown styling
-                 margin: 0 auto;
                  border-spacing: 0px;
                  border-top: 2px solid $border-color;
                  border-bottom: 2px solid $border-color; }
@@ -162,6 +161,11 @@ table, table.booktabs { width: auto;  //making booktabs style tables the unstyle
 
 th, td{ font-size: 1.2rem;
         line-height: 1.71428571;  }
+
+// http://cssmenumaker.com/blog/stylish-css-tables-tutorial/
+tr:nth-child(even) td { background: #F1F1F1; }         
+tr:nth-child(odd) td { background: #FEFEFE; }  
+tr td:hover { background: #666; color: #FFF; }  
 
 .booktabs th.cmid, th { border-bottom: 1px solid lighten($border-color, 25%); }
 
@@ -179,20 +183,12 @@ th, td{ font-size: 1.2rem;
                     margin-left: auto;
                     margin-right: auto;
                     margin-top: 1ex;
-                    caption-side: top; }
+                    caption-side: bottom; }
 
 .booktabs tbody tr td.l { text-align: left !important; }
 .booktabs tbody tr td.c { text-align: center !important; }
 .booktabs tbody tr td.r { text-align: right !important; }
 
-.table-caption { float:right;
-                 clear:right;
-                 margin-right: -60%;
-                 width: 50%;
-                 margin-top: 0;
-                 margin-bottom: 0;
-                 font-size: 1.0rem;
-                 line-height: 1.96; }
 /* -- End of Table Styling section --*/
 
 
@@ -249,7 +245,7 @@ img { max-width: 100%; }
 
 // Margin-note style and hover effect
 .marginnote-ref {background-color: #e9eeff; padding: 0.2rem; margin: -0.2rem; border-radius: 0.5rem;}
-.marginnote-inner {padding: 0.25rem; padding-left: 0.5rem; padding-right: 0.5rem; display: inline-block; border: 1px dashed transparent; border-radius: 0.75rem;}
+.marginnote-inner {padding: 0.25rem; padding-left: 0.5rem; padding-right: 0.5rem; display: inline-block; line-height: 1.231; border: 1px dashed transparent; border-radius: 0.75rem;}
 .marginnote-outer:hover>.marginnote-ref {background-color: #b0b8ff;}
 .marginnote-outer:hover>.marginnote>.marginnote-inner {background-color: #e8eeff; border: 1px dashed gray}
 
@@ -275,7 +271,7 @@ blockquote .sidenote, blockquote .marginnote { margin-right: -79% }
                    color: $contrast-color;
                    top: 0rem; } //removed superscripting for numerical reference in sidenote
 
-p, footer, div.table-wrapper, div.mathblock, div.MathJax_Display { width: $col-width; }
+p, footer, div.table-wrapper, table, div.mathblock, div.MathJax_Display { width: $col-width; }
 
 div.table-wrapper { overflow-x: auto; } //changed all overflow values to 'auto' so scroll bars appear only as needed
 
