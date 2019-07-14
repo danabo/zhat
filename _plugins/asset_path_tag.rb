@@ -69,6 +69,24 @@ module Jekyll
     return ""
   end
 
+  def self.get_default_asset_path(filename, context)
+    page = context.environments.first["page"]
+    post_id = page["id"]
+    if post_id
+      #if a post
+      posts = context.registers[:site].posts
+      path = Jekyll.get_post_path(post_id, posts)
+    else
+      path = page["url"]
+    end
+
+    #strip filename
+    path = File.dirname(path) if path =~ /\.\w+$/
+
+    #fix double slashes
+    "#{context.registers[:site].config['baseurl']}/assets/#{path}/#{filename}".gsub(/\/{2,}/, '/')
+  end
+
   class AssetPathTag < Liquid::Tag
     @markup = nil
 
