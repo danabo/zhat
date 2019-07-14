@@ -61,11 +61,11 @@ a {
   text-decoration: none;
 }
 
-p > a { @if $link-style == underline
+p > a, .marginnote-inner > a { @if $link-style == underline
     {
-      color: $text-color;
+      color: #000266;
       text-decoration: none;
-      border-bottom: 1px solid #777;
+      border-bottom: 1px solid #000266;
       padding-bottom: 1px;
     }
     @else
@@ -248,9 +248,9 @@ img { max-width: 100%; }
                          position: relative; }
 
 // Margin-note style and hover effect
-.marginnote-ref {background-color: #e9eeff; padding: 0.2rem; margin: -0.2rem; border-radius: 0.5rem;}
+.marginnote-ref {background-color: #e9eeff; position: relative; z-index: -10; padding: 0.15rem; margin: -0.15rem; padding-top: 0; margin-top: 0; border-radius: 0.5rem;}
 .marginnote-inner {padding: 0.25rem; padding-left: 0.5rem; padding-right: 0.5rem; display: inline-block; line-height: 1.231; border: 1px dashed transparent; border-radius: 0.75rem;}
-.marginnote-outer:hover>.marginnote-ref {background-color: #b0b8ff;}
+.marginnote-outer:hover>.marginnote-ref {background-color: #b0b8ff; z-index: 10;}
 .marginnote-outer:hover>.marginnote>.marginnote-inner {background-color: #e8eeff; border: 1px dashed gray}
 
 

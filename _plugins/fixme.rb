@@ -8,8 +8,10 @@ module Jekyll
     end
 
     def render(context)
-      contents = super
-      "<span class='fixme'>#{contents}</span>"
+      if 'development' == (ENV['JEKYLL_ENV'] || 'development') then
+        contents = super
+        "<span class='fixme'>#{contents}</span>"
+      end
     end
   end
 end
