@@ -85,6 +85,10 @@ body { width: 87.5%;
        max-width: 1400px;
        counter-reset: sidenote-counter; }
 
+
+.fixme {background: #ffeeee;
+        color: red;}
+
 // --------- Typography stuff -----------//
 // added rational line height and margins ala http://webtypography.net/intro/
 
@@ -598,3 +602,4 @@ hr.slender {
   content: "\e60e";
 }
 /*-- End of Icomoon icon font section --*/
+
