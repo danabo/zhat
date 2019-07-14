@@ -1,3 +1,5 @@
+# Useful for marking text that needs to be edited in post drafts.
+
 module Jekyll
   class FixmeBlock < Liquid::Block
     def initialize(tag_name, markup, tokens)
@@ -7,10 +9,6 @@ module Jekyll
 
     def render(context)
       contents = super
-
-      # pipe param through liquid to make additional replacements possible
-      content = Liquid::Template.parse(contents).render context
-
       "<span class='fixme'>#{contents}</span>"
     end
   end
