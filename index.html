@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>zhat</title>
+  <meta name="description" content="A (we)blog devoted to finding better representations">
+
+  <!-- Google Fonts loaded here -->
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        preview: "TeX"
+      },
+      "HTML-CSS": {
+        fonts: ["TeX"],
+        styles: {
+          ".MathJax_Display": {"font-size": "125%"},
+        }
+      },
+      // https://github.com/mathjax/MathJax/issues/1081#issuecomment-399878942
+      TeX: {Augment: {
+        Definitions: {macros: {xfrac: 'XFrac'}},
+        Parse: {prototype: {
+          XFrac: function (name) {
+            var num = this.ParseArg(name);
+            var den = this.ParseArg(name);
+            this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+          }
+        }}
+      }}
+    });
+    </script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="pragmanym.github.io/zhat/">
+
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
+</head>
+
+  <body class="full-width">
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/zhat.svg" alt="\hat{z}" onerror="this.onerror=null;this.src='/assets/img/zhat-large.png';"></a>
+		
+			
+  	
+			
+  	
+			
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+    <article>
+        <h1 class="content-listing-header sans">Articles</h1>
+  <ul class="content-listing ">
+          
+        <li class="listing">
+          <hr class="slender">
+          <a href="/articles/19/bias-variance"><h3 class="contrast">Bias-Variance Decomposition Explained</h3></a>
+          <br><span class="smaller">July 14, 2019</span>  <br>
+          <div>
+<script type="math/tex; mode=display">\newcommand{\Real}{ {\mathbb{R}} }
+\newcommand{\E}{ {\mathbb{E}} }
+\newcommand{\V}{ {\mathbb{V}} }
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand\Yh{ {\hat{Y}} }
+\newcommand{\ep}{ {\boldsymbol{\varepsilon}} }
+\newcommand{\s}{\mathbb{S}}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}</script>
+
+<p>All about the bias-variance decomposition as it pertains to machine learning. All you need to know:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+& \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
+& = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
+&\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
+\end{align*} %]]></script>
+
+</div> 
+        </li>
+    
+  </ul>
+    </article>
+    <span class="print-footer">zhat - pragmanym</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links"> 
+    <li><a href="/about">FAQ</a></li>  
+    
+      <li>
+        <a href="mailto:pragmanym@gmail.com"><span class="icon-mail"></span></a>
+      </li>
+    
+      <li>
+        <a href="//github.com/pragmanym"><span class="icon-github"></span></a>
+      </li>
+    
+      <li>
+        <a href="/feed"><span class="icon-feed"></span></a>
+      </li>
+      
+  </ul>
+  <div class="credits">
+  <span style="line-height: 3rem;">© 2019   PRAGMANYM</span><br>
+  <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
+  </div>  
+</footer>
+  </body>
+</html>

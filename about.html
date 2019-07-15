@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>FAQ</title>
+  <meta name="description" content="A (we)blog devoted to finding better representations">
+
+  <!-- Google Fonts loaded here -->
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        preview: "TeX"
+      },
+      "HTML-CSS": {
+        fonts: ["TeX"],
+        styles: {
+          ".MathJax_Display": {"font-size": "125%"},
+        }
+      },
+      // https://github.com/mathjax/MathJax/issues/1081#issuecomment-399878942
+      TeX: {Augment: {
+        Definitions: {macros: {xfrac: 'XFrac'}},
+        Parse: {prototype: {
+          XFrac: function (name) {
+            var num = this.ParseArg(name);
+            var den = this.ParseArg(name);
+            this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+          }
+        }}
+      }}
+    });
+    </script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="pragmanym.github.io/zhat/about">
+
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
+</head>
+
+  <body class="full-width">
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/zhat.svg" alt="\hat{z}" onerror="this.onerror=null;this.src='/assets/img/zhat-large.png';"></a>
+		
+			
+  	
+			
+  	
+			
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+    <article>
+      <h1 id="who-is-pragmanym">Who is pragmanym?</h1>
+
+<p>I am a coder, researcher, and autodidact. For now I work in machine learning, but I suspect my best contributions will made in a field that has not yet been given a name. I will dedicate my life to that which stirs me most.</p>
+
+<p>I wish to climb to the top of many mountains. Each field of study is a mountain. The well carved paths are the solidified pedagogies. Some fields have smoother paths with shallow slopes, and some fields barely have any paths at all. The tops of these mountains are obscured in thick fog. You don’t know how high they really go. You are always faced with a choice - climb onto unknown rocks, or follow paths.</p>
+
+<h1 id="why-am-i-writing-this-blog">Why am I writing this blog?</h1>
+
+<p>A few reasons… To build a brand. To practice writing. To create useful, interesting explanations. To motivate myself to learn.</p>
+
+<p>I think most of all, because I desire to have a voice. The things I think and the perspective I take needs time and effort to become evident. My day to day interactions with the world do not reveal them. Today’s <a href="https://en.wikipedia.org/wiki/Natural_philosophy" target="_blank" rel="noopener noreferrer">natural philosophers</a> call themselves scientists, mathematicians, and engineers. We interact with the world, and then we digest it all. Artists and philosophers alike desire to express themselves. I am alive, and I must speak.</p>
+
+<h1 id="who-is-my-audience">Who is my audience?</h1>
+
+<p>My past self, and by extension anyone similar to my past self in level of knowledge and intellectual aesthetics. I am writing what I wish I had when I was learning.</p>
+
+<p>I will assume my reader has an undergraduate level of math maturity, and is familiar with multivariable calculus, linear algebra, and probability theory. Regarding machine learning, I will assume no background knowledge, and I intend my posts to build on each other.</p>
+
+<h1 id="what-is-hatz">What is $\hat{z}$?</h1>
+
+<p>$x$ is the input. $y$ is ground truth output. $z$ is a representation of $x$ (or $y$). $z$ is unobserved.</p>
+
+<p>$\hat{x}$ is a reconstruction of $x$. $\hat{y}$ is a prediction of $y$…</p>
+
+
+    </article>
+    <span class="print-footer">FAQ - pragmanym</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links"> 
+    <li><a href="/about">FAQ</a></li>  
+    
+      <li>
+        <a href="mailto:pragmanym@gmail.com"><span class="icon-mail"></span></a>
+      </li>
+    
+      <li>
+        <a href="//github.com/pragmanym"><span class="icon-github"></span></a>
+      </li>
+    
+      <li>
+        <a href="/feed"><span class="icon-feed"></span></a>
+      </li>
+      
+  </ul>
+  <div class="credits">
+  <span style="line-height: 3rem;">© 2019   PRAGMANYM</span><br>
+  <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
+  </div>  
+</footer>
+  </body>
+</html>

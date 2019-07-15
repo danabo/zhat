@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Bias-Variance Decomposition Explained</title>
+  <meta name="description" content="All about the bias-variance decomposition as it pertains to machine learning. All you need to know:">
+
+  <!-- Google Fonts loaded here -->
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        preview: "TeX"
+      },
+      "HTML-CSS": {
+        fonts: ["TeX"],
+        styles: {
+          ".MathJax_Display": {"font-size": "125%"},
+        }
+      },
+      // https://github.com/mathjax/MathJax/issues/1081#issuecomment-399878942
+      TeX: {Augment: {
+        Definitions: {macros: {xfrac: 'XFrac'}},
+        Parse: {prototype: {
+          XFrac: function (name) {
+            var num = this.ParseArg(name);
+            var den = this.ParseArg(name);
+            this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+          }
+        }}
+      }}
+    });
+    </script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="pragmanym.github.io/zhat/articles/19/bias-variance">
+
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/zhat.svg" alt="\hat{z}" onerror="this.onerror=null;this.src='/assets/img/zhat-large.png';"></a>
+		
+			
+  	
+			
+  	
+			
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+    <article class="group">
+      <h1>Bias-Variance Decomposition Explained</h1>
+<p class="subtitle">July 14, 2019</p>
+
+<script type="math/tex; mode=display">\newcommand{\Real}{ {\mathbb{R}} }
+\newcommand{\E}{ {\mathbb{E}} }
+\newcommand{\V}{ {\mathbb{V}} }
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand\Yh{ {\hat{Y}} }
+\newcommand{\ep}{ {\boldsymbol{\varepsilon}} }
+\newcommand{\s}{\mathbb{S}}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}</script>
+
+<p>All about the bias-variance decomposition as it pertains to machine learning. All you need to know:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+& \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
+& = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
+&\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
+\end{align*} %]]></script>
+
+<!--more-->
+
+<ul class="toc" id="markdown-toc">
+  <li><a href="#preamble" id="markdown-toc-preamble">Preamble</a></li>
+  <li><a href="#context" id="markdown-toc-context">Context</a></li>
+  <li>
+<a href="#bias-variance-decomposition-for-%E2%84%932-loss" id="markdown-toc-bias-variance-decomposition-for-ℓ2-loss">Bias-Variance Decomposition For ℓ2 Loss</a>    <ul>
+      <li>
+<a href="#symbol-breakdown" id="markdown-toc-symbol-breakdown">Symbol breakdown</a>        <ul>
+          <li><a href="#d-for-dataset" id="markdown-toc-d-for-dataset">$D$ for dataset</a></li>
+          <li><a href="#test-on-x" id="markdown-toc-test-on-x">Test on $x$</a></li>
+          <li><a href="#label-with-y" id="markdown-toc-label-with-y">Label with $y$</a></li>
+          <li><a href="#f-is-the-model--training-algo" id="markdown-toc-f-is-the-model--training-algo">$f$ is the model + training algo</a></li>
+        </ul>
+      </li>
+      <li><a href="#an-illustration" id="markdown-toc-an-illustration">An Illustration</a></li>
+      <li><a href="#flexibility-is-broken" id="markdown-toc-flexibility-is-broken">Flexibility is broken</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#bias-variance-decomposition-for-any-loss" id="markdown-toc-bias-variance-decomposition-for-any-loss">Bias-Variance Decomposition For Any Loss</a>    <ul>
+      <li><a href="#what-is-variance-anyway" id="markdown-toc-what-is-variance-anyway">What is variance anyway?</a></li>
+    </ul>
+  </li>
+  <li><a href="#acknowledgments" id="markdown-toc-acknowledgments">Acknowledgments</a></li>
+</ul>
+
+<h1 id="preamble">Preamble</h1>
+
+<p>Why am I writing this? In short, because I think there should be an equation somewhere out there that defines the bias-variance decomposition unambiguously and in complete generality.</p>
+
+<p>You’ve likely heard of the bias-variance trade-off. There is not always a trade-off, hence I call it a <em>decomposition</em>. You may think that the trade-off is about trading model flexibility for bias. Probe your understanding and ask yourself, does flexibility always lead to variance? How does flexibility lead to variance? What is varying? The model? The dataset? The variance comes from the model’s interaction with the training data, rather than these things in isolation.</p>
+
+<p>When you picture this <em>trade-off</em>, what comes to mind? A <a href="http://scott.fortmann-roe.com/docs/BiasVariance.html" target="_blank" rel="noopener noreferrer">dart-board</a>? A <a href="https://books.google.com/books?id=NZP6AQAAQBAJ&amp;lpg=PA22&amp;vq=wiggly&amp;pg=PA22#q=wiggly" target="_blank" rel="noopener noreferrer">wiggly</a> or rigid function? Those are metaphors - approximations of the concept. Ask yourself, why do the dart throws have bias and variance? How does “wiggliness” contribute to variance? Do some types of wiggliness have less variance than others? These analogies don’t include the source of randomness.</p>
+
+<p>My life is easiest when I am presented with a formal definition. I can then pull nuances out of it, and refer to it to resolve my confusions. My understanding of an idea is as good as its most precise definition. An equation is the bedrock of intuitive understanding.</p>
+
+<p>The power of math is that it is precise, but that precision is lost when an equation has multiple meanings. This ambiguity is only possible when authors take notational shortcuts for visual simplicity and assume the reader can infer the missing information. I prefer a precise equation accompanied by exposition.</p>
+
+<p>So why is this post so long? I could just give the definition (which I did below) and be done with it, but, 1) it’s valuable to unpack the meaning of the equation and explore tricky cases, and, 2) this topic is not so simple, as I discovered while researching this. A truly general definition of the BV-decomposition requires getting abstract… though obscure it’s interesting. However, the special case for ℓ2 loss is all you need to understand and apply this topic.</p>
+
+<h1 id="context">Context</h1>
+
+<p>If you found this post with zero context, the bias-variance (BV) decomposition is a mathematical identity stating that expected <span class="marginnote-outer"><span class="marginnote-ref">prediction error</span><label for="a7c358a8-a6b1-11e9-3191-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c358a8-a6b1-11e9-3191-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">On an evaluation/test dataset.</span></span></span> of a model equals bias-squared plus variance. The precise meaning of these words is best understood by looking at the equation below.</p>
+
+<p>BV-decomposition is a commonly used idea in machine learning and statistics. Understanding it is essential for communicating with researchers and practitioners. The decomposition (often a trade-off) is used for reasoning about model design. Tons of textbooks and papers give examples of this, e.g. <a href="https://books.google.com/books?id=tVIjmNS3Ob8C&amp;q=bias-variance#v=onepage&amp;q=7.3.1%20Example%20bias-variance%20tradeoff&amp;f=false" target="_blank" rel="noopener noreferrer">Elements of Statistical Learning</a>, or <a href="https://arxiv.org/pdf/1301.2315.pdf" target="_blank" rel="noopener noreferrer">reinforcement learning literature</a>.</p>
+
+<h1 id="bias-variance-decomposition-for-ℓ2-loss">Bias-Variance Decomposition For ℓ2 Loss</h1>
+<p>This discussion will assume <span class="marginnote-outer"><span class="marginnote-ref">supervised data</span><label for="a7c3644c-a6b1-11e9-3291-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c3644c-a6b1-11e9-3291-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">I have not seen BV-decomposition for unsupervised models, but my guess is that you can treat is as a supervised problem where $y = p(x)$.</span></span></span>, e.g. pairs $(x, y)$ where $x$ is an input and $y$ is the observed output. <span class="marginnote-outer"><span class="marginnote-ref">ℓ2</span><label for="a7c36e56-a6b1-11e9-3391-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c36e56-a6b1-11e9-3391-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Usually noted as $L^2$. Presumably originating from <a href="https://en.wikipedia.org/wiki/Lp_space#Definition" target="_blank" rel="noopener noreferrer">$L^p$-norm</a>. I’m using curly ℓ to avoid confusion when $L$ denotes any loss function. See the <a href="#bias-variance-decomposition-for-any-loss">Any-Loss section</a> below.</span></span></span> <span class="marginnote-outer"><span class="marginnote-ref">loss</span><label for="a7c37720-a6b1-11e9-3491-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c37720-a6b1-11e9-3491-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Loss is machine learning jargon for error function.</span></span></span>, a.k.a. squared error, is the squared difference between a prediction and the observed output.</p>
+
+<p>“Generalizations of the Bias/Variance Decomposition for Prediction Error”]
+The bias-variance decomposition comes from statistics, which considers the <a href="https://en.wikipedia.org/wiki/Estimator#Mean_squared_error" target="_blank" rel="noopener noreferrer">error of a parameter estimator</a>. In ML, we are concerned with the error of a model’s prediction (output) and a given target output, which we call the <span class="marginnote-outer"><span class="marginnote-ref">label</span><label for="a7c37efa-a6b1-11e9-3591-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c37efa-a6b1-11e9-3591-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner"><em>label</em> originates from classification where the model is predicting a nominal value, e.g. category/class. Here I use <em>label</em> to mean to anything that is predicted, and I assume the label is real valued. I just need a word that refers to $y$ in $(x, y)$, including the given/observed and model’s prediction.</span></span></span> (a scalar value). The bias-variance decomposition is a mathematical identity stating that expected test loss (prediction error) equals bias-squared plus variance across training datasets. For ℓ2 loss <span class="marginnote-outer"><span class="marginnote-ref">we have,</span><label for="a7c389f4-a6b1-11e9-3691-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c389f4-a6b1-11e9-3691-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Adapted from the equation in <a href="http://www.dam.brown.edu/people/geman/Homepage/Essays%20and%20ideas%20about%20neurobiology/bias-variance.pdf" target="_blank" rel="noopener noreferrer">“Neural networks and the bias/variance dilemma”</a>, Geman, S., Bienenstock, E., and Doursat, R. (1992)</span></span></span>  <!-- citation --></p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+& \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
+& = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
+&\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
+\end{align*} %]]></script>
+
+<p>I am leaving out the derivation of the BV-decomposition, as it can be easily found in a number of sources, including <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff#Derivation" target="_blank" rel="noopener noreferrer">Wikipedia</a>. My purpose here is to clear up common points of confusion.</p>
+
+<p>For completion, here is the definition of $\E$ and $\V$. Let $g:\Real \rightarrow \Real$ be an arbitrary (deterministic) function over the reals, and $Z$ be an arbitrary random variable over domain $D_Z \subseteq \Real$. Then</p>
+
+<script type="math/tex; mode=display">\E_Z[g(Z)] = \int_{D_Z} p_Z(z) g(z) dz</script>
+
+<p>is the <a href="https://en.wikipedia.org/wiki/Expected_value" target="_blank" rel="noopener noreferrer">expected value</a> of $g(Z)$, and</p>
+
+<script type="math/tex; mode=display">\V_Z[g(Z)] = \E_X[(g(Z) - \E_X[g(Z)])^2]</script>
+
+<p>is the <a href="https://en.wikipedia.org/wiki/Variance#Definition" target="_blank" rel="noopener noreferrer">variance</a> of $g(Z)$.</p>
+
+<h2 id="symbol-breakdown">Symbol breakdown</h2>
+
+<h3 id="d-for-dataset">$D$ for dataset</h3>
+<p>$D$ is a random variable over all possible <strong>training</strong> datasets. Technically, this equation does not make any assumptions about the nature of the training data, but generally $\{(x_1,y_1),(x_2,y_2), \ldots,(x_n,y_n)\}$ is a sample from $D$, where $(x_i,y_i)$ is an input, $x_i$, with its observed label, $y_i$. Additionally, each $(x_i,y_i)$ is typically assumed to be sampled i.i.d., though that is also not required here either. The dataset size $n$ may be stochastic as well.</p>
+
+<p>The <strong>first</strong> big point of confusion surrounding BV-decomposition is that the training data comes from a distribution. In practice, you have a fixed dataset, so how does it make sense to take the expectation over all possible training datasets? This equation wants you to imagine that you can draw as many different dataset as you want from the <span class="marginnote-outer"><span class="marginnote-ref">data generating process</span><label for="a7c391a6-a6b1-11e9-3791-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c391a6-a6b1-11e9-3791-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">whatever physical process produced your current training dataset</span></span></span>. That could mean, for example, having photographers go out and take <span class="marginnote-outer"><span class="marginnote-ref">new photos and label the objects</span><label for="a7c39a0c-a6b1-11e9-3891-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c39a0c-a6b1-11e9-3891-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Photographer + camera + environment + labeler is the physical system that generates the data. You can regard the process as inducing a probability distribution $p(x, y)$. Technically the physical setup would need to be exactly the same each time a photo is taken to sample i.i.d. from $p(x, y)$, but uncorrelated differences in photo taking are fine, e.g. many photographers who have their own styles. I do acknowledge that nothing is truly i.i.d. in reality.</span></span></span>, or the population census retaken. Redrawing a new training set likely won’t happen in reality, but this is the correct conceptual understanding.</p>
+
+<h3 id="test-on-x">Test on $x$</h3>
+<p>$x$ is a fixed <strong>test</strong> input. The error in question, , computes test error, while the expectation is over <span class="marginnote-outer"><span class="marginnote-ref">all training datasets</span><label for="a7c3a42a-a6b1-11e9-3991-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c3a42a-a6b1-11e9-3991-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">$x$ may appear in some of them</span></span></span>. What x to test on is application dependent, and need not be specified here. It’s important to note that x is held fixed, and not a random variable. This test error equals the model’s bias plus variance on a static input, across all training sets.</p>
+
+<p>Rather than a single test input, you could consider a set of test inputs, $\{x_1,x_2,\ldots,x_m\}$. In which case you are interested in the average loss across the fixed inputs: loss = $\frac{1}{M}\sum_{i=1}^{m} \E_D[(f(x_i; D) - y(x_i))^2]$.</p>
+
+<p>Alternatively you could consider a random variable over all possible test inputs, $X$, and take the expectation test error: loss = $\E_X[\E_D[(f(X; D) - y(X))^2]]$.</p>
+
+<p>The underlying identity is the same in all cases.</p>
+
+<h3 id="label-with-y">Label with $y$</h3>
+<p>I am assuming a deterministic labeling function $y(x)$ for input $x$. It provides the observed label, a.k.a. <a href="https://en.wikipedia.org/wiki/Ground_truth" target="_blank" rel="noopener noreferrer">ground truth</a>. In practice, the labeling process is also stochastic, and there may not even be a clear <em>truth</em> of the matter. The more general case of the BV-decomposition uses $Y(x)$, where $Y$ is a random variable with conditional distribution, $p_{Y \mid X}(Y \mid X=x)$. x is still a fixed constant here, but could be made a random variable as well if need be.</p>
+
+<p>When $Y(x)$ is stochastic, we get an extra term in the decomposition:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+& \E_{Y(x)}[\E_D[(f(x; D) - Y(x))^2]] \\
+& = (\E_D[f(x; D)] - \E_{Y(x)}[Y(x)])^2 \qquad\,   \textrm{Bias}_y(f)^2\\
+&\phantom{=}\, + \V_D[f(x; D)]   \qquad\qquad\qquad\qquad\ \ \,  \textrm{Variance}(f)\\
+&\phantom{=}\, + \V_{Y(x)}[Y(x)]  \qquad\qquad\qquad\qquad\ \ \,   \textrm{Variance}(y)\textrm{, i.e. “noise"}
+\end{align} %]]></script>
+
+<p>Presumably the human model builder cannot control $\V_{Y(x)}[Y(x)]$, so this is the lower bound on their model’s loss. If bias and variance were reduced to 0, this term would remain.</p>
+
+<h3 id="f-is-the-model--training-algo">$f$ is the model + training algo</h3>
+<p>$f$ is both the model and training algorithm. $f(x; d)$ is a function of input $x$, and a training dataset $d$. $f$ outputs its prediction for $x$, given that it was trained on the dataset. The colon is commonly used in ML to separate model inputs with parameter or training inputs. You can think of $f(d)=f’$ as a outputting another function $f’$ which makes the prediction, $f’(x)$.</p>
+
+<p>This formulation does not make reference to model parameters, and leaves open the possibility of non-parametric models. The BV-decomposition is a universal property, and the process that goes from dataset to predictive model is irrelevant. I am assuming $f$ is deterministic w.r.t. both $x$ and $d$. However, if any of its inputs are random variables, the output is a random variable. So $f(x; D)$ is a random variable, as well as $f(X; d)$.</p>
+
+<p>The <strong>second</strong> big point of confusion in the BV-decomposition is that the model’s output distribution is the result of applying the model to a training distribution. It does not make sense to talk about the <span class="marginnote-outer"><span class="marginnote-ref">variance of a model</span><label for="a7c3ae5c-a6b1-11e9-3a91-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c3ae5c-a6b1-11e9-3a91-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Intrinsic model variance due to stochastic elements like random weight init or stochastic inference is not the primary concern of the BV-decomposition.</span></span></span> without reference to its training data, nor are we concerned with the variance of the training data by itself.</p>
+
+<p>In practice, <span class="marginnote-outer"><span class="marginnote-ref">training algorithms</span><label for="a7c3b528-a6b1-11e9-3b91-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c3b528-a6b1-11e9-3b91-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">e.g. stochastic gradient descent.</span></span></span> have stochastic elements, and in some cases <span class="marginnote-outer"><span class="marginnote-ref">predictions can only be sampled</span><label for="a7c3bbb8-a6b1-11e9-3c91-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c3bbb8-a6b1-11e9-3c91-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">e.g. generative models like GANs and Boltzmann Machines</span></span></span> from the model stochastically. Again, our BV equation can be generalized to include additional sources of randomness by taking the expectation over the additional random variables.</p>
+
+<p>To include noise in the error, you can add $\ep$, a noise random variable, to the arguments of $f$. Loss = $\E_\ep[\E_D[(f(x, \ep; D) - y(x))^2]]$. For training noise, add $\ep$ to the training inputs, i.e. $f(x; D, \ep)$. This difference is purely semantic. Noise is noise.</p>
+
+<h2 id="an-illustration">An Illustration</h2>
+<p>Let’s do a regression problem. We train our model on two different training sets. $x’$ in red is the test data point.</p>
+
+<figure><img src="/assets/posts/bias-variance/variance-2.png" alt="" width="100%"><figcaption></figcaption></figure>
+<figure><img src="/assets/posts/bias-variance/variance-1.png" alt="Images made with https://sketch.io/sketchpad/" width="100%"><figcaption>Images made with https://sketch.io/sketchpad/</figcaption></figure>
+
+<p>The model’s prediction of test input $x’$ varies greatly between trainings. It is common to say this variance indicates the model is overfitting, which means informally that it’s fitting correlations present in the training set which are not present across datasets. However, overfitting is not an identical concept to variance of a test prediction.</p>
+
+<p>Practitioners would typically say this model has high variance, but that is a jargony shorthand. There is nothing about a model in isolation that has bias or variance. What we really mean is that this particular model applied to this particular training distribution has high variance. This realization affords us two ways to reduce variance:</p>
+<ol>
+  <li>Make the size of the training set larger (straight forward to prove that increasing dataset size decreases its variance).</li>
+  <li>Make the model less flexible (reduce its capacity)</li>
+</ol>
+
+<figure><img src="/assets/posts/bias-variance/more-data-same-capacity.png" alt="More data, same model flexibility." width="100%"><figcaption>More data, same model flexibility.</figcaption></figure>
+
+<figure><img src="/assets/posts/bias-variance/same-data-low-capacity.png" alt="Same data, lower model flexibility." width="100%"><figcaption>Same data, lower model flexibility.</figcaption></figure>
+
+<p>Note that reducing our model’s flexibility requires making an assumption about our data to reduce the hypothesis space. In this case, perhaps we assumed that our data is drawn from a lower order polynomial. If our constraint/assumption is not well-founded, then the model’s prediction on $x’$ will be systematically wrong, even if the prediction itself does not change much between training sets.</p>
+
+<p>Here is an example of a systematically wrong assumption. We have two training sets as before. The observed label for $x’$ is shown in gray.</p>
+<figure><img src="/assets/posts/bias-variance/bias-1.png" alt="" width="50%"><img src="/assets/posts/bias-variance/bias-2.png" alt="" width="50%"><figcaption></figcaption></figure>
+
+<p>This model visually makes a good fit to the training set, but clearly the assumption of linearity is erroneous. Our model’s prediction at $x’$ is wrong by roughly the same amount both times. It has high bias and low variance.</p>
+
+<p><strong>There is only a trade-off from variance to bias when we the experimenters run out of exploitable knowledge about the data.</strong> An experimenter with perfect knowledge of the data distribution should be able to build a model that achieves 0 bias and variance (leaving only irreducible noise in the loss). In practice you will eventually reach some limit on your knowledge of the data. Researchers will sometimes try to add bias to their models in ways that reduce its variance. In some cases variance of prediction hurts a lot more than biased prediction, and in other cases you can actually get a slight reduction in overall error in the process of making this trade-off from variance to bias.</p>
+
+<h2 id="flexibility-is-broken">Flexibility is broken</h2>
+<p>Model flexibility is more or less the same concept as <a href="https://stats.stackexchange.com/questions/312424/what-is-the-capacity-of-a-machine-learning-model/312578#312578" target="_blank" rel="noopener noreferrer">model capacity</a>, which is the size of the hypothesis space. A flexible model can fit a more diverse set of functions. A somewhat common belief is that flexibility causes variance, or that flexibility even is variance. Flexibility in my mind is not a well defined concept, but variance is.</p>
+
+<p><em>What is flexibility? How do you quantify it? How do you compare flexibilities?</em></p>
+
+<p>A model can be flexible (or inflexible) in many different ways. No matter how flexible a model is, assumptions are made about its hypothesis space. These assumptions are called the <span class="marginnote-outer"><span class="marginnote-ref">inductive bias</span><label for="a7c40604-a6b1-11e9-3d91-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c40604-a6b1-11e9-3d91-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Defined as a <a href="https://en.wikipedia.org/wiki/Inductive_bias" target="_blank" rel="noopener noreferrer">“set of assumptions”</a>. This is qualitative. Not to be confused with statistical bias which is a computable quantity.</span></span></span> of the model.</p>
+
+<!--
+<figure><img src='/assets/posts/bias-variance/inductive-bias-2.png' alt='Two models with high flexibility but very different inductive biases, applied to the same dataset.' width='50%'><img src='/assets/posts/bias-variance/inductive-bias-1.png' alt='Two models with high flexibility but very different inductive biases, applied to the same dataset.' width='50%'><figcaption>Two models with high flexibility but very different inductive biases, applied to the same dataset.</figcaption></figure>
+-->
+
+<p>It is important to be clear that model flexibility by itself does not cause bias or variance. Bias and variance are the direct result of how that flexibility (or lack thereof) interacts with the data.</p>
+
+<figure><img src="/assets/posts/bias-variance/flexibility-2.png" alt="(left) data sampled from a linear curve with large Gaussian noise, and (right) data sampled from a order-7 polynomial with small Gaussian noise. This order-7 polynomial model could be said to have high flexibility, and will have high variance on the left, but low variance on the right." width="50%"><img src="/assets/posts/bias-variance/flexibility-1.png" alt="(left) data sampled from a linear curve with large Gaussian noise, and (right) data sampled from a order-7 polynomial with small Gaussian noise. This order-7 polynomial model could be said to have high flexibility, and will have high variance on the left, but low variance on the right." width="50%"><figcaption>(left) data sampled from a linear curve with large Gaussian noise, and (right) data sampled from a order-7 polynomial with small Gaussian noise. This order-7 polynomial model could be said to have high flexibility, and will have high variance on the left, but low variance on the right.</figcaption></figure>
+
+<p>If you know a lot about the structure of your data and you give your model the ability to fit that structure, the variance of your model on that data may be low (picture on the right). You incur variance if that flexibility is not <em>useful</em> (picture on the left).</p>
+
+<h1 id="bias-variance-decomposition-for-any-loss">Bias-Variance Decomposition For Any Loss</h1>
+<p>Above I defined the bias-variance decomposition for ℓ2 loss. This is the standard presentation, but some will (rightly) question whether this decomposition is universal, meaning that it is true for all loss functions. The preference for ℓ2 loss in statistics is unfortunately <a href="https://en.wikipedia.org/wiki/Mean_squared_error#Criticism" target="_blank" rel="noopener noreferrer">somewhat arbitrary</a>, and its popularity is mainly due to its nice math properties. I found a BV-decomposition generalized for all losses in this neat paper by <span class="marginnote-outer"><span class="marginnote-ref">James et al.</span><label for="a7c41018-a6b1-11e9-3e91-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c41018-a6b1-11e9-3e91-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner"><a href="https://pdfs.semanticscholar.org/1956/1b17519c58b9cb4c514dd102d08f307a5987.pdf" target="_blank" rel="noopener noreferrer">“Generalizations of the Bias/Variance Decomposition for Prediction Error”</a>, James, G., Hastie, T. (1997)</span></span></span>, which I will summarize here.  <!-- citation --></p>
+
+<p>A loss $L : X \times X \rightarrow [0, \infty)$ is a <a href="https://en.wikipedia.org/wiki/Metric_(mathematics)#Definition" target="_blank" rel="noopener noreferrer">distance</a> function that satisfies,</p>
+
+<ol>
+  <li>$L(x, y) \geq 0$<span style="font-style: italic; position: absolute; left: 35%">non-negativity</span>
+</li>
+  <li>$L(x, y) = 0 \Longleftrightarrow x = y$<span style="font-style: italic; position: absolute; left: 35%">identity</span>
+</li>
+  <li>$L(x, y) = L(y, x)$<span style="font-style: italic; position: absolute; left: 35%">symmetry</span>
+</li>
+  <li><span class="marginnote-outer"><span class="marginnote-ref">$L$ is convex</span><label for="a7c417a2-a6b1-11e9-3f91-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c417a2-a6b1-11e9-3f91-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Stronger than requiring triangle inequality.</span></span></span></li>
+</ol>
+
+<p>Note that $L$ operates on a single pair of values, and does not average over a dataset.</p>
+
+<p>James et al. defines the systematic part of random variable <span class="marginnote-outer"><span class="marginnote-ref">$Y$</span><label for="a7c42058-a6b1-11e9-4091-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c42058-a6b1-11e9-4091-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">In this section, $Y$ is an underlying data distribution, and $\Yh$ is a model. Both are random variables. I am not showing the dependence of the model on training data and input $X$ for simplicity. In other words, I am not specifying why model $\Yh$ has variance, or even that this model has inputs and is supposed to generalize to a test set. However, everything below still holds with those details added back in.</span></span></span> w.r.t. loss $L$,</p>
+
+<script type="math/tex; mode=display">\s[Y] = \argmin_\theta \E_Y L(Y, \theta)</script>
+
+<p>This generalizes mean. Many common statistics (e.g. mean, median, mode) are <span class="marginnote-outer"><span class="marginnote-ref">the systematic parts for common losses</span><label for="a7c42832-a6b1-11e9-4191-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c42832-a6b1-11e9-4191-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Source: <a href="http://www.johnmyleswhite.com/notebook/2013/03/22/modes-medians-and-means-an-unifying-perspective/" target="_blank" rel="noopener noreferrer">http://www.johnmyleswhite.com/notebook/2013/03/22/modes-medians-and-means-an-unifying-perspective/</a></span></span></span>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">$L(y, \hat{y}) =$</th>
+      <th style="text-align: left">Systematic part</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">$(y - \hat{y})^0$</td>
+      <td style="text-align: left">Mode</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\lvert y - \hat{y} \rvert$</td>
+      <td style="text-align: left">Median</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$(y - \hat{y})^2$</td>
+      <td style="text-align: left">Arithmetic Mean</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$(\xfrac{1}{y} - \xfrac{1}{\hat{y}})^2$</td>
+      <td style="text-align: left">Harmonic Mean</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$(\mathrm{ln}(y) - \mathrm{ln}(\hat{y}))^2$</td>
+      <td style="text-align: left">Geometric Mean</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><script type="math/tex">% <![CDATA[
+\begin{cases} \tau \cdot (y - \hat{y}) & y - \hat{y} \geq 0 \\ (\tau - 1) \cdot (y - \hat{y}) & \mathrm{otherwise} \end{cases} %]]></script></td>
+      <td style="text-align: left">$\tau$-th Quantile</td>
+    </tr>
+  </tbody>
+<caption>$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives the median.</caption>
+</table>
+
+<!-- <span class='marginnote-outer'><span class='marginnote-ref'>$\tau$-th Quantile</span><label for='a7c42fb2-a6b1-11e9-4291-47fbecbface8' class='margin-toggle'> &#8853;</label><input type='checkbox' id='a7c42fb2-a6b1-11e9-4291-47fbecbface8' class='margin-toggle'/><span class='marginnote'><span class='marginnote-inner'>$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives median.</span></span></span> -->
+
+<p>James et al. shards the concepts of bias and variance into additional distinct concepts. For ℓ2 variance, we have the notion of <em>typical</em> distance from some reference point of interest. James et al. points out that there are other ways to define variance which become equivalent under ℓ2 loss, but are not the same in general for other losses.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+\V_\Yh[\Yh]
+& = \E_\Yh(\Yh - \E_\Yh\Yh)^2 \\
+& = \E_{Y,\Yh}(Y - \Yh)^2 - \E_Y(Y - \E_\Yh\Yh)^2 \\
+\end{align*} %]]></script>
+
+<p>Likewise, bias squared can be written in two different ways.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+\Bias[Y, \Yh]^2
+& = (\E_YY-\E_\Yh\Yh)^2 \\
+& = \E_Y(Y-\E_\Yh\Yh)^2 - \E_Y(Y-\E_YY)^2 \\
+\end{align*} %]]></script>
+
+<p>When we generalize loss and mean, these alternative ways of writing bias and variance become distinct statistical operations.</p>
+
+<p>The <strong>variance effect</strong>, $\textrm{VE}[Y, \Yh]$, is the expected change in prediction error when using $\Yh$ instead of $\s[\Yh]$ to predict $Y$. In other words, it measures the effect of predicting with a distribution and all its variability, vs the constant systematic part. This contrasts with intrinsic variance, $\V_\Yh[\Yh]$.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+\V_\Yh[\Yh] &= \E_\Yh L(\Yh, \s[\Yh]) \\
+\textrm{VE}[Y, \Yh] &= \E_{Y,\Yh}[L(Y, \Yh) - L(Y, \s[\Yh])] \\
+\end{align*} %]]></script>
+
+<p>The <span class="marginnote-outer"><span class="marginnote-ref"><strong>systematic effect</strong></span><label for="a7c436d8-a6b1-11e9-4391-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c436d8-a6b1-11e9-4391-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Not to be confused with systematic part. Not the terminology I would have gone with.</span></span></span>, $\textrm{SE}[Y, \Yh]$, is the expected change in prediction error when using $\s[\Yh]$ instead of $\s[Y]$ to predict $Y$. In other words, it measures the effect of predicting with the systematic part of the model, vs the systematic part of the data distribution. This contrasts with intrinsic bias squared, $\Bias[Y, \Yh]^2$.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+\Bias[Y, \Yh]^2 &= L(\s[Y], \s[\Yh]) \\
+\textrm{SE}[Y, \Yh] &= \E_Y[L(Y, \s[\Yh]) - L(Y, \s[Y])] \\
+\end{align*} %]]></script>
+
+<p>We may now state the generalized decomposition in terms of systematic and variance effect:</p>
+
+<script type="math/tex; mode=display">\E_{Y,\Yh}L(Y, \Yh) = \textrm{SE}[Y, \Yh] + \textrm{VE}[Y, \Yh] + \V_Y[Y]</script>
+
+<p>Plugging in, we get,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align*}
+\E_{Y,\Yh}L(Y, \Yh)
+&= \E_Y[L(Y, \s[\Yh]) - L(Y, \s[Y])] \\
+&\phantom{=}\, + \E_{Y,\Yh}[L(Y, \Yh) - L(Y, \s[\Yh])] \\
+&\phantom{=}\, + \E_YL(Y, \s[Y])
+\end{align*} %]]></script>
+
+<p>Check out James et al. for some application examples of the <span class="marginnote-outer"><span class="marginnote-ref">generalized BV-decomposition</span><label for="a7c43e08-a6b1-11e9-4491-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c43e08-a6b1-11e9-4491-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">There exist more exotic BV-decompositions as well, e.g.
+<a href="https://math.stackexchange.com/questions/3017916/bias-variance-decomposition-for-kl-divergence" target="_blank" rel="noopener noreferrer">KL-divergence</a></span></span></span>.</p>
+
+<h2 id="what-is-variance-anyway">What is variance anyway?</h2>
+<p>I was taught that variance is exactly equal to its ℓ2 <a href="https://en.wikipedia.org/wiki/Variance" target="_blank" rel="noopener noreferrer">definition</a>. I never questioned this until I had a heated argument with a friend who pointed out that variance was a collection of concepts before it was given a formula. The colloquial term <em>variance</em> is defined as <span class="marginnote-outer"><span class="marginnote-ref">“the fact or quality of being different, divergent, or inconsistent”</span><label for="a7c44484-a6b1-11e9-4591-47fbecbface8" class="margin-toggle"> ⊕</label><input type="checkbox" id="a7c44484-a6b1-11e9-4591-47fbecbface8" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner"><a href="https://www.google.com/search?q=define+variance" target="_blank" rel="noopener noreferrer">https://www.google.com/search?q=define+variance</a></span></span></span>. As it turns out, there are many ways to formalize aspects of this word, and one is not necessarily better than the other.</p>
+
+<p>Ultimately, the word <em>variance</em>, when used in the context of statistics, will mean ℓ2 variance by convention. <a href="https://en.wikipedia.org/wiki/Statistical_dispersion" target="_blank" rel="noopener noreferrer">Statistical dispersion</a> is the technical name given to the umbrella of variance formulations. For example, <a href="https://en.wikipedia.org/wiki/Median_absolute_deviation" target="_blank" rel="noopener noreferrer">Median Absolute Deviation</a> (MAD) is a not-so-obscure alternative to ℓ2 variance for all you <a href="https://creativemaths.net/blog/median/" target="_blank" rel="noopener noreferrer">median-lovers</a> out there. <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)" target="_blank" rel="noopener noreferrer">Entropy</a> is another one. Though not usually thought of as a measure of variance, entropy measures the spread of a distribution without distance to a reference point, which makes it particularly useful for <a href="https://en.wikipedia.org/wiki/Categorical_variable" target="_blank" rel="noopener noreferrer">categorical data</a>.</p>
+
+<p>I think formalizing concepts is a big deal, but I don’t take formalisms as absolute truth. They are more like pieces of code that can be connected together and modified. I am picky when it comes to the <em>API</em> that a math definition uses, i.e. the objects that are abstracted away. I expect my formula to be general purpose, but there is not going to be a definition that captures all possible cases of an idea. My philosophy is to start with good math, and use it to understand the nuances of an idea. Then use intuition and creativity to think about the idea in new ways, and potentially invent a new formalism. The math you started with gives you a foundation for building and a sandbox for playing.</p>
+
+<h1 id="acknowledgments">Acknowledgments</h1>
+
+<p>I want to thank John Chung, Frazer Kirkman, Ivan Vendrov, and Roman Novak for their valuable discussions and feedback on this post. I give special thanks to Jeremy Nixon who inspired me to research this topic thoroughly and offered insights on the interaction between mathematics and informal ideas in research.</p>
+
+
+<!-- http://sgeos.github.io/jekyll/disqus/2016/02/15/adding-disqus-to-a-jekyll-blog.html -->
+
+
+
+<hr class="slender">
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zhat.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+                            
+
+
+
+    </article>
+    <span class="print-footer">Bias-Variance Decomposition Explained - July 14, 2019 - pragmanym</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links"> 
+    <li><a href="/about">FAQ</a></li>  
+    
+      <li>
+        <a href="mailto:pragmanym@gmail.com"><span class="icon-mail"></span></a>
+      </li>
+    
+      <li>
+        <a href="//github.com/pragmanym"><span class="icon-github"></span></a>
+      </li>
+    
+      <li>
+        <a href="/feed"><span class="icon-feed"></span></a>
+      </li>
+      
+  </ul>
+  <div class="credits">
+  <span style="line-height: 3rem;">© 2019   PRAGMANYM</span><br>
+  <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
+  </div>  
+</footer>
+  </body>
+</html>
