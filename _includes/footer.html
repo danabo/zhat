@@ -1,6 +1,7 @@
 <footer>
   <hr class="slender">
-  <ul class="footer-links">   
+  <ul class="footer-links"> 
+    <li><a href="{{ site.baseurl }}{% link about.md %}">FAQ</a></li>  
     {% for entry in site.data.social %}
       <li>
         <a href="{{ entry.link }}"><span class="{{ entry.icon }}"></span></a>
@@ -8,7 +9,7 @@
     {% endfor %}  
   </ul>
   <div class="credits">
-  <span>&copy; {{ site.time | date: '%Y' }} &nbsp;&nbsp;{{site.author | upcase }}</span></br> <br>
+  <span style="line-height: 3rem;">&copy; {{ site.time | date: '%Y' }} &nbsp;&nbsp;{{site.author | upcase }}</span></br><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>

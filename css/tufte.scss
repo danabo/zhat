@@ -128,6 +128,8 @@ p, li { margin-top: 1.4rem;
         padding-right: 2rem; //removed because,  why?
         vertical-align: baseline; }
 
+li {margin-top: 0.3rem !important;}
+
 blockquote p {  font-size: 1.1rem;
                 line-height: 1.78181818;
                 margin-top: 1.78181818rem;
@@ -208,9 +210,10 @@ section { padding-top: 1rem;
 
 
 ul,ol { width: 45%;
-     -webkit-padding-start: 5%;
-     -webkit-padding-end: 5%;
-     list-style-type: decimal; }
+     -webkit-padding-start: 4%;
+     -webkit-padding-end: 4%;
+     /* list-style-type: decimal;  */
+     }
 
 .toc * { width: 100%;
                margin-top: 0; }
@@ -254,7 +257,7 @@ img { max-width: 100%; }
 .marginnote-outer:hover>.marginnote>.marginnote-inner {background-color: #e8eeff; border: 1px dashed gray}
 
 
-li .sidenote, li .marginnote{ margin-right: -80%; } //added to allow for the fact that lists are indented and marginnotes and sidenotes push to right
+li .sidenote, li .marginnote{ margin-right: -84.6%; } //added to allow for the fact that lists are indented and marginnotes and sidenotes push to right
 
 blockquote .sidenote, blockquote .marginnote { margin-right: -79% }
 
