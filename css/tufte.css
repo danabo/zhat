@@ -149,10 +149,6 @@
   .highlight .il {
     color: #099; }
 
-* {
-  margin: 0;
-  padding: 0; }
-
 /* clearfix hack after Cederholm (group class name) */
 .group:after {
   content: "";
