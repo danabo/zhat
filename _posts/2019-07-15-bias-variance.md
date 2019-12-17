@@ -2,7 +2,7 @@
 layout: post
 title:  "Bias-Variance Decomposition Explained"
 date:   2019-07-14
-categories: post
+categories: primer
 ---
 
 $$
