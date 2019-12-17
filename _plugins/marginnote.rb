@@ -2,7 +2,7 @@ module Jekyll
   class RenderMarginNoteTag < Liquid::Tag
 
     require "shellwords"
-    require_relative "uuid"
+    require "digest/sha1"
 
     def initialize(tag_name, text, tokens)
       super
@@ -10,7 +10,7 @@ module Jekyll
     end
 
     def render(context)
-      id = UUID.create.to_s
+      id = Digest::SHA1.hexdigest(@text[0]+"|"+@text[1])
       "<span class='marginnote-outer'>"\
       "<span class='marginnote-ref'>#{@text[0]}</span>"\
       "<label for='#{id}' class='margin-toggle'> &#8853;</label>"\
