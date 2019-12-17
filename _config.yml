@@ -10,7 +10,7 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 permalink: /articles/:short_year/:title
 timezone: America/Los_Angeles
 excerpt_separator: <!--more-->  # you can specify your own separator, of course.
-exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'UploadToGithub.Rakefile', 'README.md']
+exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'UploadToGithub.Rakefile', 'README.md', 'LICENSE']
 post:
   template: _post.txt
   extension: md
@@ -23,6 +23,7 @@ git:
   branch: master
 plugins:
   - jekyll-target-blank
+keep_files: ['.git', 'CNAME', '_config.yml']
 
 defaults:
   -
