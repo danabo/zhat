@@ -2,6 +2,7 @@
 layout: full-width
 title: FAQ
 nav_exclude: true
+comments: false
 ---
 
 # Who is pragmanym?
