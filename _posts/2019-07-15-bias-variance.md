@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Bias-Variance Decomposition Explained"
+title:  "Bias-Variance Decomposition For Machine Learning"
 date:   2019-07-14
 categories: primer
 ---
