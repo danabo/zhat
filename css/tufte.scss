@@ -392,6 +392,18 @@ ul.footer-links li{
   padding: 1rem 0rem;
 }
 
+.header-anchor {
+  color: inherit;
+  text-decoration: none;
+}
+.header-anchor:hover {
+  text-decoration: underline;
+}
+
+a.hover:hover {
+    text-decoration: underline;
+}
+
 //change font color for credit links in footer
 
 .credits{
