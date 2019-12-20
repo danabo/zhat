@@ -163,8 +163,6 @@
 
 <p>I am leaving out the derivation of the BV-decomposition, as it can be easily found in a number of sources, including <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff#Derivation" target="_blank" rel="noopener noreferrer">Wikipedia</a>. My purpose here is to clear up common points of confusion.</p>
 
-<p><span class="fixme">Make this digression below collapsible</span></p>
-
 <p>For completion, here is the definition of $\E$ and $\V$. Let $g:\Real \rightarrow \Real$ be an arbitrary (deterministic) function over the reals, and $Z$ be an arbitrary random variable over domain $D_Z \subseteq \Real$. Then</p>
 
 <script type="math/tex; mode=display">\E_Z[g(Z)] = \int_{D_Z} p_Z(z) g(z) dz</script>
@@ -223,8 +221,6 @@
 <figure><img src="/assets/posts/bias-variance/variance-2.png" alt="" width="100%"><figcaption></figcaption></figure>
 <figure><img src="/assets/posts/bias-variance/variance-1.png" alt="Images made with https://sketch.io/sketchpad/" width="100%"><figcaption>Images made with https://sketch.io/sketchpad/</figcaption></figure>
 
-<p><span class="fixme">Why is markdown in figure tag not compiling?</span></p>
-
 <p>The model’s prediction of test input $x’$ varies greatly between trainings. It is common to say this variance indicates the model is overfitting, which means informally that it’s fitting correlations present in the training set which are not present across datasets. However, overfitting is not an identical concept to variance of a test prediction.</p>
 
 <p>Practitioners would typically say this model has high variance, but that is a jargony shorthand. There is nothing about a model in isolation that has bias or variance. What we really mean is that this particular model applied to this particular training distribution has high variance. This realization affords us two ways to reduce variance:</p>
@@ -252,8 +248,6 @@
 <p><em>What is flexibility? How do you quantify it? How do you compare flexibilities?</em></p>
 
 <p>A model can be flexible (or inflexible) in many different ways. No matter how flexible a model is, assumptions are made about its hypothesis space. These assumptions are called the <span class="marginnote-outer"><span class="marginnote-ref">inductive bias</span><label for="83123f9b28aa2b33c82129e2ddba4096b16ea61f" class="margin-toggle"> ⊕</label><input type="checkbox" id="83123f9b28aa2b33c82129e2ddba4096b16ea61f" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Defined as a <a href="https://en.wikipedia.org/wiki/Inductive_bias" target="_blank" rel="noopener noreferrer">“set of assumptions”</a>. This is qualitative. Not to be confused with statistical bias which is a computable quantity.</span></span></span> of the model.</p>
-
-<p><span class="fixme"> Make better pictures for the “different flexibility” example. </span></p>
 
 <!--
 <figure><img src='/assets/posts/bias-variance/inductive-bias-2.png' alt='Two models with high flexibility but very different inductive biases, applied to the same dataset.' width='50%'><img src='/assets/posts/bias-variance/inductive-bias-1.png' alt='Two models with high flexibility but very different inductive biases, applied to the same dataset.' width='50%'><figcaption>Two models with high flexibility but very different inductive biases, applied to the same dataset.</figcaption></figure>
@@ -325,10 +319,7 @@
 <caption>$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives the median.</caption>
 </table>
 
-<p><span class="fixme">TODO: Figure out how to marginnote table text.</span>
-<!-- <span class='marginnote-outer'><span class='marginnote-ref'>$\tau$-th Quantile</span><label for='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'> &#8853;</label><input type='checkbox' id='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'/><span class='marginnote'><span class='marginnote-inner'>$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives median.</span></span></span> --></p>
-
-<p><span class="fixme">TODO: Write follow up post on exponential moving average</span></p>
+<!-- <span class='marginnote-outer'><span class='marginnote-ref'>$\tau$-th Quantile</span><label for='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'> &#8853;</label><input type='checkbox' id='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'/><span class='marginnote'><span class='marginnote-inner'>$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives median.</span></span></span> -->
 
 <p>James et al. shards the concepts of bias and variance into additional distinct concepts. For ℓ2 variance, we have the notion of <em>typical</em> distance from some reference point of interest. James et al. points out that there are other ways to define variance which become equivalent under ℓ2 loss, but are not the same in general for other losses.</p>
 

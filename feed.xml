@@ -5,8 +5,8 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 17 Dec 2019 15:39:14 -0800</pubDate>
-    <lastBuildDate>Tue, 17 Dec 2019 15:39:14 -0800</lastBuildDate>
+    <pubDate>Thu, 19 Dec 2019 16:41:18 -0800</pubDate>
+    <lastBuildDate>Thu, 19 Dec 2019 16:41:18 -0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -90,8 +90,6 @@
 
 &lt;p&gt;I am leaving out the derivation of the BV-decomposition, as it can be easily found in a number of sources, including &lt;a href=&quot;https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff#Derivation&quot;&gt;Wikipedia&lt;/a&gt;. My purpose here is to clear up common points of confusion.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&quot;fixme&quot;&gt;Make this digression below collapsible&lt;/span&gt;&lt;/p&gt;
-
 &lt;p&gt;For completion, here is the definition of $\E$ and $\V$. Let $g:\Real \rightarrow \Real$ be an arbitrary (deterministic) function over the reals, and $Z$ be an arbitrary random variable over domain $D_Z \subseteq \Real$. Then&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;\E_Z[g(Z)] = \int_{D_Z} p_Z(z) g(z) dz&lt;/script&gt;
@@ -150,8 +148,6 @@
 &lt;figure&gt;&lt;img src=&quot;/assets/posts/bias-variance/variance-2.png&quot; alt=&quot;&quot; width=&quot;100%&quot; /&gt;&lt;figcaption&gt;&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;figure&gt;&lt;img src=&quot;/assets/posts/bias-variance/variance-1.png&quot; alt=&quot;Images made with https://sketch.io/sketchpad/&quot; width=&quot;100%&quot; /&gt;&lt;figcaption&gt;Images made with https://sketch.io/sketchpad/&lt;/figcaption&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;span class=&quot;fixme&quot;&gt;Why is markdown in figure tag not compiling?&lt;/span&gt;&lt;/p&gt;
-
 &lt;p&gt;The model’s prediction of test input $x’$ varies greatly between trainings. It is common to say this variance indicates the model is overfitting, which means informally that it’s fitting correlations present in the training set which are not present across datasets. However, overfitting is not an identical concept to variance of a test prediction.&lt;/p&gt;
 
 &lt;p&gt;Practitioners would typically say this model has high variance, but that is a jargony shorthand. There is nothing about a model in isolation that has bias or variance. What we really mean is that this particular model applied to this particular training distribution has high variance. This realization affords us two ways to reduce variance:&lt;/p&gt;
@@ -179,8 +175,6 @@
 &lt;p&gt;&lt;em&gt;What is flexibility? How do you quantify it? How do you compare flexibilities?&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;A model can be flexible (or inflexible) in many different ways. No matter how flexible a model is, assumptions are made about its hypothesis space. These assumptions are called the &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;inductive bias&lt;/span&gt;&lt;label for=&quot;83123f9b28aa2b33c82129e2ddba4096b16ea61f&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;83123f9b28aa2b33c82129e2ddba4096b16ea61f&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Defined as a &lt;a href=&quot;https://en.wikipedia.org/wiki/Inductive_bias&quot;&gt;“set of assumptions”&lt;/a&gt;. This is qualitative. Not to be confused with statistical bias which is a computable quantity.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; of the model.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;fixme&quot;&gt; Make better pictures for the “different flexibility” example. &lt;/span&gt;&lt;/p&gt;
 
 &lt;!--
 &lt;figure&gt;&lt;img src='/assets/posts/bias-variance/inductive-bias-2.png' alt='Two models with high flexibility but very different inductive biases, applied to the same dataset.' width='50%'&gt;&lt;img src='/assets/posts/bias-variance/inductive-bias-1.png' alt='Two models with high flexibility but very different inductive biases, applied to the same dataset.' width='50%'&gt;&lt;figcaption&gt;Two models with high flexibility but very different inductive biases, applied to the same dataset.&lt;/figcaption&gt;&lt;/figure&gt;
@@ -248,10 +242,7 @@
   &lt;/tbody&gt;
 &lt;caption&gt;$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives the median.&lt;/caption&gt;&lt;/table&gt;
 
-&lt;p&gt;&lt;span class=&quot;fixme&quot;&gt;TODO: Figure out how to marginnote table text.&lt;/span&gt;
-&lt;!-- &lt;span class='marginnote-outer'&gt;&lt;span class='marginnote-ref'&gt;$\tau$-th Quantile&lt;/span&gt;&lt;label for='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'&gt; &amp;#8853;&lt;/label&gt;&lt;input type='checkbox' id='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'/&gt;&lt;span class='marginnote'&gt;&lt;span class='marginnote-inner'&gt;$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives median.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; --&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;fixme&quot;&gt;TODO: Write follow up post on exponential moving average&lt;/span&gt;&lt;/p&gt;
+&lt;!-- &lt;span class='marginnote-outer'&gt;&lt;span class='marginnote-ref'&gt;$\tau$-th Quantile&lt;/span&gt;&lt;label for='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'&gt; &amp;#8853;&lt;/label&gt;&lt;input type='checkbox' id='75adb4f877d352d398c8823aa64625a8f6d7862f' class='margin-toggle'/&gt;&lt;span class='marginnote'&gt;&lt;span class='marginnote-inner'&gt;$\tau$ is a constant between 0 and 1. $\tau=\frac{1}{2}$ gives median.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; --&gt;
 
 &lt;p&gt;James et al. shards the concepts of bias and variance into additional distinct concepts. For ℓ2 variance, we have the notion of &lt;em&gt;typical&lt;/em&gt; distance from some reference point of interest. James et al. points out that there are other ways to define variance which become equivalent under ℓ2 loss, but are not the same in general for other losses.&lt;/p&gt;
 

@@ -610,9 +610,6 @@ ul.footer-links li {
 .header-anchor:hover {
   text-decoration: underline; }
 
-a.hover:hover {
-  text-decoration: underline; }
-
 .credits {
   font-family: "Gill Sans", "Gill Sans MT", "Lato", Calibri, sans-serif; }
   .credits a {
