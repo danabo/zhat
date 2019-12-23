@@ -137,7 +137,7 @@
 <p>where $\bar{f}(x) = \text{Re}[f(x)] - i\,\text{Im}[f(x)]$ is the complex conjugate.</p>
 
 <h2 id="punchline-quantum-states-are-probability-distributions"><a class="header-anchor" href="#punchline-quantum-states-are-probability-distributions">Punchline: quantum states are probability distributions</a></h2>
-<p>You probably already guessed that $\psi$ encodes the probability of finding particles in space. The probabiliy of observing system $\psi$ to be in <span class="marginnote-outer"><span class="marginnote-ref">some region of configuration space</span><label for="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"> ⊕</label><input type="checkbox" id="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Remember that $n$ is the total number of spatial coordinates that describes the system. We are calculating the probability for all the coordinates together to be in some range.</span></span></span> $D \subseteq \mathbb{R}^n$ is,</p>
+<p>You probably already guessed that $\psi$ encodes the probability of finding particles in space. The probability of observing system $\psi$ to be in <span class="marginnote-outer"><span class="marginnote-ref">some region of configuration space</span><label for="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"> ⊕</label><input type="checkbox" id="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Remember that $n$ is the total number of spatial coordinates that describes the system. We are calculating the probability for all the coordinates together to be in some range.</span></span></span> $D \subseteq \mathbb{R}^n$ is,</p>
 
 <script type="math/tex; mode=display">\int_D  \psi(x) \bar{\psi}(x)\diff{x^n}\,.</script>
 
@@ -159,10 +159,6 @@
 
 <p>Given that the elements of $\mathcal{H}$ are functions over $x$, one straightforward way to choose a basis for $\mathcal{H}$ is to think of $\psi \in \mathcal{H}$ as a vector with uncountably many entries, one for each input $x$. This is achieved with a basis of <span class="marginnote-outer"><span class="marginnote-ref"><a href="https://en.wikipedia.org/wiki/Dirac_delta_function" target="_blank" rel="noopener noreferrer">Dirac delta functions</a></span><label for="68625e91f114b5de914c4a1ae96b612e8a90302e" class="margin-toggle"> ⊕</label><input type="checkbox" id="68625e91f114b5de914c4a1ae96b612e8a90302e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">0 everywhere except for the origin. Defined so that its total area is 1. Technically they are not functions, but <a href="https://en.wikipedia.org/wiki/Dirac_delta_function#As_a_distribution" target="_blank" rel="noopener noreferrer">distributions</a>.</span></span></span>. Writing $\psi$ in this basis,</p>
 
-<!--$$
-\psi(x) = \int_{\mathbb{R}^n} \psi(\chi)\delta(x-\chi)\diff{\chi^n}\,,
-$$-->
-
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{align}
 \psi &= \int_{\mathbb{R}^n} \psi(\chi)\cdot\left[ x \mapsto \delta(x-\chi)\right]\diff{\chi^n} \\
@@ -172,7 +168,7 @@ $$-->
 
 <p>This integral is an uncountable linear combination, where <span class="marginnote-outer"><span class="marginnote-ref">$x \mapsto \delta(x-\chi)$</span><label for="6e2c209cbdb6c596f74638233310e8ffd60cc39e" class="margin-toggle"> ⊕</label><input type="checkbox" id="6e2c209cbdb6c596f74638233310e8ffd60cc39e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Note I am using non-standard notation. “$x \mapsto f(x)$” instantiates a function object in-line, just as “$\{f(y) \mid \text{condition}[y]\}$” instantiates a set in-line.</span></span></span> is the $\chi$-th basis element and $\psi(\chi)$ is the corresponding coefficient.</p>
 
-<p>This basis of Dirac deltas corresponds to position measurement. Particles and systems of particles have other measureable properties, like momentum and total energy, which have their own bases. More on that below.</p>
+<p>This basis of Dirac deltas corresponds to position measurement. Particles and systems of particles have other measurable properties, like momentum and total energy, which have their own bases. More on that below.</p>
 
 <h2 id="a-proper-basis"><a class="header-anchor" href="#a-proper-basis">A Proper Basis</a></h2>
 
@@ -227,27 +223,12 @@ $$-->
 
 <h1 id="conclusion"><a class="header-anchor" href="#conclusion">Conclusion</a></h1>
 
-<p>This definition of quantum state is very helpful for visualizing what your system looks like in physical space. The vector definition is unfortunately more abstract and can often obscure the connection to physical space. The vector defnition has its own benefits. In my opinion, knowing how to go between both definitions is optimal for understanding.</p>
+<p>This definition of quantum state is very helpful for visualizing what your system looks like in physical space. The vector definition is unfortunately more abstract and can often obscure the connection to physical space. The vector definition has its own benefits. In my opinion, knowing how to go between both definitions is optimal for understanding.</p>
 
 <p>I didn’t touch on how quantization comes into play, i.e. discrete measurement outcomes. In short, discrete measurement bases result in discrete measurement readouts. For example, total energy will be discrete for particles in potential wells, and continuous for free particles. What determines whether the measurement basis will be continuous or discrete, and how to derive these bases all together, is a complicated matter that gets into <a href="https://en.wikipedia.org/wiki/Spectral_theory" target="_blank" rel="noopener noreferrer">spectral theory of linear operators</a>. Maybe a topic of a future post.</p>
 
-<p>It’s important to point out is that <a href="https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics" target="_blank" rel="noopener noreferrer">measurement in quantum mechanics</a> is not explained, but <a href="https://en.wikipedia.org/wiki/Wave_function_collapse#History_and_context" target="_blank" rel="noopener noreferrer">taken as given</a>. The non-determinism of measurement outcomes is part of the <a href="https://en.wikipedia.org/wiki/Dirac%E2%80%93von_Neumann_axioms" target="_blank" rel="noopener noreferrer">axioms of quantum mechanics</a>, at least under the Copenhagen interpretation. There are alternative interprations which deny wave-function collapse, notably <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank" rel="noopener noreferrer">pilot-wave</a> and <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank" rel="noopener noreferrer">many-worlds</a>.</p>
+<p>It’s important to point out is that <a href="https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics" target="_blank" rel="noopener noreferrer">measurement in quantum mechanics</a> is not explained, but <a href="https://en.wikipedia.org/wiki/Wave_function_collapse#History_and_context" target="_blank" rel="noopener noreferrer">taken as given</a>. The non-determinism of measurement outcomes is part of the <a href="https://en.wikipedia.org/wiki/Dirac%E2%80%93von_Neumann_axioms" target="_blank" rel="noopener noreferrer">axioms of quantum mechanics</a>, at least under the Copenhagen interpretation. There are alternative interpretations which deny wave-function collapse, notably <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank" rel="noopener noreferrer">pilot-wave</a> and <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank" rel="noopener noreferrer">many-worlds</a>.</p>
 
-<!--
-
-*discuss energy bases? discuss quantization of momentum and energy?*
-
-*recap the logic of this using qbits. say that there is a physical analog called spin. qbits are inherently vectors, and the connection to physical space is entirely lost, but the logic of quantum measurement is easier to see*
-
-discuss position, momentum, and energy measurements? dont go into observable operators. thats a future post
-
-*dont talk about operators. just that different measurement bases have uncertainty relations. dont talk about degenerate spectra and commuting operators, but just mention that is a thing because people will wonder whether any measurements dont have an uncertainty relation.*
-
-Measurable properties can have linear subspaces as "outcomes", rather than single vectors (i.e. 1D linear subspaces). If two different measurable properties have such subspaces that are mutually orthogonal (one subspace is either orthogonal or contained in every other subspace), the properties can be known at the same time. If a combined set of properties results in outcomes that are all 1D orthogonal subspaces, this forms a complete basis. This is called a [complete set of commuting observables](https://en.wikipedia.org/wiki/Complete_set_of_commuting_observables).
-
-*superposition and quantum non-determinism is not explained. taken as an axiom of quantum mechanics under the standard interpretation*
-
--->
 
 
 
