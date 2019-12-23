@@ -6,12 +6,18 @@ comments: false
 # Note that this index page uses a full-width layout!
 ---
 
+<!-- https://www.tjvantoll.com/2017/01/02/listing-external-articles/ -->
+
   <h1 class="content-listing-header sans">Articles</h1>
   <ul class="content-listing ">
-    {% for post in site.posts %}      
+    {% for post in site.posts %}  
+      {% capture url_to_use %}{{ post.url" }}{% endcapture %}
+      {% if post.redirect_url %}
+        {% capture url_to_use %}{{ post.redirect_url" }}{% endcapture %}
+      {% endif %}    
         <li class="listing">
           <hr class="slender">
-          <a href="{{ post.url | prepend: site.baseurl }}"><h3 class="contrast">{{ post.title }}</h3></a>
+          <a href="{{ url_to_use | prepend: site.baseurl }}"><h3 class="contrast">{{ post.title }}</h3></a>
           <br><span class="category"><span class="category-head" style="padding-right:5px;">Category:</span>{{post.categories[0] | capitalize}}</span>
           <br><span class="smaller">{{ post.date | date: "%B %-d, %Y" }}</span>  <br/>
           <div>{{ post.excerpt }}</div> 
