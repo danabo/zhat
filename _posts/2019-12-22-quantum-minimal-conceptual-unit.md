@@ -43,6 +43,7 @@ $$
 
 for $n$-dimensional configuration space such that $\lvert\psi\rvert = 1$, i.e. $\psi$ is $L^2$-normalized.
 
+{% fixme %} Explain L2 norm  {% endfixme %}
 The $L^2$-norm of a complex-valued function is given as,
 
 $$
@@ -53,11 +54,13 @@ $$
 where $\bar{f}(x) = \text{Re}[f(x)] - i\,\text{Im}[f(x)]$ is the complex conjugate.
 
 ## Punchline: quantum states are probability distributions
-You probably already guessed that $\psi$ encodes the probability of finding particles in space. The probabiliy of observing system $\psi$ to be in {% marginnote 'some region of configuration space' 'Remember that $n$ is the total number of spatial coordinates that describes the system. We are calculating the probability for all the coordinates together to be in some range.' %} $D \subseteq \mathbb{R}^n$ is,
+You probably already guessed that $\psi$ encodes the probability of finding particles in space. The probability of observing system $\psi$ to be in {% marginnote 'some region of configuration space' 'Remember that $n$ is the total number of spatial coordinates that describes the system. We are calculating the probability for all the coordinates together to be in some range.' %} $D \subseteq \mathbb{R}^n$ is,
 
 $$
 \int_D  \psi(x) \bar{\psi}(x)\diff{x^n}\,.
 $$
+
+{% fixme %} Explain $\diff{x^n}$ {% endfixme %}
 
 $\psi(x) \bar{\psi}(x) = \lvert\psi(x)\rvert^2$ is the absolute value squared of the complex value $\psi(x)$ (not to be confused with the function-norm $\lvert\psi\rvert$). In other words, $\lvert\psi(x)\rvert^2$ is a probability density. $\psi(x)$ is called a {% marginnote '*probability amplitude*' "\"Probability amplitude\" refers specifically to a complex number whose square is a probability. I don't think the word \"amplitude\" makes this apparent and it is rather ambiguous, but it's handy to have a term to refer to these not-quite-probabilities and that is the convention."%}
 
@@ -78,10 +81,6 @@ Let $\mathcal{H}$ be a Hilbert space of $L^2$-normalized complex-valued function
 
 Given that the elements of $\mathcal{H}$ are functions over $x$, one straightforward way to choose a basis for $\mathcal{H}$ is to think of $\psi \in \mathcal{H}$ as a vector with uncountably many entries, one for each input $x$. This is achieved with a basis of {% marginnote '[Dirac delta functions](https://en.wikipedia.org/wiki/Dirac_delta_function)' '0 everywhere except for the origin. Defined so that its total area is 1. Technically they are not functions, but [distributions](https://en.wikipedia.org/wiki/Dirac_delta_function#As_a_distribution).' %}. Writing $\psi$ in this basis,
 
-<!--$$
-\psi(x) = \int_{\mathbb{R}^n} \psi(\chi)\delta(x-\chi)\diff{\chi^n}\,,
-$$-->
-
 $$
 \begin{align}
 \psi &= \int_{\mathbb{R}^n} \psi(\chi)\cdot\left[ x \mapsto \delta(x-\chi)\right]\diff{\chi^n} \\
@@ -92,7 +91,7 @@ $$
 
 This integral is an uncountable linear combination, where {% marginnote '$x \mapsto \delta(x-\chi)$' 'Note I am using non-standard notation. "$x \mapsto f(x)$" instantiates a function object in-line, just as "$\\{f(y) \mid \text{condition}[y]\\}$" instantiates a set in-line.' %} is the $\chi$-th basis element and $\psi(\chi)$ is the corresponding coefficient.
 
-This basis of Dirac deltas corresponds to position measurement. Particles and systems of particles have other measureable properties, like momentum and total energy, which have their own bases. More on that below.
+This basis of Dirac deltas corresponds to position measurement. Particles and systems of particles have other measurable properties, like momentum and total energy, which have their own bases. More on that below.
 
 ## A Proper Basis
 
@@ -158,24 +157,11 @@ The *Heisenberg uncertainty principle*, informally, states that a quantum state 
 
 # Conclusion
 
-This definition of quantum state is very helpful for visualizing what your system looks like in physical space. The vector definition is unfortunately more abstract and can often obscure the connection to physical space. The vector defnition has its own benefits. In my opinion, knowing how to go between both definitions is optimal for understanding.
+This definition of quantum state is very helpful for visualizing what your system looks like in physical space. The vector definition is unfortunately more abstract and can often obscure the connection to physical space. The vector definition has its own benefits. In my opinion, knowing how to go between both definitions is optimal for understanding.
 
 I didn't touch on how quantization comes into play, i.e. discrete measurement outcomes. In short, discrete measurement bases result in discrete measurement readouts. For example, total energy will be discrete for particles in potential wells, and continuous for free particles. What determines whether the measurement basis will be continuous or discrete, and how to derive these bases all together, is a complicated matter that gets into [spectral theory of linear operators](https://en.wikipedia.org/wiki/Spectral_theory). Maybe a topic of a future post.
 
-It's important to point out is that [measurement in quantum mechanics](https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics) is not explained, but [taken as given](https://en.wikipedia.org/wiki/Wave_function_collapse#History_and_context). The non-determinism of measurement outcomes is part of the [axioms of quantum mechanics](https://en.wikipedia.org/wiki/Dirac%E2%80%93von_Neumann_axioms), at least under the Copenhagen interpretation. There are alternative interprations which deny wave-function collapse, notably [pilot-wave](https://en.wikipedia.org/wiki/Many-worlds_interpretation) and [many-worlds](https://en.wikipedia.org/wiki/Many-worlds_interpretation).
+It's important to point out is that [measurement in quantum mechanics](https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics) is not explained, but [taken as given](https://en.wikipedia.org/wiki/Wave_function_collapse#History_and_context). The non-determinism of measurement outcomes is part of the [axioms of quantum mechanics](https://en.wikipedia.org/wiki/Dirac%E2%80%93von_Neumann_axioms), at least under the Copenhagen interpretation. There are alternative interpretations which deny wave-function collapse, notably [pilot-wave](https://en.wikipedia.org/wiki/Many-worlds_interpretation) and [many-worlds](https://en.wikipedia.org/wiki/Many-worlds_interpretation).
 
-<!--
+{% fixme %} spelling! {% endfixme %}
 
-*discuss energy bases? discuss quantization of momentum and energy?*
-
-*recap the logic of this using qbits. say that there is a physical analog called spin. qbits are inherently vectors, and the connection to physical space is entirely lost, but the logic of quantum measurement is easier to see*
-
-discuss position, momentum, and energy measurements? dont go into observable operators. thats a future post
-
-*dont talk about operators. just that different measurement bases have uncertainty relations. dont talk about degenerate spectra and commuting operators, but just mention that is a thing because people will wonder whether any measurements dont have an uncertainty relation.*
-
-Measurable properties can have linear subspaces as "outcomes", rather than single vectors (i.e. 1D linear subspaces). If two different measurable properties have such subspaces that are mutually orthogonal (one subspace is either orthogonal or contained in every other subspace), the properties can be known at the same time. If a combined set of properties results in outcomes that are all 1D orthogonal subspaces, this forms a complete basis. This is called a [complete set of commuting observables](https://en.wikipedia.org/wiki/Complete_set_of_commuting_observables).
-
-*superposition and quantum non-determinism is not explained. taken as an axiom of quantum mechanics under the standard interpretation*
-
--->
