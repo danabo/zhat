@@ -5,9 +5,22 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 22 Dec 2019 22:38:26 -0800</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 22:38:26 -0800</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 14:27:48 -0800</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 14:27:48 -0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Cox's Theorem - Study Notes</title>
+        <description>
+</description>
+        <pubDate>Mon, 23 Dec 2019 00:00:00 -0800</pubDate>
+        <link>pragmanym.github.io/zhat/articles/coxs-theorem</link>
+        <guid isPermaLink="true">pragmanym.github.io/zhat/articles/coxs-theorem</guid>
+        
+        
+        <category>Notes</category>
+        
+      </item>
     
       <item>
         <title>Quantum State</title>
