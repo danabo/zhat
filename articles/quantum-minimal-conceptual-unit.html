@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Quantum State</title>
+  <meta name="description" content="The two views of quantum state:  Quantum states are $L^2$-normalized complex-valued functions over classical configuration space.  Quantum states are unit ve...">
+
+  <!-- Google Fonts loaded here -->
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        preview: "TeX"
+      },
+      "HTML-CSS": {
+        fonts: ["TeX"],
+        styles: {
+          ".MathJax_Display": {"font-size": "125%"},
+        }
+      },
+      // https://github.com/mathjax/MathJax/issues/1081#issuecomment-399878942
+      TeX: {Augment: {
+        Definitions: {macros: {xfrac: 'XFrac'}},
+        Parse: {prototype: {
+          XFrac: function (name) {
+            var num = this.ParseArg(name);
+            var den = this.ParseArg(name);
+            this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+          }
+        }}
+      }}
+    });
+    </script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="pragmanym.github.io/zhat/articles/quantum-minimal-conceptual-unit">
+
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/zhat.svg" alt="\hat{z}" onerror="this.onerror=null;this.src='/assets/img/zhat-large.png';"></a>
+		
+			
+  	
+			
+  	
+			
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+    <article class="group">
+      <h1>Quantum State</h1>
+<p class="subtitle">December 22, 2019</p>
+
+<p>The two views of quantum state:</p>
+<ol>
+  <li>Quantum states are $L^2$-normalized complex-valued functions over classical configuration space.</li>
+  <li>Quantum states are unit vectors residing in a complex Hilbert space, $\mathcal{H}$.</li>
+</ol>
+
+<script type="math/tex; mode=display">\newcommand{\bm}{\boldsymbol}
+\newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
+\newcommand{\bra}[1]{\langle#1\rvert}
+\newcommand{\ket}[1]{\lvert#1\rangle}
+\newcommand{\braket}[2]{\langle#1\vert#2\rangle}</script>
+
+<!--more-->
+
+<ul class="toc" id="markdown-toc">
+  <li>
+<a href="#1-quantum-states-are-functions" id="markdown-toc-1-quantum-states-are-functions">1) Quantum States Are Functions</a>    <ul>
+      <li><a href="#punchline-quantum-states-are-probability-distributions" id="markdown-toc-punchline-quantum-states-are-probability-distributions">Punchline: quantum states are probability distributions</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#2-quantum-states-are-vectors" id="markdown-toc-2-quantum-states-are-vectors">2) Quantum States Are Vectors</a>    <ul>
+      <li><a href="#measurement-bases" id="markdown-toc-measurement-bases">Measurement Bases</a></li>
+      <li><a href="#a-proper-basis" id="markdown-toc-a-proper-basis">A Proper Basis</a></li>
+      <li><a href="#punchline-uncertainty-principle-from-change-of-basis" id="markdown-toc-punchline-uncertainty-principle-from-change-of-basis">Punchline: Uncertainty Principle From Change Of Basis</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+</ul>
+
+<p>This is a very short primer on quantum mechanics, and the bare minimum that needs to be explained in order to understand what QM is about. My goal is to provide some conceptual punchlines with minimal prereqs. The formalism of QM is filled with technicalities and complications, which I try to point out where possible. Keep in mind I am glossing over a ton of details.</p>
+
+<p>Note, throughout I am setting $\hbar = 1$.</p>
+
+<h1 id="1-quantum-states-are-functions"><a class="header-anchor" href="#1-quantum-states-are-functions">1) Quantum States Are Functions</a></h1>
+
+<blockquote>
+  <p>Quantum states are $L^2$-normalized complex-valued functions over classical configuration space.</p>
+</blockquote>
+
+<p>For our purposes, classical configuration space is position space. A system with $N$ particles in 3D space has $3N$ dimensional configuration space. For simplicity, I’ll mostly talk about one particle in 1D space, i.e. 1D configuration space.</p>
+
+<p>So to restate, a quantum state is a function,</p>
+
+<script type="math/tex; mode=display">\psi : \mathbb{R}^n \rightarrow \mathbb{C}\,.</script>
+
+<p>for $n$-dimensional configuration space such that $\lvert\psi\rvert = 1$, i.e. $\psi$ is $L^2$-normalized.</p>
+
+<p>The $L^2$-norm of a complex-valued function is given as,</p>
+
+<script type="math/tex; mode=display">\lvert\psi\rvert = \sqrt{\int_{\mathbb{R}^n} \psi(x)\bar{\psi}(x)\diff{x
+^n}}\,,</script>
+
+<p>where $\bar{f}(x) = \text{Re}[f(x)] - i\,\text{Im}[f(x)]$ is the complex conjugate.</p>
+
+<h2 id="punchline-quantum-states-are-probability-distributions"><a class="header-anchor" href="#punchline-quantum-states-are-probability-distributions">Punchline: quantum states are probability distributions</a></h2>
+<p>You probably already guessed that $\psi$ encodes the probability of finding particles in space. The probabiliy of observing system $\psi$ to be in <span class="marginnote-outer"><span class="marginnote-ref">some region of configuration space</span><label for="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"> ⊕</label><input type="checkbox" id="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Remember that $n$ is the total number of spatial coordinates that describes the system. We are calculating the probability for all the coordinates together to be in some range.</span></span></span> $D \subseteq \mathbb{R}^n$ is,</p>
+
+<script type="math/tex; mode=display">\int_D  \psi(x) \bar{\psi}(x)\diff{x^n}\,.</script>
+
+<p>$\psi(x) \bar{\psi}(x) = \lvert\psi(x)\rvert^2$ is the absolute value squared of the complex value $\psi(x)$ (not to be confused with the function-norm $\lvert\psi\rvert$). In other words, $\lvert\psi(x)\rvert^2$ is a probability density. $\psi(x)$ is called a <span class="marginnote-outer"><span class="marginnote-ref"><em>probability amplitude</em></span><label for="8fd9acc0f5baccc0d4f8236ac8210c8d7555b801" class="margin-toggle"> ⊕</label><input type="checkbox" id="8fd9acc0f5baccc0d4f8236ac8210c8d7555b801" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">“Probability amplitude” refers specifically to a complex number whose square is a probability. I don’t think the word “amplitude” makes this apparent and it is rather ambiguous, but it’s handy to have a term to refer to these not-quite-probabilities and that is the convention.</span></span></span></p>
+
+<h1 id="2-quantum-states-are-vectors"><a class="header-anchor" href="#2-quantum-states-are-vectors">2) Quantum States Are Vectors</a></h1>
+
+<blockquote>
+  <p>Quantum states are unit vectors residing in a complex Hilbert space, $\mathcal{H}$.</p>
+</blockquote>
+
+<p><span class="marginnote-outer"><span class="marginnote-ref"><em>Hilbert space</em></span><label for="da5780db3d541999f81e9889c2af05f261b22854" class="margin-toggle"> ⊕</label><input type="checkbox" id="da5780db3d541999f81e9889c2af05f261b22854" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The definition of Hilbert space is surprisingly ambiguous or too technical in most sources. For a while I was confused about what was special about Hilbert spaces in contrast with typical vector spaces. The axioms of linear algebra <a href="https://math.stackexchange.com/a/28876" target="_blank" rel="noopener noreferrer">allow for complex-valued scalars</a>. The other notable feature of Hilbert space is that it allows for infinite dimensions, but that doesn’t make it unique. There are many ways to construct infinite dimensional vector spaces, e.g. <a href="https://math.stackexchange.com/a/466741" target="_blank" rel="noopener noreferrer">this answer</a>. The distinguishing feature of Hilbert space is that it is <a href="https://en.wikipedia.org/wiki/Complete_metric_space" target="_blank" rel="noopener noreferrer"><em>complete</em></a>, meaning that all <a href="https://en.wikipedia.org/wiki/Cauchy_sequence" target="_blank" rel="noopener noreferrer">Cauchy sequences</a> of vectors in Hilbert space converge to vectors in Hilbert space. This ensures we can do calculus. It is true that all finite dimensional inner product spaces are Hilbert spaces, and they are simultaneously many other types of spaces, e.g. Banach spaces. Finite dimensional vector spaces do show up in quantum mechanics, and they are still called Hilbert spaces for consistency. Further reading: <a href="https://www.quantiki.org/wiki/hilbert-spaces" target="_blank" rel="noopener noreferrer">A</a>, <a href="https://en.wikipedia.org/wiki/Hilbert_space#History" target="_blank" rel="noopener noreferrer">B</a>.</span></span></span> is a generalization of Euclidean vector space to real or complex-valued vector spaces, with finite or infinite dimensions. The generalization of the Euclidean inner-product for functions is,</p>
+
+<script type="math/tex; mode=display">\langle f, g \rangle = \int_{\mathbb{R}^n} f(x)\bar{g}(x)\diff{x^n}\,.</script>
+
+<p>Let $\mathcal{H}$ be a Hilbert space of $L^2$-normalized complex-valued functions. Then any $\psi \in \mathcal{H}$ is a unit-vector, since $\lvert\psi\rvert^2 = \langle \psi, \psi \rangle = 1$.</p>
+
+<h2 id="measurement-bases"><a class="header-anchor" href="#measurement-bases">Measurement Bases</a></h2>
+
+<p>Given that the elements of $\mathcal{H}$ are functions over $x$, one straightforward way to choose a basis for $\mathcal{H}$ is to think of $\psi \in \mathcal{H}$ as a vector with uncountably many entries, one for each input $x$. This is achieved with a basis of <span class="marginnote-outer"><span class="marginnote-ref"><a href="https://en.wikipedia.org/wiki/Dirac_delta_function" target="_blank" rel="noopener noreferrer">Dirac delta functions</a></span><label for="68625e91f114b5de914c4a1ae96b612e8a90302e" class="margin-toggle"> ⊕</label><input type="checkbox" id="68625e91f114b5de914c4a1ae96b612e8a90302e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">0 everywhere except for the origin. Defined so that its total area is 1. Technically they are not functions, but <a href="https://en.wikipedia.org/wiki/Dirac_delta_function#As_a_distribution" target="_blank" rel="noopener noreferrer">distributions</a>.</span></span></span>. Writing $\psi$ in this basis,</p>
+
+<!--$$
+\psi(x) = \int_{\mathbb{R}^n} \psi(\chi)\delta(x-\chi)\diff{\chi^n}\,,
+$$-->
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+\psi &= \int_{\mathbb{R}^n} \psi(\chi)\cdot\left[ x \mapsto \delta(x-\chi)\right]\diff{\chi^n} \\
+     &= x \mapsto \int_{\mathbb{R}^n} \psi(\chi)\delta(x-\chi)\diff{\chi^n} \\
+     &= x \mapsto \psi(x)\,.
+\end{align} %]]></script>
+
+<p>This integral is an uncountable linear combination, where <span class="marginnote-outer"><span class="marginnote-ref">$x \mapsto \delta(x-\chi)$</span><label for="6e2c209cbdb6c596f74638233310e8ffd60cc39e" class="margin-toggle"> ⊕</label><input type="checkbox" id="6e2c209cbdb6c596f74638233310e8ffd60cc39e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Note I am using non-standard notation. “$x \mapsto f(x)$” instantiates a function object in-line, just as “$\{f(y) \mid \text{condition}[y]\}$” instantiates a set in-line.</span></span></span> is the $\chi$-th basis element and $\psi(\chi)$ is the corresponding coefficient.</p>
+
+<p>This basis of Dirac deltas corresponds to position measurement. Particles and systems of particles have other measureable properties, like momentum and total energy, which have their own bases. More on that below.</p>
+
+<h2 id="a-proper-basis"><a class="header-anchor" href="#a-proper-basis">A Proper Basis</a></h2>
+
+<p>There is a problem here. $b_\chi = x \mapsto \delta(x-\chi)$ is not $L^2$-normalizable, because $\lvert b_\chi\rvert^2 = \int_{\mathbb{R}^n} \delta(x-\chi)^2\diff{x^n}$ is undefined. Such a basis that is not actually contained in our vector space is sometimes called an <em>improper basis</em>. This can be remedied by augmenting $\mathcal{H}$ to include objects like Dirac deltas. The resulting construction is called a <a href="https://en.wikipedia.org/wiki/Rigged_Hilbert_space" target="_blank" rel="noopener noreferrer">rigged Hilbert space</a>. However, this is not an ideal solution because <span class="marginnote-outer"><span class="marginnote-ref">now we have quantum states</span><label for="0f554cb904b48367e4f303e35eba33200371deb9" class="margin-toggle"> ⊕</label><input type="checkbox" id="0f554cb904b48367e4f303e35eba33200371deb9" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">We will soon see that we want our Hilbert space to be closed under Fourier transform, so if Dirac deltas are included, then so should sin waves of the form $x \mapsto e^{ikx}$, which are also not $L^2$-normalizable.</span></span></span> which cannot be interpreted as probability distributions.</p>
+
+<p>There are plenty of valid orthonormal bases for the Hilbert space of <span class="marginnote-outer"><span class="marginnote-ref">unit vectors</span><label for="a407fae48b39bd45ead1aeb29b1a295c009b4471" class="margin-toggle"> ⊕</label><input type="checkbox" id="a407fae48b39bd45ead1aeb29b1a295c009b4471" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">And also $L^2$-normalized functions.</span></span></span>. You may be surprised to learn that such bases are necessarily countable. One of the most well known is the <a href="https://en.wikipedia.org/wiki/Quantum_harmonic_oscillator#Hamiltonian_and_energy_eigenstates" target="_blank" rel="noopener noreferrer">measurement basis for the total energy of the harmonic oscillator</a>.</p>
+
+<script type="math/tex; mode=display">\mathcal{B} = \{x \mapsto(-1)^n(2^nn!\sqrt{\pi})^{-\frac{1}{2}}e^{\frac{x^2}{2}}\frac{\diff{^n}}{\diff{x^n}}\left[e^{-x^2}\right]\,\mid\, n \in \mathbb{N}\}\,.</script>
+
+<p>Symbolically these functions look quite complicated, but you can get a sense for the pattern of what these functions look like as $n$ increases:
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Herm5.svg/900px-Herm5.svg.png" alt="">
+*Plot of first 6 basis functions: 0 (black), 1 (red), 2 (blue), 3 (yellow), 4 (green), and 5 (magenta). Note that these are real-valued functions. Source: <a href="https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions</a>.
+ *</p>
+
+<p>It’s amazing that can write any function in $\mathcal{H}$ as a linear combination of the functions in $\mathcal{B}$, i.e. any continuous complex-valued $L^2$-normalized function can be written as a weighted sum of these functions. We can also use $\mathcal{B}$ to explicitly construct our $L^2$-normalized Hilbert space,</p>
+
+<script type="math/tex; mode=display">\mathcal{H} = \{c_0H_0(x) + c_1H_1(x) + c_2H_2(x) + \ldots \,|\, c_0,c_1,c_2,\ldots\in\mathbb{C}\}\,,</script>
+
+<p>where $H_n(x) \in \mathcal{B}$ is the $n$-th <a href="https://en.wikipedia.org/wiki/Hermite_polynomials#Definition" target="_blank" rel="noopener noreferrer">Hermite function</a>.</p>
+
+<h2 id="punchline-uncertainty-principle-from-change-of-basis"><a class="header-anchor" href="#punchline-uncertainty-principle-from-change-of-basis">Punchline: Uncertainty Principle From Change Of Basis</a></h2>
+
+<p>Under the vector view, the coefficients of a quantum state in some measurement basis are <span class="marginnote-outer"><span class="marginnote-ref">probability amplitudes</span><label for="da0f2680d7f9c26d8d21b75aee55f3fa4e0dbc0d" class="margin-toggle"> ⊕</label><input type="checkbox" id="da0f2680d7f9c26d8d21b75aee55f3fa4e0dbc0d" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Their absolute squares are probabilities or probability densities.</span></span></span>. The basis vectors are called <em>definite</em> states, and their linear combinations are indefinite. So if</p>
+
+<script type="math/tex; mode=display">\psi = c_1 B_1 + c_2 B_2 + \ldots\,</script>
+
+<p>for measurement basis $\{B_1, B_2, \ldots\}$, when the corresponding property of $\psi$ is measured, the system will instantaneously jump to one of $B_i$ with probability $\lvert c_i\rvert^2$. This instantaneous jump is called <a href="https://en.wikipedia.org/wiki/Wave_function_collapse" target="_blank" rel="noopener noreferrer"><em>wave-function collapse</em></a>. The experimenter will also know which of the basis states the system is in because there is a corresponding measurement readout for each (unless the measurement is degenerate). In the position basis, we recover the probability interpretation of states as functions.</p>
+
+<p><em>Superposition</em> is the name given to the physical phenomenon of a system being in an indefinite state, meaning that when you observe some property the outcome is probabilistic. Mathematically superposition is modeled by linear combinations of definite states. A key facet of quantum mechanics is that multiple measurable properties of a system cannot be <span class="marginnote-outer"><span class="marginnote-ref">simultaneously definite</span><label for="7066f1de8a35a976b9f072db9e312f0a6ba14845" class="margin-toggle"> ⊕</label><input type="checkbox" id="7066f1de8a35a976b9f072db9e312f0a6ba14845" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Aside from so-called <a href="https://en.wikipedia.org/wiki/Complete_set_of_commuting_observables" target="_blank" rel="noopener noreferrer">commuting observables</a>.</span></span></span>. We get this phenomenon for free out of the framework of linear algebra, by representing properties to be measured as orthonormal bases in Hilbert space.</p>
+
+<p>The famous example is position and momentum. Both these properties of a particle cannot be known at the same time. We saw that the position (improper) basis for one spatial coordinate is</p>
+
+<script type="math/tex; mode=display">\mathcal{B}_\text{x} = \{x \mapsto \delta(x - \chi) \mid \chi \in \mathbb{R}\}\,.</script>
+
+<p>The momentum basis is the <a href="https://en.wikipedia.org/wiki/Position_and_momentum_space#Relation_between_space_and_reciprocal_space" target="_blank" rel="noopener noreferrer">Fourier conjugate</a> of the position basis, given as</p>
+
+<script type="math/tex; mode=display">\mathcal{B}_\text{p} = \{x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx} \mid p \in \mathbb{R}\}\,.</script>
+
+<p>The real part of these functions are sin waves. An element $[x \mapsto \delta(x - \chi)] \in \mathcal{B}_\text{x}$ of the position basis can be written as a linear combination of momentum basis elements,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+[x \mapsto \delta(x - \chi)] 
+  &= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \vec{b}_p \diff{p} \\
+  &= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \left[x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx}\right] \diff{p} \\
+  &= x \mapsto \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \frac{1}{\sqrt{2\pi}}e^{ipx} \diff{p}
+\end{align}\,. %]]></script>
+
+<p>In the momentum basis, a position basis element becomes a sine wave, i.e. the coefficient of the $p$-th momentum basis element is $\frac{1}{\sqrt{2\pi}}e^{-ip\chi}$.</p>
+
+<p>The <em>Heisenberg uncertainty principle</em>, informally, states that a quantum state which is more localized in space (peakier distribution in the position basis) is necessarily less localized in momentum space (spread out distribution in the momentum basis), and vice versa. This uncertainty principle is not an extra assertion on top of quantum mechanics, but is a <span class="marginnote-outer"><span class="marginnote-ref">consequence of the Fourier transform</span><label for="a49269f8c12334e2ed9b8c18b484bc3255faf867" class="margin-toggle"> ⊕</label><input type="checkbox" id="a49269f8c12334e2ed9b8c18b484bc3255faf867" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The same uncertainty principle is a problem when converting audio recordings to sheet music, as the frequency resolution of a <a href="https://en.wikipedia.org/wiki/Spectrogram" target="_blank" rel="noopener noreferrer">spectrogram</a> is inversely proportional to the time resolution. In other words, you cannot know the exact frequency of a fast changing sound due to the same uncertainty principle. Here time plays the role of space. <a href="https://lts2.epfl.ch/blog/gbr/2015/05/08/uncertainty-principle-in-quantum-physics-and-signal-processing/" target="_blank" rel="noopener noreferrer">Further reading.</a></span></span></span>. More generally, there is an uncertainty principle between any two measurable properties with <span class="marginnote-outer"><span class="marginnote-ref">different measurement bases</span><label for="9acabeda9899d14b3b917f753be9cfa784d0a28c" class="margin-toggle"> ⊕</label><input type="checkbox" id="9acabeda9899d14b3b917f753be9cfa784d0a28c" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Technically this is not true, as some properties can be <a href="https://en.wikipedia.org/wiki/Complete_set_of_commuting_observables" target="_blank" rel="noopener noreferrer">observed simultaneously</a>. How this happens is out of the scope of this post, but essentially, when measurement readouts correspond to multiple basis elements the system will collapse to a superposition of those elements, i.e. it will be projected onto their span. A second measurement of a “compatible” property will further collapse the system to a single basis element.</span></span></span>.</p>
+
+<h1 id="conclusion"><a class="header-anchor" href="#conclusion">Conclusion</a></h1>
+
+<p>This definition of quantum state is very helpful for visualizing what your system looks like in physical space. The vector definition is unfortunately more abstract and can often obscure the connection to physical space. The vector defnition has its own benefits. In my opinion, knowing how to go between both definitions is optimal for understanding.</p>
+
+<p>I didn’t touch on how quantization comes into play, i.e. discrete measurement outcomes. In short, discrete measurement bases result in discrete measurement readouts. For example, total energy will be discrete for particles in potential wells, and continuous for free particles. What determines whether the measurement basis will be continuous or discrete, and how to derive these bases all together, is a complicated matter that gets into <a href="https://en.wikipedia.org/wiki/Spectral_theory" target="_blank" rel="noopener noreferrer">spectral theory of linear operators</a>. Maybe a topic of a future post.</p>
+
+<p>It’s important to point out is that <a href="https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics" target="_blank" rel="noopener noreferrer">measurement in quantum mechanics</a> is not explained, but <a href="https://en.wikipedia.org/wiki/Wave_function_collapse#History_and_context" target="_blank" rel="noopener noreferrer">taken as given</a>. The non-determinism of measurement outcomes is part of the <a href="https://en.wikipedia.org/wiki/Dirac%E2%80%93von_Neumann_axioms" target="_blank" rel="noopener noreferrer">axioms of quantum mechanics</a>, at least under the Copenhagen interpretation. There are alternative interprations which deny wave-function collapse, notably <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank" rel="noopener noreferrer">pilot-wave</a> and <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation" target="_blank" rel="noopener noreferrer">many-worlds</a>.</p>
+
+<!--
+
+*discuss energy bases? discuss quantization of momentum and energy?*
+
+*recap the logic of this using qbits. say that there is a physical analog called spin. qbits are inherently vectors, and the connection to physical space is entirely lost, but the logic of quantum measurement is easier to see*
+
+discuss position, momentum, and energy measurements? dont go into observable operators. thats a future post
+
+*dont talk about operators. just that different measurement bases have uncertainty relations. dont talk about degenerate spectra and commuting operators, but just mention that is a thing because people will wonder whether any measurements dont have an uncertainty relation.*
+
+Measurable properties can have linear subspaces as "outcomes", rather than single vectors (i.e. 1D linear subspaces). If two different measurable properties have such subspaces that are mutually orthogonal (one subspace is either orthogonal or contained in every other subspace), the properties can be known at the same time. If a combined set of properties results in outcomes that are all 1D orthogonal subspaces, this forms a complete basis. This is called a [complete set of commuting observables](https://en.wikipedia.org/wiki/Complete_set_of_commuting_observables).
+
+*superposition and quantum non-determinism is not explained. taken as an axiom of quantum mechanics under the standard interpretation*
+
+-->
+
+
+
+
+    </article>
+    <!-- http://sgeos.github.io/jekyll/disqus/2016/02/15/adding-disqus-to-a-jekyll-blog.html -->
+
+
+
+<hr class="slender">
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zhat.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+                            
+
+    <span class="print-footer">Quantum State - December 22, 2019 - pragmanym</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links"> 
+    <li><a href="/about">FAQ</a></li>  
+    
+      <li>
+        <a href="mailto:pragmanym@gmail.com"><span class="icon-mail"></span></a>
+      </li>
+    
+      <li>
+        <a href="//github.com/pragmanym"><span class="icon-github"></span></a>
+      </li>
+    
+      <li>
+        <a href="/feed"><span class="icon-feed"></span></a>
+      </li>
+      
+  </ul>
+  <div class="credits">
+  <span style="line-height: 3rem;">© 2019   PRAGMANYM</span><br>
+  <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
+  </div>  
+</footer>
+  </body>
+</html>
