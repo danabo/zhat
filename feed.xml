@@ -5,9 +5,22 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 24 Dec 2019 17:16:44 -0800</pubDate>
-    <lastBuildDate>Tue, 24 Dec 2019 17:16:44 -0800</lastBuildDate>
+    <pubDate>Tue, 31 Dec 2019 18:07:51 -0800</pubDate>
+    <lastBuildDate>Tue, 31 Dec 2019 18:07:51 -0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Solomonoff Induction - Study Notes</title>
+        <description>
+</description>
+        <pubDate>Tue, 31 Dec 2019 00:00:00 -0800</pubDate>
+        <link>pragmanym.github.io/zhat/articles/solomonoff-induction</link>
+        <guid isPermaLink="true">pragmanym.github.io/zhat/articles/solomonoff-induction</guid>
+        
+        
+        <category>Notes</category>
+        
+      </item>
     
       <item>
         <title>Weak Measurement (Quantum Mechanics) - Study Notes</title>
