@@ -13,7 +13,7 @@ comments: false
     {% for post in site.posts %}  
       {% capture url_to_use %}{{ post.url | prepend: site.baseurl }}{% endcapture %}
       {% if post.redirect_url %}
-        {% capture url_to_use %}{{ post.redirect_url" }}{% endcapture %}
+        {% capture url_to_use %}{{ post.redirect_url }}{% endcapture %}
       {% endif %}    
         <li class="listing">
           <a name="{{ post.url }}" ></a>
