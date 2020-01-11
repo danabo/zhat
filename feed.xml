@@ -5,9 +5,35 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 31 Dec 2019 18:07:51 -0800</pubDate>
-    <lastBuildDate>Tue, 31 Dec 2019 18:07:51 -0800</lastBuildDate>
+    <pubDate>Fri, 10 Jan 2020 19:26:44 -0800</pubDate>
+    <lastBuildDate>Fri, 10 Jan 2020 19:26:44 -0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Wallace: Emergence of particles from QFT - Study Notes</title>
+        <description>
+</description>
+        <pubDate>Fri, 10 Jan 2020 00:00:00 -0800</pubDate>
+        <link>pragmanym.github.io/zhat/articles/wallace-particles-qft</link>
+        <guid isPermaLink="true">pragmanym.github.io/zhat/articles/wallace-particles-qft</guid>
+        
+        
+        <category>Notes</category>
+        
+      </item>
+    
+      <item>
+        <title>Visualizing Quantum Field States - Study Notes</title>
+        <description>
+</description>
+        <pubDate>Fri, 10 Jan 2020 00:00:00 -0800</pubDate>
+        <link>pragmanym.github.io/zhat/articles/visualizing-quantum-fields</link>
+        <guid isPermaLink="true">pragmanym.github.io/zhat/articles/visualizing-quantum-fields</guid>
+        
+        
+        <category>Notes</category>
+        
+      </item>
     
       <item>
         <title>Solomonoff Induction - Study Notes</title>
