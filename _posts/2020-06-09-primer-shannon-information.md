@@ -40,16 +40,64 @@ I'm going to use non-standard notation which I believe avoids some confusion and
 
 Shannon defines information indirectly by defining quantity of information contained in a message/event. This is analogous how physics defines mass and energy in terms of their quantities.
 
-We can derive Shannon's definition from two principles:
+We can derive Shannon's definition of information by combining these two necessary principles:
 
 1. Quantity of information is a function only of probability of occurrence.
 2. Quantity of information acts like quantity of bits when applied to computer memory.
 
-(1) implies that messages/events must always come from a distribution, which is what provides the probabilities. Say you receive a message $x$ sampled from probability distribution (function) $p_X : X \to [0, 1]$ over a {% marginnote "discrete" "Assume all distributions are discrete until the [continuous section](#shannon-information-for-continuous-distributions)" %} event space $X$. The **self-information** of $x$, i.e. the amount of information gained by receiving $x$, is the quantity {% marginnote "$h(x)$" "The standard notation is $I(x)$, but this is easy to confuse with mutual information [below](#expected-mutual-information)." %}. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of the probability $p_X(x)$ only, and not $x$ itself. So far, we don't know what $f$ should be. Let's dig deeper.
+Let's define {% marginnote "$h(x)$" "The standard notation is $I(x)$, but this is easy to confuse with mutual information [below](#expected-mutual-information)." %} to be the **self-information** of $x$, which is the amount of information gained by {% marginnote "receiving" "Receiving here can mean, (1) sampling an outcome from a distribution, (2) storing in memory *one* of its possible states, or (3) viewing with the mind or knowing to be the case one out of the possible cases." %} $x$. We will see how a natural definition of $h(x)$ arises from these two principles.
 
-For (2), consider computer memory. With $N$ bits, there is one thing out of $2^N$ possibilities the memory can store. Increasing the number of bits exponentially increases the {% marginnote "number of counterfactuals" "I mean the number of possible things that are not the case." %}. It's useful here to think of a probability distribution as a weighted possibility space. To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible outcomes, the *weight* of a single outcome is $\frac{1}{2^N} = 2^{-N}$, given a uniform weighting.
+Principle (1) gives us $h(x) = f(p_X(x))$.
 
-Combining (1) and (2), $f$ should return $N$ when $p=2^{-N}$. It is clear that 
+To see why, let's unpack (1): it implies that messages/events must always come from a distribution, which is what provides the probabilities. Say you receive a message $x$ sampled from probability distribution (function) $p_X : X \to [0, 1]$ over a {% marginnote "discrete" "Assume all distributions are discrete until the [continuous section](#shannon-information-for-continuous-distributions)." %} event space $X$. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of the probability $p_X(x)$ only, and not $x$ itself. So far, we don't know what $f$ should be.
+
+Principle (2) gives us {% marginnote "$f(p) = -\log_2 p$" "Though we assume a uniform discrete probability distribution to derive this, we will use this definition of $f$ to generalize the same logic to all probability distributions, which is how we arrive at the final definition of $h$." %}.
+
+To understand (2), consider computer memory. With $N$ bits of memory there are $2^N$ distinguishable states, and only one is the case at one time. Increasing the number of bits exponentially increases the {% marginnote "number of counterfactual states" "Number of states you could have stored but didn't." %}. In memory terms, receiving a "message" of $N$ bits of memory simply means finding out the state those bits are in.  To see the equivalence between these two definitions of the quantity of information, it is useful to think of the probability distribution as a weighted possibility space, and of the memory states as possibilities.
+
+Attaching equal weight to each possibility (i.e. memory state) gives us a special case of the probability distribution we used above to define $h$: the *uniform* distribution, where there are $2^N$ possible states and the weight of single state is $\frac{1}{2^N} = 2^{-N}$. We intuitively think of the quantity of information stored in memory as the number of bits it has. We have $f(p)$ return $N$ when every possible state has an equal weight of $p=2^{-N}$, because we assume a uniform distribution over $2^N$ states, which is equivalent to how we conceive of computer memory with $N$ bits.
+
+Composing $f(p) = -\log_2 p$ of principle (2) with $h(x) = f(p_X(x))$ of principle (1) above gives us the full definition of self-information:
+
+$$
+h(x) = -\log_2 p_X(x)\,.
+$$
+
+
+*Now the magic happens.* Given that we defined self-information as $h(x) = f(p_X(x))$, and given that we've pinned down $f(p) = -\log_2 p$ for a special case, we've done all the work we need to do to define $h(x)$ for all probability distributions, because nothing in our definition of $f(p)$ actually depends on the particular distribution we used.
+
+<!--
+For our special case distribution $p_X(x) = 2^{-N}$ is a constant. But our definition of $f(p)$ does not rely on this probability function $p_X$ in any way.
+
+ Though we derived $f(p)$ assuming a uniform distribution over memory states, $f$ is a function of only a probability *value*, **not** a distribution, and so the type of $f$ is agnostic to the distribution $p$ came from. This choice of $f$ fully constrains $h$ in all cases.
+-->
+
+<!--
+ with the possibilities here being the possible states the memory could be in.
+
+ In that light, computer memory becomes a special case of such a distribution where we assign equal probability to all the possible states the memory could be in.-->
+
+
+<!--If we then think of the possible states the memory could be in as outcomes to which we attach weights, and if we weighted them all equally, then this distribution over memory states is just a special case of a probability distribution which we looked at in the first definition. -->
+
+<!--
+To get It's useful here to think of a probability distribution as a weighted possibility space.
+
+To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible states, the *weight* of a single state is $\frac{1}{2^N} = 2^{-N}$, which gives us a uniform weighting.-->
+
+
+
+<!-- Combining (1) and (2), we want $f(p)$ to return $N$ for the case of computer memory, i.e. a uniform distribution over $N$ bits when $p=2^{-N}$. It is clear that  -->
+
+<!--We intuitively think of the quantity of information stored in memory as the number of bits it has. Combining (1) and (2) formalizes this intuition: we have $f(p)$ return $N$ when there are $N$ bits, because we assume a uniform distribution over $2^N$ states, which gives us a probability of $p=2^{-N}$ for every state.-->
+
+
+
+<!--We intuitively think of the quantity of information stored in memory as the number of bits it has. Combining (1) and (2) formalizes this intuition: we have $f(p)$ return $N$ when every possible state has an equal weight of $p=2^{-N}$, because we assume a uniform distribution over $2^N$ states, which is equivalent to how we conceive of computer memory with $N$ bits.-->
+
+<!--
+
+Thus we define:
 
 $$
 \begin{align}
@@ -58,7 +106,18 @@ f(p) &= -\log_2 p \\
 \end{align}
 $$
 
-From here on, I will use $h(x)$ as a function of message $x$, without specifying the type of $x$. It can be anything, a number, a binary sequence, a string, etc. $f(p)$ is a function of probability, rather than messages. Keep in mind that $h(x) = f(p_X(x))$, and so $h$ implicitly assumes we have a probability distribution over $x$ defined somewhere. This distinction between $h$ and $f$ will help avoid confusion.
+-->
+
+From here on, I will use $h(x)$ as a function of message $x$, without specifying the type of $x$. It can be anything: a number, a binary sequence, a string, etc. $f(p)$ is a function of probabilities, rather than messages. So:
+<p style="text-align: center;">$h : X \to \R^+$ maps from messages to information,<br/> 
+and $f : [0, 1] \to \R^+$ maps from probabilities to information;</p>
+and keep in mind that $h(x) = f(p_X(x))$, so {% marginnote "$h$ implicitly assumes" "I may sometimes write $h_X$ to make explicit the dependency of $h$ on $p_X$." %} we have a probability distribution over $x$ defined somewhere.
+
+In some places below {% marginnote "I've written equations in terms of $f$ rather than $h$" "Allow me the slight verbosity now, as you'd probably have had to pore over verbose definitions if I hadn't." %} where I felt it would allow you to grasp things just by looking at the shape of the equation.
+
+
+
+
 
 ## *Bits*, not bits
 
@@ -563,4 +622,8 @@ I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right)
 $$
 
 where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$.
+
+# Acknowledgments
+
+I would like to thank John Chung for extensive and Aneesh Mulye for excruciating feedback on the structure and language of this post. 
 
