@@ -5,8 +5,8 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 09 Jun 2020 22:06:17 -0700</pubDate>
-    <lastBuildDate>Tue, 09 Jun 2020 22:06:17 -0700</lastBuildDate>
+    <pubDate>Wed, 10 Jun 2020 00:48:17 -0700</pubDate>
+    <lastBuildDate>Wed, 10 Jun 2020 00:48:17 -0700</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -66,6 +66,7 @@
       &lt;li&gt;&lt;a href=&quot;#cross-entropy-and-kl-divergence&quot; id=&quot;markdown-toc-cross-entropy-and-kl-divergence&quot;&gt;Cross Entropy and KL-Divergence&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#acknowledgments&quot; id=&quot;markdown-toc-acknowledgments&quot;&gt;Acknowledgments&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;self-information&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#self-information&quot;&gt;Self-Information&lt;/a&gt;&lt;/h1&gt;
@@ -85,26 +86,74 @@
 
 &lt;p&gt;Shannon defines information indirectly by defining quantity of information contained in a message/event. This is analogous how physics defines mass and energy in terms of their quantities.&lt;/p&gt;
 
-&lt;p&gt;We can derive Shannon’s definition from two principles:&lt;/p&gt;
+&lt;p&gt;We can derive Shannon’s definition of information by combining these two necessary principles:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Quantity of information is a function only of probability of occurrence.&lt;/li&gt;
   &lt;li&gt;Quantity of information acts like quantity of bits when applied to computer memory.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;(1) implies that messages/events must always come from a distribution, which is what provides the probabilities. Say you receive a message $x$ sampled from probability distribution (function) $p_X : X \to [0, 1]$ over a &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;discrete&lt;/span&gt;&lt;label for=&quot;00fa9a5874a8c4791694a74a449fd8e01597cedd&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;00fa9a5874a8c4791694a74a449fd8e01597cedd&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Assume all distributions are discrete until the &lt;a href=&quot;#shannon-information-for-continuous-distributions&quot;&gt;continuous section&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; event space $X$. The &lt;strong&gt;self-information&lt;/strong&gt; of $x$, i.e. the amount of information gained by receiving $x$, is the quantity &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$h(x)$&lt;/span&gt;&lt;label for=&quot;ad226219b7413f6c19c43a404b5a9d36708aa40e&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;ad226219b7413f6c19c43a404b5a9d36708aa40e&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;The standard notation is $I(x)$, but this is easy to confuse with mutual information &lt;a href=&quot;#expected-mutual-information&quot;&gt;below&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of the probability $p_X(x)$ only, and not $x$ itself. So far, we don’t know what $f$ should be. Let’s dig deeper.&lt;/p&gt;
+&lt;p&gt;Let’s define &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$h(x)$&lt;/span&gt;&lt;label for=&quot;ad226219b7413f6c19c43a404b5a9d36708aa40e&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;ad226219b7413f6c19c43a404b5a9d36708aa40e&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;The standard notation is $I(x)$, but this is easy to confuse with mutual information &lt;a href=&quot;#expected-mutual-information&quot;&gt;below&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; to be the &lt;strong&gt;self-information&lt;/strong&gt; of $x$, which is the amount of information gained by &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;receiving&lt;/span&gt;&lt;label for=&quot;5aecb422be00894a86508ac09f6366924a33ad33&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;5aecb422be00894a86508ac09f6366924a33ad33&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Receiving here can mean, (1) sampling an outcome from a distribution, (2) storing in memory &lt;em&gt;one&lt;/em&gt; of its possible states, or (3) viewing with the mind or knowing to be the case one out of the possible cases.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; $x$. We will see how a natural definition of $h(x)$ arises from these two principles.&lt;/p&gt;
 
-&lt;p&gt;For (2), consider computer memory. With $N$ bits, there is one thing out of $2^N$ possibilities the memory can store. Increasing the number of bits exponentially increases the &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;number of counterfactuals&lt;/span&gt;&lt;label for=&quot;b6005829cc8dd4708170068c8b34f75f8b47c99b&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;b6005829cc8dd4708170068c8b34f75f8b47c99b&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;I mean the number of possible things that are not the case.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. It’s useful here to think of a probability distribution as a weighted possibility space. To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible outcomes, the &lt;em&gt;weight&lt;/em&gt; of a single outcome is $\frac{1}{2^N} = 2^{-N}$, given a uniform weighting.&lt;/p&gt;
+&lt;p&gt;Principle (1) gives us $h(x) = f(p_X(x))$.&lt;/p&gt;
 
-&lt;p&gt;Combining (1) and (2), $f$ should return $N$ when $p=2^{-N}$. It is clear that&lt;/p&gt;
+&lt;p&gt;To see why, let’s unpack (1): it implies that messages/events must always come from a distribution, which is what provides the probabilities. Say you receive a message $x$ sampled from probability distribution (function) $p_X : X \to [0, 1]$ over a &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;discrete&lt;/span&gt;&lt;label for=&quot;36d6168a1655cd352523cce0e3a2ac045fc1621d&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;36d6168a1655cd352523cce0e3a2ac045fc1621d&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Assume all distributions are discrete until the &lt;a href=&quot;#shannon-information-for-continuous-distributions&quot;&gt;continuous section&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; event space $X$. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of the probability $p_X(x)$ only, and not $x$ itself. So far, we don’t know what $f$ should be.&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+&lt;p&gt;Principle (2) gives us &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$f(p) = -\log_2 p$&lt;/span&gt;&lt;label for=&quot;ff9302aebed53145e61c362eae63cb172e24e20a&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;ff9302aebed53145e61c362eae63cb172e24e20a&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Though we assume a uniform discrete probability distribution to derive this, we will use this definition of $f$ to generalize the same logic to all probability distributions, which is how we arrive at the final definition of $h$.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;To understand (2), consider computer memory. With $N$ bits of memory there are $2^N$ distinguishable states, and only one is the case at one time. Increasing the number of bits exponentially increases the &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;number of counterfactual states&lt;/span&gt;&lt;label for=&quot;b6ce5dab64f8e17412d6f1eecdbc565ff4506d08&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;b6ce5dab64f8e17412d6f1eecdbc565ff4506d08&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Number of states you could have stored but didn’t.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. In memory terms, receiving a “message” of $N$ bits of memory simply means finding out the state those bits are in.  To see the equivalence between these two definitions of the quantity of information, it is useful to think of the probability distribution as a weighted possibility space, and of the memory states as possibilities.&lt;/p&gt;
+
+&lt;p&gt;Attaching equal weight to each possibility (i.e. memory state) gives us a special case of the probability distribution we used above to define $h$: the &lt;em&gt;uniform&lt;/em&gt; distribution, where there are $2^N$ possible states and the weight of single state is $\frac{1}{2^N} = 2^{-N}$. We intuitively think of the quantity of information stored in memory as the number of bits it has. We have $f(p)$ return $N$ when every possible state has an equal weight of $p=2^{-N}$, because we assume a uniform distribution over $2^N$ states, which is equivalent to how we conceive of computer memory with $N$ bits.&lt;/p&gt;
+
+&lt;p&gt;Composing $f(p) = -\log_2 p$ of principle (2) with $h(x) = f(p_X(x))$ of principle (1) above gives us the full definition of self-information:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;h(x) = -\log_2 p_X(x)\,.&lt;/script&gt;
+
+&lt;p&gt;&lt;em&gt;Now the magic happens.&lt;/em&gt; Given that we defined self-information as $h(x) = f(p_X(x))$, and given that we’ve pinned down $f(p) = -\log_2 p$ for a special case, we’ve done all the work we need to do to define $h(x)$ for all probability distributions, because nothing in our definition of $f(p)$ actually depends on the particular distribution we used.&lt;/p&gt;
+
+&lt;!--
+For our special case distribution $p_X(x) = 2^{-N}$ is a constant. But our definition of $f(p)$ does not rely on this probability function $p_X$ in any way.
+
+ Though we derived $f(p)$ assuming a uniform distribution over memory states, $f$ is a function of only a probability *value*, **not** a distribution, and so the type of $f$ is agnostic to the distribution $p$ came from. This choice of $f$ fully constrains $h$ in all cases.
+--&gt;
+
+&lt;!--
+ with the possibilities here being the possible states the memory could be in.
+
+ In that light, computer memory becomes a special case of such a distribution where we assign equal probability to all the possible states the memory could be in.--&gt;
+
+&lt;!--If we then think of the possible states the memory could be in as outcomes to which we attach weights, and if we weighted them all equally, then this distribution over memory states is just a special case of a probability distribution which we looked at in the first definition. --&gt;
+
+&lt;!--
+To get It's useful here to think of a probability distribution as a weighted possibility space.
+
+To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible states, the *weight* of a single state is $\frac{1}{2^N} = 2^{-N}$, which gives us a uniform weighting.--&gt;
+
+&lt;!-- Combining (1) and (2), we want $f(p)$ to return $N$ for the case of computer memory, i.e. a uniform distribution over $N$ bits when $p=2^{-N}$. It is clear that  --&gt;
+
+&lt;!--We intuitively think of the quantity of information stored in memory as the number of bits it has. Combining (1) and (2) formalizes this intuition: we have $f(p)$ return $N$ when there are $N$ bits, because we assume a uniform distribution over $2^N$ states, which gives us a probability of $p=2^{-N}$ for every state.--&gt;
+
+&lt;!--We intuitively think of the quantity of information stored in memory as the number of bits it has. Combining (1) and (2) formalizes this intuition: we have $f(p)$ return $N$ when every possible state has an equal weight of $p=2^{-N}$, because we assume a uniform distribution over $2^N$ states, which is equivalent to how we conceive of computer memory with $N$ bits.--&gt;
+
+&lt;!--
+
+Thus we define:
+
+$$
 \begin{align}
 f(p) &amp;= -\log_2 p \\
 \Longrightarrow h(x) &amp;= -\log_2 p_X(x)\,.
-\end{align} %]]&gt;&lt;/script&gt;
+\end{align}
+$$
 
-&lt;p&gt;From here on, I will use $h(x)$ as a function of message $x$, without specifying the type of $x$. It can be anything, a number, a binary sequence, a string, etc. $f(p)$ is a function of probability, rather than messages. Keep in mind that $h(x) = f(p_X(x))$, and so $h$ implicitly assumes we have a probability distribution over $x$ defined somewhere. This distinction between $h$ and $f$ will help avoid confusion.&lt;/p&gt;
+--&gt;
+
+&lt;p&gt;From here on, I will use $h(x)$ as a function of message $x$, without specifying the type of $x$. It can be anything: a number, a binary sequence, a string, etc. $f(p)$ is a function of probabilities, rather than messages. So:&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;$h : X \to \R^+$ maps from messages to information,&lt;br /&gt; 
+and $f : [0, 1] \to \R^+$ maps from probabilities to information;&lt;/p&gt;
+&lt;p&gt;and keep in mind that $h(x) = f(p_X(x))$, so &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$h$ implicitly assumes&lt;/span&gt;&lt;label for=&quot;ac81d19ce662d5360601c37e5741410b398a15da&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;ac81d19ce662d5360601c37e5741410b398a15da&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;I may sometimes write $h_X$ to make explicit the dependency of $h$ on $p_X$.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; we have a probability distribution over $x$ defined somewhere.&lt;/p&gt;
+
+&lt;p&gt;In some places below &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;I’ve written equations in terms of $f$ rather than $h$&lt;/span&gt;&lt;label for=&quot;407f53214d4b89bb8df9485bfcc2f05a23b9bf92&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;407f53214d4b89bb8df9485bfcc2f05a23b9bf92&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Allow me the slight verbosity now, as you’d probably have had to pore over verbose definitions if I hadn’t.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; where I felt it would allow you to grasp things just by looking at the shape of the equation.&lt;/p&gt;
 
 &lt;h2 id=&quot;bits-not-bits&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#bits-not-bits&quot;&gt;&lt;em&gt;Bits&lt;/em&gt;, not bits&lt;/a&gt;&lt;/h2&gt;
 
@@ -585,6 +634,10 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.&lt;/p&gt;
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right)&lt;/script&gt;
 
 &lt;p&gt;where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$.&lt;/p&gt;
+
+&lt;h1 id=&quot;acknowledgments&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#acknowledgments&quot;&gt;Acknowledgments&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;I would like to thank John Chung for extensive and Aneesh Mulye for excruciating feedback on the structure and language of this post.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 09 Jun 2020 00:00:00 -0700</pubDate>
