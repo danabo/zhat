@@ -45,9 +45,9 @@ We can derive Shannon's definition from two principles:
 1. Quantity of information is a function only of probability of occurrence.
 2. Quantity of information acts like quantity of bits when applied to computer memory.
 
-(1) implies that messages/events must always come from a distribution. Say you receive a message $x$ sampled from $p_X(x)$ over a {% marginnote "discrete" "Assume all distributions are discrete until the [continuous section](#shannon-information-for-continuous-distributions)" %} event space $X$. The **self-information** of $x$, i.e. the amount of information gained by receiving $x$, is the quantity {% marginnote "$h(x)$" "The standard notation is $I(x)$, but this is easy to confuse with mutual information [below](#expected-mutual-information)." %}. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of $p_X$ only. So far, we don't know what $f$ should be. Let's dig deeper.
+(1) implies that messages/events must always come from a distribution, which is what provides the probabilities. Say you receive a message $x$ sampled from probability distribution (function) $p_X : X \to [0, 1]$ over a {% marginnote "discrete" "Assume all distributions are discrete until the [continuous section](#shannon-information-for-continuous-distributions)" %} event space $X$. The **self-information** of $x$, i.e. the amount of information gained by receiving $x$, is the quantity {% marginnote "$h(x)$" "The standard notation is $I(x)$, but this is easy to confuse with mutual information [below](#expected-mutual-information)." %}. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of the probability $p_X(x)$ only, and not $x$ itself. So far, we don't know what $f$ should be. Let's dig deeper.
 
-For (2), consider computer memory. With $N$ bits, you can store one thing out of $2^N$ possibilities. Increasing the number of bits exponentially increases the {% marginnote "number of counterfactuals" "I mean the number of possible things that are not the case." %}. It's useful here to think of a probability distribution as a weighted possibility space. To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible outcomes, the *weight* of a single outcome is $\frac{1}{2^N} = 2^{-N}$, given a uniform weighting.
+For (2), consider computer memory. With $N$ bits, there is one thing out of $2^N$ possibilities the memory can store. Increasing the number of bits exponentially increases the {% marginnote "number of counterfactuals" "I mean the number of possible things that are not the case." %}. It's useful here to think of a probability distribution as a weighted possibility space. To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible outcomes, the *weight* of a single outcome is $\frac{1}{2^N} = 2^{-N}$, given a uniform weighting.
 
 Combining (1) and (2), $f$ should return $N$ when $p=2^{-N}$. It is clear that 
 
@@ -172,7 +172,8 @@ First is expected conditional self-information,
 $$
 \begin{align}
 H[\rY \mid \rX = x] &= \E_{y\sim \rY \mid \rX=x}[h(y \mid x)] \\
-  &= \E_{y\sim \rY \mid \rX=x}[\log_2\left(\frac{p(x)}{p(x, y)}\right)]\,.
+  &= \E_{y\sim \rY \mid \rX=x}[\log_2\left(\frac{p(x)}{p(x, y)}\right)] \\
+  &= \sum\limits_{y \in Y} p(y \mid x) \log_2\left(\frac{p(x)}{p(x, y)}\right)\,.
 \end{align}
 $$
 
