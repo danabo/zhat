@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- facebook sharing preview -->
+  <meta property="og:url" content="http://zhat.io" />
+  <meta property="og:image" content="http://zhat.io/assets/img/zhat.svg">
+
+  <title>Primer to Shannon's Information Theory</title>
+  <meta name="description" content="Shannon’s theory of information is usually just called information theory, but is it deserving of that title? Does Shannon’s theory completely capture every ...">
+
+  <!-- Google Fonts loaded here -->
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        preview: "TeX"
+      },
+      "HTML-CSS": {
+        fonts: ["TeX"],
+        styles: {
+          ".MathJax_Display": {"font-size": "125%"},
+        }
+      },
+      // https://github.com/mathjax/MathJax/issues/1081#issuecomment-399878942
+      TeX: {Augment: {
+        Definitions: {macros: {xfrac: 'XFrac'}},
+        Parse: {prototype: {
+          XFrac: function (name) {
+            var num = this.ParseArg(name);
+            var den = this.ParseArg(name);
+            this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+          }
+        }}
+      }}
+    });
+    </script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="pragmanym.github.io/zhat/articles/primer-shannon-information">
+
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
+</head>
+
+  <body>
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/zhat.svg" alt="\hat{z}" onerror="this.onerror=null;this.src='/assets/img/zhat-large.png';"></a>
+		
+			
+  	
+			
+  	
+			
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+    <article class="group">
+      <h1>Primer to Shannon's Information Theory</h1>
+<p class="subtitle">June 9, 2020</p>
+
+<p>Shannon’s theory of information is usually just called <em>information theory</em>, but is it deserving of that title? Does Shannon’s theory completely capture every possible meaning of the word <em>information</em>? In the grand quests to creating AI and understanding the rules of the universe (i.e. grand unified theory) information may be key. Intelligent agents search for information and manipulate it. Particle interactions in physics may be viewed as information transfer. The physics of information may be key to interpreting quantum mechanics and resolving the measurement problem.</p>
+
+<p>If you endeavour to answer these hard questions, it is prudent to understand existing so-called theories of information so you can evaluate whether they are powerful enough and to take inspiration from them.</p>
+
+<p>Shannon’s information theory is a hard nut to crack. Hopefully this primer gets you far enough along to be able to read a textbook like <em>Elements of Information Theory</em>. At the end I start to explore the question of whether Shannon’s theory is a complete theory of information, and where it might be lacking.</p>
+
+<p>This post is long. That is because Shannon’s information theory is a framework of thought. That framework has a vocabulary which is needed to appreciate the whole. I attempt to gradually build up this vocabulary, stopping along the way to build intuition. With this vocabulary in hand, you will be ready to explore the big questions at the end of this post.</p>
+
+<!--more-->
+
+<ul class="toc" id="markdown-toc">
+  <li>
+<a href="#self-information" id="markdown-toc-self-information">Self-Information</a>    <ul>
+      <li>
+<a href="#bits-not-bits" id="markdown-toc-bits-not-bits"><em>Bits</em>, not bits</a>        <ul>
+          <li><a href="#recap" id="markdown-toc-recap">Recap</a></li>
+        </ul>
+      </li>
+      <li><a href="#stepping-back" id="markdown-toc-stepping-back">Stepping back</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#entropy" id="markdown-toc-entropy">Entropy</a>    <ul>
+      <li><a href="#regarding-notation" id="markdown-toc-regarding-notation">Regarding notation</a></li>
+      <li><a href="#conditional-entropy" id="markdown-toc-conditional-entropy">Conditional Entropy</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#mutual-information" id="markdown-toc-mutual-information">Mutual Information</a>    <ul>
+      <li><a href="#pointwise-mutual-information" id="markdown-toc-pointwise-mutual-information">Pointwise Mutual Information</a></li>
+      <li>
+<a href="#properties-of-pmi" id="markdown-toc-properties-of-pmi">Properties of PMI</a>        <ul>
+          <li><a href="#special-values" id="markdown-toc-special-values">Special Values</a></li>
+        </ul>
+      </li>
+      <li>
+<a href="#expected-mutual-information" id="markdown-toc-expected-mutual-information">Expected Mutual Information</a>        <ul>
+          <li><a href="#channel-capacity" id="markdown-toc-channel-capacity">Channel capacity</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+<a href="#shannon-information-for-continuous-distributions" id="markdown-toc-shannon-information-for-continuous-distributions">Shannon Information For Continuous Distributions</a>    <ul>
+      <li><a href="#proof-that-mi-is-fininte-for-continuous-distributions" id="markdown-toc-proof-that-mi-is-fininte-for-continuous-distributions">Proof that MI is fininte for continuous distributions</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#problems-with-shannon-information" id="markdown-toc-problems-with-shannon-information">Problems With Shannon Information</a>    <ul>
+      <li><a href="#1-tv-static-problem" id="markdown-toc-1-tv-static-problem">1. TV Static Problem</a></li>
+      <li><a href="#2-shannon-information-is-blind-to-scrambling" id="markdown-toc-2-shannon-information-is-blind-to-scrambling">2. Shannon Information is Blind to Scrambling</a></li>
+      <li><a href="#3-deterministic-information" id="markdown-toc-3-deterministic-information">3. Deterministic information</a></li>
+      <li><a href="#4-if-the-universe-is-continuous-everything-contains-infinite-information" id="markdown-toc-4-if-the-universe-is-continuous-everything-contains-infinite-information">4. If the universe is continuous everything contains infinite information</a></li>
+      <li><a href="#5-shannon-information-ignores-the-meaning-of-messages" id="markdown-toc-5-shannon-information-ignores-the-meaning-of-messages">5. Shannon information ignores the meaning of messages</a></li>
+      <li><a href="#6-probability-distributions-are-not-objective" id="markdown-toc-6-probability-distributions-are-not-objective">6. Probability distributions are not objective</a></li>
+    </ul>
+  </li>
+  <li>
+<a href="#appendix" id="markdown-toc-appendix">Appendix</a>    <ul>
+      <li><a href="#properties-of-conditional-entropy" id="markdown-toc-properties-of-conditional-entropy">Properties of Conditional Entropy</a></li>
+      <li><a href="#bayes-rule" id="markdown-toc-bayes-rule">Bayes’ Rule</a></li>
+      <li><a href="#cross-entropy-and-kl-divergence" id="markdown-toc-cross-entropy-and-kl-divergence">Cross Entropy and KL-Divergence</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="self-information"><a class="header-anchor" href="#self-information">Self-Information</a></h1>
+
+<script type="math/tex; mode=display">\newcommand{\and}{\wedge}
+\newcommand{\or}{\vee}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bm}{\boldsymbol}
+\newcommand{\rX}{\bm{X}}
+\newcommand{\rY}{\bm{Y}}
+\newcommand{\rZ}{\bm{Z}}
+\newcommand{\rC}{\bm{C}}
+\newcommand{\diff}[1]{\mathop{\mathrm{d}#1}}</script>
+
+<p>I’m going to use non-standard notation which I believe avoids some confusion and ambiguities.</p>
+
+<p>Shannon defines information indirectly by defining quantity of information contained in a message/event. This is analogous how physics defines mass and energy in terms of their quantities.</p>
+
+<p>We can derive Shannon’s definition from two principles:</p>
+
+<ol>
+  <li>Quantity of information is a function only of probability of occurrence.</li>
+  <li>Quantity of information acts like quantity of bits when applied to computer memory.</li>
+</ol>
+
+<p>(1) implies that messages/events must always come from a distribution. Say you receive a message $x$ sampled from $p_X(x)$ over a <span class="marginnote-outer"><span class="marginnote-ref">discrete</span><label for="00fa9a5874a8c4791694a74a449fd8e01597cedd" class="margin-toggle"> ⊕</label><input type="checkbox" id="00fa9a5874a8c4791694a74a449fd8e01597cedd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Assume all distributions are discrete until the <a href="#shannon-information-for-continuous-distributions">continuous section</a></span></span></span> event space $X$. The <strong>self-information</strong> of $x$, i.e. the amount of information gained by receiving $x$, is the quantity <span class="marginnote-outer"><span class="marginnote-ref">$h(x)$</span><label for="ad226219b7413f6c19c43a404b5a9d36708aa40e" class="margin-toggle"> ⊕</label><input type="checkbox" id="ad226219b7413f6c19c43a404b5a9d36708aa40e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The standard notation is $I(x)$, but this is easy to confuse with mutual information <a href="#expected-mutual-information">below</a>.</span></span></span>. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of $p_X$ only. So far, we don’t know what $f$ should be. Let’s dig deeper.</p>
+
+<p>For (2), consider computer memory. With $N$ bits, you can store one thing out of $2^N$ possibilities. Increasing the number of bits exponentially increases the <span class="marginnote-outer"><span class="marginnote-ref">number of counterfactuals</span><label for="b6005829cc8dd4708170068c8b34f75f8b47c99b" class="margin-toggle"> ⊕</label><input type="checkbox" id="b6005829cc8dd4708170068c8b34f75f8b47c99b" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">I mean the number of possible things that are not the case.</span></span></span>. It’s useful here to think of a probability distribution as a weighted possibility space. To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible outcomes, the <em>weight</em> of a single outcome is $\frac{1}{2^N} = 2^{-N}$, given a uniform weighting.</p>
+
+<p>Combining (1) and (2), $f$ should return $N$ when $p=2^{-N}$. It is clear that</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+f(p) &= -\log_2 p \\
+\Longrightarrow h(x) &= -\log_2 p_X(x)\,.
+\end{align} %]]></script>
+
+<p>From here on, I will use $h(x)$ as a function of message $x$, without specifying the type of $x$. It can be anything, a number, a binary sequence, a string, etc. $f(p)$ is a function of probability, rather than messages. Keep in mind that $h(x) = f(p_X(x))$, and so $h$ implicitly assumes we have a probability distribution over $x$ defined somewhere. This distinction between $h$ and $f$ will help avoid confusion.</p>
+
+<h2 id="bits-not-bits"><a class="header-anchor" href="#bits-not-bits"><em>Bits</em>, not bits</a></h2>
+
+<p>Things get interesting if $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? Here is where we part ways from computer bits. It’s better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a <em>bit</em>, but this is a mere convention.</p>
+
+<p>So then how is $h$ to be understood? What is the intuition behind this quantity? In short, Shannon bits are an <a href="https://en.wikipedia.org/wiki/Analytic_continuation" target="_blank" rel="noopener noreferrer">analytic continuation</a> of computer bits. Just like how the <a href="https://en.wikipedia.org/wiki/Gamma_function" target="_blank" rel="noopener noreferrer">gamma function</a> extends factorial to continuous values, Shannon bits extend the computer bit to <strong>non-uniform distributions</strong> over a <strong>non-power-of-2</strong> number of counterfactuals. Let me explain these two phrases:</p>
+
+<ul>
+  <li>
+<strong>non-power-of-2</strong>: We have memory that can store one out of $M$ possibilities, where $M \neq 2^N$. For example, I draw a card from a deck of 52. That card holds $-\log_2 \frac{1}{52} = \log_2 52 \approx 5.70044\ldots$ bits of information. A fractional bit can represent a non-power-of-2 possibility space, and quantifies the log-base conversion factor into base $M$. In this case $-log_{52} x = -\frac{\log_2 x}{\log_2 52}$. Note that it is actually common to use units of information other than base-2. For example a <a href="https://en.wikipedia.org/wiki/Nat_(unit)" target="_blank" rel="noopener noreferrer"><em>nat</em></a> is log-base-e, a <a href="https://en.wikipedia.org/wiki/Ternary_numeral_system" target="_blank" rel="noopener noreferrer"><em>trit</em></a> is base-3, and <a href="https://en.wikipedia.org/wiki/Hartley_(unit)" target="_blank" rel="noopener noreferrer"><em>dit</em> or <em>ban</em></a> is base-10.</li>
+  <li>
+<strong>non-uniform distributions</strong>: Using the deck of cards example, let’s say we draw from a sub-deck containing all cards with the hearts suit. We’ve reduced the possibility space to a subset of a super-space, in this case size 13, and have reduced the information contained in a given card, $-\log_2 \frac{1}{13} \approx 3.70044\ldots$ bits. You can think of this as assigning a weight to each card: 0 for cards we exclude, and $\frac{1}{13}$ for cards we include. If we make the non-zero weights non-uniform, we now have an interpretational issue: what is the physical meaning of these weights? Thinking of this weight as a probability of occurrence is one way to recover physical meaning, but this is <span class="marginnote-outer"><span class="marginnote-ref">not a requirement</span><label for="02ee609808a0f8d62fa190ce247f9b35f70dd990" class="margin-toggle"> ⊕</label><input type="checkbox" id="02ee609808a0f8d62fa190ce247f9b35f70dd990" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">And probability may not even be an objective property of physical systems in general.</span></span></span>. However, I will <span class="marginnote-outer"><span class="marginnote-ref">call these weights probabilities</span><label for="03b6daf7c965c2773f771111cb006d8764629617" class="margin-toggle"> ⊕</label><input type="checkbox" id="03b6daf7c965c2773f771111cb006d8764629617" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The reason we wish to hold sum of weights fixed to 1 is so that we can consider the information contained in compound events which are sets of elementary events. In other words, think of the card drawn from the sub-deck of 13 as a card from <em>any suit</em>, i.e. the set of 4 cards with the same number. The card represents an equivalence class over card number.</span></span></span>, and the weighted-possibility-spaces distributions, as that is the convention. But keep in mind that these weights do not necessarily represent frequencies of occurrence nor uncertainties. The meaning of probability itself is a subject of debate.</li>
+</ul>
+
+<p>The reason we wish to hold sum of weights fixed to 1 is so that we can consider the information contained in compound events which are sets of elementary events. In other words, think of the card drawn from the sub-deck of 13 as a card from <em>any suit</em>, i.e. the set of 4 cards with the same number. The card represents an equivalence class over card number.</p>
+
+<p>Let’s examine some of the properties of $h$ to build further intuition.</p>
+
+<p>First notice that $f(1) = 0$. An event with a probability of 1 contains no information. If $x$ is certain to occur, $x$ is uninformative. Likewise, $f(p) \to \infty$ as $p \to 0$. If $x$ is impossible, it contains infinite information! In general, $h(x)$ goes up as $p_X(x)$ goes down. The less likely an event, the more information it contains. Hopefully this sounds to you like a reasonable property of information.</p>
+
+<p>Next, we can be more specific about how $h$ goes up as $p_X$ goes down. Recall that $f(p) = -\log_2 p$ and $h(x) = f(p_X(x))$, then</p>
+
+<script type="math/tex; mode=display">f(p/2) = f(p) + 1\,.</script>
+
+<p>If we halve the probability of an event, we add one bit of information to it. That is a nice way to think about our new unit of information. The <em>bit</em> is a halving of probability. Other units can be defined in this way, e.g. the <em>nat</em> is dividing of probability by Euler’s constant e, the <em>trit</em> is a thirding of probability, etc.</p>
+
+<p>Finally, notice that $f(pq) = f(p) + f(q)$. Or to write it another way: $h(x \and y) = h(x) + h(y)$ iff $x$ and $y$ are independent events, because</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+h(x \and y) &= -\log_2 p_{X,Y}(x \and y) \\
+  &= -\log_2 p_X(x)\cdot p_Y(y) \\
+  &= -\log_2 p_X(x) - \log_2 p_Y(y)\,,
+\end{align} %]]></script>
+
+<p>where $x \and y$ indicates the composite event <span class="marginnote-outer"><span class="marginnote-ref">“$x$ and $y$”</span><label for="03c34b59dc7fea1cd51e8dbb51bdcfc9754145fd" class="margin-toggle"> ⊕</label><input type="checkbox" id="03c34b59dc7fea1cd51e8dbb51bdcfc9754145fd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">We could either think of $x$ and $y$ as composite events themselves from the same distribution, i.e. $x$ and $y$ are sets of <a href="https://en.wikipedia.org/wiki/Elementary_event" target="_blank" rel="noopener noreferrer">elementary events</a>, or as elementary events from two different random variables which have a joint distribution, i.e, $(x, y) \sim (\rX, \rY)$. I will consider the latter case from here on out, because it is conceptually simpler.</span></span></span>. Hopefully this is also intuitive. If two events are dependent, i.e. they causally affect each other, it makes sense that they might contain redundant information, meaning that you can predict part of one from the other, and so their combined information is less than the sum of their individual information. You may be surprised to learn that the opposite can also be true. The combined information of two events can be greater than the sum of their individual information! This is called <a href="https://en.wikipedia.org/wiki/Interaction_information#Example_of_negative_interaction_information" target="_blank" rel="noopener noreferrer"><em>synergy</em></a>. More on that in the <a href="#pointwise-mutual-information">pointwise mutual information</a> section.</p>
+
+<p>In short, we can derive $f(p) = -\log_2 p$ from (1) additivity of information, $f(pq) = f(p) + f(q)$, and (2) a choice of unit, $f(½) = 1$. <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)#Rationale" target="_blank" rel="noopener noreferrer">Proof</a>.</p>
+
+<h3 id="recap"><a class="header-anchor" href="#recap">Recap</a></h3>
+<p>To make the full analogy: a weighting over possibilities is like a continuous relaxation of a set. Out of a larger space of possibilities, we score each as being more or less possible, with the discrete case being all weights are 0 or a uniform non-zero weight. With a weighted possibility space we have a lot more freedom to work with extra information beyond just merely which possibilities are in the set. Probability distributions are more expressive than mere sets.</p>
+
+<h2 id="stepping-back"><a class="header-anchor" href="#stepping-back">Stepping back</a></h2>
+
+<p>The unit <em>bit</em> that we’ve defined is connected to computer bits only because they both convert multiplication to addition.</p>
+
+<ul>
+  <li>Computer bits: $2^N\cdot2^M$ states $\Longrightarrow$ $N+M$ bits.</li>
+  <li>Shannon bits: $p\cdot q$ probability $\Longrightarrow$ $-\log_2 p - \log_2 q$ bits.</li>
+</ul>
+
+<p>The way I’ve motivated $h$ is a departure from Shannon’s original motivation for defining self-information, which was to describe the theoretically optimal lossless compression for messages being sent over a communication channel. Under this viewpoint, $h(x)$ quantifies the theoretically minimum possible length (in physical bits) to encode message $x$ in computer memory without loss of information. Under this view, $h(x)$ should be thought of as the asymptotic average bit-length for the optimal encoding of $x$ in an infinite sequence of messages drawn from $p_X$. Hence why it makes sense for $h(x)$ to be a continuous value. For more details, see <a href="https://en.wikipedia.org/wiki/Arithmetic_coding#Connections_with_other_compression_methods" target="_blank" rel="noopener noreferrer">arithmetic coding</a>.</p>
+
+<p>We are now flipping Shannon’s original motivation on its head, and using the theoretically optimal encoding length in bits as the definition of information content. In the following discussion, we don’t care how messages/events are actually represented physically. Our definition of information only cares about probability of occurrence, and is in fact <span class="marginnote-outer"><span class="marginnote-ref">blind to the contents of messages</span><label for="0f502be1c82d5cf454a4e7396c9fabbdcabaac09" class="margin-toggle"> ⊕</label><input type="checkbox" id="0f502be1c82d5cf454a4e7396c9fabbdcabaac09" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Something that could be seen as a fatal flaw, which I’ll discuss <a href="#5-shannon-information-ignores-the-meaning-of-messages">below</a>.</span></span></span>. The connection of probability to optimal physical encoding is one of the beautiful results that propelled Shannon’s framework into its lofty position as <em>information theory</em>. However, for our purposes, we simply care about defining quantity of information, and do not care at all about how best to compress data for practical purposes.</p>
+
+<h1 id="entropy"><a class="header-anchor" href="#entropy">Entropy</a></h1>
+
+<p>In the last section I said that under the view of optimal lossless compression, $h(x)$ is the bit length of the optimal encoding for $x$ averaged over an infinite sample from random variable $\rX$, and <a href="https://en.wikipedia.org/wiki/Arithmetic_coding#Connections_with_other_compression_methods" target="_blank" rel="noopener noreferrer">arithmetic coding</a> can approach this limit. We could also consider the average bit length per message from $\rX$ (averaged across all messages). That is the <strong>entropy</strong> of random variable $\rX$, which is the expected self-information,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+H[\rX] &= \E_{x\sim \rX}[h(x)] \\
+       &= \E_{x\sim \rX}[-\log_2\,p_X(x)]\,.
+\end{align} %]]></script>
+
+<p>In the quantifying information view, think of entropy $H[\rX]$ as the number of bits you expect to gain by observing an event sampled from $p_X(x)$. In that sense it is a measure of uncertainty, i.e. how much information I do not have, i.e. quantifying what is unknown.</p>
+
+<p>Let’s build our intuition of entropy. A good way to view entropy is as a measure of how spread out a distribution is. Entropy is actually a type of <a href="https://en.wikipedia.org/wiki/Statistical_dispersion" target="_blank" rel="noopener noreferrer">statistical dispersion</a> of $p_X$, meaning you could use it as an <a href="http://zhat.io/articles/19/bias-variance#what-is-variance-anyway" target="_blank" rel="noopener noreferrer">alternative to statistical variance</a>.</p>
+
+<figure><img src="/assets/posts/primer-shannon-information/bimodal.png" alt="" width="100%"><figcaption></figcaption></figure>
+<p>For example, a bi-modal distribution can have arbitrarily high variance by moving the modes far apart, but the overall spread-out-ness (entropy) will not necessarily change.</p>
+
+<p>The more spread out a distribution is, the higher its entropy. For bounded <a href="https://en.wikipedia.org/wiki/Support_(mathematics)#Support_of_a_distribution" target="_blank" rel="noopener noreferrer">support</a>, the uniform distribution has highest entropy (<a href="https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution#Other_examples." target="_blank" rel="noopener noreferrer">other max-entropy distributions</a>). The <span class="marginnote-outer"><span class="marginnote-ref">minimum possible entropy is 0</span><label for="61d3d043a10d74a21176f1255203a29c26b0f6f4" class="margin-toggle"> ⊕</label><input type="checkbox" id="61d3d043a10d74a21176f1255203a29c26b0f6f4" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Note that in the expectation, 0-probability outcomes have infinite self-information, so we have to use the convention that $p_X(x)\cdot h(x) = 0\cdot\infty = 0$.</span></span></span>, which indicates a deterministic distribution, i.e. $p_X(x) \in {0, 1}$ for all $x \in X$.</p>
+
+<figure><img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Binary_entropy_plot.svg" alt='Credit: &lt;a href="https://en.wikipedia.org/wiki/Binary_entropy_function"&gt;https://en.wikipedia.org/wiki/Binary_entropy_function&lt;/a&gt;' width="100%"><figcaption>Credit: <a href="https://en.wikipedia.org/wiki/Binary_entropy_function" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Binary_entropy_function</a></figcaption></figure>
+
+<p>Though Shannon calls his new idea entropy, the connection to physical entropy is nontrivial. If there is a connection, that is more of a coincidence. Apparently Shannon’s decision to call it entropy was made by a suggestion by von Neumann at a party:  http://www.eoht.info/page/Neumann-Shannon+anecdote
+[credit: Mark Moon]</p>
+
+<p>There are connections between information entropy and thermodynamics entropy (see https://plato.stanford.edu/entries/information-entropy/), but I do not yet understand them well enough to give an overview here - perhaps in a future post. Some physicists consider information to have a physical nature, and even a <span class="marginnote-outer"><span class="marginnote-ref">conservation law</span><label for="4cd9a9099f83eeb0f5a534d111b0875861d2c3ec" class="margin-toggle"> ⊕</label><input type="checkbox" id="4cd9a9099f83eeb0f5a534d111b0875861d2c3ec" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">In the sense that requiring physics be time-symmetric is equivalent to requiring information to be conserved.</span></span></span>! Further reading: <a href="https://theoreticalminimum.com/courses/statistical-mechanics/2013/spring/lecture-1" target="_blank" rel="noopener noreferrer">The Theoretical Minimum - Entropy and conservation of information</a>, <a href="https://en.wikipedia.org/wiki/No-hiding_theorem" target="_blank" rel="noopener noreferrer">no-hiding theorem</a>.</p>
+
+<p><strong>Question</strong>: Why expected self-information?
+We could have used median or something else. Expectation is a <span class="marginnote-outer"><span class="marginnote-ref">default go-to operation over distributions</span><label for="e3be61e72d21ae86483befb994084998b611b8df" class="margin-toggle"> ⊕</label><input type="checkbox" id="e3be61e72d21ae86483befb994084998b611b8df" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">See my previous post: <a href="http://zhat.io/articles/bias-variance#bias-variance-decomposition-for-any-loss" target="_blank" rel="noopener noreferrer">http://zhat.io/articles/bias-variance#bias-variance-decomposition-for-any-loss</a></span></span></span> because of its nice properties, but ultimately it is an arbitrary choice. However, as we will see, one huge benefit in our case is that expectation is linear.</p>
+
+<h3 id="regarding-notation"><a class="header-anchor" href="#regarding-notation">Regarding notation</a></h3>
+
+<p>From here on out, I will drop the subscript $X$ from $p_X(x)$ when $p(x)$ unambiguously refers to the probability of $x$. This is a common thing to do, but it can also lead to ambiguity if I want to write $p(0)$, the probability that $x$ is 0. A possible resolution is to use random variable notation, $p(\rX = 0)$, which I use in some places. However, there is the same issue for self-information. For example, quantities $h(x), h(y), h(x\and y), h(y \mid x)$. I will add subscripts to $h$ when it would be ambiguous otherwise, for example $h_X(0), h_Y(0), h_{X,Y}(x\and y), h_{Y\mid X}(0 \mid 0)$ .</p>
+
+<h2 id="conditional-entropy"><a class="header-anchor" href="#conditional-entropy">Conditional Entropy</a></h2>
+
+<p>Conditional self-information, defined as</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+h(y \mid x) &= -\log_2\,p(y \mid x)\\
+  &= -\log_2(p(y \and x) / p(x)) \\
+  &= h(x \and y) - h(x)\,,
+\end{align} %]]></script>
+
+<p>is the information you stand to gain by observing $y$ given that you already observed $x$.  I let $x \and y$ denote the observation of $x$ and $y$ together (I could write $(x, y)$, but then $p((y, x))$ would look awkward).</p>
+
+<p>If $x$ and $y$ are independent events, $h(y \mid x) = h(y)$. Otherwise, $h(y \mid x)$ can be greater or less than $h(y)$. It may seem counterintuitive that $h(y \mid x) &gt; h(y)$ can happen, because this implies you gain more from $y$ by just simply knowing something else, $x$. However, this reflects the fact that you are unlikely to see $x, y$ together. Likewise, if $h(y \mid x) &lt; h(y)$ you are likely to see $x, y$ together. More on this in the next section.</p>
+
+<p>Confusingly, conditional entropy can refer to two different things.</p>
+
+<p>First is expected conditional self-information,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+H[\rY \mid \rX = x] &= \E_{y\sim \rY \mid \rX=x}[h(y \mid x)] \\
+  &= \E_{y\sim \rY \mid \rX=x}[\log_2\left(\frac{p(x)}{p(x, y)}\right)]\,.
+\end{align} %]]></script>
+
+<p>The other is what is most often referred to as <strong>conditional entropy</strong>,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+H[\rY \mid \rX] &= \E_{x,y \sim \rX,\rY}[h(y \mid x)] \\
+  &= \E_{x,y \sim \rX,\rY}[\log_2\left(\frac{p(x)}{p(x, y)}\right)] \\
+  &= \E_{x\sim \rX} H[\rY \mid \rX = x]\,.
+\end{align} %]]></script>
+
+<p>The intuition behind $H[\rY \mid \rX = x]$ will be the same as of entropy, $H[\rY]$, which we covered in the last section. Let’s gain some intuition for $H[\rY \mid \rX]$. If $H[\rY]$ measures uncertainty of $\rY$, then $H[\rY \mid \rX = x]$ measures conditional uncertainty given $x$, and $H[\rY \mid \rX]$ measures average conditional uncertainty w.r.t. $\rX$.</p>
+
+<p>The maximum value of $H[\rY \mid \rX]$ is $H[\rY]$, which is achieved when $\rX$ and $\rY$ are independent random variables. This should make sense, as recieving a message from $\rX$ does not tell you anything about $\rY$, so your state of uncertainty does not decrease.</p>
+
+<p>The minimum value of $H[\rY \mid \rX]$ is 0, which is achieved when $p_{\rY \mid \rX}(\rY \mid \rX = x)$ is deterministic for all $x$. In other words, you can define a function $g : X \rightarrow Y$ to map from $X$ to $Y$. This wouldn’t otherwise be the case when $\rY \mid \rX$ is stochastic.</p>
+
+<p>$H[\rY \mid \rX]$ is useful because it takes all $x \in X$ into consideration. You might have, for example, $H[\rY \mid \rX = x_1] = 0$ for $x_1$, but $H[\rY \mid \rX] &gt; 0$, which means $y$ cannot always be deterministically decided from $x$. In the section on mutual information we will see how to think of $H[\rY \mid \rX]$ as a property of a stochastic function from $X$ to $Y$.</p>
+
+<p>Because of linearity of expectation, all identities that hold for self-information hold for their entropy counterparts. For example,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+h(y \mid x) &= h(x \and y) - h(x) \\
+\Longrightarrow H[\rY \mid \rX] &= H[(\rX, \rY)] - H[\rX]\,.
+\end{align} %]]></script>
+
+<p>This is a nice result. This equation says that the <span class="marginnote-outer"><span class="marginnote-ref">average uncertainty about $\rY$ given $\rX$</span><label for="40b324ca64f32166d198598020cd16fd3a369058" class="margin-toggle"> ⊕</label><input type="checkbox" id="40b324ca64f32166d198598020cd16fd3a369058" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Amount of information left to observe in $\rY$ on average.</span></span></span> equals the total expected information in their joint distribution, $(\rX, \rY)$, minus the average information in $\rX$. In other words, conditional entropy is the total information in $x \and y$ minus information in what you have, $x$, all averaged over all the possible $(x, y)$ you can have.</p>
+
+<h1 id="mutual-information"><a class="header-anchor" href="#mutual-information">Mutual Information</a></h1>
+
+<p>In my view, mutual information is what holds promise as a definition of information. This it the most important topic to understand for tackling the “problems with Shannon information” section below.</p>
+
+<h2 id="pointwise-mutual-information"><a class="header-anchor" href="#pointwise-mutual-information">Pointwise Mutual Information</a></h2>
+
+<!-- Intuitively, if two events are causally connected, i.e. dependent, they contain redundant information combined. meaning that their combined information would be less than the sum of their information. It may  also be the case that their combined information could be greater than the sum of their information! This is called *synergy*. We will see examples of this later. -->
+
+<p>When two events $x$ and $y$ are dependent, how to we compute their total information? Previously we said that $h(x \and y) = h(x) + h(y)$ iff $p_X(x \and y) = p_X(x)p_X(y)$. However, the general case is,</p>
+
+<script type="math/tex; mode=display">h(x \and y) = h(x) + h(y) - i(x, y)\,,</script>
+
+<p>where I am defining $i(x, y)$ such that this equation holds. Rearranging we get</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+i(x, y) &= h(x) + h(y) - h(x \and y) \\
+        &= -\log_2(p_X(x)) - \log_2(p_X(y)) + \log_2(p_X(x \and y)) \\
+        &= \log_2\left(\frac{p_X(x, y)}{p_X(x)p_X(y)}\right)\,.
+\end{align} %]]></script>
+
+<p>$i(x, y)$ is called <em>pointwise mutual information</em> (PMI). Informally, PMI measures the amount of bits shared by two events. To say that another way, it measures how much information I have about one event given I only observe the other. Notice that PMI is symmetric, $i(x, y) = i(y, x)$, so any two events contain the same information about each other.</p>
+
+<p>$i(x, y)$ is a difference in information. Positive $i(x, y)$ indicates <em>redundancy</em>, i.e. total information is less than the sum of the parts: $h(x, y) &lt; h(x) + h(y)$. However, it may also be the case that $i(x, y)$ is negative so that $h(x, y) &gt; h(x) + h(y)$. <span class="marginnote-outer"><span class="marginnote-ref">This is called <a href="https://en.wikipedia.org/wiki/Synergy#Information_theory" target="_blank" rel="noopener noreferrer"><em>synergy</em></a>.</span><label for="4ce5fcaeebe9d13d3fd8d49c2de4ba62a623e205" class="margin-toggle"> ⊕</label><input type="checkbox" id="4ce5fcaeebe9d13d3fd8d49c2de4ba62a623e205" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The word <em>synergy</em> is conventionally used in the context of expected mutual information, and I am running the risk of conflating two distinct phenomenon under the same word. There is no synergy among two random variables under expected mutual information, and this type of synergy only appears among 3 or more random variables.  See <a href="https://en.wikipedia.org/wiki/Multivariate_mutual_information#Synergy_and_redundancy" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Multivariate_mutual_information#Synergy_and_redundancy</a>.</span></span></span></p>
+
+<p>This is highly speculative, but synergy (either the pointwise-MI or expected-MI kind) may be a fundamental insight that could explain emergence and limitations of reductionism in understanding reality. See <a href="https://www.scottaaronson.com/blog/?p=3294" target="_blank" rel="noopener noreferrer">Higher-level causation exists (but I wish it didn’t)</a>.</p>
+
+<p>(If you object that it doesn’t make sense to lose information by observing $x$ and $y$ together over observing them separately, it is important to note that $h(x) + h(y)$ is not a physically meaningful quantity, unless they are independent. Technically, you would have $h(x) + h(y \mid x)$.)</p>
+
+<!--
+Let's look at (an admittedly contrived) example of synergy. Suppose our [sample space](https://en.wikipedia.org/wiki/Sample_space) is $\{a, b, c\}$ (composed of [coutcomes](https://en.wikipedia.org/wiki/Sample_space#Conditions_of_a_sample_space) or [elementary events](https://en.wikipedia.org/wiki/Elementary_event)), and we have two events $x = \{a, b\}$ and $y = \{b, c\}$. $x, y$ co-occur if we draw outcome $b$. If $p(a) = 7/16, p(b) = 1/8, p(c) = 7/16$, then $p(x) = 9/16$, $p(y) = 9/16$, $p(x \and y) = 1/8$. $h(x) = h(y) \approx 0.83$ and $h(x \and y) = 3$, so $i(x, y) = 2\cdot0.83 - 3 \approx -1.34$ bits.
+
+
+That may seem like a contrived example, because I was working with composite events instead of elementary events. The same phenomenon can happen for joint distributions of sample spaces.  <font color="red">TODO: explain the difference between the example above and a joint distribution.</font>
+-->
+
+<p><strong>Example:</strong>
+Let $X = {0, 1}$ and $Y = {0, 1}$, then the joint sample space is the cartesian product $X \times Y$. $p_X(x), p_Y(y)$ denote marginal probabilities, and $p_{X,Y}(x, y)$ is their joint probability. The joint probability table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">$x$</th>
+      <th style="text-align: center">$y$</th>
+      <th style="text-align: center">$p_{X,Y}(x, y)$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1/16</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">7/16</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">7/16</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1/16</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We have</p>
+<ul>
+  <li>$h_X(0) = -\log_2 p_X(0) = -\log_2 1/2 = 1$</li>
+  <li>$h_Y(0) = -\log_2 p_Y(0) = -\log_2 1/2 = 1$</li>
+  <li>$h_{X,Y}(0 \and 0) = -\log_2 p_{X,Y}(0, 0) = -\log_2 1/16 = 4$</li>
+</ul>
+
+<p>$i(0,0) = h_X(0) + h_Y(0) - h_{X,Y}(0 \and 0) = -2$, and so $(0,0)$ is synergistic. On the other hand, $i(0,1) \approx 0.80735$, indicating $(0,1)$ is redundant.</p>
+
+<h2 id="properties-of-pmi"><a class="header-anchor" href="#properties-of-pmi">Properties of PMI</a></h2>
+
+<p>Let’s explore some of the properties of PMI. From here on out, I will consider sampling elementary events from a joint distribution, $(x, y) \sim \bm{X}\times\bm{Y}$, where $\bm{X}, \bm{Y}$ are unspecified discrete (possibly infinite) random variables. For notational simplicity I’ll drop the subscripts from distributions, so $p(x), p(y), p(x, y)$ denote the marginals of $\bm{X}, \bm{Y}$ and the joint $\bm{X}\times\bm{Y}$.</p>
+
+<p>To recap, PMI measures the difference in bits between the product of marginals $p(x)p(y)$ and the joint $p(x, y)$, as evidenced by</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+i(x, y) &= \log_2\left(\frac{p(x, y)}{p(x)p(y)}\right) \\
+        &= h(x) + h(y) - h(x \and y)\,.
+\end{align} %]]></script>
+
+<p>Negative PMI implies synergy, while positive PMI implies redundancy.</p>
+
+<p>Another way to think about PMI is as a measure of how much $p(y \mid x)$ differs from $p(y)$ (and vice versa). Suppose an oracle sampled $(x, y) \sim \rX\times\rY$, but the outcome $(x, y)$ remains hidden from you. $p(y)$ is the information you stand to gain by having $y$ revealed to you. However, $p(y \mid x)$ is what you stand to gain from seeing $y$ if $x$ is already revealed. You do not know how much information $x$ contains about $y$ without seeing $y$. Only the oracle knows this. However, if you know $p(y \mid x)$, then you can compute your expected information gain (conditional uncertainty), $H[\rY \mid \rX=x]$.</p>
+
+<p>PMI measures the change in information you will gain about $y$ (from the oracle’s perspective) before and after $x$ is revealed (and vice versa). In this view, it makes sense to rewrite PMI as</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+i(x, y) &= \log_2\left(\frac{p(y \mid x)}{p(y)}\right) \\
+        &= -\log_2\,p(y) + \log_2\,p(y \mid x) \\
+        &= h(y) - h(y \mid x)\,.
+\end{align} %]]></script>
+
+<h3 id="special-values"><a class="header-anchor" href="#special-values">Special Values</a></h3>
+
+<p>By definition, $i(x, y) = 0$ iff $\bm{X}, \bm{Y}$ are independent. Verifying, we see that,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+i(x, y) &= \log_2\left(\frac{p(x)p(y)}{p(x)p(y)}\right) \\
+        &= 0\,.
+\end{align} %]]></script>
+
+<p>The maximum possible PMI happens when $x$ and $y$ are perfectly associated, i,e. $p(y \mid x) = 1$ or $p(x \mid y) = 1$. So $h(y \mid x) = 0$ or vice versa, meaning you know everything about $y$ if you have $x$. Then $i(x, y) = h(y) - h(y \mid x) = h(y)$. In general, the maximum possible PMI is $\min{h(x), h(y)}$.</p>
+
+<p>PMI has no minimum, and goes to $-\infty$ if $x$ and $y$ can never occur together but can occur separately, i.e. $p(x, y) = 0$ while $p(x), p(y) &gt; 0$. We can see that $p(y \mid x) = p(x, y)/p(x) = 0$ so long as $p(x) &gt; 0$. So $h(y \mid x) \to \infty$, and we have $i(x, y) = h(y) - h(y \mid x) \to -\infty$ if $h(y) &gt; 0$.</p>
+
+<p>While redundancy is bounded, synergy is infinite. This should make sense, as $h(x), h(y)$ are bounded so there is a maximum amount of information to redundantly share. On the other hand, synergy measures how rare the co-occurrence of $(x,y)$ together are, relative to their marginal probabilities, where lower $p(x, y)$ means their co-occurrence is more special. So if $(x,y)$ can never occur, then their co-occurrence is infinitely special.</p>
+
+<h2 id="expected-mutual-information"><a class="header-anchor" href="#expected-mutual-information">Expected Mutual Information</a></h2>
+
+<p>Expected mutual information, also just called mutual information (MI), is given as</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+I[\rX, \rY] &= \E_{x\sim X, y\sim Y}[i(x, y)] \\
+        &= \E_{x\sim X, y\sim Y}\left[\log_2\left(\frac{p(x, y)}{p(x)p(y)}\right)\right]\,.
+\end{align} %]]></script>
+
+<p>$I$ is to correlation as $H$ is to variance. While correlation measures to what extent $\rX$ and $\rY$ have a <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank" rel="noopener noreferrer">linear relationship</a>, $I$ measures the strength of their statistical dependency. While variance measures average distance from some critical point, $H$ is distance agnostic, i.e. it measures unordered dispersion. Similarly, while statistical correlation measures deviation of the mapping between $\rX$ and $\rY$ from perfectly linear, $I$ is shape agnostic, i.e. it measures unordered causal dependence.</p>
+
+<p>First off, it is important to point out that $I$ is always non-negative, unlike its pointwise counterpart (proof <a href="https://math.stackexchange.com/a/159544" target="_blank" rel="noopener noreferrer">here</a>) You can see this intuitively by trying to construct an anti-dependent relationship between $\rX$ and $\rY$. On average, $p(x, y)$ would have to be less than the product of their marginals. You can construct individual cases where this is true for a particular $(x, y)$, but to do that, you will have to fill most of the probability table (for 2D joint) with p-mass to compensate. This is reflected in Jensen’s inequality. A direct consequence is $H[\rY] \geq H[\rY \mid \rX]$.</p>
+
+<p>$I$ being non-negative means you can safely think about it as a measure of information content. In this sense, information is stored in the relationship between $\rX$ and $\rY$.</p>
+
+<p>Note that by remembering that expectation is linear, some useful identities pop out of the definition above,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+I[\rX, \rY] &= H[\rX] + H[\rY] - H[(\rX,\rY)] \\
+  &= H[\rX] - H[\rX \mid \rY] \\
+  &= H[\rY] - H[\rY \mid \rX]\,.
+\end{align} %]]></script>
+
+<p>An intuitive way to think about $I$ is as a continuous measure of <em>bijectivity</em> of the stochastic function, $g(x) \sim p(\rY \mid \rX = x)$, where $g : X \rightarrow Y$. This is easier to see if we write</p>
+
+<script type="math/tex; mode=display">I[\rX, \rY] = H[\rY] - H[\rY \mid \rX]\,.</script>
+
+<p>$H[\rY]$ measures <em>surjectivity</em>, i.e. how much $g$ spreads out over $Y$ (marginalized over $\rX$). <em>surjective</em> (a.k.a. onto) in the set-theory sense means that $g$ maps to every element in $Y$. In the statistical sense, $g$ may map to every element in $Y$ with some probability, but to some elements much more frequently than others. We would say $p(y)$ is <em>peaky</em>, the opposite of spread out. Recall that $H$ measures statistical dispersion. Larger $H[\rY]$ means more even spread of probability mass across all the elements in $Y$. In that sense, it measures how surjective $g$ is.</p>
+
+<p>$H[\rY \mid \rX]$ measures <em>anti-injectivity</em>. <em>injective</em> (a.k.a. one-to-one) in the set-theory sense means that $g$ maps every element in $X$ to a unique element in $Y$. There is no sharing, and you know which $x \in X$ was the input for any $y \in Y$ in the image of $g(X)$. In the statistical sense, $g$ may map a given $x$ to many elements in $Y$, each with some probability, i.e. fan-out. Anti-injective is like a reversal of injective, which is about fan-in. The more $g$ fans-out, the more anti-injective it is. Recall that $H[\rY \mid \rX]$ measures averge uncertainty about $\rY$ given an observation from $\rX$. This is, in a sense, the average statistical fan-out of $g$. Lower $H[\rY \mid \rX]$ means $g$’s output is more concentrated (peaky) on average for a given $x$, and higher means its output is more uniformly spread on average.</p>
+
+<p>For a function to be a bijection, is needs to be both injective and surjective. $H[\rY]$ may seem like a good continuous proxy for surjectivity, but $H[\rY \mid \rX]$ seems to measure something different from injectivity. Notice that $H[\rY \mid \rX]$ is affected by the injectivity of $g^{-1}$. If $g^{-1}$ maps many $y$s to the same $x$, then we are uncertain about what $g(x)$ should be.</p>
+
+<p>In general, I claim that $I[\rX, \rY]$ measures how bijective $g$ is. $I[\rX, \rY]$ is maximized when $H[\rY]$ is maximized and $H[\rY \mid \rX]$ is minimized (i.e. 0). That is, when $g$ is maximally surjective and minimally anti-injective, implying it is maximally injective. Higher $I[\rX, \rY]$ actually does indicate that $g$ is more invertible because $I$ is symmetric. It measures how much information can flow through $g$ in either direction.</p>
+
+<figure><img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Entropy-mutual-information-relative-entropy-relation-diagram.svg" alt='Useful diagram for keeping track of the relationships between these concepts.&lt;br/&gt;Credit: &lt;a href="https://en.wikipedia.org/wiki/Mutual_information"&gt;https://en.wikipedia.org/wiki/Mutual_information&lt;/a&gt;' width="100%"><figcaption>Useful diagram for keeping track of the relationships between these concepts.<br>Credit: <a href="https://en.wikipedia.org/wiki/Mutual_information" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Mutual_information</a></figcaption></figure>
+<p>Useful diagram for keeping track of the relationships between these concepts</p>
+
+<h3 id="channel-capacity"><a class="header-anchor" href="#channel-capacity">Channel capacity</a></h3>
+
+<p>$I$ is determined by $p(x)$ just as much as $p(y \mid x)$, but $g$ has ostensibly nothing to do with $p(x)$. If we want $I$ to measure properties of $g$ in isolation, it should not care about the distribution over its inputs. One solution to this issue is to use the <a href="https://en.wikipedia.org/wiki/Channel_capacity#Formal_definition" target="_blank" rel="noopener noreferrer"><strong>capacity</strong></a> of $g$, defined as</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+C[g] &= \sup_{p_X(x)} I[\rX, \rY] \\
+  &= \sup_{p_X(x)} \E_{y\sim p_{g(x)}, x \sim p_X}[i(x, y)] \\
+  &= \sup_{p_X(x)} \E_{y\sim p_{Y \mid X=x}, x \sim p_X}[-h(y \mid x) + h(x)]\,.
+\end{align} %]]></script>
+
+<p>In other words, if you don’t have a preference for $p(x)$, choose $p(x)$ which maximizes $I[\rX, \rY]$.</p>
+
+<h1 id="shannon-information-for-continuous-distributions"><a class="header-anchor" href="#shannon-information-for-continuous-distributions">Shannon Information For Continuous Distributions</a></h1>
+
+<p>Up to now we’ve only considered discrete distributions. Describing the information content in continuous distributions and their events is tricky business, and a bit more nuanced than usually portrayed. Let’s explore this.</p>
+
+<p>For this discussion, let’s consider a random variable $\rX$ with <a href="https://en.wikipedia.org/wiki/Support_(mathematics)#Support_of_a_distribution" target="_blank" rel="noopener noreferrer">support</a> over $\R$. Let $f(x)$ be the probability density function (pdf) of $\rX$.</p>
+
+<p>Elementary events $x \in \rX$ <span class="marginnote-outer"><span class="marginnote-ref">do not have probabilities perse</span><label for="81ebfb9082ef06c6091bdf79ef229fe6555037fd" class="margin-toggle"> ⊕</label><input type="checkbox" id="81ebfb9082ef06c6091bdf79ef229fe6555037fd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">you could say their probability mass is 0 in the limit</span></span></span>. Self-information is a function of probability mass, so we should instead compute self-info of events that are intervals (or measurable sets) over $\R$. For example,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+h(a < x < b) &= -\log_2\,p(a < \rX < b)\\
+  &= -\log_2\left(\int_a^b f(x) \diff x\right)
+\end{align} %]]></script>
+
+<p>Conjecture: The entropy of any distributions with uncountable support is infinite. This should make sense, as we now have uncountably many possible outcomes. One observation rules out infinitely many alternatives, so it should contain infinite information. We can see this clearly because the entropy of a uniform distribution over $N$ possibilities is $\log_2 N$ which grows to infinity as $N$ does. On the other hand, a one-hot distribution over $N$ possibilities has 0 entropy, because you will <span class="marginnote-outer"><span class="marginnote-ref">always observe</span><label for="2b312968d2ec3765f14ce161dd47e1212e3f03cc" class="margin-toggle"> ⊕</label><input type="checkbox" id="2b312968d2ec3765f14ce161dd47e1212e3f03cc" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Unless you observe an impossible outcome, in which case you gain infinite information!</span></span></span> the probability-1 outcome and gain 0 information. So we expect the Dirac-delta distribution to have 0 entropy.</p>
+
+<p>But wait, the Gaussian distribution is a <a href="https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution" target="_blank" rel="noopener noreferrer">maximum-entropy</a> distribution, implying that the entropy of continuous distributions can be numerically compared! People talk about entropy of continuous distributions all the time! What people normally call entropy for continuous distributions is actually <a href="https://en.wikipedia.org/wiki/Differential_entropy" target="_blank" rel="noopener noreferrer">differential entropy</a>, which is not the same thing as the $H$ we’ve been working with.</p>
+
+<p>I’ll show that $H[\rX]$ is infinite when the distribution has continuous support.  https://www.crmarsh.com/static/pdf/Charles_Marsh_Continuous_Entropy.pdf.  To do that, let’s take a <a href="https://en.wikipedia.org/wiki/Riemann_sum" target="_blank" rel="noopener noreferrer">Riemann sum</a> of $f(x)$. Let ${x_i}_{i=-\infty}^\infty$ be a set of points equally spaced by intervals of $\Delta$.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+% \def\u{\Delta x}
+\def\u{\Delta}
+\begin{align}
+H[\rX] &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i) \u\right) \\
+  &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i)\right) - \lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(\u\right)\,.
+\end{align} %]]></script>
+
+<p>The left term is just the Riemann integral of $f(x)\log_2(f(x))$, which I will define as <strong>differential entropy</strong>:</p>
+
+<script type="math/tex; mode=display">\eta[f] := -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i)\right) = -\int_{-\infty}^\infty f(x) \log_2\left(f(x)\right) \diff{x}\,.</script>
+
+<p>(typically $h$ is used for differential entropy, but I’ve already used it for self-information, so I’m using $\eta$ instead)</p>
+
+<p>The right term can be simplified using the <a href="https://tutorial.math.lamar.edu/Classes/CalcI/LimitsProperties.aspx" target="_blank" rel="noopener noreferrer">limit product rule</a>:</p>
+
+<script type="math/tex; mode=display">-\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(\u\right) = -\left(\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u\right)\cdot\left(\lim\limits_{\u \to 0}\log_2\left(\u\right)\right)\,.</script>
+
+<p>Note that</p>
+
+<p><script type="math/tex">\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u = \int_{-\infty}^\infty f(x) \diff{x} = 1\,,</script>
+because $f(x)$ is a p.d.f.</p>
+
+<p>Putting it all together we have</p>
+
+<script type="math/tex; mode=display">H[\rX] = \eta[f] - \lim\limits_{\u \to 0}\log_2\left(\u\right)\,.</script>
+
+<p>$\log_2(\u) \to -\infty$ as $\u \to 0$, so $H[\rX]$ explodes to infinity when $\eta[f]$ is finite, which it is for most well-behaved functions.</p>
+
+<p>A simple proof that $H$ is finite for continuous distributions with support over an uncountable set: the Riemann sum above will only have at most finitely many non-zero terms as $\Delta \to \infty$.</p>
+
+<p>Differential entropy is very different from entropy. It can be unboundedly negative. For example, the differential entropy of a Gaussian distribution with variance $\sigma^2$ is $\frac{1}{2}\ln(2\pi e \sigma^2)$. Taking the limit as $\sigma \to 0$, we see the differential entropy of the <span class="marginnote-outer"><span class="marginnote-ref">Dirac-delta distribution is $-\infty$</span><label for="db0f66f8ebc12d35b9801d084e4ee4afbd893dc5" class="margin-toggle"> ⊕</label><input type="checkbox" id="db0f66f8ebc12d35b9801d084e4ee4afbd893dc5" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Plugging $\eta[f] = -\infty$ into our relation $H[\rX] = \eta[f] - \lim\limits_{\u \to 0}\log_2\left(\u\right)$, we see why entropy of $\delta(x)$ would be 0.</span></span></span>. A notable problem with differential entropy is that its not invariant to change of coordinates, and there is a proposed fix for that: <a href="https://en.wikipedia.org/wiki/Limiting_density_of_discrete_points" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Limiting_density_of_discrete_points</a>.</p>
+
+<h2 id="proof-that-mi-is-fininte-for-continuous-distributions"><a class="header-anchor" href="#proof-that-mi-is-fininte-for-continuous-distributions">Proof that MI is fininte for continuous distributions</a></h2>
+
+<p>A very nice result is that expected mutual information is finite where entropy would be infinite, so long as there is some amount of noise between the two random variables. This implies that even if physical processes are continuous and contain infinite information, we can only get finite information out of them, because measurement requires establishing a statistical correlation between the measurement device and that system which is necessarily noisy. MI is agnostic to discrete or continuous universes! As long as there is some amount of noise in between a system and your measurement, your measurement will contain finite information about the system.</p>
+
+<p>The proof follows the same Riemann sum approach from the previous section. I will show that mutual information and differential mutual information are equivalent. Since differential mutual information finite for well behaved functions, so is mutual information!</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+I[\rX, \rY] &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty \sum\limits_{j=-\infty}^\infty f_{XY}(x_i, y_j) \u^2 \log_2\left(\frac{f_{XY}(x_i, y_j)\u^2}{f_X(x_i)\u f_Y(y_i)\u} \right) \\
+  &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty \sum\limits_{j=-\infty}^\infty f_{XY}(x_i, y_j) \u^2 \log_2\left(\frac{f_{XY}(x_i, y_j)}{f_X(x_i)f_Y(y_i)} \right) \\
+  &= \int_{-\infty}^\infty \int_{-\infty}^\infty f_{XY}(x_i, y_j) \log_2\left(\frac{f_{XY}(x_i, y_j)}{f_X(x_i)f_Y(y_i)} \right) \diff{y}\diff{x}\,
+\end{align} %]]></script>
+
+<p>because the $\Delta$s cancel inside the log.</p>
+
+<p>If $p(\rY \mid \rX = x)$ is a Dirac-delta for all $x$, and $p(\rY)$ has continuous support, then $I[\rX, \rY]= H[\rY] - H[\rY \mid \rX] = \infty$ because $H[\rY]=\infty$ and $H[\rY \mid \rX]=0$. Thus some noise between $\rX$ and $\rY$ is required to make the MI finite. It follows that $I[\rX, \rX] = H[\rX] = \infty$ when $\rX$ has continuous support.</p>
+
+<h1 id="problems-with-shannon-information"><a class="header-anchor" href="#problems-with-shannon-information">Problems With Shannon Information</a></h1>
+
+<p><strong>Question:</strong> Do the concepts just outlined capture our colloquial understanding of information? Are there situations where they behave differently from how we expect information to behave? I’ll go through some fairly immediate objections to this Shannon’s definition of information, and some remedies.</p>
+
+<h2 id="1-tv-static-problem"><a class="header-anchor" href="#1-tv-static-problem">1. TV Static Problem</a></h2>
+
+<p>Imagine a TV displaying static noise. If we assume a fairly uniform distribution over all “static noise” images, we know that the entropy of the TV visuals will be high, because probability mass is spread fairly evenly across all possible images. Each image on average has a very low probability of occurring. According to Shannon, each image then contains a large amount of information.</p>
+
+<p>That may sound absurd. <a href="https://en.wikipedia.org/wiki/Noise_(signal_processing)" target="_blank" rel="noopener noreferrer">Noise</a>, by some definitions, carries no useful information. Noise is uninformative.  To a human looking at TV static, the information gained is that the TV is not displaying anything. This is a very high level piece of information, but much less than the supposedly high information content of the static itself.</p>
+
+<figure><img src="/assets/posts/primer-shannon-information/tv-static.png" alt="" width="100%"><figcaption></figcaption></figure>
+
+<p>The resolution here is to define what it means for a human to obtain information. I propose looking at the mutual information between the TV and the viewer’s brain. Let $\rX$ be a random variable over TV images, and $\rZ$ be a random variable over the viewer’s brain states. The support of $\rX$ is the space of all possible TV screens, so static and SpongeBob are just different distributions over the same space. Now, the state of the viewer’s brain is causally connected to what is on the TV screen, but the nature of their visual encoder (visual cortex) determines $p(\rZ \mid \rX)$, and thus $p(\rZ, \rX)$. I would guess that any person who says TV static is uninformative does not retain much detail about the patterns in the static. Basically, that person would just remember that they saw static. What we have here is a region of large fan-in. Many static images are collapsed to a single output for their visual encoder, namely the label “TV noise”. So the information contained in TV static is low to a human, because $I[\rX, \rZ]$ is low when $\rX$ is the distribution of TV static.</p>
+
+<p>Note that the signal, “TV noise”, is still rather informative, if you consider the space of all possible labels you could assign to the TV screen, e.g. “SpongeBob” or “sitcom”. Further, that you are looking at a TV and not anything else is information.</p>
+
+<h2 id="2-shannon-information-is-blind-to-scrambling"><a class="header-anchor" href="#2-shannon-information-is-blind-to-scrambling">2. Shannon Information is Blind to Scrambling</a></h2>
+
+<p>Encryption scrambles information to make it inaccessible to prying eyes. Encryption is usually lossless, meaning the original message is fully recoverable. If $\rX$ is a distribution over messages, then the encryption function Enc should preserve that distribution. To Shannon information, $\rX$ and $\text{Enc}(\rX)$ contain the same information. Shannon information is therefore blind to operations like scrambling which do something interesting to the information present, i.e. like making it accessible or inaccessible.</p>
+
+<p>The resolution is again mutual information. While permuting message space (or any bijective transformation) does not change information content under Shannon, it changes the useful information content. A human looking at (or otherwise perceiving) a message is creating a casual link between the message and a representation in the brain. This link has mutual information. Likewise, any measurement apparatus establishes a link between physical state and a representation of that state (the measurement result), again establishing mutual information.</p>
+
+<p>Information in a message becomes inaccessible or useless when the representation of the message cannot distinguish between two messages. Encryption maps the part of message space that human brains can discriminate, i.e. meaningful English sentences (or other such meaningful content) to a part of message space that humans cannot discriminate, i.e. apparently arbitrary character strings. These arbitrary strings appear to be meaningless because they are all mapped to the same or similar representation in our heads, namely the “junk text” label. In short, mutual information between plain text and brain states is much higher than mutual information between encrypted text and brain states.</p>
+
+<h2 id="3-deterministic-information"><a class="header-anchor" href="#3-deterministic-information">3. Deterministic information</a></h2>
+
+<p>How is data on disk contain information if it is fixed and known? How does the output of a deterministic computer program contain information? How do math proofs contain information? All these things do not have an inherent probability distribution. If there is uncertainty, we might call it <span class="marginnote-outer"><span class="marginnote-ref">logical uncertainty</span><label for="0e18784002a64f3be42ab79f74a4282e0d11c58f" class="margin-toggle"> ⊕</label><input type="checkbox" id="0e18784002a64f3be42ab79f74a4282e0d11c58f" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">See <a href="https://intelligence.org/2016/04/21/two-new-papers-uniform/" target="_blank" rel="noopener noreferrer">New papers dividing logical uncertainty into two subproblems</a><br>and <a href="https://golem.ph.utexas.edu/category/2016/09/logical_uncertainty_and_logica.html" target="_blank" rel="noopener noreferrer">Logical Uncertainty and Logical Induction</a></span></span></span>. It is an open question whether logical uncertainty and empirical uncertainty should be conflated, and both brought under the umbrella of probability theory.</p>
+
+<p>This is similar to asking, how does Shannon information account for what I already know? When I observe a message I didn’t already know it is informative, but what about the information contained in messages I currently have?  It is also an open question whether probability should be considered objective or subjective, and whether quantities of information are objective or subjective. Perhaps you regard a message you have to be informative, because you are implicitly modeling its information w.r.t. some other receiver who has not yet received it.</p>
+
+<h2 id="4-if-the-universe-is-continuous-everything-contains-infinite-information"><a class="header-anchor" href="#4-if-the-universe-is-continuous-everything-contains-infinite-information">4. If the universe is continuous everything contains infinite information</a></h2>
+
+<p>This one is resolved by the discussion above about mutual information of continuous distributions being finite, so long as there is noise between the two random variables. Thus, in a universe where all measurements are noisy, mutual information is always finite regardless of the underlying meta-physics (whether objects contain finite or infinite information in an absolute sense).</p>
+
+<h2 id="5-shannon-information-ignores-the-meaning-of-messages"><a class="header-anchor" href="#5-shannon-information-ignores-the-meaning-of-messages">5. Shannon information ignores the meaning of messages</a></h2>
+
+<p>There is a competing information theory, <a href="https://en.wikipedia.org/wiki/Algorithmic_information_theory" target="_blank" rel="noopener noreferrer">algorithmic information theory</a> which uses the length of the shortest program that can output a message $x$ as the information measure of $x$, called <a href="https://en.wikipedia.org/wiki/Kolmogorov_complexity" target="_blank" rel="noopener noreferrer">Kolmogorov complexity</a>. If $x$ is less compressible, it contains more information. This is analogous to low $p_X(x)$ leading to its optimal <a href="https://en.wikipedia.org/wiki/Shannon%E2%80%93Fano_coding" target="_blank" rel="noopener noreferrer">Shannon-Fano</a> being longer, and thus containing more information.</p>
+
+<p>Algorithmic information theory addresses the criticism that $h(x)$ depends only on the probability of $x$, rather than the meaning of $x$. If $x$ is a word, sentence, or even a book, the information content of $x$ supposedly does not depend on what the text is! Algorithmic information theory defines information as a property of the content of $x$ as a string, and drops the dependency on probability.</p>
+
+<p>I think this criticism does not consider what <em>meaning</em> is. A steel-man’ed Shannon information at least seems self-consistent to me. Again, the right approach is to use mutual information. I propose that the meaning of a piece of text is ultimately due to the brain state it invokes in you when you read it. Your <a href="https://www.deeplearningbook.org/contents/representation.html" target="_blank" rel="noopener noreferrer">representation</a> of the text shares information with the text. So while yes the probability of $x$ in the void may be meaningless, the joint probability of $(x, z)$ where $z$ is your brain state is what gives $x$ meaning. Also note that condensing a book into one random variable $\rX$ is very misleading, because this distribution factors! A book is a single outcome from a distribution over all strings of characters, and we write this distribution as $p(\rC_i \mid \rC_{i-1}, \ldots, \rC_2, \rC_1)$ where $\rC_i$ is the random variable for the $i$-th character in the book. In this way, each character position contains semantic information in its probability distribution conditioned on the previous character choices. The premise of <a href="https://web.stanford.edu/class/cs124/lec/languagemodeling.pdf" target="_blank" rel="noopener noreferrer">language modeling</a> in machine learning is that the statistical relationships between words (their frequencies of co-occurrence) in a corpus of text <span class="marginnote-outer"><span class="marginnote-ref">determine their meaning</span><label for="420e4613ec913eb3ebc7f105b4ba7df0378bbd7b" class="margin-toggle"> ⊕</label><input type="checkbox" id="420e4613ec913eb3ebc7f105b4ba7df0378bbd7b" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The theory goes that a computer which can estimate frequencies of words very precisely would implicitly have to create internal representations of those words which encode their meaning, and so beefed up language modeling is all that is needed for intelligence.</span></span></span></p>
+
+<h2 id="6-probability-distributions-are-not-objective"><a class="header-anchor" href="#6-probability-distributions-are-not-objective">6. Probability distributions are not objective</a></h2>
+
+<p>I touched on this already. Probability has two interpretations: frequentist (objective) and Bayesian (subjective). It is unclear if frequentist probability is an objective property of matter. For repeatable controlled experiments, a frequentist description is reasonable, like in games of chance, and in statistical mechanics and quantum mechanics. When probability is extended to systems that don’t repeat in any meaningful sense, like the stock market or historical events, the objectiveness is dubious. There is a camp that argues probability should reflect the state of belief of an observer, and is more a measurement of the brain doing the observing than the thing being observed.</p>
+
+<p>So then this leads to an interesting question: is Shannon information a property of a system being observed, or a property of the observer in relation to it (or both together)? Is information objective in the sense that multiple independent parties can do measurements to verify a quantity of information, or is it subjective in the sense that it depends on the beliefs of the person doing the calculating? I am not aware of any answer or consensus on this question for information in general,</p>
+
+<h1 id="appendix"><a class="header-anchor" href="#appendix">Appendix</a></h1>
+
+<h2 id="properties-of-conditional-entropy"><a class="header-anchor" href="#properties-of-conditional-entropy">Properties of Conditional Entropy</a></h2>
+
+<p>Source: https://en.wikipedia.org/wiki/Conditional_entropy#Properties</p>
+
+<p>$H[\rY \mid \rX] = H[(\rX, \rY)] - H[\rX]$</p>
+
+<p>Bayes’ rule of conditional entropy:
+$H[\rY \mid \rX] = H[\rX \mid \rY] - H[\rX] + H[\rY]$</p>
+
+<p>Minimum value:
+$H[\rY \mid \rX] = 0$ when $p(y \mid x)$ is always deterministic, i.e. one-hot, i.e. $p(y \mid x) \in {0, 1}$ for all $(x, y) \in X \times Y$.</p>
+
+<p>Maximum value:
+$H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.</p>
+
+<h2 id="bayes-rule"><a class="header-anchor" href="#bayes-rule">Bayes’ Rule</a></h2>
+
+<script type="math/tex; mode=display">p(y \mid x) = p(x \mid y)p(y)/p(x)</script>
+
+<p>can be rewritten in terms of self-information:</p>
+
+<script type="math/tex; mode=display">h(y \mid x) = h(x \mid y) + h(y) - h(x)\,.</script>
+
+<p>The information contained in $y$ given $x$ is proportional to the information contained in $x$ given $y$ plus the information contained in $y$. This is just Bayes’ rule in log-space, but makes it a bit easier to reason about what Bayes’ rule is doing. Whether $y$ is likely in its own right and whether $x$ is likely given $y$ both contribute to the total information.</p>
+
+<h2 id="cross-entropy-and-kl-divergence"><a class="header-anchor" href="#cross-entropy-and-kl-divergence">Cross Entropy and KL-Divergence</a></h2>
+
+<p>Unlikely everything we’ve seen so far, these are necessarily functions of probability functions, rather than random variables. Further, these are both comparisons of probability functions over the same support.</p>
+
+<script type="math/tex; mode=display">H(P,Q) = -\sum_x P(x)\log Q(x)</script>
+
+<script type="math/tex; mode=display">\mathbb{K}\left(P\,||\,Q\right) = \sum_{x} P(x)\log
+{\frac{P(x)}{Q(x)}}</script>
+
+<script type="math/tex; mode=display">\mathbb{K}\left(P\,||\,Q\right) = H(P,Q) - H(P)</script>
+
+<p>Sources:</p>
+<ul>
+  <li>https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence</li>
+  <li>https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence</li>
+</ul>
+
+<p>Mutual information can be <a href="https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence" target="_blank" rel="noopener noreferrer">written in terms of KL-divergence</a>:</p>
+
+<script type="math/tex; mode=display">I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right)</script>
+
+<p>where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$.</p>
+
+
+
+
+
+    </article>
+    <!-- http://sgeos.github.io/jekyll/disqus/2016/02/15/adding-disqus-to-a-jekyll-blog.html -->
+
+
+
+<hr class="slender">
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zhat.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+                            
+
+    <span class="print-footer">Primer to Shannon's Information Theory - June 9, 2020 - pragmanym</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links"> 
+    <li><a href="/about">FAQ</a></li>  
+    
+      <li>
+        <a href="mailto:pragmanym@gmail.com"><span class="icon-mail"></span></a>
+      </li>
+    
+      <li>
+        <a href="//github.com/pragmanym"><span class="icon-github"></span></a>
+      </li>
+    
+      <li>
+        <a href="/feed"><span class="icon-feed"></span></a>
+      </li>
+      
+  </ul>
+  <div class="credits">
+  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
+  </div>  
+</footer>
+  </body>
+</html>
