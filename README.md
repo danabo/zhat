@@ -1,2 +1,4 @@
 # zhat
-A (we)blog devoted to finding better representations
+A blog devoted to finding better representations.
+
+Live at http://zhat.io
