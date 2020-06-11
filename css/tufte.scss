@@ -278,6 +278,8 @@ blockquote .sidenote, blockquote .marginnote { margin-right: -79% }
 
 p, footer, div.table-wrapper, table, div.mathblock, div.MathJax_Display { width: $col-width; }
 
+.full-width p, .full-width footer, .full-width div.table-wrapper, .full-width table, .full-width div.mathblock, .full-width div.MathJax_Display { width: 100%; }
+
 div.table-wrapper { overflow-x: auto; } //changed all overflow values to 'auto' so scroll bars appear only as needed
 
 @media screen and (max-width: 760px) { p, footer, div.mathblock, div.MathJax_Display { width: 90%; }
@@ -420,6 +422,17 @@ body.full-width, .content-listing, ul.content-listing li.listing{ width: 90%;
 }
 .full-width article p{
   width: 90%;
+}
+
+.full-width article ul,ol { width: 75%;}
+
+.full-width article img {
+  padding:1px;
+  border:1px dashed #021a40;
+  max-width: 75%;
+  display: block;
+  margin: 5px;
+  margin-left: auto; margin-right: auto;  // centers image
 }
 
 
