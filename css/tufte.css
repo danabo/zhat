@@ -452,6 +452,9 @@ blockquote .sidenote, blockquote .marginnote {
 p, footer, div.table-wrapper, table, div.mathblock, div.MathJax_Display {
   width: 55%; }
 
+.full-width p, .full-width footer, .full-width div.table-wrapper, .full-width table, .full-width div.mathblock, .full-width div.MathJax_Display {
+  width: 100%; }
+
 div.table-wrapper {
   overflow-x: auto; }
 
@@ -621,6 +624,18 @@ body.full-width, .content-listing, ul.content-listing li.listing {
 
 .full-width article p {
   width: 90%; }
+
+.full-width article ul, ol {
+  width: 75%; }
+
+.full-width article img {
+  padding: 1px;
+  border: 1px dashed #021a40;
+  max-width: 75%;
+  display: block;
+  margin: 5px;
+  margin-left: auto;
+  margin-right: auto; }
 
 h1.content-listing-header {
   font-style: normal;
