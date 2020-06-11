@@ -2,7 +2,7 @@
 layout: post
 title:  "Quantum State"
 date:   2019-12-22
-categories: ["Brain Dump"]
+categories: post
 ---
 
 The two views of quantum state:

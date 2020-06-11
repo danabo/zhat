@@ -2,12 +2,12 @@
 layout: post
 title: "Primer to Shannon's Information Theory"
 date:   2020-06-09
-categories: primer
+categories: post
 ---
 
 Shannon's theory of information is usually just called *information theory*, but is it deserving of that title? Does Shannon's theory completely capture every possible meaning of the word *information*? In the grand quests to creating AI and understanding the rules of the universe (i.e. grand unified theory) information may be key. Intelligent agents search for information and manipulate it. Particle interactions in physics may be viewed as information transfer. The physics of information may be key to interpreting quantum mechanics and resolving the measurement problem. 
 
-If you endeavour to answer these hard questions, it is prudent to understand existing so-called theories of information so you can evaluate whether they are powerful enough and to take inspiration from them.
+If you endeavor to answer these hard questions, it is prudent to understand existing so-called theories of information so you can evaluate whether they are powerful enough and to take inspiration from them.
 
 Shannon's information theory is a hard nut to crack. Hopefully this primer gets you far enough along to be able to read a textbook like *Elements of Information Theory*. At the end I start to explore the question of whether Shannon's theory is a complete theory of information, and where it might be lacking.
 
@@ -18,8 +18,6 @@ This post is long. That is because Shannon's information theory is a framework o
 * Table of contents
 {:toc}
 {: .toc}
-
-
 
 # Self-Information
 
@@ -40,73 +38,33 @@ I'm going to use non-standard notation which I believe avoids some confusion and
 
 Shannon defines information indirectly by defining quantity of information contained in a message/event. This is analogous how physics defines mass and energy in terms of their quantities.
 
-We can derive Shannon's definition of information by combining these two necessary principles:
+Let's define $x$ to be any mathematical object from a set of possibilities $X$. We typically call $x$ a *message*, but it can also be referred to as an *outcome*, *state*, or *event* depending on the context.
+
+ Define {% marginnote "$h(x)$" "The standard notation is $I(x)$, but this is easy to confuse with mutual information [below](#expected-mutual-information)." %} to be the **self-information** of $x$, which is the amount of information gained by {% marginnote "receiving" "Receiving here can mean, (1) sampling an outcome from a distribution, (2) storing in memory *one* of its possible states, or (3) viewing with the mind or knowing to be the case one out of the possible cases." %} $x$. We will see how a natural definition of $h(x)$ arises from combining these two principles:
 
 1. Quantity of information is a function only of probability of occurrence.
 2. Quantity of information acts like quantity of bits when applied to computer memory.
 
-Let's define {% marginnote "$h(x)$" "The standard notation is $I(x)$, but this is easy to confuse with mutual information [below](#expected-mutual-information)." %} to be the **self-information** of $x$, which is the amount of information gained by {% marginnote "receiving" "Receiving here can mean, (1) sampling an outcome from a distribution, (2) storing in memory *one* of its possible states, or (3) viewing with the mind or knowing to be the case one out of the possible cases." %} $x$. We will see how a natural definition of $h(x)$ arises from these two principles.
+Principle (1) constrains $h$ to the form $h(x) = f(p_X(x))$, and we do not yet know what $f$ should be.
 
-Principle (1) gives us $h(x) = f(p_X(x))$.
+To see why, let's unpack (1): it implies that messages/events must always come from a distribution, which is what provides the probabilities. Say you receive a message $x$ sampled from probability distribution (function) $p_X : X \to [0, 1]$ over a {% marginnote "discrete" "Assume all distributions are discrete until the [continuous section](#shannon-information-for-continuous-distributions)." %} set $X$. Then (1) is saying that $h$ should only *look at* the probability $p_X(x)$ and not $x$ itself. This is a reasonable requirement, since we want to define information irrespective of the kind of object that $x$ is.
 
-To see why, let's unpack (1): it implies that messages/events must always come from a distribution, which is what provides the probabilities. Say you receive a message $x$ sampled from probability distribution (function) $p_X : X \to [0, 1]$ over a {% marginnote "discrete" "Assume all distributions are discrete until the [continuous section](#shannon-information-for-continuous-distributions)." %} event space $X$. Formally, (1) requires that $h(x) = f(p_X(x))$, where $f$ is some function of the probability $p_X(x)$ only, and not $x$ itself. So far, we don't know what $f$ should be.
+Principle (2) constrains what $f$ should be: {% marginnote "$f(p) = -\log_2 p$" "Though we assume a uniform discrete probability distribution to derive this, we will use this definition of $f$ to generalize the same logic to all probability distributions, which is how we arrive at the final definition of $h$." %}, where $p \in [0, 1]$ is a probability value.
 
-Principle (2) gives us {% marginnote "$f(p) = -\log_2 p$" "Though we assume a uniform discrete probability distribution to derive this, we will use this definition of $f$ to generalize the same logic to all probability distributions, which is how we arrive at the final definition of $h$." %}.
+To understand (2), consider computer memory. With $N$ bits of memory there are $2^N$ distinguishable states, and only one is the case at one time. Increasing the number of bits exponentially increases the {% marginnote "number of counterfactual states" "Number of states you could have stored but didn't." %}. In memory terms, receiving a "message" of $N$ bits of memory simply means finding out the state those bits are in. Attaching equal weight to each possibility (i.e. memory state) gives us a {% marginnote "special case of the probability distribution we used above" "To see the equivalence between these two notions of information, i.e. more rare equals more informative vs number of counterfactual states (or memory capacity), it is useful to think of the probability distribution as a weighted possibility space, and of the memory states as possibilities." %} to define $h$: the *uniform* distribution, where there are $2^N$ possible states and the weight of single state is $\frac{1}{2^N} = 2^{-N}$.
 
-To understand (2), consider computer memory. With $N$ bits of memory there are $2^N$ distinguishable states, and only one is the case at one time. Increasing the number of bits exponentially increases the {% marginnote "number of counterfactual states" "Number of states you could have stored but didn't." %}. In memory terms, receiving a "message" of $N$ bits of memory simply means finding out the state those bits are in.  To see the equivalence between these two definitions of the quantity of information, it is useful to think of the probability distribution as a weighted possibility space, and of the memory states as possibilities.
+<!--We intuitively think of the quantity of information stored in memory as the number of bits it has. We have $f(p)$ return $N$ when every possible state has an equal weight of $p=2^{-N}$, because we assume a uniform distribution over $2^N$ states, which is equivalent to how we conceive of computer memory with $N$ bits.-->
 
-Attaching equal weight to each possibility (i.e. memory state) gives us a special case of the probability distribution we used above to define $h$: the *uniform* distribution, where there are $2^N$ possible states and the weight of single state is $\frac{1}{2^N} = 2^{-N}$. We intuitively think of the quantity of information stored in memory as the number of bits it has. We have $f(p)$ return $N$ when every possible state has an equal weight of $p=2^{-N}$, because we assume a uniform distribution over $2^N$ states, which is equivalent to how we conceive of computer memory with $N$ bits.
-
-Composing $f(p) = -\log_2 p$ of principle (2) with $h(x) = f(p_X(x))$ of principle (1) above gives us the full definition of self-information:
+Composing $f(p) = -\log_2 p$ with $h(x) = f(p_X(x))$ gives us the full definition of self-information:
 
 $$
 h(x) = -\log_2 p_X(x)\,.
 $$
 
 
-*Now the magic happens.* Given that we defined self-information as $h(x) = f(p_X(x))$, and given that we've pinned down $f(p) = -\log_2 p$ for a special case, we've done all the work we need to do to define $h(x)$ for all probability distributions, because nothing in our definition of $f(p)$ actually depends on the particular distribution we used.
+<!--*Now the magic happens.* Given that we defined self-information as $h(x) = f(p_X(x))$, and given that we've pinned down $f(p) = -\log_2 p$ for a special case, we've done all the work we need to do to define $h(x)$ for all probability distributions, because nothing in our definition of $f(p)$ actually depends on the particular distribution we used.-->
 
-<!--
-For our special case distribution $p_X(x) = 2^{-N}$ is a constant. But our definition of $f(p)$ does not rely on this probability function $p_X$ in any way.
-
- Though we derived $f(p)$ assuming a uniform distribution over memory states, $f$ is a function of only a probability *value*, **not** a distribution, and so the type of $f$ is agnostic to the distribution $p$ came from. This choice of $f$ fully constrains $h$ in all cases.
--->
-
-<!--
- with the possibilities here being the possible states the memory could be in.
-
- In that light, computer memory becomes a special case of such a distribution where we assign equal probability to all the possible states the memory could be in.-->
-
-
-<!--If we then think of the possible states the memory could be in as outcomes to which we attach weights, and if we weighted them all equally, then this distribution over memory states is just a special case of a probability distribution which we looked at in the first definition. -->
-
-<!--
-To get It's useful here to think of a probability distribution as a weighted possibility space.
-
-To achieve (2), i.e. equivalence to computer bits, we assume a uniform weighting when none is given (we just have a possibility space). For $2^N$ possible states, the *weight* of a single state is $\frac{1}{2^N} = 2^{-N}$, which gives us a uniform weighting.-->
-
-
-
-<!-- Combining (1) and (2), we want $f(p)$ to return $N$ for the case of computer memory, i.e. a uniform distribution over $N$ bits when $p=2^{-N}$. It is clear that  -->
-
-<!--We intuitively think of the quantity of information stored in memory as the number of bits it has. Combining (1) and (2) formalizes this intuition: we have $f(p)$ return $N$ when there are $N$ bits, because we assume a uniform distribution over $2^N$ states, which gives us a probability of $p=2^{-N}$ for every state.-->
-
-
-
-<!--We intuitively think of the quantity of information stored in memory as the number of bits it has. Combining (1) and (2) formalizes this intuition: we have $f(p)$ return $N$ when every possible state has an equal weight of $p=2^{-N}$, because we assume a uniform distribution over $2^N$ states, which is equivalent to how we conceive of computer memory with $N$ bits.-->
-
-<!--
-
-Thus we define:
-
-$$
-\begin{align}
-f(p) &= -\log_2 p \\
-\Longrightarrow h(x) &= -\log_2 p_X(x)\,.
-\end{align}
-$$
-
--->
+## Regarding notation
 
 From here on, I will use $h(x)$ as a function of message $x$, without specifying the type of $x$. It can be anything: a number, a binary sequence, a string, etc. $f(p)$ is a function of probabilities, rather than messages. So:
 <p style="text-align: center;">$h : X \to \R^+$ maps from messages to information,<br/> 
@@ -121,7 +79,7 @@ In some places below {% marginnote "I've written equations in terms of $f$ rathe
 
 ## *Bits*, not bits
 
-Things get interesting if $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? Here is where we part ways from computer bits. It's better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a *bit*, but this is a mere convention.
+You can get through the above exposition by thinking in terms of computer bits. Now we part ways from the computer bits intuition. Note that this departure occurs when $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? From here on out, it's better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a *bit*, but this is a mere convention. The word *bit* should no long be thought of a physical medium that stores two distinguishable states (usually labeled "0" and "1"), but is instead a unit. Like the kilogram and Joule, this unit is undefined, but its usage gives it semantic meaning.
 
 So then how is $h$ to be understood? What is the intuition behind this quantity? In short, Shannon bits are an [analytic continuation](https://en.wikipedia.org/wiki/Analytic_continuation) of computer bits. Just like how the [gamma function](https://en.wikipedia.org/wiki/Gamma_function) extends factorial to continuous values, Shannon bits extend the computer bit to **non-uniform distributions** over a **non-power-of-2** number of counterfactuals. Let me explain these two phrases:
 
@@ -189,7 +147,7 @@ Let's build our intuition of entropy. A good way to view entropy is as a measure
 For example, a bi-modal distribution can have arbitrarily high variance by moving the modes far apart, but the overall spread-out-ness (entropy) will not necessarily change.
 
 
-The more spread out a distribution is, the higher its entropy. For bounded [support](https://en.wikipedia.org/wiki/Support_(mathematics)#Support_of_a_distribution), the uniform distribution has highest entropy ([other max-entropy distributions](https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution#Other_examples.)). The {% marginnote "minimum possible entropy is 0" "Note that in the expectation, 0-probability outcomes have infinite self-information, so we have to use the convention that $p_X(x)\cdot h(x) = 0\cdot\infty = 0$." %}, which indicates a deterministic distribution, i.e. $p_X(x) \in \{0, 1\}$ for all $x \in X$.
+The more spread out a distribution is, the higher its entropy. For bounded [support](https://en.wikipedia.org/wiki/Support_(mathematics)#Support_of_a_distribution), the uniform distribution has highest entropy ([other max-entropy distributions](https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution#Other_examples.)). The {% marginnote "minimum possible entropy is 0" "Note that in the expectation, 0-probability outcomes have infinite self-information, so we have to use the convention that $p_X(x)\cdot h(x) = 0\cdot\infty = 0$." %}, which indicates a deterministic distribution, i.e. $p_X(x) \in \\{0, 1\\}$ for all $x \in X$.
 
 {% extfigure https://upload.wikimedia.org/wikipedia/commons/2/22/Binary_entropy_plot.svg 'Credit: <a href="https://en.wikipedia.org/wiki/Binary_entropy_function">https://en.wikipedia.org/wiki/Binary_entropy_function</a>' %}
 
@@ -270,13 +228,13 @@ This is a nice result. This equation says that the {% marginnote "average uncert
 
 # Mutual Information
 
-In my view, mutual information is what holds promise as a definition of information. This it the most important topic to understand for tackling the "problems with Shannon information" section below.
+In my view, mutual information is what holds promise as a definition of information. This it the most important topic to understand for tackling the [problems with Shannon information](#problems-with-shannon-information) section below.
 
 ## Pointwise Mutual Information
 
 <!-- Intuitively, if two events are causally connected, i.e. dependent, they contain redundant information combined. meaning that their combined information would be less than the sum of their information. It may  also be the case that their combined information could be greater than the sum of their information! This is called *synergy*. We will see examples of this later. -->
 
-When two events $x$ and $y$ are dependent, how to we compute their total information? Previously we said that $h(x \and y) = h(x) + h(y)$ iff $p_X(x \and y) = p_X(x)p_X(y)$. However, the general case is,
+When two events $x$ and $y$ are dependent, how do we compute their total information? Previously we said that $h(x \and y) = h(x) + h(y)$ iff $p_X(x \and y) = p_X(x)p_X(y)$. However, the general case is,
 
 $$
 h(x \and y) = h(x) + h(y) - i(x, y)\,,
@@ -294,22 +252,19 @@ $$
 
 $i(x, y)$ is called *pointwise mutual information* (PMI). Informally, PMI measures the amount of bits shared by two events. To say that another way, it measures how much information I have about one event given I only observe the other. Notice that PMI is symmetric, $i(x, y) = i(y, x)$, so any two events contain the same information about each other.
 
-$i(x, y)$ is a difference in information. Positive $i(x, y)$ indicates *redundancy*, i.e. total information is less than the sum of the parts: $h(x, y) < h(x) + h(y)$. However, it may also be the case that $i(x, y)$ is negative so that $h(x, y) > h(x) + h(y)$. {% marginnote "This is called [*synergy*](https://en.wikipedia.org/wiki/Synergy#Information_theory)." "The word *synergy* is conventionally used in the context of expected mutual information, and I am running the risk of conflating two distinct phenomenon under the same word. There is no synergy among two random variables under expected mutual information, and this type of synergy only appears among 3 or more random variables.  See [https://en.wikipedia.org/wiki/Multivariate_mutual_information#Synergy_and_redundancy](https://en.wikipedia.org/wiki/Multivariate_mutual_information#Synergy_and_redundancy)." %}
+$i(x, y)$ is a difference in information. Positive $i(x, y)$ indicates *redundancy*, i.e. total information is {% marginnote "less than the sum of the parts" "If you object that it doesn't make sense to lose information by observing $x$ and $y$ together over observing them separately, it is important to note that $h(x) + h(y)$ is not a physically meaningful quantity, unless they are independent. Technically, you would have $h(x) + h(y \mid x)$ in total. $h(x)$ and $h(y)$ are both the amounts of information to gain by observing either $x$ or $y$ **first**." %}: $h(x, y) < h(x) + h(y)$. However, it may also be the case that $i(x, y)$ is negative so that $h(x, y) > h(x) + h(y)$. {% marginnote "This is called [*synergy*](https://en.wikipedia.org/wiki/Synergy#Information_theory)." "The word *synergy* is conventionally used in the context of expected mutual information, and I am running the risk of conflating two distinct phenomenon under the same word. There is no synergy among two random variables under expected mutual information, and this type of synergy only appears among 3 or more random variables.  See [https://en.wikipedia.org/wiki/Multivariate_mutual_information#Synergy_and_redundancy](https://en.wikipedia.org/wiki/Multivariate_mutual_information#Synergy_and_redundancy)." %}
 
-This is highly speculative, but synergy (either the pointwise-MI or expected-MI kind) may be a fundamental insight that could explain emergence and limitations of reductionism in understanding reality. See [Higher-level causation exists (but I wish it didn’t)](https://www.scottaaronson.com/blog/?p=3294).
-
-
-(If you object that it doesn't make sense to lose information by observing $x$ and $y$ together over observing them separately, it is important to note that $h(x) + h(y)$ is not a physically meaningful quantity, unless they are independent. Technically, you would have $h(x) + h(y \mid x)$.)
+This is highly speculative, but synergy (either the pointwise-MI or expected-MI kind) may be a fundamental insight that could explain {% marginnote "emergence" "Emergence is a concept in philosophy. See [https://en.wikipedia.org/wiki/Emergence](https://en.wikipedia.org/wiki/Emergence) and [https://plato.stanford.edu/entries/properties-emergent/](https://plato.stanford.edu/entries/properties-emergent/)" %} and possible limitations of reductionism in illuminating reality. See [Higher-level causation exists (but I wish it didn’t)](https://www.scottaaronson.com/blog/?p=3294).
 
 <!--
-Let's look at (an admittedly contrived) example of synergy. Suppose our [sample space](https://en.wikipedia.org/wiki/Sample_space) is $\{a, b, c\}$ (composed of [coutcomes](https://en.wikipedia.org/wiki/Sample_space#Conditions_of_a_sample_space) or [elementary events](https://en.wikipedia.org/wiki/Elementary_event)), and we have two events $x = \{a, b\}$ and $y = \{b, c\}$. $x, y$ co-occur if we draw outcome $b$. If $p(a) = 7/16, p(b) = 1/8, p(c) = 7/16$, then $p(x) = 9/16$, $p(y) = 9/16$, $p(x \and y) = 1/8$. $h(x) = h(y) \approx 0.83$ and $h(x \and y) = 3$, so $i(x, y) = 2\cdot0.83 - 3 \approx -1.34$ bits.
+Let's look at (an admittedly contrived) example of synergy. Suppose our [sample space](https://en.wikipedia.org/wiki/Sample_space) is $\\{a, b, c\\}$ (composed of [coutcomes](https://en.wikipedia.org/wiki/Sample_space#Conditions_of_a_sample_space) or [elementary events](https://en.wikipedia.org/wiki/Elementary_event)), and we have two events $x = \\{a, b\\}$ and $y = \\{b, c\\}$. $x, y$ co-occur if we draw outcome $b$. If $p(a) = 7/16, p(b) = 1/8, p(c) = 7/16$, then $p(x) = 9/16$, $p(y) = 9/16$, $p(x \and y) = 1/8$. $h(x) = h(y) \approx 0.83$ and $h(x \and y) = 3$, so $i(x, y) = 2\cdot0.83 - 3 \approx -1.34$ bits.
 
 
 That may seem like a contrived example, because I was working with composite events instead of elementary events. The same phenomenon can happen for joint distributions of sample spaces.  <font color="red">TODO: explain the difference between the example above and a joint distribution.</font>
 -->
 
 **Example:**
-Let $X = \{0, 1\}$ and $Y = \{0, 1\}$, then the joint sample space is the cartesian product $X \times Y$. $p_X(x), p_Y(y)$ denote marginal probabilities, and $p_{X,Y}(x, y)$ is their joint probability. The joint probability table:
+Let $X = \\{0, 1\\}$ and $Y = \\{0, 1\\}$, then the joint sample space is the cartesian product $X \times Y$. $p_X(x), p_Y(y)$ denote marginal probabilities, and $p_{X,Y}(x, y)$ is their joint probability. The joint probability table:
 
 | $x$ | $y$ | $p_{X,Y}(x, y)$ |
 |:---:|:---:|:---------------:|
@@ -363,7 +318,7 @@ i(x, y) &= \log_2\left(\frac{p(x)p(y)}{p(x)p(y)}\right) \\
 \end{align}
 $$
 
-The maximum possible PMI happens when $x$ and $y$ are perfectly associated, i,e. $p(y \mid x) = 1$ or $p(x \mid y) = 1$. So $h(y \mid x) = 0$ or vice versa, meaning you know everything about $y$ if you have $x$. Then $i(x, y) = h(y) - h(y \mid x) = h(y)$. In general, the maximum possible PMI is $\min\{h(x), h(y)\}$.
+The maximum possible PMI happens when $x$ and $y$ are perfectly associated, i,e. $p(y \mid x) = 1$ or $p(x \mid y) = 1$. So $h(y \mid x) = 0$ or vice versa, meaning you know everything about $y$ if you have $x$. Then $i(x, y) = h(y) - h(y \mid x) = h(y)$. In general, the maximum possible PMI is $\min\\{h(x), h(y)\\}$.
 
 PMI has no minimum, and goes to $-\infty$ if $x$ and $y$ can never occur together but can occur separately, i.e. $p(x, y) = 0$ while $p(x), p(y) > 0$. We can see that $p(y \mid x) = p(x, y)/p(x) = 0$ so long as $p(x) > 0$. So $h(y \mid x) \to \infty$, and we have $i(x, y) = h(y) - h(y \mid x) \to -\infty$ if $h(y) > 0$.
 
@@ -384,7 +339,7 @@ $$
 
 $I$ is to correlation as $H$ is to variance. While correlation measures to what extent $\rX$ and $\rY$ have a [linear relationship](https://en.wikipedia.org/wiki/Correlation_and_dependence), $I$ measures the strength of their statistical dependency. While variance measures average distance from some critical point, $H$ is distance agnostic, i.e. it measures unordered dispersion. Similarly, while statistical correlation measures deviation of the mapping between $\rX$ and $\rY$ from perfectly linear, $I$ is shape agnostic, i.e. it measures unordered causal dependence.
 
-First off, it is important to point out that $I$ is always non-negative, unlike its pointwise counterpart (proof [here](https://math.stackexchange.com/a/159544)) You can see this intuitively by trying to construct an anti-dependent relationship between $\rX$ and $\rY$. On average, $p(x, y)$ would have to be less than the product of their marginals. You can construct individual cases where this is true for a particular $(x, y)$, but to do that, you will have to fill most of the probability table (for 2D joint) with p-mass to compensate. This is reflected in Jensen's inequality. A direct consequence is $H[\rY] \geq H[\rY \mid \rX]$.
+First off, it is important to point out that $I$ is always non-negative, unlike its pointwise counterpart (proof [here](https://math.stackexchange.com/a/159544)). You can see this intuitively by trying to construct an anti-dependent relationship between $\rX$ and $\rY$. On average, $p(x, y)$ would have to be less than the product of their marginals. You can construct individual cases where this is true for a particular $(x, y)$, but to do that, you will have to fill most of the probability table (for 2D joint) with p-mass to compensate. This is reflected in Jensen's inequality. A direct consequence is $H[\rY] \geq H[\rY \mid \rX]$.
 
 $I$ being non-negative means you can safely think about it as a measure of information content. In this sense, information is stored in the relationship between $\rX$ and $\rY$.
 
@@ -449,11 +404,11 @@ h(a < x < b) &= -\log_2\,p(a < \rX < b)\\
 \end{align}
 $$
 
-Conjecture: The entropy of any distributions with uncountable support is infinite. This should make sense, as we now have uncountably many possible outcomes. One observation rules out infinitely many alternatives, so it should contain infinite information. We can see this clearly because the entropy of a uniform distribution over $N$ possibilities is $\log_2 N$ which grows to infinity as $N$ does. On the other hand, a one-hot distribution over $N$ possibilities has 0 entropy, because you will {% marginnote "always observe" "Unless you observe an impossible outcome, in which case you gain infinite information!" %} the probability-1 outcome and gain 0 information. So we expect the Dirac-delta distribution to have 0 entropy.
+Conjecture: The entropy of any distribution with uncountable support is infinite. This should make sense, as we now have uncountably many possible outcomes. One observation rules out infinitely many alternatives, so it should contain infinite information. We can see this clearly because the entropy of a uniform distribution over $N$ possibilities is $\log_2 N$ which grows to infinity as $N$ does. On the other hand, a one-hot distribution over $N$ possibilities has 0 entropy, because you will {% marginnote "always observe" "Unless you observe an impossible outcome, in which case you gain infinite information!" %} the probability-1 outcome and gain 0 information. So we expect the Dirac-delta distribution to have 0 entropy.
 
 But wait, the Gaussian distribution is a [maximum-entropy](https://en.wikipedia.org/wiki/Maximum_entropy_probability_distribution) distribution, implying that the entropy of continuous distributions can be numerically compared! People talk about entropy of continuous distributions all the time! What people normally call entropy for continuous distributions is actually [differential entropy](https://en.wikipedia.org/wiki/Differential_entropy), which is not the same thing as the $H$ we've been working with.
 
-I'll show that $H[\rX]$ is infinite when the distribution has continuous support.  https://www.crmarsh.com/static/pdf/Charles_Marsh_Continuous_Entropy.pdf.  To do that, let's take a [Riemann sum](https://en.wikipedia.org/wiki/Riemann_sum) of $f(x)$. Let $\{x_i\}_{i=-\infty}^\infty$ be a set of points equally spaced by intervals of $\Delta$.
+I'll show that $H[\rX]$ is infinite when the distribution has continuous support, following a similar proof in [Introduction to Continuous Entropy](https://www.crmarsh.com/static/pdf/Charles_Marsh_Continuous_Entropy.pdf).  To do that, let's take a [Riemann sum](https://en.wikipedia.org/wiki/Riemann_sum) of $f(x)$. Let $\\{x_i\\}_{i=-\infty}^\infty$ be a set of points equally spaced by intervals of $\Delta$.
 
 $$
 % \def\u{\Delta x}
@@ -464,13 +419,11 @@ H[\rX] &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_
 \end{align}
 $$
 
-The left term is just the Riemann integral of $f(x)\log_2(f(x))$, which I will define as **differential entropy**:
+The left term is just the Riemann integral of $f(x)\log_2(f(x))$, which I will define as {% marginnote "**differential entropy**" "Typically $h$ is used to denote differential entropy, but I've already used it for self-information, so I'm using $\eta$ instead." %}:
 
 $$
 \eta[f] := -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i)\right) = -\int_{-\infty}^\infty f(x) \log_2\left(f(x)\right) \diff{x}\,.
 $$
-
-(typically $h$ is used for differential entropy, but I've already used it for self-information, so I'm using $\eta$ instead)
 
 The right term can be simplified using the [limit product rule](https://tutorial.math.lamar.edu/Classes/CalcI/LimitsProperties.aspx):
 
@@ -494,14 +447,14 @@ $$
 
 $\log_2(\u) \to -\infty$ as $\u \to 0$, so $H[\rX]$ explodes to infinity when $\eta[f]$ is finite, which it is for most well-behaved functions. 
 
-A simple proof that $H$ is finite for continuous distributions with support over an uncountable set: the Riemann sum above will only have at most finitely many non-zero terms as $\Delta \to \infty$.
+A simple proof that $H$ is finite for continuous distributions with support over an finite set: the Riemann sum above will only have at most finitely many non-zero terms as $\Delta \to \infty$.
 
 Differential entropy is very different from entropy. It can be unboundedly negative. For example, the differential entropy of a Gaussian distribution with variance $\sigma^2$ is $\frac{1}{2}\ln(2\pi e \sigma^2)$. Taking the limit as $\sigma \to 0$, we see the differential entropy of the {% marginnote "Dirac-delta distribution is $-\infty$" "Plugging $\eta[f] = -\infty$ into our relation $H[\rX] = \eta[f] - \lim\limits_{\u \to 0}\log_2\left(\u\right)$, we see why entropy of $\delta(x)$ would be 0." %}. A notable problem with differential entropy is that its not invariant to change of coordinates, and there is a proposed fix for that: [https://en.wikipedia.org/wiki/Limiting_density_of_discrete_points](https://en.wikipedia.org/wiki/Limiting_density_of_discrete_points).
 
 
 ## Proof that MI is fininte for continuous distributions
 
-A very nice result is that expected mutual information is finite where entropy would be infinite, so long as there is some amount of noise between the two random variables. This implies that even if physical processes are continuous and contain infinite information, we can only get finite information out of them, because measurement requires establishing a statistical correlation between the measurement device and that system which is necessarily noisy. MI is agnostic to discrete or continuous universes! As long as there is some amount of noise in between a system and your measurement, your measurement will contain finite information about the system.
+A very nice result is that expected mutual information is finite where entropy would be infinite, so long as there is some amount of noise between the two random variables. This implies that even if physical processes are continuous and contain infinite information, we can only get finite information out of them, because measurement requires establishing a statistical relation between the measurement device and that system which is always noisy in reality. MI is agnostic to discrete or continuous universes! As long as there is some amount of noise in between a system and your measurement, your measurement will contain finite information about the system.
 
 The proof follows the same Riemann sum approach from the previous section. I will show that mutual information and differential mutual information are equivalent. Since differential mutual information finite for well behaved functions, so is mutual information!
 
@@ -578,7 +531,7 @@ Bayes' rule of conditional entropy:
 $H[\rY \mid \rX] = H[\rX \mid \rY] - H[\rX] + H[\rY]$
 
 Minimum value:
-$H[\rY \mid \rX] = 0$ when $p(y \mid x)$ is always deterministic, i.e. one-hot, i.e. $p(y \mid x) \in \{0, 1\}$ for all $(x, y) \in X \times Y$.
+$H[\rY \mid \rX] = 0$ when $p(y \mid x)$ is always deterministic, i.e. one-hot, i.e. $p(y \mid x) \in \\{0, 1\\}$ for all $(x, y) \in X \times Y$.
 
 Maximum value:
 $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.
