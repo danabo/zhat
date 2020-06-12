@@ -213,6 +213,8 @@ ul,ol { width: 45%;
      /* list-style-type: decimal;  */
      }
 
+ul ul, ul ol, ol ul, ol ol {width: auto;}
+
 .toc * { width: 100%;
                margin-top: 0; }
 .toc {width: 75%;
@@ -424,7 +426,7 @@ body.full-width, .content-listing, ul.content-listing li.listing{ width: 90%;
   width: 90%;
 }
 
-.full-width article ul,ol { width: 75%;}
+.full-width article ul, .full-width article ol { width: 75%;}
 
 .full-width article img {
   padding:1px;
