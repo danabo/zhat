@@ -6,7 +6,10 @@ categories: post
 ---
 
 $$
-\newcommand{\bin}{\mathbb{B}}  \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\bin}{\mathbb{B}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 $$
 
 Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).
@@ -35,26 +38,25 @@ I believe that having a crisp and exact understanding makes everything easier in
 
 # Definitions
 
-* **Sample** $\omega$ (i.e. primitive event) is a possible state of the world. Samples are disjoint, meaning only one sample can be the case at a time. Samples can be any kind of mathematical object.
-* **Sample set** $\Omega$ is a set of all possible samples.
-* **Event** $e \subseteq \Omega$ is a set of samples. Samples $\omega \in e$ are {% marginnote "considered identical" "They may be distinguishable, but the difference does not matter." %} w.r.t. $e$.
+* **Sample set** $\Omega$ is a set of all possible {% marginnote "samples" "Sample is synonymous with [outcome](https://en.wikipedia.org/wiki/Outcome_(probability))." %}.
+  - **Sample** $\omega \in \Omega$ (i.e. primitive event) is a possible state of the world. Samples are disjoint, meaning only one sample can be the case at a time. Samples can be any kind of mathematical object.
 * **Event space** $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are allowed to assign probability. We require that $\emptyset, \Omega \in E$ <font color="blue">and $E$ is required to be a $\sigma$-algebra that provides the measurable subsets of $\Omega$.</font>
-* **Probability** $P : E \to [0, 1]$ is a function that maps allowed subsets of $\Omega$ to the real unit interval. <font color="blue">$P$ is a measure</font>
+  - **Event** $e \in E$ is a set of samples. Samples $\omega \in e$ are {% marginnote "considered identical" "Different samples in $\Omega$ are indeed distinct objects, but their difference does not matter in the context of event $e$." %} w.r.t. $e$.
+* **Probability** {% marginnote "$P : E \to [0, 1]$" "In general a measure $Q : E \to \real_{\geq 0}$, but I'm including the restriction of the co-domain to [0, 1] in the definition of $$P$$ because we are only talking about probability measures here, and there's no reason to be more general." %} is a function that maps allowed subsets of $\Omega$ to the real unit interval.
+  - <font color="blue">$P$ is a measure, which is a function from a $\sigma$-algebra $E$ to the real line which satisfies the following properties:</font>
+    * **Non-negativity**: $$P(e) \geq 0,\ \forall e \in E$$.
+    * **Null empty set**: $$P(\emptyset) = 0$$.
+    * **Countable additivity**: For any countable $$A \subseteq E$$ where $$\bigcap A = \emptyset$$, $$P(\bigcup A) = \sum P(A)$$, where $$P(A) = \{P(e) \mid e \in A\}$$.
 
-Requirements on $P$ <font color="blue">(If $P$ is a measure then it automatically satisfies these)</font>:
-* **Non-negativity**: $$P(e) \geq 0,\ \forall e \in E$$
-* **Null empty set**: $$P(\emptyset) = 0$$
-* **Countable additivity**: For any countable $$A \subseteq E$$ where $$\bigcap A = \emptyset$$, $$P(\bigcup A) = \sum P(A)$$, where $$P(A) = \{P(e) \mid e \in A\}$$
 
-
-The triple $(\Omega, E, P)$ defines a probability space <font color="blue">which is also a measure space.</font> These three objects are all we need to do probability calculations.
+The triple $(\Omega, E, P)$ defines a [probability space](https://en.wikipedia.org/wiki/Probability_space) <font color="blue">which is also a measure space.</font> These three objects are all we need to do probability calculations.
 
 ## Kolmogorov axioms of probability
 
 The standard Kolmogorov axioms are:
-1. $P(e) \in [0, 1], \forall e \in E$, where $[0, 1] \subset \mathbb{R}$
+1. $P(e) \in [0, 1], \forall e \in E$, where $[0, 1] \subset \real$.
 2. $P(\Omega) = 1$, i.e. probability of anything happening is 1.
-3. <font color="blue"><a href="https://en.wikipedia.org/wiki/Sigma_additivity">$\sigma$-additivity</a> on $E$.</font>
+3. <font color="blue">{% marginnote "$\sigma$-additivity" "<a href=\"https://en.wikipedia.org/wiki/Sigma_additivity\">https://en.wikipedia.org/wiki/Sigma_additivity</a>" %} on $E$.</font>
 
 Because I've already specified (1) and (3) in the definitions above, (2) is the only axiom we need, <font color="blue">in addition to specifying that $(\Omega, E, P)$ is a measure space.</font> That's it!
 
@@ -86,21 +88,129 @@ $$P$$ can be thought of as a distribution over finite binary sequences where $$P
 
 **Uncountable**: The reals
 
-$$\Omega=\mathbb{R}$$,
-$$E \subset 2^\mathbb{R}$$ is the set of all sets of reals formed by countable union, intersection, and complement of the open intervals.
+$$\Omega=\real$$,
+$$E \subset 2^\real$$ is the set of all sets of reals formed by countable union, intersection, and complement of the open intervals. <font color="blue">This particular choice of $E$ is called the <a href="https://en.wikipedia.org/wiki/Borel_set">Borel algebra</a>, and is a standard $\sigma$-algebra for $\real$. The reason we don't use $E = 2^\real$ as our event space is that some subsets of $\real$ are not measurable.</font>
 
-Let $$f : \mathbb{R} \to \mathbb{R}$$ be a pdf, such as the [standard normal pdf](https://en.wikipedia.org/wiki/Normal_distribution).
+Let $$f : \real \to \real$$ be a probability density function (pdf), such as the [standard normal pdf](https://en.wikipedia.org/wiki/Normal_distribution).
 $$P(e) = \int_e f(x) \mathrm{d}x,\ \forall e \in E$$ is the integral over the real numbers in set $$e$$.
 
 ## Events vs samples
 
 **Question:** Why provide event space $E$? Isn't this redundant with $\Omega$?
 1. Providing $E$ makes it much easier to define $P$. Let's look at the dice example again: $$\Omega = \{⚀,⚁,⚂,⚃,⚄,⚅\}$$. You are probably objecting that simply assigning a probability to each die outcome is sufficient to define $P$. While this is true, the input type of $P$ would be wrong. If we define $P$ on samples $\omega \in \Omega$, then how do we ask for the probability of rolling an even face? That is the probability of the set $$\{⚁,⚃,⚅\}$$. If we instead define $$P(\{⚀\}), P(\{⚁\}), \ldots, P(\{⚅\})$$ only, and then specify that $P$ is additive over union of sets, that is sufficient. Ultimately this may seem like technicalities that don't really matter, which brings me to...
-2. <font color="blue">Some uncountable sets are not measurable. [Here](https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability) is a nice summary of the necessary trade-offs any notion of size needs to make. $E$ tells us which subsets of $\Omega$ are measurable. In practice you will not encounter non-measurable sets, so this may also seem like an unnecessary technicality.</font>
+2. <font color="blue">Some uncountable sets are {% marginnote "not measurable" "Here is a nice summary of the necessary trade-offs any notion of size needs to make: <a href='https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability'>https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability</a>" %}. $E$ tells us which subsets of $\Omega$ are measurable. In practice you will not encounter non-measurable sets, so this may also seem like an unnecessary technicality.</font>
 3. The real reason for including $E$ is so that we can reuse the machinery of measure theory, and reduce the entire definition of probability to 1 (or 3) simple axioms. Information redundancy in mathematical constructions is actually quite common. For example, a group is defined as $(G, +)$ where $G$ is a set of objects and $+ : G \times G \to G$ is some binary operator defined over $G$. The definition of $+$ already includes $G$, so technically providing $G$ is not necessary. A group is defined as a tuple $(G, +)$ to distinguish it from the set $G$ and the operator $+$. Another example is a topological space defined as the tuple $(X, \tau)$ where $X$ is a set of objects and $\tau$ is a set of subsets of $X$ ($\tau$ is simply called a topology) and $\tau$ necessarily contains $X$. Technically $X = \bigcup \tau$ so we don't need to provide $\tau$, but again we want to distinguish a topological space from $X$ and topology $\tau$. <font color="blue">Finally, measure theory is the source of the very redundancy we are addressing, inherited by probability theory. A probability space is also a measure space defined as the triple $(\Omega, E, P)$, distinct from $\Omega$, the set of subsets of $\Omega$ that can be measured, and the measure $P$.</font>
 
+**Question:** Why do I care about events containing multiple samples? Only one sample ever happens at a time.
+1. We want to be able to calculate the probability of "one or the other thing" happening. Let $$\omega_1, \omega_2 \in \Omega$$. $$\{\omega_1\}, \{\omega_2\} \in E$$ are the events corresponding to exactly one thing happening.  $$\{\omega_1, \omega_2\} \in E$$ is the event corresponding to either $$\omega_1$$ or $$\omega_2$$ happening.
+  - What about the probability of "one **AND** the other thing" happening? Samples in $$\Omega$$ each represent exactly one unique state of the world. It may be the case that world-state can be decomposed into two independent parts. Then your sample set is the cartesian product of sets for each independent sub-state, i.e. $$\Omega = \Lambda_1 \times \Lambda_2$$ and $$\omega = (\lambda_1, \lambda_2) \in \Lambda_1 \times \Lambda_2$$. Thus each sample $$\omega$$ already represents the "and" of two states if you want it to.
+  2. We want to be able to calculate the probability of something not happening. Not-$$\omega_1$$ is the event $$\{\omega \in \Omega \mid \omega \neq \omega_1\}$$.
 
-# Constructing events (sets of samples)
+# Constructing events
+
+A primitive event is a {% marginnote "singleton set" "the set containing one sample, i.e. $$e =\{\omega\}$$ where $$\omega \in \Omega$$" %}. Events are what get observed, not samples. If an event contains many samples, you don't know which of them is the case, but only one can be the case since they are disjoint.
+
+Much of the notation of probability, namely random variables (RV), revolves around turning the "define my event and measure its probability" process into one concise notational step. Before introducing random variables, let's look at how we would construct events and measure their probability without RVs.
+
+* **Set builder notation:** $$e = \{\omega \in \Omega \mid \mathrm{condition}(\omega)\}$$, where $$\mathrm{condition}(\omega)$$ is some boolean valued proposition on $\omega$.
+* **Measure probability:** $P(e)$. So long as $$e \in E$$, then $$P(e)$$ is defined.
+* **Combined:** $$P(\{\omega \in \Omega \mid \mathrm{condition}(\omega)\})$$.
+
+For example, if $\Omega = \nat$ and we wanted to compute the probability of getting an even number, then $$E = \{n \in \nat \mid \mathrm{Remainder}(n, 2) = 0\}$$, or skipping to the probability calculation: $$P(\{n \in \nat \mid \mathrm{Remainder}(n, 2) = 0\})$$.
+
+## Random variables
+
+Random variables are devices for constructing events. That is their purpose. Contrary to their name, there is {% marginnote "nothing random about them." "A random variable is a deterministic function. The word *__random__* is due to it being a function of samples which are randomly chosen." %}
+
+A random variable is a <font color="blue">measurable</font> function $$X : \Omega \to F$$, <font color="blue">where $F$ is a <a href="https://en.wikipedia.org/wiki/Measurable_space">measureable space</a> with $\sigma$-algebra $\mathcal{F}$ (specifies measurable subsets of $F$),</font> and the elements of $F$ can be any type of object.
+
+There are three main motivations for the random variable formalism...
+
+### Motivation 1: Information hiding
+
+I briefly mentioned above that samples can be treated as containing sub-samples, e.g. $\omega = (\lambda_1, \lambda_2) \in \Lambda_1 \times \Lambda_2 = \Omega$. Random variables are convenient for dealing with just one sub-sample in isolation, and they allow you to avoid committing to a particular way to divide up $\omega$, e.g. $\omega = (\lambda_1, \lambda_2) = (\kappa_1, \kappa_2, \kappa_3)$ might be two different and incompatible but semantically meaningful ways to divide sample $\omega$ into sub-parts.
+
+A random variable $X : \Omega \to F$ *hides information* contained in $\omega \in \Omega$ by appropriate choice of $F$. E.g. let $\Omega = \Lambda_1 \times \Lambda_2$ and let $$X_1 : (\lambda_1, \lambda_2) \mapsto \lambda_1$$ and $$X_2 : (\lambda_1, \lambda_2) \mapsto \lambda_2$$ be two random variables. $X_1(\Omega)$ and $X_2(\Omega)$ are smaller sample spaces than $\Omega$, each which hide irrelevant sample sub-parts.
+
+**Examples:**
+1. Toss two coins
+  - $$\Omega = \Lambda_1 \times \Lambda_2$$.  $$(\lambda_1, \lambda_2) \in \Omega$$.  $$\Lambda_1 = \Lambda_2 = \{H, T\}$$. 
+  - Define $$X_1 : (\lambda_1, \lambda_2) \mapsto \lambda_1$$ and $$X_2 : (\lambda_1, \lambda_2) \mapsto \lambda_2$$.
+  - $$X_1$$ isolates the state of the first coin. $$X_2$$ isolates the state of the second coin.
+  - $P(X_1=H) = P(\{\omega \in \Omega \mid X_1(\omega) = H\}) = P(\{(H,H), (H,T)\})$
+2. Sum of two dice
+  - $$\Omega = \Lambda_1 \times \Lambda_2$$.  $$(\lambda_1, \lambda_2) \in \Omega$$.   $$\Lambda_1 = \Lambda_2 = \{1,2,3,4,5,6\}$$. 
+  - Define $$S : (\lambda_1, \lambda_2) \mapsto \lambda_1 + \lambda_2$$.
+      - $$S$$ returns the sum of the two die outcomes. 
+      - codomain of $$S$$ is $$\{2, 3, \ldots, 11, 12\}$$
+  - $$P(S=4) = P(\{\omega \in \Omega \mid S(\omega) = 4\}) = P(\{(1,3), (2,2), (3, 1)\})$$
+
+In the general case, we might want to represent any number of interacting observables and components in a system. How about modeling the weather or the stock market? Your primitive sample space might be astronomical, but you can identify all sorts of observables like the prices of AAPL and GOOG at time $$t$$ or the temperatures of Florida and Vermont on Tuesday, which would be convenient to deal with separately. At the same time, you don't want to lose the rich information about how one particular observable interacts with all the others. We would like to be able to marginalize out partial information contained in primitive samples.
+
+When multiple random variables are invoked in the same context, they are assumed to be {% marginnote "over the same sample space $\Omega$." "For RVs $X_1, X_2, \ldots$ it is assumed there is a joint probability distribution $$P_{X_1, X_2, \ldots}$$. See the definition of joint distribution below." %}
+
+### Motivation 2: Syntactic sugar
+
+We've seen how events can be constructed with set builder notation, i.e. $$e = \{\omega \in \Omega \mid \mathrm{condition}(\omega)\}$$, and we've seen how a random variable $X : \Omega \to F$ can be used to build events, e.g. $$e = \{\omega \in \Omega \mid X(\omega) = f\}$$ where $f \in F$ is some object.
+
+There is a shorthand notation for writing $$P(\{\omega \in \Omega \mid X(\omega) = f\})$$, which is
+
+$$P(X=f)\,.$$
+
+The general case of this notation is
+
+$$P(\mathrm{condition}(X_1, X_2, \ldots)) \\ = P(\{\omega \in \Omega : \mathrm{condition}(X_1(\omega), X_2(\omega), \ldots)\})\,,$$
+
+where $X_1 : (\Omega \to F_1),\ \ X_2 : (\Omega \to F_2), \ \  \ldots$ are random variables, and $$\mathrm{condition}(f_1, f_2, \ldots)$$ is some boolean function of inputs $$f_1 \in F_1, f_2 \in F_2, \ldots$$ 
+
+**Examples:**
+* $$P(X = Y) = P(\{\omega \in \Omega : X(\omega) = Y(\omega)\})$$, where $$Y : \Omega \to F$$ is a random variable.
+* $$P(X=f, Y=g) = P(\{\omega \in \Omega \mid X(\omega)=f, Y(\omega)=g\})$$ where $$Y:\Omega \to G$$ and $$g \in G$$.
+* $$P(X \in A) = P(\{\omega \in \Omega : X(\omega) \in A\})$$, for <font color="blue">measurable</font> $$A \subseteq F$$.
+* $P(X > f) = P(\\{\omega \in \Omega : X(\omega) > f\\})$.
+* $P(X > Y) = P(\\{\omega \in \Omega : X(\omega) > Y(\omega)\\})$.
+* Arbitrary algebraic expressions, e.g. $$P(c_0 + c_1 X + c_2 X^2 + c_3 X^3 + \ldots = k) = P(\{\omega \in \Omega : c_0 + c_1 X(\omega) + c_2 X(\omega)^2 + c_3 X(\omega)^3 + \ldots = k\})$$ or $$P(\exp(X) = \log(Y)) = P(\{\omega \in \Omega : \exp(X(\omega)) = \log(Y(\omega))\})$$.
+
+
+**Probability distribution of a random variable**
+
+TODO: clean up
+
+$$P_X: F \to [0, 1]$$, defined as $$P_X(A) := P(X \in A) = P(\{\omega \in \Omega \mid X(\omega) \in  A\})$$ for <font color="blue">measurable</font> $$A \subseteq F$$. <font color="blue">Because we defined $F$ as being measurable, $(F, \mathcal{F}, P_X)$ is a valid probability space.</font>
+
+
+$$P_{X,Y} : F \times G \to [0, 1]$$, called a **joint distribution**, where $Y : \Omega \to G$. $$P_{X,Y}(A, B) := P(X \in A \wedge Y \in B) = P(\{\omega \in \Omega \mid X(\omega) \in A \wedge Y(\omega) \in B\})$$
+
+
+**Abuses of notation:**
+* {% marginnote "$$P(\omega)$$ denotes $$P(\{\omega\})$$" "Though I said earlier $P(\omega)$ is technically undefined, it is quite common to mix events and samples notationally." %}.
+* $P(X)$, dropping the "$= f$" part, is not a quantity at all, but is a notational stand-in for the probability measure $$P_X: F \to [0, 1]$$, defined as $$P_X(A) := P(X \in A) = P(\{\omega \in \Omega \mid X(\omega) \in  A\})$$ for <font color="blue">measurable</font> $$A \subseteq F$$. <font color="blue">Because we defined $F$ as being measurable, $(F, \mathcal{F}, P_X)$ is a valid probability space.</font>
+   * Same applies for multiple random variables, e.g. $$P(X, Y)$$ denotes the probability measure $$P_{X,Y} : F \times G \to [0, 1]$$, called a **joint distribution**, where $Y : \Omega \to G$. $$P_{X,Y}(A, B) := P(X \in A \wedge Y \in B) = P(\{\omega \in \Omega \mid X(\omega) \in A \wedge Y(\omega) \in B\})$$. TODO: remove duplicate information.
+* $$P_X(x) = P_X(X=x) = P(X=x)$$ for $$x \in F$$. $P_X(x)$ may also be used to refer to $P_X$, rather than its output value.
+* $$h(X)$$ denotes the composition $$h∘X$$, where $h : F \to G$ is any arbitrary <font color="blue">measurable</font> function to arbitrary <font color="blue">measurable</font> set $G$. In other words, functions of random variables are random variables, i.e. $$P(h(X) = g) = P(\{\omega \in \Omega \mid h(X(\omega)) = g\})$$.
+
+### Motivation 3: Construct events that are guaranteed measurable
+
+        - "Ignore lines marked with [measure-theory] in your first pass reading (unless you already know measure theory)"
+        - Let $$(\Omega, E, P)$$ be a measure space
+            - $$\Omega$$ is a set
+            - $$E$$ is a $$\sigma$$-algebra over $$\Omega$$, i.e. $$E$$ provides the measurable subsets of $$\Omega$$
+                - $$\sigma$$-algebra $$\implies$$ $$E \subseteq2^ \Omega$$ is closed under complement and countable unions, and $$\Omega \in E$$
+            - $$P : \Omega \to [0, 1]$$ is a measurable function
+        - $$h : A \to B$$ is a **measurable function** iff 
+            - $$A$$ and $$B$$ are measurable with $$\sigma$$-algebras $$\mathcal{A}$$ and $$\mathcal{B}$$ respectively
+            - the pre-image of $$h$$ on every measurable set in $$B$$ is measurable
+                - i.e. $$h$$ never maps a non-measurable set to a measurable set.
+                    - however, $$h$$ could map a measurable set to a non-measurable set. 
+                - $$h^{-1}(\beta) \in \mathcal{A},\ \forall \beta \in \mathcal{B}$$
+                    - where $$h^{-1}(\beta) = \{a \in A \mid h(a) \in \beta\}$$ is the pre-image of $$h$$ on $$\beta$$.
+        - A random variable is a measurable function $$X : \Omega \to F$$, where $$F$$ is a [measureable space](https://en.wikipedia.org/wiki/Measurable_space) with $$\sigma$$-algebra $$\mathcal{F}$$ (measurable subsets of $$F$$).
+        - Every set of the form $$\{\omega \in \Omega : X(\omega) \in A\}$$ for measurable $$A \in \mathcal{F}$$ is guaranteed to be measurable
+            - by definition because $$X^{-1}(A) = \{\omega \in \Omega : X(\omega) \in A\}$$ and $$X$$ is measurable
+        - $$X$$ being measurable ensures we can compute probabilities of the form $$P(X \in A)$$ for measurable $$A \in \mathcal{F}$$
+        - In general, if $$\{(f_1, f_2, \ldots) \mid \mathrm{condition}(f_1, f_2, \ldots) = \mathrm{True}\} \in \mathcal{F}_1 \times \mathcal{F}_2 \times \ldots$$ is measurable, then we can compute $$P(\mathrm{condition}(X_1, X_2, \ldots))$$
+
+----
 
 Remember that samples are primitive outcomes. Samples are considered to be disjoint, meaning that only one can happen at a time. An event is a set of samples, which should be interpreted as the disjunction between them, i.e. one of the samples in the event happened, and you don't know which. A primitive event is then an event containing a single sample, i.e. $e = \{\omega\}$ where $\omega \in \Omega$. Under normal cases, we can always measure the probability $P(\{\omega\})$. What follows entirely regards constructing more complicated events.
 
@@ -208,8 +318,17 @@ Of course probability theory didn't come out of nowhere. We are taught probabili
 
 But even in games of chance, how did we convert a statement of probability into a bet? How did we give meaning to likely and unlikely, expected and unexpected?
 
-# Decision theory
+Open questions (questions I don't have answers to): ...
 
+# Primer to measure theory
+
+Congratulations! You've reached end of this post. Now you may unlock the <font color="blue">measure theory</font> text in <font color="blue">blue</font> by reading this last section.
+
+TODO: ...
+
+define measure, measurable set, measurable function, measure space, sigma-algebra.
+why are some sets not measurable?
+why is probability a measure?
 
 
 
