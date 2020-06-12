@@ -278,7 +278,7 @@ blockquote .sidenote, blockquote .marginnote { margin-right: -79% }
 
 p, footer, div.table-wrapper, table, div.mathblock, div.MathJax_Display { width: $col-width; }
 
-.full-width p, .full-width footer, .full-width div.table-wrapper, .full-width table, .full-width div.mathblock, .full-width div.MathJax_Display { width: 100%; }
+.full-width p, .full-width footer, .full-width div.table-wrapper, .full-width table, .full-width div.mathblock, .full-width div.MathJax_Display { width: auto; }
 
 div.table-wrapper { overflow-x: auto; } //changed all overflow values to 'auto' so scroll bars appear only as needed
 
