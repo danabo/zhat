@@ -52,7 +52,7 @@ Note that $P(E) \leq 1,\ \forall E \in \mathcal{E}$ follows directly from the ax
 
 ## Axioms of probability for propositional logic
 
-We can define probability over propositional statements. The sample set $\Omega$ is the set of all truth values of the primitives. If $(A_1, A_2, \ldots)$ is the set of all primitive propositions, then $\Omega = \{(\mathrm{False}, \mathrm{False}, \ldots), (\mathrm{True}, \mathrm{False}, \ldots), (\mathrm{False}, \mathrm{True}, \ldots), (\mathrm{True}, \mathrm{True}, \ldots), \ldots\}$ is every possible truth assignment for $(A_1, A_2, \ldots)$. This is assuming that we don't know the truth value of any primitive. The [logical connectives](https://en.wikipedia.org/wiki/Logical_connective), $\wedge, \vee, \neg,$ etc., are all shorthands for constructing events (sets of truth assignments for $(A_1, A_2, \ldots)$). In other words, $P(H)$ is shorthand for the probability that proposition $H$ is true, where $H$ denotes an event $E$ containing exactly every truth assignment for $(A_1, A_2, \ldots)$ which makes $H$ true.
+We can define probability over propositional statements. The sample set $\Omega$ is the set of all truth values of the primitives. If $(A_1, A_2, \ldots)$ is the set of all primitive propositions, then $\Omega = \\{(\mathrm{False}, \mathrm{False}, \ldots), (\mathrm{True}, \mathrm{False}, \ldots), (\mathrm{False}, \mathrm{True}, \ldots), (\mathrm{True}, \mathrm{True}, \ldots), \ldots\\}$ is every possible truth assignment for $(A_1, A_2, \ldots)$. This is assuming that we don't know the truth value of any primitive. The [logical connectives](https://en.wikipedia.org/wiki/Logical_connective), $\wedge, \vee, \neg,$ etc., are all shorthands for constructing events (sets of truth assignments for $(A_1, A_2, \ldots)$). In other words, $P(H)$ is shorthand for the probability that proposition $H$ is true, where $H$ denotes an event $E$ containing exactly every truth assignment for $(A_1, A_2, \ldots)$ which makes $H$ true.
 
 Note that when there are finitely many $A_i$, there will be finitely many possible events. However, there are infinitely many logical propositions over finitely many primitives $A_i$. This is because most logical propositions are equivalent to others. In other words, we are making equivalence class over the set of propositions using the sets of primitive assignments that make them true. The set of equivalence classes over propositions is finite for finitely many primitives.
 
@@ -101,6 +101,7 @@ We saw how probability over logical propositions is a special case. I think it i
 
 
 Define a bet as a function $B : \Omega \to \mathbb{R}$ from samples to payoffs. A bet on event $E$ with stake $S$ and quotient $q$ has payoffs (w.r.t. buyer):
+
 $$
 B_E(\omega) = \begin{cases}S-q(E)S & \omega \in E \\ -q(E)S & \omega \notin E\end{cases}
 $$
@@ -113,9 +114,11 @@ This can be represented as a table:
 | $\overline{E}$    | $-q(E)S$     |
 
 Assuming the stake $S$ is always the same (this argument is invariant to stake, as long as its positive), then a bet is represented by $B_E$. Since this game is zero-sum, from the seller's perspective, the payoff is $-B_E$. Buying $-B_E$ is equivalent to selling $B_E$. We can also add bets like this
+
 $$
 \left(B_{E_1} + B_{E_2}\right)(\omega) = B_{E_1}(\omega) + B_{E_2}(\omega)\,,
 $$
+
 to construct a more complicated multi-outcome bet, denoted as $B_{E_1} + B_{E_2}$. 
 
 Now I am ready to outline why bets should conform to the three axioms:
@@ -137,11 +140,13 @@ Note that by definition $E_1 \cap E_2 = \emptyset$ implies $E_1$ and $E_2$ canno
 Assume $E_1 \cap E_2 = \emptyset$ for some $E_1, E_2$.
 Assume $q(E_1 \cup E_2) > q(E_1) + q(E_2)$.
 Then the agent will buy $B_{E_1} + B_{E_2} - B_{E_1 \cup E_2}$ which has payoff table (w.r.t. agent):
+
 | Result | Payoff   | 
 | ------ | -------- | 
 | $E_1$  | $-(q(E_1) + q(E_2) - q(E_1 \cup E_2))S$     | 
 | $E_2$  | $-(q(E_1) + q(E_2) - q(E_1 \cup E_2))S$     |
 | $\overline{E_1 \cup E_2}$  | $-(q(E_1) + q(E_2) - q(E_1 \cup E_2))S$     |
+
 The payoff is the same in all cases and $E_1 \cap E_2$ never occurs. $-(q(E_1) + q(E_2) - q(E_1 \cup E_2))S$ is positive.
 Assume $q(E_1 \cup E_2) < q(E_1) + q(E_2)$.
 Then the agent buys $-B_{E_1} - B_{E_2} + B_{E_1 \cup E_2}$, which is easy to show wins money for the agent in every scenario.
