@@ -453,7 +453,7 @@ p, footer, div.table-wrapper, table, div.mathblock, div.MathJax_Display {
   width: 55%; }
 
 .full-width p, .full-width footer, .full-width div.table-wrapper, .full-width table, .full-width div.mathblock, .full-width div.MathJax_Display {
-  width: 100%; }
+  width: auto; }
 
 div.table-wrapper {
   overflow-x: auto; }
