@@ -79,7 +79,7 @@ In some places below {% marginnote "I've written equations in terms of $f$ rathe
 
 ## *Bits*, not bits
 
-You can get through the above exposition by thinking in terms of computer bits. Now we part ways from the computer bits intuition. Note that this departure occurs when $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? From here on out, it's better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a *bit*, but this is a mere convention. The word *bit* should no long be thought of a physical medium that stores two distinguishable states (usually labeled "0" and "1"), but is instead a unit. Like the kilogram and Joule, this unit is undefined, but its usage gives it semantic meaning.
+You can get through the above exposition by thinking in terms of computer bits. Now we part ways from the computer bits intuition. Note that this departure occurs when $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? From here on out, it's better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a *bit* out of convention. The word *bit* no longer refers to a physical medium that stores two distinguishable states (usually labeled "0" and "1"), but instead it is a unit. Like the kilogram and Joule, this unit is undefined, but its usage gives it semantic meaning.
 
 So then how is $h$ to be understood? What is the intuition behind this quantity? In short, Shannon bits are an [analytic continuation](https://en.wikipedia.org/wiki/Analytic_continuation) of computer bits. Just like how the [gamma function](https://en.wikipedia.org/wiki/Gamma_function) extends factorial to continuous values, Shannon bits extend the computer bit to **non-uniform distributions** over a **non-power-of-2** number of counterfactuals. Let me explain these two phrases:
 
@@ -568,17 +568,17 @@ $$
 $$
 
 Sources:
-* https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence
-* https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence
+* <https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence>
+* <https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence>
 
 
 Mutual information can be [written in terms of KL-divergence](https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence):
 
 $$
-I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right)
+I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right) = \E_{x \sim \rX}\left[\mathbb{K}\left(p_{Y\mid X}\,||\,p_Y\right)\right]\,,
 $$
 
-where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$.
+where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$ and $p_{Y\mid X}(y \mid x) \mapsto p_{X,Y}(x,y)/p_X(x)$.
 
 # Acknowledgments
 
