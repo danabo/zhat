@@ -5,9 +5,283 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 11 Jun 2020 17:27:08 -0700</pubDate>
-    <lastBuildDate>Thu, 11 Jun 2020 17:27:08 -0700</lastBuildDate>
+    <pubDate>Wed, 17 Jun 2020 18:38:39 -0700</pubDate>
+    <lastBuildDate>Wed, 17 Jun 2020 18:38:39 -0700</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Notes: Probability &amp; AI Curriculum</title>
+        <description>&lt;p&gt;This is a snapshot of my curriculum for exploring the following questions:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Is probability theory all you need to develop AI?
+    &lt;ul&gt;
+      &lt;li&gt;If not, what is missing?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Should a theory of AI be expressed in the framework of probability theory at all?&lt;/li&gt;
+  &lt;li&gt;Do Brains use probability?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;This reflects my current estimate of the landscape, and summarizes where my interests and aspirations have taken me so far. It is not set in stone. I may follow through on it, or I may diverge as I learn more. I primarily follow the current of my curiosity.&lt;/p&gt;
+
+&lt;figure&gt;&lt;img src=&quot;/assets/posts/probability-ai-curriculum/topic-tree.svg&quot; alt=&quot;Visualization of topic tree. Nodes are organized hierarchically be level of abstraction, with dotted-lines representing non-hierarchical associations. Colors designate hierarchy-level. Made with &amp;lt;a href=&amp;quot;https://www.yworks.com/yed-live/&amp;quot;&amp;gt;https://www.yworks.com/yed-live/&amp;lt;/a&amp;gt;&quot; width=&quot;100%&quot; /&gt;&lt;figcaption&gt;Visualization of topic tree. Nodes are organized hierarchically be level of abstraction, with dotted-lines representing non-hierarchical associations. Colors designate hierarchy-level. Made with &lt;a href=&quot;https://www.yworks.com/yed-live/&quot;&gt;https://www.yworks.com/yed-live/&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;description-of-topics&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#description-of-topics&quot;&gt;Description of topics&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;Here are the topics from the graph above, with descriptions to the extent that I understand them, and links to reference material.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;strong&gt;Objective probability&lt;/strong&gt;&lt;/dt&gt;
+      &lt;dd&gt;Is probability an objective property of physical systems in general (not just i.i.d.)? Objective, meaning independently arrived at by multiple parties, like a scientific experiment (just as mass and energy measurements can be independently verified) - i.e. not dependent on a particular brain with particular beliefs. If p(x) = θ, then this is true even if no humans are around at all to believe it. The main problem in making probability objective is figuring out how to uniquely determine the probability of something given observations. What needs to be measured in order to ascertain the objective probability of a system?&lt;/dd&gt;
+    &lt;/dl&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Solomonoff induction&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;A Bayesian inference setup general enough to encompass general intelligence. Posterior converges to the true data posterior at the infinite limit (for any prior with support everywhere), possibly providing an objective notion of probability, at least for infinite sequences.&lt;br /&gt;
+‣ &lt;a href=&quot;http://www.hutter1.net/ai/uaibook.htm&quot;&gt;Universal Artifical Intelligence&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/cs/0305052&quot;&gt;On the Existence and Convergence Computable Universal Priors&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;Approximations&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;How can SI be implemented in practice? How would brains implement it?&lt;br /&gt;
+‣ &lt;a href=&quot;http://www.hutter1.net/ai/uaibook.htm#approx&quot;&gt;http://www.hutter1.net/ai/uaibook.htm#approx&lt;/a&gt;&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;Posterior convergence&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;The sense in which Solomonoff induction is objective. The predicted posterior converges to the true data posterior with infinite observations, for any prior with support over all hypotheses.&lt;br /&gt;
+‣ &lt;a href=&quot;http://www.hutter1.net/ai/uaibook.htm&quot;&gt;Universal Artifical Intelligence&lt;/a&gt;, Theorem 3.19&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;Posterior consistency&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;Solomonoff induction may not be consistent, meaning it cannot distinguish between any two hypotheses with infinite data. Implications for objective probability.&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;Prior with universally optimal convergence&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;Solomonoff’s universally optimal prior.&lt;br /&gt;
+‣ &lt;a href=&quot;http://www.hutter1.net/ai/uaibook.htm&quot;&gt;Universal Artifical Intelligence&lt;/a&gt;, Theorem 3.70&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;Convergence on individual sequences&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;Convergence of Solomonoff induction is not guaranteed on a measure-0 set of sequences. Construction of such a sequence.&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/cs/0407057&quot;&gt;Universal Convergence of Semimeasures on Individual Random Sequences&lt;/a&gt;, Theorem 6 and Proposition 12&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;(Non-)Equivalence of Universal Priors&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;A surprising equivalence between mixtures of deterministic programs and computable distributions.&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/1111.3854&quot;&gt;(Non-)Equivalence of Universal Priors&lt;/a&gt;, Theorem 14&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Martin-Lof randomness&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;What it means for an infinite sequence to be drawn from a probability distribution. Algorithmic definition of randomness (see AIT).&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.springer.com/gp/book/9781489984456&quot;&gt;An Introduction to Kolmogorov Complexity and Its Applications&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Definition in terms of universal probability&lt;/strong&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;http://www.hutter1.net/ai/uaibook.htm&quot;&gt;Universal Artifical Intelligence&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.springer.com/gp/book/9781489984456&quot;&gt;An Introduction to Kolmogorov Complexity and Its Applications&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Can sequences can be Martin-Lof random w.r.t. multiple probability measures?&lt;/strong&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;strong&gt;Bayesian epistemology&lt;/strong&gt;&lt;/dt&gt;
+      &lt;dd&gt;Are priors and posteriors all that is needed for a complete theory of knowledge, and are a sufficient framework for building an intelligent system? Bayesian epistemology repurposes probability as a property of the intelligent agent doing the observing, rather than the system being observed (or perhaps it characterizes their interaction), i.e. probability as belief.&lt;/dd&gt;
+    &lt;/dl&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Bayesian brain hypothesis&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;Hypothesis in neuroscience that the Brain is largely an approximate Bayesian inference engine.&lt;br /&gt;
+‣ &lt;a href=&quot;https://pubmed.ncbi.nlm.nih.gov/15541511/&quot;&gt;The Bayesian Brain: The Role of Uncertainty in Neural Coding and Computation&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://mitpress.mit.edu/books/bayesian-brain&quot;&gt;Bayesian Brain: Probabilistic Approaches to Neural Coding&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.annualreviews.org/doi/full/10.1146/annurev.psych.55.090902.142005&quot;&gt;Object Perception as Bayesian Inference&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;Friston’s free energy principle&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;A unified theory of biological intelligence from which Bayesian epistemology can be derived.&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/1901.07945&quot;&gt;What does the free energy principle tell us about the brain?&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.fil.ion.ucl.ac.uk/~karl/The%20free-energy%20principle%20A%20unified%20brain%20theory.pdf&quot;&gt;The free-energy principle: a unified brain theory?&lt;/a&gt;&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;How brains approximate Bayesian inference&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;To make the Bayesian brain hypothesis falsifiable, a characterization of what counts as an approximation to Bayesian inference needs to be given. What approximate Bayesian computations in the brain have been found so far by neuroscientists? &lt;em&gt;Reference same sources listen under “Bayesian brain hypothesis”&lt;/em&gt;&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Causal inference&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;If Bayesian epistemology is not sufficient, then what is missing? Judea pearl proposes causal inference.&lt;br /&gt;
+‣ &lt;a href=&quot;http://bayes.cs.ucla.edu/BOOK-2K/&quot;&gt;Causality&lt;/a&gt;, chapters 3 and 7&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/1305.5506&quot;&gt;Introduction to Judea Pearl’s Do-Calculus&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Bounded Rationality&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;What would Bayesian epistemology theoretically look like with bounded resources? Is Bayesian epistemology no longer optimal given bounded resources?&lt;br /&gt;
+‣ &lt;a href=&quot;https://stanford.edu/~icard/BBRA.pdf&quot;&gt;Bayes, Bounds, and Rational Analysis&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Logical justifications&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;Arguments from first principles that Bayesian epistemology is a necessary condition for rationality, and that a rational agent is necessarily a Bayesian agent (such an agent is likely performing Solomonoff induction, in order for it to be sufficiently general in its prediction ability).&lt;/dd&gt;
+        &lt;/dl&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Dutch book argument&lt;/strong&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Complete classes&lt;/strong&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Cox’s theorem&lt;/strong&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Von Neumann-Morgenstern utility theorem&lt;/strong&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Motivation from decision theory&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;Some say a theory is good because it is useful. Perhaps the question “what theory of uncertainty should I use?” is best answered by looking at what we want to do with it, namely decision making under uncertainty. Bayesian epistemology can be motivated by of decision theory.&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.goodreads.com/book/show/1639056.The_Foundations_of_Statistics&quot;&gt;The Foundations of Statistics&lt;/a&gt;, chapter 3&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Unique priors&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;How to choose a prior is one point of contention in Bayesian epistemology. There are some proposed methods for selecting a unique prior given what you already know, for example, the max-entropy principle.&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/1108.2120&quot;&gt;Objective Priors: An Introduction for Frequentists&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/pdf/0808.0012.pdf&quot;&gt;LECTURES ON PROBABILITY, ENTROPY, AND STATISTICAL PHYSICS&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;strong&gt;Algorithmic information theory (AIT)&lt;/strong&gt;&lt;/dt&gt;
+      &lt;dd&gt;An alternative to probability theory devised by Kolmogorov himself (and others) to address its shortcomings. Does AIT allow us to formalize the general learning problem of transferring knowledge out-of-distribution?&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.springer.com/gp/book/9781489984456&quot;&gt;An Introduction to Kolmogorov Complexity and Its Applications&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://bookstore.ams.org/surv-220&quot;&gt;Kolmogorov Complexity and Algorithmic Randomness&lt;/a&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Types of Kolmogorov complexity&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;There is a constellation of algorithmic complexity functions that make up the foundation of AIT. &lt;em&gt;Reference same sources listen under “Algorithmic information theory”&lt;/em&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;Resource bounded complexities&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;Kolmogorov complexity with bounded computation. Possible direction for computable-AIT.&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.springer.com/gp/book/9781489984456&quot;&gt;An Introduction to Kolmogorov Complexity and Its Applications&lt;/a&gt;, chapter 7&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;Algorithmic transfer learning&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;How can the information shared by two datasets be defined? What is the objective of transfer learning?&lt;br /&gt;
+‣ &lt;a href=&quot;http://users.cecs.anu.edu.au/~hassan/univTLTCS.pdf&quot;&gt;On Universal Transfer Learning&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://papers.nips.cc/paper/3228-transfer-learning-using-kolmogorov-complexity-basic-theory-and-empirical-evaluations.pdf&quot;&gt;Transfer Learning using Kolmogorov Complexity: Basic Theory and Empirical Evaluations&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/1904.03292&quot;&gt;The Information Complexity of Learning Tasks, their Structure and their Distance&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;dl&gt;
+              &lt;dt&gt;&lt;strong&gt;No free lunch theorem&lt;/strong&gt;&lt;/dt&gt;
+              &lt;dd&gt;Theorem stating there is no universally best algorithm for all training-test dataset pairs.&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.cse.huji.ac.il/~shais/UnderstandingMachineLearning/&quot;&gt;Understanding Machine Learning: From Theory to Algorithms&lt;/a&gt;, Theorem 5.1&lt;/dd&gt;
+            &lt;/dl&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;strong&gt;AIXI&lt;/strong&gt;&lt;/dt&gt;
+      &lt;dd&gt;A theory of optimal intelligence put forth by Marcus Hutter based on Solomonoff induction. &lt;br /&gt;
+‣ &lt;a href=&quot;http://www.hutter1.net/ai/uaibook.htm&quot;&gt;Universal Artifical Intelligence&lt;/a&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;strong&gt;Data compression&lt;/strong&gt;&lt;/dt&gt;
+      &lt;dd&gt;Lossless compression from the perspectives of Shannon’s information theory and AIT. Can they be unified? Can compression make probability objective? What is the relationship between compression and intelligence?&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.wiley.com/en-us/Elements+of+Information+Theory%2C+2nd+Edition-p-9780471241959&quot;&gt;Elements of Information Theory&lt;/a&gt;&lt;br /&gt;
+‣ &lt;a href=&quot;http://mattmahoney.net/dc/dce.html&quot;&gt;Data Compression Explained&lt;/a&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;strong&gt;Decision theory under ignorance&lt;/strong&gt;&lt;/dt&gt;
+      &lt;dd&gt;Decision theory without probability. Pros and cons.&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.cambridge.org/core/books/an-introduction-to-decision-theory/B9EEB3DCE5D0CAFFB6F3F30B1D0A06A6&quot;&gt;An Introduction to Decision Theory&lt;/a&gt;, chapter 3&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;strong&gt;The Fundamental Theorem of Statistical Learning (PAC)&lt;/strong&gt;&lt;/dt&gt;
+      &lt;dd&gt;An introduction to PAC-learning theory. PAC is a probability-theory-based account of machine learning which AIT could replace.&lt;br /&gt;
+‣ &lt;a href=&quot;https://www.cse.huji.ac.il/~shais/UnderstandingMachineLearning/&quot;&gt;Understanding Machine Learning: From Theory to Algorithms&lt;/a&gt;, Theorem 6.7&lt;/dd&gt;
+    &lt;/dl&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;dl&gt;
+          &lt;dt&gt;&lt;strong&gt;PAC account of transfer learning&lt;/strong&gt;&lt;/dt&gt;
+          &lt;dd&gt;PAC analysis of transfer learning. However, assumptions about relatedness of tasks need to be made.&lt;br /&gt;
+‣ &lt;a href=&quot;https://arxiv.org/abs/1106.0245&quot;&gt;A Model of Inductive Bias Learning&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Wed, 17 Jun 2020 00:00:00 -0700</pubDate>
+        <link>pragmanym.github.io/zhat/articles/probability-ai-curriculum</link>
+        <guid isPermaLink="true">pragmanym.github.io/zhat/articles/probability-ai-curriculum</guid>
+        
+        
+        <category>notes</category>
+        
+      </item>
     
       <item>
         <title>Notes: Dutch Book Argument</title>
@@ -610,7 +884,7 @@ and $f : [0, 1] \to \R^+$ maps from probabilities to information;&lt;/p&gt;
 
 &lt;h2 id=&quot;bits-not-bits&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#bits-not-bits&quot;&gt;&lt;em&gt;Bits&lt;/em&gt;, not bits&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;You can get through the above exposition by thinking in terms of computer bits. Now we part ways from the computer bits intuition. Note that this departure occurs when $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? From here on out, it’s better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a &lt;em&gt;bit&lt;/em&gt;, but this is a mere convention. The word &lt;em&gt;bit&lt;/em&gt; should no long be thought of a physical medium that stores two distinguishable states (usually labeled “0” and “1”), but is instead a unit. Like the kilogram and Joule, this unit is undefined, but its usage gives it semantic meaning.&lt;/p&gt;
+&lt;p&gt;You can get through the above exposition by thinking in terms of computer bits. Now we part ways from the computer bits intuition. Note that this departure occurs when $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? From here on out, it’s better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a &lt;em&gt;bit&lt;/em&gt; out of convention. The word &lt;em&gt;bit&lt;/em&gt; no longer refers to a physical medium that stores two distinguishable states (usually labeled “0” and “1”), but instead it is a unit. Like the kilogram and Joule, this unit is undefined, but its usage gives it semantic meaning.&lt;/p&gt;
 
 &lt;p&gt;So then how is $h$ to be understood? What is the intuition behind this quantity? In short, Shannon bits are an &lt;a href=&quot;https://en.wikipedia.org/wiki/Analytic_continuation&quot;&gt;analytic continuation&lt;/a&gt; of computer bits. Just like how the &lt;a href=&quot;https://en.wikipedia.org/wiki/Gamma_function&quot;&gt;gamma function&lt;/a&gt; extends factorial to continuous values, Shannon bits extend the computer bit to &lt;strong&gt;non-uniform distributions&lt;/strong&gt; over a &lt;strong&gt;non-power-of-2&lt;/strong&gt; number of counterfactuals. Let me explain these two phrases:&lt;/p&gt;
 
@@ -1078,15 +1352,15 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.&lt;/p&gt;
 
 &lt;p&gt;Sources:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence&lt;/li&gt;
-  &lt;li&gt;https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence&quot;&gt;https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence&quot;&gt;https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Mutual information can be &lt;a href=&quot;https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence&quot;&gt;written in terms of KL-divergence&lt;/a&gt;:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right) = \E_{x \sim \rX}\left[\mathbb{K}\left(p_{Y\mid X}\,||\,p_Y\right)\right]\,,&lt;/script&gt;
 
-&lt;p&gt;where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$.&lt;/p&gt;
+&lt;p&gt;where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$ and $p_{Y\mid X}(y \mid x) \mapsto p_{X,Y}(x,y)/p_X(x)$.&lt;/p&gt;
 
 &lt;h1 id=&quot;acknowledgments&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#acknowledgments&quot;&gt;Acknowledgments&lt;/a&gt;&lt;/h1&gt;
 
@@ -1177,164 +1451,6 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.&lt;/p&gt;
         
         
         <category>Notes</category>
-        
-      </item>
-    
-      <item>
-        <title>Quantum State</title>
-        <description>&lt;p&gt;The two views of quantum state:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Quantum states are $L^2$-normalized complex-valued functions over classical configuration space.&lt;/li&gt;
-  &lt;li&gt;Quantum states are unit vectors residing in a complex Hilbert space, $\mathcal{H}$.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\newcommand{\bm}{\boldsymbol}
-\newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
-\newcommand{\bra}[1]{\langle#1\rvert}
-\newcommand{\ket}[1]{\lvert#1\rangle}
-\newcommand{\braket}[2]{\langle#1\vert#2\rangle}&lt;/script&gt;
-
-&lt;!--more--&gt;
-
-&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#1-quantum-states-are-functions&quot; id=&quot;markdown-toc-1-quantum-states-are-functions&quot;&gt;1) Quantum States Are Functions&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#punchline-quantum-states-are-probability-distributions&quot; id=&quot;markdown-toc-punchline-quantum-states-are-probability-distributions&quot;&gt;Punchline: quantum states are probability distributions&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#2-quantum-states-are-vectors&quot; id=&quot;markdown-toc-2-quantum-states-are-vectors&quot;&gt;2) Quantum States Are Vectors&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#measurement-bases&quot; id=&quot;markdown-toc-measurement-bases&quot;&gt;Measurement Bases&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#a-proper-basis&quot; id=&quot;markdown-toc-a-proper-basis&quot;&gt;A Proper Basis&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#punchline-uncertainty-principle-from-change-of-basis&quot; id=&quot;markdown-toc-punchline-uncertainty-principle-from-change-of-basis&quot;&gt;Punchline: Uncertainty Principle From Change Of Basis&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot; id=&quot;markdown-toc-conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This is a very short primer on quantum mechanics, and the bare minimum that needs to be explained in order to understand what QM is about. My goal is to provide some conceptual punchlines with minimal prereqs. The formalism of QM is filled with technicalities and complications, which I try to point out where possible. Keep in mind I am glossing over a ton of details.&lt;/p&gt;
-
-&lt;p&gt;Note, throughout I am setting $\hbar = 1$.&lt;/p&gt;
-
-&lt;h1 id=&quot;1-quantum-states-are-functions&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#1-quantum-states-are-functions&quot;&gt;1) Quantum States Are Functions&lt;/a&gt;&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Quantum states are $L^2$-normalized complex-valued functions over classical configuration space.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;For our purposes, classical configuration space is position space. A system with $N$ particles in 3D space has $3N$ dimensional configuration space. For simplicity, I’ll mostly talk about one particle in 1D space, i.e. 1D configuration space.&lt;/p&gt;
-
-&lt;p&gt;So to restate, a quantum state is a function,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\psi : \mathbb{R}^n \rightarrow \mathbb{C}\,.&lt;/script&gt;
-
-&lt;p&gt;for $n$-dimensional configuration space such that $\lvert\psi\rvert = 1$, i.e. $\psi$ is $L^2$-normalized.&lt;/p&gt;
-
-&lt;p&gt;The $L^2$-norm of a complex-valued function is given as,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\lvert\psi\rvert = \sqrt{\int_{\mathbb{R}^n} \psi(x)\bar{\psi}(x)\diff{x
-^n}}\,,&lt;/script&gt;
-
-&lt;p&gt;where $\bar{f}(x) = \text{Re}[f(x)] - i\,\text{Im}[f(x)]$ is the complex conjugate.&lt;/p&gt;
-
-&lt;h2 id=&quot;punchline-quantum-states-are-probability-distributions&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#punchline-quantum-states-are-probability-distributions&quot;&gt;Punchline: quantum states are probability distributions&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;You probably already guessed that $\psi$ encodes the probability of finding particles in space. The probability of observing system $\psi$ to be in &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;some region of configuration space&lt;/span&gt;&lt;label for=&quot;ec51e042e3a91e03088eeebfa8e927d02ca43c07&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;ec51e042e3a91e03088eeebfa8e927d02ca43c07&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Remember that $n$ is the total number of spatial coordinates that describes the system. We are calculating the probability for all the coordinates together to be in some range.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; $D \subseteq \mathbb{R}^n$ is,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\int_D  \psi(x) \bar{\psi}(x)\diff{x^n}\,.&lt;/script&gt;
-
-&lt;p&gt;$\psi(x) \bar{\psi}(x) = \lvert\psi(x)\rvert^2$ is the absolute value squared of the complex value $\psi(x)$ (not to be confused with the function-norm $\lvert\psi\rvert$). In other words, $\lvert\psi(x)\rvert^2$ is a probability density. $\psi(x)$ is called a &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;&lt;em&gt;probability amplitude&lt;/em&gt;&lt;/span&gt;&lt;label for=&quot;8fd9acc0f5baccc0d4f8236ac8210c8d7555b801&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;8fd9acc0f5baccc0d4f8236ac8210c8d7555b801&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;“Probability amplitude” refers specifically to a complex number whose square is a probability. I don’t think the word “amplitude” makes this apparent and it is rather ambiguous, but it’s handy to have a term to refer to these not-quite-probabilities and that is the convention.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;2-quantum-states-are-vectors&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#2-quantum-states-are-vectors&quot;&gt;2) Quantum States Are Vectors&lt;/a&gt;&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Quantum states are unit vectors residing in a complex Hilbert space, $\mathcal{H}$.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;&lt;em&gt;Hilbert space&lt;/em&gt;&lt;/span&gt;&lt;label for=&quot;da5780db3d541999f81e9889c2af05f261b22854&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;da5780db3d541999f81e9889c2af05f261b22854&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;The definition of Hilbert space is surprisingly ambiguous or too technical in most sources. For a while I was confused about what was special about Hilbert spaces in contrast with typical vector spaces. The axioms of linear algebra &lt;a href=&quot;https://math.stackexchange.com/a/28876&quot;&gt;allow for complex-valued scalars&lt;/a&gt;. The other notable feature of Hilbert space is that it allows for infinite dimensions, but that doesn’t make it unique. There are many ways to construct infinite dimensional vector spaces, e.g. &lt;a href=&quot;https://math.stackexchange.com/a/466741&quot;&gt;this answer&lt;/a&gt;. The distinguishing feature of Hilbert space is that it is &lt;a href=&quot;https://en.wikipedia.org/wiki/Complete_metric_space&quot;&gt;&lt;em&gt;complete&lt;/em&gt;&lt;/a&gt;, meaning that all &lt;a href=&quot;https://en.wikipedia.org/wiki/Cauchy_sequence&quot;&gt;Cauchy sequences&lt;/a&gt; of vectors in Hilbert space converge to vectors in Hilbert space. This ensures we can do calculus. It is true that all finite dimensional inner product spaces are Hilbert spaces, and they are simultaneously many other types of spaces, e.g. Banach spaces. Finite dimensional vector spaces do show up in quantum mechanics, and they are still called Hilbert spaces for consistency. Further reading: &lt;a href=&quot;https://www.quantiki.org/wiki/hilbert-spaces&quot;&gt;A&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Hilbert_space#History&quot;&gt;B&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is a generalization of Euclidean vector space to real or complex-valued vector spaces, with finite or infinite dimensions. The generalization of the Euclidean inner-product for functions is,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\langle f, g \rangle = \int_{\mathbb{R}^n} f(x)\bar{g}(x)\diff{x^n}\,.&lt;/script&gt;
-
-&lt;p&gt;Let $\mathcal{H}$ be a Hilbert space of $L^2$-normalized complex-valued functions. Then any $\psi \in \mathcal{H}$ is a unit-vector, since $\lvert\psi\rvert^2 = \langle \psi, \psi \rangle = 1$.&lt;/p&gt;
-
-&lt;h2 id=&quot;measurement-bases&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#measurement-bases&quot;&gt;Measurement Bases&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Given that the elements of $\mathcal{H}$ are functions over $x$, one straightforward way to choose a basis for $\mathcal{H}$ is to think of $\psi \in \mathcal{H}$ as a vector with uncountably many entries, one for each input $x$. This is achieved with a basis of &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dirac_delta_function&quot;&gt;Dirac delta functions&lt;/a&gt;&lt;/span&gt;&lt;label for=&quot;68625e91f114b5de914c4a1ae96b612e8a90302e&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;68625e91f114b5de914c4a1ae96b612e8a90302e&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;0 everywhere except for the origin. Defined so that its total area is 1. Technically they are not functions, but &lt;a href=&quot;https://en.wikipedia.org/wiki/Dirac_delta_function#As_a_distribution&quot;&gt;distributions&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. Writing $\psi$ in this basis,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{align}
-\psi &amp;= \int_{\mathbb{R}^n} \psi(\chi)\cdot\left[ x \mapsto \delta(x-\chi)\right]\diff{\chi^n} \\
-     &amp;= x \mapsto \int_{\mathbb{R}^n} \psi(\chi)\delta(x-\chi)\diff{\chi^n} \\
-     &amp;= x \mapsto \psi(x)\,.
-\end{align} %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;This integral is an uncountable linear combination, where &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$x \mapsto \delta(x-\chi)$&lt;/span&gt;&lt;label for=&quot;6e2c209cbdb6c596f74638233310e8ffd60cc39e&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;6e2c209cbdb6c596f74638233310e8ffd60cc39e&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Note I am using non-standard notation. “$x \mapsto f(x)$” instantiates a function object in-line, just as “$\{f(y) \mid \text{condition}[y]\}$” instantiates a set in-line.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is the $\chi$-th basis element and $\psi(\chi)$ is the corresponding coefficient.&lt;/p&gt;
-
-&lt;p&gt;This basis of Dirac deltas corresponds to position measurement. Particles and systems of particles have other measurable properties, like momentum and total energy, which have their own bases. More on that below.&lt;/p&gt;
-
-&lt;h2 id=&quot;a-proper-basis&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#a-proper-basis&quot;&gt;A Proper Basis&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;There is a problem here. $b_\chi = x \mapsto \delta(x-\chi)$ is not $L^2$-normalizable, because $\lvert b_\chi\rvert^2 = \int_{\mathbb{R}^n} \delta(x-\chi)^2\diff{x^n}$ is undefined. Such a basis that is not actually contained in our vector space is sometimes called an &lt;em&gt;improper basis&lt;/em&gt;. This can be remedied by augmenting $\mathcal{H}$ to include objects like Dirac deltas. The resulting construction is called a &lt;a href=&quot;https://en.wikipedia.org/wiki/Rigged_Hilbert_space&quot;&gt;rigged Hilbert space&lt;/a&gt;. However, this is not an ideal solution because &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;now we have quantum states&lt;/span&gt;&lt;label for=&quot;0f554cb904b48367e4f303e35eba33200371deb9&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;0f554cb904b48367e4f303e35eba33200371deb9&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;We will soon see that we want our Hilbert space to be closed under Fourier transform, so if Dirac deltas are included, then so should sin waves of the form $x \mapsto e^{ikx}$, which are also not $L^2$-normalizable.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; which cannot be interpreted as probability distributions.&lt;/p&gt;
-
-&lt;p&gt;There are plenty of valid orthonormal bases for the Hilbert space of &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;unit vectors&lt;/span&gt;&lt;label for=&quot;a407fae48b39bd45ead1aeb29b1a295c009b4471&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;a407fae48b39bd45ead1aeb29b1a295c009b4471&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;And also $L^2$-normalized functions.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. You may be surprised to learn that such bases are necessarily countable. One of the most well known is the &lt;a href=&quot;https://en.wikipedia.org/wiki/Quantum_harmonic_oscillator#Hamiltonian_and_energy_eigenstates&quot;&gt;measurement basis for the total energy of the harmonic oscillator&lt;/a&gt;.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathcal{B} = \{x \mapsto(-1)^n(2^nn!\sqrt{\pi})^{-\frac{1}{2}}e^{\frac{x^2}{2}}\frac{\diff{^n}}{\diff{x^n}}\left[e^{-x^2}\right]\,\mid\, n \in \mathbb{N}\}\,.&lt;/script&gt;
-
-&lt;p&gt;Symbolically these functions look quite complicated, but you can get a sense for the pattern of what these functions look like as $n$ increases:&lt;br /&gt;
-&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Herm5.svg/900px-Herm5.svg.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
-*Plot of first 6 basis functions: 0 (black), 1 (red), 2 (blue), 3 (yellow), 4 (green), and 5 (magenta). Note that these are real-valued functions. Source: &lt;a href=&quot;https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions&quot;&gt;https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions&lt;/a&gt;.&lt;br /&gt;
- *&lt;/p&gt;
-
-&lt;p&gt;It’s amazing that can write any function in $\mathcal{H}$ as a linear combination of the functions in $\mathcal{B}$, i.e. any continuous complex-valued $L^2$-normalized function can be written as a weighted sum of these functions. We can also use $\mathcal{B}$ to explicitly construct our $L^2$-normalized Hilbert space,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathcal{H} = \{c_0H_0(x) + c_1H_1(x) + c_2H_2(x) + \ldots \,|\, c_0,c_1,c_2,\ldots\in\mathbb{C}\}\,,&lt;/script&gt;
-
-&lt;p&gt;where $H_n(x) \in \mathcal{B}$ is the $n$-th &lt;a href=&quot;https://en.wikipedia.org/wiki/Hermite_polynomials#Definition&quot;&gt;Hermite function&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;punchline-uncertainty-principle-from-change-of-basis&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#punchline-uncertainty-principle-from-change-of-basis&quot;&gt;Punchline: Uncertainty Principle From Change Of Basis&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Under the vector view, the coefficients of a quantum state in some measurement basis are &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;probability amplitudes&lt;/span&gt;&lt;label for=&quot;da0f2680d7f9c26d8d21b75aee55f3fa4e0dbc0d&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;da0f2680d7f9c26d8d21b75aee55f3fa4e0dbc0d&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Their absolute squares are probabilities or probability densities.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. The basis vectors are called &lt;em&gt;definite&lt;/em&gt; states, and their linear combinations are indefinite. So if&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\psi = c_1 B_1 + c_2 B_2 + \ldots\,&lt;/script&gt;
-
-&lt;p&gt;for measurement basis $\{B_1, B_2, \ldots\}$, when the corresponding property of $\psi$ is measured, the system will instantaneously jump to one of $B_i$ with probability $\lvert c_i\rvert^2$. This instantaneous jump is called &lt;a href=&quot;https://en.wikipedia.org/wiki/Wave_function_collapse&quot;&gt;&lt;em&gt;wave-function collapse&lt;/em&gt;&lt;/a&gt;. The experimenter will also know which of the basis states the system is in because there is a corresponding measurement readout for each (unless the measurement is degenerate). In the position basis, we recover the probability interpretation of states as functions.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Superposition&lt;/em&gt; is the name given to the physical phenomenon of a system being in an indefinite state, meaning that when you observe some property the outcome is probabilistic. Mathematically superposition is modeled by linear combinations of definite states. A key facet of quantum mechanics is that multiple measurable properties of a system cannot be &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;simultaneously definite&lt;/span&gt;&lt;label for=&quot;7066f1de8a35a976b9f072db9e312f0a6ba14845&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;7066f1de8a35a976b9f072db9e312f0a6ba14845&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Aside from so-called &lt;a href=&quot;https://en.wikipedia.org/wiki/Complete_set_of_commuting_observables&quot;&gt;commuting observables&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. We get this phenomenon for free out of the framework of linear algebra, by representing properties to be measured as orthonormal bases in Hilbert space.&lt;/p&gt;
-
-&lt;p&gt;The famous example is position and momentum. Both these properties of a particle cannot be known at the same time. We saw that the position (improper) basis for one spatial coordinate is&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathcal{B}_\text{x} = \{x \mapsto \delta(x - \chi) \mid \chi \in \mathbb{R}\}\,.&lt;/script&gt;
-
-&lt;p&gt;The momentum basis is the &lt;a href=&quot;https://en.wikipedia.org/wiki/Position_and_momentum_space#Relation_between_space_and_reciprocal_space&quot;&gt;Fourier conjugate&lt;/a&gt; of the position basis, given as&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathcal{B}_\text{p} = \{x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx} \mid p \in \mathbb{R}\}\,.&lt;/script&gt;
-
-&lt;p&gt;The real part of these functions are sin waves. An element $[x \mapsto \delta(x - \chi)] \in \mathcal{B}_\text{x}$ of the position basis can be written as a linear combination of momentum basis elements,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{align}
-[x \mapsto \delta(x - \chi)] 
-  &amp;= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \vec{b}_p \diff{p} \\
-  &amp;= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \left[x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx}\right] \diff{p} \\
-  &amp;= x \mapsto \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \frac{1}{\sqrt{2\pi}}e^{ipx} \diff{p}
-\end{align}\,. %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;In the momentum basis, a position basis element becomes a sine wave, i.e. the coefficient of the $p$-th momentum basis element is $\frac{1}{\sqrt{2\pi}}e^{-ip\chi}$.&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;Heisenberg uncertainty principle&lt;/em&gt;, informally, states that a quantum state which is more localized in space (peakier distribution in the position basis) is necessarily less localized in momentum space (spread out distribution in the momentum basis), and vice versa. This uncertainty principle is not an extra assertion on top of quantum mechanics, but is a &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;consequence of the Fourier transform&lt;/span&gt;&lt;label for=&quot;a49269f8c12334e2ed9b8c18b484bc3255faf867&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;a49269f8c12334e2ed9b8c18b484bc3255faf867&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;The same uncertainty principle is a problem when converting audio recordings to sheet music, as the frequency resolution of a &lt;a href=&quot;https://en.wikipedia.org/wiki/Spectrogram&quot;&gt;spectrogram&lt;/a&gt; is inversely proportional to the time resolution. In other words, you cannot know the exact frequency of a fast changing sound due to the same uncertainty principle. Here time plays the role of space. &lt;a href=&quot;https://lts2.epfl.ch/blog/gbr/2015/05/08/uncertainty-principle-in-quantum-physics-and-signal-processing/&quot;&gt;Further reading.&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. More generally, there is an uncertainty principle between any two measurable properties with &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;different measurement bases&lt;/span&gt;&lt;label for=&quot;9acabeda9899d14b3b917f753be9cfa784d0a28c&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;9acabeda9899d14b3b917f753be9cfa784d0a28c&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Technically this is not true, as some properties can be &lt;a href=&quot;https://en.wikipedia.org/wiki/Complete_set_of_commuting_observables&quot;&gt;observed simultaneously&lt;/a&gt;. How this happens is out of the scope of this post, but essentially, when measurement readouts correspond to multiple basis elements the system will collapse to a superposition of those elements, i.e. it will be projected onto their span. A second measurement of a “compatible” property will further collapse the system to a single basis element.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;This definition of quantum state is very helpful for visualizing what your system looks like in physical space. The vector definition is unfortunately more abstract and can often obscure the connection to physical space. The vector definition has its own benefits. In my opinion, knowing how to go between both definitions is optimal for understanding.&lt;/p&gt;
-
-&lt;p&gt;I didn’t touch on how quantization comes into play, i.e. discrete measurement outcomes. In short, discrete measurement bases result in discrete measurement readouts. For example, total energy will be discrete for particles in potential wells, and continuous for free particles. What determines whether the measurement basis will be continuous or discrete, and how to derive these bases all together, is a complicated matter that gets into &lt;a href=&quot;https://en.wikipedia.org/wiki/Spectral_theory&quot;&gt;spectral theory of linear operators&lt;/a&gt;. Maybe a topic of a future post.&lt;/p&gt;
-
-&lt;p&gt;It’s important to point out is that &lt;a href=&quot;https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics&quot;&gt;measurement in quantum mechanics&lt;/a&gt; is not explained, but &lt;a href=&quot;https://en.wikipedia.org/wiki/Wave_function_collapse#History_and_context&quot;&gt;taken as given&lt;/a&gt;. The non-determinism of measurement outcomes is part of the &lt;a href=&quot;https://en.wikipedia.org/wiki/Dirac%E2%80%93von_Neumann_axioms&quot;&gt;axioms of quantum mechanics&lt;/a&gt;, at least under the Copenhagen interpretation. There are alternative interpretations which deny wave-function collapse, notably &lt;a href=&quot;https://en.wikipedia.org/wiki/Many-worlds_interpretation&quot;&gt;pilot-wave&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Many-worlds_interpretation&quot;&gt;many-worlds&lt;/a&gt;.&lt;/p&gt;
-
-</description>
-        <pubDate>Sun, 22 Dec 2019 00:00:00 -0800</pubDate>
-        <link>pragmanym.github.io/zhat/articles/quantum-minimal-conceptual-unit</link>
-        <guid isPermaLink="true">pragmanym.github.io/zhat/articles/quantum-minimal-conceptual-unit</guid>
-        
-        
-        <category>post</category>
         
       </item>
     

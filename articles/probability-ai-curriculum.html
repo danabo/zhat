@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- facebook sharing preview -->
+  <meta property="og:url" content="http://zhat.io" />
+  <meta property="og:image" content="http://zhat.io/assets/img/zhat.svg">
+
+  <title>Notes: Probability & AI Curriculum</title>
+  <meta name="description" content="This is a snapshot of my curriculum for exploring the following questions:  Is probability theory all you need to develop AI?          If not, what is missin...">
+
+  <!-- Google Fonts loaded here -->
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
+  
+  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        preview: "TeX"
+      },
+      "HTML-CSS": {
+        fonts: ["TeX"],
+        styles: {
+          ".MathJax_Display": {"font-size": "125%"},
+        }
+      },
+      // https://github.com/mathjax/MathJax/issues/1081#issuecomment-399878942
+      TeX: {Augment: {
+        Definitions: {macros: {xfrac: 'XFrac'}},
+        Parse: {prototype: {
+          XFrac: function (name) {
+            var num = this.ParseArg(name);
+            var den = this.ParseArg(name);
+            this.Push(MathJax.ElementJax.mml.mfrac(num,den).With({bevelled: true}));
+          }
+        }}
+      }}
+    });
+    </script>
+  
+
+  <link rel="stylesheet" type="text/css" href="/css/tufte.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
+
+  <link rel="canonical" href="pragmanym.github.io/zhat/articles/probability-ai-curriculum">
+
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
+</head>
+
+  <body class="full-width">
+    <!--- Header and nav template site-wide -->
+<header>
+  <nav class="group">
+  	<a href="/"><img class="badge" src="/assets/img/zhat.svg" alt="\hat{z}" onerror="this.onerror=null;this.src='/assets/img/zhat-large.png';"></a>
+		
+			
+  	
+			
+  	
+			
+  	
+			
+		    
+		      <a href="/css/print.css"></a>
+		    
+	    
+  	
+			
+  	
+	</nav>
+</header>
+    <article>
+      <h1>Notes: Probability &amp; AI Curriculum</h1>
+<p class="subtitle">June 17, 2020</p>
+<p>[<i><b>Disclaimer:</b>  I am not an expert on this topic, and I have likely just learned about this material for the first time. I don't guarantee the accuracy or correctness of anything. Consider this to be a page in my personal notebook. It is subject to change and revision over time. Equations in images are screen shots taken from study sources.</i>]</p>
+
+<p>This is a snapshot of my curriculum for exploring the following questions:</p>
+<ul>
+  <li>Is probability theory all you need to develop AI?
+    <ul>
+      <li>If not, what is missing?</li>
+    </ul>
+  </li>
+  <li>Should a theory of AI be expressed in the framework of probability theory at all?</li>
+  <li>Do Brains use probability?</li>
+</ul>
+
+<!--more-->
+
+<p>This reflects my current estimate of the landscape, and summarizes where my interests and aspirations have taken me so far. It is not set in stone. I may follow through on it, or I may diverge as I learn more. I primarily follow the current of my curiosity.</p>
+
+<figure><img src="/assets/posts/probability-ai-curriculum/topic-tree.svg" alt='Visualization of topic tree. Nodes are organized hierarchically be level of abstraction, with dotted-lines representing non-hierarchical associations. Colors designate hierarchy-level. Made with &lt;a href="https://www.yworks.com/yed-live/"&gt;https://www.yworks.com/yed-live/&lt;/a&gt;' width="100%"><figcaption>Visualization of topic tree. Nodes are organized hierarchically be level of abstraction, with dotted-lines representing non-hierarchical associations. Colors designate hierarchy-level. Made with <a href="https://www.yworks.com/yed-live/" target="_blank" rel="noopener noreferrer">https://www.yworks.com/yed-live/</a></figcaption></figure>
+
+<h1 id="description-of-topics"><a class="header-anchor" href="#description-of-topics">Description of topics</a></h1>
+
+<p>Here are the topics from the graph above, with descriptions to the extent that I understand them, and links to reference material.</p>
+
+<ul>
+  <li>
+    <dl>
+      <dt><strong>Objective probability</strong></dt>
+      <dd>Is probability an objective property of physical systems in general (not just i.i.d.)? Objective, meaning independently arrived at by multiple parties, like a scientific experiment (just as mass and energy measurements can be independently verified) - i.e. not dependent on a particular brain with particular beliefs. If p(x) = θ, then this is true even if no humans are around at all to believe it. The main problem in making probability objective is figuring out how to uniquely determine the probability of something given observations. What needs to be measured in order to ascertain the objective probability of a system?</dd>
+    </dl>
+
+    <ul>
+      <li>
+        <dl>
+          <dt><strong>Solomonoff induction</strong></dt>
+          <dd>A Bayesian inference setup general enough to encompass general intelligence. Posterior converges to the true data posterior at the infinite limit (for any prior with support everywhere), possibly providing an objective notion of probability, at least for infinite sequences.<br>
+‣ <a href="http://www.hutter1.net/ai/uaibook.htm" target="_blank" rel="noopener noreferrer">Universal Artifical Intelligence</a><br>
+‣ <a href="https://arxiv.org/abs/cs/0305052" target="_blank" rel="noopener noreferrer">On the Existence and Convergence Computable Universal Priors</a>
+</dd>
+        </dl>
+
+        <ul>
+          <li>
+            <dl>
+              <dt><strong>Approximations</strong></dt>
+              <dd>How can SI be implemented in practice? How would brains implement it?<br>
+‣ <a href="http://www.hutter1.net/ai/uaibook.htm#approx" target="_blank" rel="noopener noreferrer">http://www.hutter1.net/ai/uaibook.htm#approx</a>
+</dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt><strong>Posterior convergence</strong></dt>
+              <dd>The sense in which Solomonoff induction is objective. The predicted posterior converges to the true data posterior with infinite observations, for any prior with support over all hypotheses.<br>
+‣ <a href="http://www.hutter1.net/ai/uaibook.htm" target="_blank" rel="noopener noreferrer">Universal Artifical Intelligence</a>, Theorem 3.19</dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt><strong>Posterior consistency</strong></dt>
+              <dd>Solomonoff induction may not be consistent, meaning it cannot distinguish between any two hypotheses with infinite data. Implications for objective probability.</dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt><strong>Prior with universally optimal convergence</strong></dt>
+              <dd>Solomonoff’s universally optimal prior.<br>
+‣ <a href="http://www.hutter1.net/ai/uaibook.htm" target="_blank" rel="noopener noreferrer">Universal Artifical Intelligence</a>, Theorem 3.70</dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt><strong>Convergence on individual sequences</strong></dt>
+              <dd>Convergence of Solomonoff induction is not guaranteed on a measure-0 set of sequences. Construction of such a sequence.<br>
+‣ <a href="https://arxiv.org/abs/cs/0407057" target="_blank" rel="noopener noreferrer">Universal Convergence of Semimeasures on Individual Random Sequences</a>, Theorem 6 and Proposition 12</dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt><strong>(Non-)Equivalence of Universal Priors</strong></dt>
+              <dd>A surprising equivalence between mixtures of deterministic programs and computable distributions.<br>
+‣ <a href="https://arxiv.org/abs/1111.3854" target="_blank" rel="noopener noreferrer">(Non-)Equivalence of Universal Priors</a>, Theorem 14</dd>
+            </dl>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <dl>
+          <dt><strong>Martin-Lof randomness</strong></dt>
+          <dd>What it means for an infinite sequence to be drawn from a probability distribution. Algorithmic definition of randomness (see AIT).<br>
+‣ <a href="https://www.springer.com/gp/book/9781489984456" target="_blank" rel="noopener noreferrer">An Introduction to Kolmogorov Complexity and Its Applications</a>
+</dd>
+        </dl>
+
+        <ul>
+          <li>
+<strong>Definition in terms of universal probability</strong><br>
+‣ <a href="http://www.hutter1.net/ai/uaibook.htm" target="_blank" rel="noopener noreferrer">Universal Artifical Intelligence</a><br>
+‣ <a href="https://www.springer.com/gp/book/9781489984456" target="_blank" rel="noopener noreferrer">An Introduction to Kolmogorov Complexity and Its Applications</a>
+</li>
+          <li><strong>Can sequences can be Martin-Lof random w.r.t. multiple probability measures?</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>Bayesian epistemology</strong></dt>
+      <dd>Are priors and posteriors all that is needed for a complete theory of knowledge, and are a sufficient framework for building an intelligent system? Bayesian epistemology repurposes probability as a property of the intelligent agent doing the observing, rather than the system being observed (or perhaps it characterizes their interaction), i.e. probability as belief.</dd>
+    </dl>
+
+    <ul>
+      <li>
+        <dl>
+          <dt><strong>Bayesian brain hypothesis</strong></dt>
+          <dd>Hypothesis in neuroscience that the Brain is largely an approximate Bayesian inference engine.<br>
+‣ <a href="https://pubmed.ncbi.nlm.nih.gov/15541511/" target="_blank" rel="noopener noreferrer">The Bayesian Brain: The Role of Uncertainty in Neural Coding and Computation</a><br>
+‣ <a href="https://mitpress.mit.edu/books/bayesian-brain" target="_blank" rel="noopener noreferrer">Bayesian Brain: Probabilistic Approaches to Neural Coding</a><br>
+‣ <a href="https://www.annualreviews.org/doi/full/10.1146/annurev.psych.55.090902.142005" target="_blank" rel="noopener noreferrer">Object Perception as Bayesian Inference</a>
+</dd>
+        </dl>
+
+        <ul>
+          <li>
+            <dl>
+              <dt><strong>Friston’s free energy principle</strong></dt>
+              <dd>A unified theory of biological intelligence from which Bayesian epistemology can be derived.<br>
+‣ <a href="https://arxiv.org/abs/1901.07945" target="_blank" rel="noopener noreferrer">What does the free energy principle tell us about the brain?</a><br>
+‣ <a href="https://www.fil.ion.ucl.ac.uk/~karl/The%20free-energy%20principle%20A%20unified%20brain%20theory.pdf" target="_blank" rel="noopener noreferrer">The free-energy principle: a unified brain theory?</a>
+</dd>
+            </dl>
+          </li>
+          <li>
+            <dl>
+              <dt><strong>How brains approximate Bayesian inference</strong></dt>
+              <dd>To make the Bayesian brain hypothesis falsifiable, a characterization of what counts as an approximation to Bayesian inference needs to be given. What approximate Bayesian computations in the brain have been found so far by neuroscientists? <em>Reference same sources listen under “Bayesian brain hypothesis”</em>
+</dd>
+            </dl>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <dl>
+          <dt><strong>Causal inference</strong></dt>
+          <dd>If Bayesian epistemology is not sufficient, then what is missing? Judea pearl proposes causal inference.<br>
+‣ <a href="http://bayes.cs.ucla.edu/BOOK-2K/" target="_blank" rel="noopener noreferrer">Causality</a>, chapters 3 and 7<br>
+‣ <a href="https://arxiv.org/abs/1305.5506" target="_blank" rel="noopener noreferrer">Introduction to Judea Pearl’s Do-Calculus</a>
+</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><strong>Bounded Rationality</strong></dt>
+          <dd>What would Bayesian epistemology theoretically look like with bounded resources? Is Bayesian epistemology no longer optimal given bounded resources?<br>
+‣ <a href="https://stanford.edu/~icard/BBRA.pdf" target="_blank" rel="noopener noreferrer">Bayes, Bounds, and Rational Analysis</a>
+</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><strong>Logical justifications</strong></dt>
+          <dd>Arguments from first principles that Bayesian epistemology is a necessary condition for rationality, and that a rational agent is necessarily a Bayesian agent (such an agent is likely performing Solomonoff induction, in order for it to be sufficiently general in its prediction ability).</dd>
+        </dl>
+
+        <ul>
+          <li><strong>Dutch book argument</strong></li>
+          <li><strong>Complete classes</strong></li>
+          <li><strong>Cox’s theorem</strong></li>
+          <li><strong>Von Neumann-Morgenstern utility theorem</strong></li>
+        </ul>
+      </li>
+      <li>
+        <dl>
+          <dt><strong>Motivation from decision theory</strong></dt>
+          <dd>Some say a theory is good because it is useful. Perhaps the question “what theory of uncertainty should I use?” is best answered by looking at what we want to do with it, namely decision making under uncertainty. Bayesian epistemology can be motivated by of decision theory.<br>
+‣ <a href="https://www.goodreads.com/book/show/1639056.The_Foundations_of_Statistics" target="_blank" rel="noopener noreferrer">The Foundations of Statistics</a>, chapter 3</dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt><strong>Unique priors</strong></dt>
+          <dd>How to choose a prior is one point of contention in Bayesian epistemology. There are some proposed methods for selecting a unique prior given what you already know, for example, the max-entropy principle.<br>
+‣ <a href="https://arxiv.org/abs/1108.2120" target="_blank" rel="noopener noreferrer">Objective Priors: An Introduction for Frequentists</a><br>
+‣ <a href="https://arxiv.org/pdf/0808.0012.pdf" target="_blank" rel="noopener noreferrer">LECTURES ON PROBABILITY, ENTROPY, AND STATISTICAL PHYSICS</a>
+</dd>
+        </dl>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>Algorithmic information theory (AIT)</strong></dt>
+      <dd>An alternative to probability theory devised by Kolmogorov himself (and others) to address its shortcomings. Does AIT allow us to formalize the general learning problem of transferring knowledge out-of-distribution?<br>
+‣ <a href="https://www.springer.com/gp/book/9781489984456" target="_blank" rel="noopener noreferrer">An Introduction to Kolmogorov Complexity and Its Applications</a><br>
+‣ <a href="https://bookstore.ams.org/surv-220" target="_blank" rel="noopener noreferrer">Kolmogorov Complexity and Algorithmic Randomness</a>
+</dd>
+    </dl>
+
+    <ul>
+      <li>
+        <dl>
+          <dt><strong>Types of Kolmogorov complexity</strong></dt>
+          <dd>There is a constellation of algorithmic complexity functions that make up the foundation of AIT. <em>Reference same sources listen under “Algorithmic information theory”</em>
+</dd>
+        </dl>
+
+        <ul>
+          <li>
+            <dl>
+              <dt><strong>Resource bounded complexities</strong></dt>
+              <dd>Kolmogorov complexity with bounded computation. Possible direction for computable-AIT.<br>
+‣ <a href="https://www.springer.com/gp/book/9781489984456" target="_blank" rel="noopener noreferrer">An Introduction to Kolmogorov Complexity and Its Applications</a>, chapter 7</dd>
+            </dl>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <dl>
+          <dt><strong>Algorithmic transfer learning</strong></dt>
+          <dd>How can the information shared by two datasets be defined? What is the objective of transfer learning?<br>
+‣ <a href="http://users.cecs.anu.edu.au/~hassan/univTLTCS.pdf" target="_blank" rel="noopener noreferrer">On Universal Transfer Learning</a><br>
+‣ <a href="https://papers.nips.cc/paper/3228-transfer-learning-using-kolmogorov-complexity-basic-theory-and-empirical-evaluations.pdf" target="_blank" rel="noopener noreferrer">Transfer Learning using Kolmogorov Complexity: Basic Theory and Empirical Evaluations</a><br>
+‣ <a href="https://arxiv.org/abs/1904.03292" target="_blank" rel="noopener noreferrer">The Information Complexity of Learning Tasks, their Structure and their Distance</a>
+</dd>
+        </dl>
+
+        <ul>
+          <li>
+            <dl>
+              <dt><strong>No free lunch theorem</strong></dt>
+              <dd>Theorem stating there is no universally best algorithm for all training-test dataset pairs.<br>
+‣ <a href="https://www.cse.huji.ac.il/~shais/UnderstandingMachineLearning/" target="_blank" rel="noopener noreferrer">Understanding Machine Learning: From Theory to Algorithms</a>, Theorem 5.1</dd>
+            </dl>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>AIXI</strong></dt>
+      <dd>A theory of optimal intelligence put forth by Marcus Hutter based on Solomonoff induction. <br>
+‣ <a href="http://www.hutter1.net/ai/uaibook.htm" target="_blank" rel="noopener noreferrer">Universal Artifical Intelligence</a>
+</dd>
+    </dl>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>Data compression</strong></dt>
+      <dd>Lossless compression from the perspectives of Shannon’s information theory and AIT. Can they be unified? Can compression make probability objective? What is the relationship between compression and intelligence?<br>
+‣ <a href="https://www.wiley.com/en-us/Elements+of+Information+Theory%2C+2nd+Edition-p-9780471241959" target="_blank" rel="noopener noreferrer">Elements of Information Theory</a><br>
+‣ <a href="http://mattmahoney.net/dc/dce.html" target="_blank" rel="noopener noreferrer">Data Compression Explained</a>
+</dd>
+    </dl>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>Decision theory under ignorance</strong></dt>
+      <dd>Decision theory without probability. Pros and cons.<br>
+‣ <a href="https://www.cambridge.org/core/books/an-introduction-to-decision-theory/B9EEB3DCE5D0CAFFB6F3F30B1D0A06A6" target="_blank" rel="noopener noreferrer">An Introduction to Decision Theory</a>, chapter 3</dd>
+    </dl>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>The Fundamental Theorem of Statistical Learning (PAC)</strong></dt>
+      <dd>An introduction to PAC-learning theory. PAC is a probability-theory-based account of machine learning which AIT could replace.<br>
+‣ <a href="https://www.cse.huji.ac.il/~shais/UnderstandingMachineLearning/" target="_blank" rel="noopener noreferrer">Understanding Machine Learning: From Theory to Algorithms</a>, Theorem 6.7</dd>
+    </dl>
+
+    <ul>
+      <li>
+        <dl>
+          <dt><strong>PAC account of transfer learning</strong></dt>
+          <dd>PAC analysis of transfer learning. However, assumptions about relatedness of tasks need to be made.<br>
+‣ <a href="https://arxiv.org/abs/1106.0245" target="_blank" rel="noopener noreferrer">A Model of Inductive Bias Learning</a>
+</dd>
+        </dl>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+    </article>
+    <!-- http://sgeos.github.io/jekyll/disqus/2016/02/15/adding-disqus-to-a-jekyll-blog.html -->
+
+
+
+<hr class="slender">
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zhat.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a>
+</noscript>
+                            
+
+    <span class="print-footer">Notes: Probability &amp; AI Curriculum - June 17, 2020 - pragmanym</span>
+    <footer>
+  <hr class="slender">
+  <ul class="footer-links"> 
+    <li><a href="/about">FAQ</a></li>  
+    
+      <li>
+        <a href="mailto:pragmanym@gmail.com"><span class="icon-mail"></span></a>
+      </li>
+    
+      <li>
+        <a href="//github.com/pragmanym"><span class="icon-github"></span></a>
+      </li>
+    
+      <li>
+        <a href="/feed"><span class="icon-feed"></span></a>
+      </li>
+      
+  </ul>
+  <div class="credits">
+  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
+  </div>  
+</footer>
+  </body>
+</html>

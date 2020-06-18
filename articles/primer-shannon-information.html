@@ -206,7 +206,7 @@ and $f : [0, 1] \to \R^+$ maps from probabilities to information;</p>
 
 <h2 id="bits-not-bits"><a class="header-anchor" href="#bits-not-bits"><em>Bits</em>, not bits</a></h2>
 
-<p>You can get through the above exposition by thinking in terms of computer bits. Now we part ways from the computer bits intuition. Note that this departure occurs when $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? From here on out, it’s better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a <em>bit</em>, but this is a mere convention. The word <em>bit</em> should no long be thought of a physical medium that stores two distinguishable states (usually labeled “0” and “1”), but is instead a unit. Like the kilogram and Joule, this unit is undefined, but its usage gives it semantic meaning.</p>
+<p>You can get through the above exposition by thinking in terms of computer bits. Now we part ways from the computer bits intuition. Note that this departure occurs when $p_X(x)$ is not a (negative) integer power of two. $h(x)$ will be non-integer, and very likely irrational. What does it mean to have a fraction of a bit? From here on out, it’s better to think of $h$ as a quantity of information, rather than a count of physical objects. We will continue to call the unit of $h(x)$ a <em>bit</em> out of convention. The word <em>bit</em> no longer refers to a physical medium that stores two distinguishable states (usually labeled “0” and “1”), but instead it is a unit. Like the kilogram and Joule, this unit is undefined, but its usage gives it semantic meaning.</p>
 
 <p>So then how is $h$ to be understood? What is the intuition behind this quantity? In short, Shannon bits are an <a href="https://en.wikipedia.org/wiki/Analytic_continuation" target="_blank" rel="noopener noreferrer">analytic continuation</a> of computer bits. Just like how the <a href="https://en.wikipedia.org/wiki/Gamma_function" target="_blank" rel="noopener noreferrer">gamma function</a> extends factorial to continuous values, Shannon bits extend the computer bit to <strong>non-uniform distributions</strong> over a <strong>non-power-of-2</strong> number of counterfactuals. Let me explain these two phrases:</p>
 
@@ -676,15 +676,15 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.</p>
 
 <p>Sources:</p>
 <ul>
-  <li>https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence</li>
-  <li>https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence</li>
+  <li><a href="https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence" target="_blank" rel="noopener noreferrer">https://stats.stackexchange.com/questions/111445/analysis-of-kullback-leibler-divergence</a></li>
+  <li><a href="https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence" target="_blank" rel="noopener noreferrer">https://stats.stackexchange.com/questions/357963/what-is-the-difference-cross-entropy-and-kl-divergence</a></li>
 </ul>
 
 <p>Mutual information can be <a href="https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence" target="_blank" rel="noopener noreferrer">written in terms of KL-divergence</a>:</p>
 
-<script type="math/tex; mode=display">I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right)</script>
+<script type="math/tex; mode=display">I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right) = \E_{x \sim \rX}\left[\mathbb{K}\left(p_{Y\mid X}\,||\,p_Y\right)\right]\,,</script>
 
-<p>where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$.</p>
+<p>where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$ and $p_{Y\mid X}(y \mid x) \mapsto p_{X,Y}(x,y)/p_X(x)$.</p>
 
 <h1 id="acknowledgments"><a class="header-anchor" href="#acknowledgments">Acknowledgments</a></h1>
 
