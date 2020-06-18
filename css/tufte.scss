@@ -110,6 +110,13 @@ h3 { font-style: italic;
      margin-bottom: 0;
      line-height: 1.08888888888889; }
 
+h4 { font-style: italic;
+     font-weight: 400;
+     font-size: 1.5rem;
+     margin-top: 2.1777777777777778rem;
+     margin-bottom: 0;
+     line-height: 1.08888888888889; }
+
 // ET says a need for more than 3 levels of headings is the sign of a diseased mind
 
 p .subtitle { font-style: italic;
@@ -226,6 +233,8 @@ ul ul, ul ol, ol ul, ol ol {width: auto;}
 
 //li { padding: 0.5em 0; } //vertical padding on list items screws up vertical rhythym
 
+.full-width figure { max-width: 100%; }
+
 figure, figure img.maincolumn { max-width: $col-width;
          -webkit-margin-start: 0;
          -webkit-margin-end: 0;
@@ -237,6 +246,8 @@ figcaption { margin-top: 0;
              position: relative; }
 
 figure.fullwidth figcaption { float: left; margin-right: 0%; margin-left: 36%; }
+
+
 
 img { max-width: 100%; }
 
@@ -308,6 +319,8 @@ pre, pre code, p pre code { width: 52.5%;
 span.newthought { font-variant: small-caps;
                   font-size: 1.2em;
                   letter-spacing: 0.05rem; }
+
+span.advanced { color: #d14; }
 
 input.margin-toggle { display: none; }
 
