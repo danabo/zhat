@@ -56,12 +56,12 @@ html{
 .mathblock, .MathJax_Display{
   font-size: 1.3rem;
 }
-a {
+a, .toc a, .listing a {
   color: $contrast-color;
   text-decoration: none;
 }
 
-p > a, .marginnote-inner > a { @if $link-style == underline
+article a, .marginnote-inner a { @if $link-style == underline
     {
       color: #000266;
       text-decoration: underline;
@@ -320,7 +320,31 @@ span.newthought { font-variant: small-caps;
                   font-size: 1.2em;
                   letter-spacing: 0.05rem; }
 
-span.advanced { color: #d14; }
+.advanced.outer {
+  z-index: -11;
+  color: #7e1194;
+  background-color: #f8eaff;
+  padding: 0.15rem;
+  margin: -0.15rem;
+  padding-top: 0;
+  margin-top: 0;
+  border-radius: 0.5rem;
+}
+.advanced.outer.hidden {
+  z-index: -11;
+  color: #f6defb;
+  background-color: #f8eaff;
+  padding: 0.15rem;
+  margin: -0.15rem;
+  padding-top: 0;
+  margin-top: 0;
+  border-radius: 0.5rem;
+}
+.advanced.inner {
+  z-index: unset;
+}
+.advanced.hidden a {color: #f6defb;}
+.advanced .marginnote-ref {z-index: 0;}  // This is a hack. TODO: Fix z-index issues.
 
 input.margin-toggle { display: none; }
 
