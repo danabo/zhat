@@ -126,14 +126,6 @@
       <h1>Primer to Probability Theory</h1>
 <p class="subtitle">June 19, 2020</p>
 
-<script type="math/tex; mode=display">\newcommand{\bin}{\mathbb{B}}
-\newcommand{\nat}{\mathbb{N}}
-\newcommand{\real}{\mathbb{R}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\d}{\mathrm{d}}
-\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
-\newcommand{\bigmid}{\;\middle|\;}</script>
-
 <p>Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).</p>
 
 <!--more-->
@@ -176,6 +168,14 @@
   </li>
   <li><a href="#primer-to-measure-theory" id="markdown-toc-primer-to-measure-theory">Primer to measure theory</a></li>
 </ul>
+
+<script type="math/tex; mode=display">\newcommand{\bin}{\mathbb{B}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\bigmid}{\;\middle|\;}</script>
 
 <p>Main references:</p>
 <ul>
@@ -569,7 +569,7 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
 
 <h1 id="primer-to-measure-theory"><a class="header-anchor" href="#primer-to-measure-theory">Primer to measure theory</a></h1>
 
-<p>Congratulations! You’ve reached end of this post. <button class="advanced-button">Click here</button> (or on any <span class="advanced outer hidden"><span class="advanced inner hidden">purple block</span></span>) to unlock the <span class="advanced outer hidden"><span class="advanced inner hidden">purple text</span></span> on measure theory to read this last section. All the previously hidden purple text above will be visible as well. After reading this section, you will be ready to understand it.</p>
+<p>Congratulations! You’ve reached end of this post. <button class="advanced-button">Click here</button> (or on any <span class="advanced outer hidden"><span class="advanced inner hidden">purple block</span></span>) to unlock the <span class="advanced outer hidden"><span class="advanced inner hidden">purple text</span></span> on measure theory above. After reading this section, return to the earlier sections and take in the finer precision and details of measure theory in use.</p>
 
 <p>Terrence Tao, in <a href="https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf" target="_blank" rel="noopener noreferrer">An Introduction to Measure Theory</a>, motivates measure theory, saying:</p>
 <blockquote>
@@ -611,7 +611,7 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
 
 <p>where <script type="math/tex">X^{-1}(b) = \{\alpha \in A \mid X(\alpha) \in B\}</script> is the pre-image of $X$ on $b \subseteq B$. $X$ never maps a non-measurable subset of $A$ to a measurable subset of $B$, but $X$ could map a measurable subset of $A$ to a non-measurable subset of $B$. We only care about the reverse direction, and it becomes apparent why in the <a href="#motivation-3-construct-events-that-are-guaranteed-measurable">section on random variables</a>.</p>
 
-<p>A <strong>probability measure</strong> is a measure space s.t. $P(\Omega) = 1$, i.e. the measure of the entire space is bounded and equals 1.</p>
+<p>A <strong>probability measure</strong> is a measure s.t. $P(\Omega) = 1$, i.e. the measure of the entire set $\Omega$ is bounded and equals 1.</p>
 
 
 

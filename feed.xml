@@ -5,21 +5,13 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 19 Jun 2020 19:52:09 -0700</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2020 19:52:09 -0700</lastBuildDate>
+    <pubDate>Fri, 19 Jun 2020 21:41:02 -0700</pubDate>
+    <lastBuildDate>Fri, 19 Jun 2020 21:41:02 -0700</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
         <title>Primer to Probability Theory</title>
-        <description>&lt;script type=&quot;math/tex; mode=display&quot;&gt;\newcommand{\bin}{\mathbb{B}}
-\newcommand{\nat}{\mathbb{N}}
-\newcommand{\real}{\mathbb{R}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\d}{\mathrm{d}}
-\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
-\newcommand{\bigmid}{\;\middle|\;}&lt;/script&gt;
-
-&lt;p&gt;Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).&lt;/p&gt;
+        <description>&lt;p&gt;Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -55,6 +47,14 @@
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#primer-to-measure-theory&quot; id=&quot;markdown-toc-primer-to-measure-theory&quot;&gt;Primer to measure theory&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\newcommand{\bin}{\mathbb{B}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\bigmid}{\;\middle|\;}&lt;/script&gt;
 
 &lt;p&gt;Main references:&lt;/p&gt;
 &lt;ul&gt;
@@ -432,7 +432,7 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
 
 &lt;h1 id=&quot;primer-to-measure-theory&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#primer-to-measure-theory&quot;&gt;Primer to measure theory&lt;/a&gt;&lt;/h1&gt;
 
-&lt;p&gt;Congratulations! You’ve reached end of this post. &lt;button class=&quot;advanced-button&quot;&gt;Click here&lt;/button&gt; (or on any &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;purple block&lt;/span&gt;&lt;/span&gt;) to unlock the &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;purple text&lt;/span&gt;&lt;/span&gt; on measure theory to read this last section. All the previously hidden purple text above will be visible as well. After reading this section, you will be ready to understand it.&lt;/p&gt;
+&lt;p&gt;Congratulations! You’ve reached end of this post. &lt;button class=&quot;advanced-button&quot;&gt;Click here&lt;/button&gt; (or on any &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;purple block&lt;/span&gt;&lt;/span&gt;) to unlock the &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;purple text&lt;/span&gt;&lt;/span&gt; on measure theory above. After reading this section, return to the earlier sections and take in the finer precision and details of measure theory in use.&lt;/p&gt;
 
 &lt;p&gt;Terrence Tao, in &lt;a href=&quot;https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf&quot;&gt;An Introduction to Measure Theory&lt;/a&gt;, motivates measure theory, saying:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -468,7 +468,7 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
 
 &lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;X^{-1}(b) = \{\alpha \in A \mid X(\alpha) \in B\}&lt;/script&gt; is the pre-image of $X$ on $b \subseteq B$. $X$ never maps a non-measurable subset of $A$ to a measurable subset of $B$, but $X$ could map a measurable subset of $A$ to a non-measurable subset of $B$. We only care about the reverse direction, and it becomes apparent why in the &lt;a href=&quot;#motivation-3-construct-events-that-are-guaranteed-measurable&quot;&gt;section on random variables&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;A &lt;strong&gt;probability measure&lt;/strong&gt; is a measure space s.t. $P(\Omega) = 1$, i.e. the measure of the entire space is bounded and equals 1.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;probability measure&lt;/strong&gt; is a measure s.t. $P(\Omega) = 1$, i.e. the measure of the entire set $\Omega$ is bounded and equals 1.&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 19 Jun 2020 00:00:00 -0700</pubDate>
