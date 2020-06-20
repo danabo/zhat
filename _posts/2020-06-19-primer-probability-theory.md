@@ -5,6 +5,14 @@ date:   2020-06-19
 categories: post
 ---
 
+Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).
+
+<!--more-->
+
+* Table of contents
+{:toc}
+{: .toc}
+
 $$
 \newcommand{\bin}{\mathbb{B}}
 \newcommand{\nat}{\mathbb{N}}
@@ -14,14 +22,6 @@ $$
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 \newcommand{\bigmid}{\;\middle|\;}
 $$
-
-Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).
-
-<!--more-->
-
-* Table of contents
-{:toc}
-{: .toc}
 
 Main references:
 * <https://en.wikipedia.org/wiki/Probability_axioms#Axioms>
@@ -382,7 +382,7 @@ There are a few proposed solutions to this conundrum. [One by von Mises](https:/
 
 # Primer to measure theory
 
-Congratulations! You've reached end of this post. <button class='advanced-button'>Click here</button> (or on any {%adv%}purple block{%endadv%}) to unlock the {%adv%}purple text{%endadv%} on measure theory to read this last section. All the previously hidden purple text above will be visible as well. After reading this section, you will be ready to understand it.
+Congratulations! You've reached end of this post. <button class='advanced-button'>Click here</button> (or on any {%adv%}purple block{%endadv%}) to unlock the {%adv%}purple text{%endadv%} on measure theory above. After reading this section, return to the earlier sections and take in the finer precision and details of measure theory in use.
 
 Terrence Tao, in [An Introduction to Measure Theory](https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf), motivates measure theory, saying:
 > One of the most fundamental concepts in Euclidean geometry is that of the measure m(E) of a solid body E in one or more dimensions. In one, two, and three dimensions, we refer to this measure as the length, area, or volume of E respectively.
@@ -415,7 +415,7 @@ $$
 where $$X^{-1}(b) = \{\alpha \in A \mid X(\alpha) \in B\}$$ is the pre-image of $X$ on $b \subseteq B$. $X$ never maps a non-measurable subset of $A$ to a measurable subset of $B$, but $X$ could map a measurable subset of $A$ to a non-measurable subset of $B$. We only care about the reverse direction, and it becomes apparent why in the [section on random variables](#motivation-3-construct-events-that-are-guaranteed-measurable).
 
 
-A **probability measure** is a measure space s.t. $P(\Omega) = 1$, i.e. the measure of the entire space is bounded and equals 1.
+A **probability measure** is a measure s.t. $P(\Omega) = 1$, i.e. the measure of the entire set $\Omega$ is bounded and equals 1.
 
 
 
