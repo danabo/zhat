@@ -62,16 +62,16 @@
         var state = localStorage.getItem("advanced");
         var elements = document.getElementsByClassName("advanced");
         if(state === null || state == "no") {
-          for (let e of elements) e.classList.remove("hidden");
-        } else {
           for (let e of elements) e.classList.add("hidden");
+        } else {
+          for (let e of elements) e.classList.remove("hidden");
         }
       }
 
       // https://stackoverflow.com/a/24070373
       document.addEventListener("DOMContentLoaded", function() {
         // https://stackoverflow.com/a/31525463
-        for (let e of document.querySelectorAll('.advanced.inner')) {
+        for (let e of document.querySelectorAll('.advanced.inner,.advanced-button')) {
           e.onclick = function() {
             toggle_adv();
             refresh_adv();

@@ -85,7 +85,8 @@ body { width: 87.5%;
 
 
 .fixme {background: #ffeeee;
-        color: red;}
+        color: red;
+}
 
 // --------- Typography stuff -----------//
 // added rational line height and margins ala http://webtypography.net/intro/
@@ -320,7 +321,7 @@ span.newthought { font-variant: small-caps;
                   font-size: 1.2em;
                   letter-spacing: 0.05rem; }
 
-.advanced.outer {
+.advanced.outer, .advanced-fixed {
   z-index: -11;
   color: #7e1194;
   background-color: #f8eaff;
@@ -331,14 +332,8 @@ span.newthought { font-variant: small-caps;
   border-radius: 0.5rem;
 }
 .advanced.outer.hidden {
-  z-index: -11;
   color: #f6defb;
   background-color: #f8eaff;
-  padding: 0.15rem;
-  margin: -0.15rem;
-  padding-top: 0;
-  margin-top: 0;
-  border-radius: 0.5rem;
 }
 .advanced.inner {
   z-index: unset;

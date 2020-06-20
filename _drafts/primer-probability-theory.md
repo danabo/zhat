@@ -32,7 +32,7 @@ Main references:
 
 Kolmogorov's definition of probability may seem complex and technical, but it is actually very elegant in that it just simply makes use of an already existing mathematical object, the [measure space](https://en.wikipedia.org/wiki/Measure_space). Luckily, we don't need to understand more than the absolute basics of [measures and measure theory](https://en.wikipedia.org/wiki/Measure_(mathematics)) to understand Kolmogorov's definition and to do most things we want with probability.
 
-I have yet to come across a primer that explains the measure-theoretic definition of probability without taking a long and unneeded detour into measure theory. I structured this article to be read twice. The first pass is without measure theory, and the second pass is with measure theory. Measure-theory content is in {% adv %}[TODO]{% endadv %}. Simply ignore {% adv %}[TODO] text{% endadv %} the first time around (unless you are already acquainted with measure theory, but then you can just look at [Wikipedia's definition of probability](https://en.wikipedia.org/wiki/Probability_axioms#Axioms) and understand what's going on).
+I have yet to come across a primer that explains the measure-theoretic definition of probability without taking a long and unneeded detour into measure theory. I structured this article to be read twice. The first pass is without measure theory, and the second pass is with measure theory. Measure-theory content is hidden by default, e.g. {% adv %}like this{% endadv %}. Simply ignore {% adv %}purple text{% endadv %} the {%marginnote "first time" "Unless you are already acquainted with measure theory, but then you can just look at [Wikipedia's definition of probability](https://en.wikipedia.org/wiki/Probability_axioms#Axioms) to understand the gist of probability theory." %} you read this post. Then in the [measure theory section](#primer-to-measure-theory) at the end of this post you will see a button to show all the hidden text (and you can just click on {% adv %}purple text{% endadv %} anywhere in the post to show it).
 
 
 I believe that having a crisp and exact understanding makes everything easier in the long run, and allows for creativity, ingenuity, and heterodox thought. One needs to bite the bullet and do the work up front to understand the formal definitions.
@@ -42,7 +42,7 @@ I believe that having a crisp and exact understanding makes everything easier in
 
 * **Sample set** $\Omega$ is a set of all possible {% marginnote "samples" "Sample is synonymous with [outcome](https://en.wikipedia.org/wiki/Outcome_(probability))." %}.
   - **Sample** $\omega \in \Omega$ (i.e. primitive outcome) is a possible state of the world. Samples are disjoint, meaning only one sample can be the case at a time. Samples can be any kind of mathematical object.
-* **Event space** $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are allowed to assign probability. We require that $\emptyset, \Omega \in E$ {%adv%}and $E$ is required to be a [$\sigma$-algebra](https://en.wikipedia.org/wiki/%CE%A3-algebra) that contains the measurable subsets of $\Omega$. The tuple $(\Omega, E)$ is a [measurable space](https://en.wikipedia.org/wiki/Measurable_space).{%endadv%}
+* **Event space** $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are allowed to assign probability. We require that $\emptyset, \Omega \in E$ {%adv%}and $E$ is required to be a [$\sigma$-algebra](https://en.wikipedia.org/wiki/%CE%A3-algebra) that contains the measurable subsets of $\Omega$. The tuple $(\Omega, E)$ is a [measurable space](https://en.wikipedia.org/wiki/Measurable_space).{%endadv%}  {%fixme%} Give sigma-algebra properties listed in measure theory section? {%endfixme%}
   - **Event** $e \in E$ is a {%adv%}measurable{%endadv%} set of samples. Samples $\omega \in e$ are {% marginnote "considered identical" "Different samples in $\Omega$ are indeed distinct objects, but their difference does not matter in the context of event $e$." %} w.r.t. $e$.
 * **Probability** {% marginnote "$P : E \to [0, 1]$" "In general a measure $Q : E \to \real_{\geq 0}$, but I'm including the restriction of the co-domain to [0, 1] in the definition of $$P$$ because we are only talking about probability measures here, and there's no reason to be more general." %} is a function that maps allowed subsets of $\Omega$ to the real unit interval. $P$ is required to be a **measure**, which means it satisfies certain properties that make it behave analogous to length, area, volume, etc. in Euclidean space. A measure is a generalization of size. The properties are:
   * {% adv %}**Measurable domain**: $E$ is a $\sigma$-algebra of measurable sets.{% endadv %}
@@ -372,17 +372,40 @@ There are a few proposed solutions to this conundrum. [One by von Mises](https:/
 
 {% fixme %}TODO: finish this section{% endfixme %}
 
-Congratulations! You've reached end of this post. Now you may unlock the {%adv%}measure theory{%endadv%} text in {%adv%}[TODO]{%endadv%} by reading this last section.
+Congratulations! You've reached end of this post. <button class='advanced-button'>Click here</button> (or on any {%adv%}purple block{%endadv%}) to unlock the {%adv%}purple text{%endadv%} on measure theory to read this last section. All the previously hidden purple text above will be visible as well. After reading this section, you will be ready to understand it.
 
-TODO: ...
+Terrence Tao, in [An Introduction to Measure Theory](https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf), motivates measure theory, saying:
+> One of the most fundamental concepts in Euclidean geometry is that of the measure m(E) of a solid body E in one or more dimensions. In one, two, and three dimensions, we refer to this measure as the length, area, or volume of E respectively.
+> ... The physical intuition of defining the measure of a body E to be the sum of the measure of its component “atoms” runs into an immediate problem: a typical solid body would {%marginnote "consist of an infinite (and uncountable) number of points" "He is referring to the mathematical ideal of a body being composed of a set of 0-dimensional points." %}, each of which has a measure of zero; and the product ∞ · 0 is indeterminate. To make matters worse, two bodies that have exactly the same number of points, need not have the same measure. For instance, in one dimension, the intervals A := [0, 1] and B := [0, 2] are in one-to-one correspondence (using the bijection x 7→ 2x from A to B), but of course B is twice as long as A. So one can disassemble A into an uncountable number of points and reassemble them to form a set of twice the length.
 
-define measure, measurable set, measurable function, measurable space, measure space, sigma-algebra.
-why are some sets not measurable?
-why is probability a measure?
+Terrence also mentions the [Banach-Tarski paradox](https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox) which shows that even finitely many partitions of a sphere (only 5 are needed!) can be rearranged into two spheres. These kinds of non-measure-preserving are always going to be pathological, so the solution is to disallow measurement of these pathological sets. We call those sets *non-measurable*. If you are curious what non-measurable sets are like, Terrence talks about them in section 1.2.3.
+
+I will not go into how measurable sets can be defined. There are many approaches, the most common of which is due to [Lebesgue](https://en.wikipedia.org/wiki/Lebesgue_measure) (Tao section 1.3). It suffices to say that you cannot have all subsets of $\real$ be measurable without giving up [desirable properties of *measure*](https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability), e.g. that rearranging and rotating disjoint sets does not change their cumulative measure. In what follows, I'm going to assume that for some set $\Omega$ of any cardinality (finite, countable, uncountable, etc.), we just so happen to be in possession of a reasonable set of measurable sets $E \subseteq 2^\Omega$ and the associated measure $P$. Read Terry's book for details on how to construct such things. I'm merely going to run through the important definitions and terminology pertaining to probability theory (using the naming conventions of probability theory rather than measure theory).
+
+Let $\Omega$ be some set of any cardinality (finite, countable, uncountable, etc.). Assume we are in possession of the set of all measurable subsets $E \subseteq 2^\Omega$, and $P$ is a **measure**. The triple $(\Omega, E, P)$ is called a **measure space**. $(\Omega, E)$ is a **measurable space** (where no measure is specified). Any set $e \in E$ is called **measurable** and $e' \notin E$ is called **non-measurable**. The signature of $P$ is $E \to \real$, and so it maps only measurable sets to real numbers representing the measures (sizes) of those sets.
+
+There are a few requirements for $P$ that make it behave like a measure. Repeated from [above](#definitions), they are:
+  * **Non-negativity**: $$P(e) \geq 0,\ \forall e \in E$$.
+  * **Null empty set**: $$P(\emptyset) = 0$$.
+  * **Countable additivity**: For any countable $$A \subseteq E$$ where $$\bigcap A = \emptyset$$, $$P(\bigcup A) = \sum P(A)$$, where $$P(A) = \{P(e) \mid e \in A\}$$.
+
+Further, $E$ is required to be a **$\sigma$-algebra**, which means it satisfies (following Tao, section 1.4.2):
+  * **Empty set**: $\emptyset \in E$.
+  * **Complement**: If $e \in E$, then the complement $e^c := \Omega \ e$ is also in $E$.
+  * **Countable unions**: If $e_1, e_2, \ldots \in E$ then $\bigcup_{n=1}^\infty e_n \in E$.
+
+What this all amounts to is that our measure is always non-negative, the empty set is measurable with a measure of 0, compliments and countable unions of measurable sets are measurable, and measure is additive (i.e. sum of measures of disjoint sets equals the measure of the union of those sets).
+
+There's one more kind of object that probability theory makes heavy use of: the measurable function. Recounting the definition I gave [earlier](#motivation-3-construct-events-that-are-guaranteed-measurable), given two measurable spaces $(A, \mathcal{A})$ and $(B, \mathcal{B})$, a **measurable function** $X : A \to B$ satisfies
+
+$$
+X^{-1}(b) \in \mathcal{A},\ \forall b \in \mathcal{B}\,,
+$$
+
+where $$X^{-1}(b) = \{\alpha \in A \mid X(\alpha) \in B\}$$ is the pre-image of $X$ on $b \subseteq B$. $X$ never maps a non-measurable subset of $A$ to a measurable subset of $B$, but $X$ could map a measurable subset of $A$ to a non-measurable subset of $B$. We only care about the reverse direction, and it becomes apparent why in the [section on random variables](#motivation-3-construct-events-that-are-guaranteed-measurable).
 
 
-Here is a nice summary of the necessary trade-offs any notion of size needs to make: <a href='https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability'>https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability</a>
-
+A **probability measure** is a measure space s.t. $P(\Omega) = 1$, i.e. the measure of the entire space is bounded and equals 1.
 
 
 
