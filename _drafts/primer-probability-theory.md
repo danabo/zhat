@@ -238,17 +238,33 @@ The definition of random variable specifies that the function $X : \Omega \to F$
 
 ## More syntactic sugar: conditional probability
 
-{% fixme %}TODO: finish this section{% endfixme %}
+Let $e_1, e_2 \in E$ be events. Define the **conditional probability** of $e_1$ given $e_2$ as
 
-Condition distribution
+$$
+P(e_1 \mid e_2) := P(e_1 \cap e_2) / p(e_2)\,.
+$$
+
+Quoting [Wikipedia](https://en.wikipedia.org/wiki/Conditional_probability#Kolmogorov_definition):
+> The logic behind this equation is that if the possible outcomes for $e_1$ and $e_2$ are restricted to those in which $e_2$ occurs, this set serves as the new sample space.
+
+Another way to view it is that the probability of both events happening is 
+
+$$
+P(e_1 \cap e_2) = P(e_2)P(e_1 \mid e_2)\,.
+$$
+
+A combinatoric argument for this can be made, as summarized in this diagram:
+{% extfigure "https://upload.wikimedia.org/wikipedia/commons/9/9c/Probability_tree_diagram.svg" "Credit: https://en.wikipedia.org/wiki/File:Probability_tree_diagram.svg" %}
+
+This conditional probability notation is also extended to random variables. Define the **conditional distribution** of RV $X$ given that RV $Y = y$ as
 
 $$P_{X \mid Y=y}(A) := P(X \in A \wedge Y = y) / P(Y = y)\,.$$
 
-We can also write 
+Now we can write things like,
 
-$$P(X = x \mid Y = y) = P_{X \mid Y=y}(\{x\})$$
+$$P(X = x \mid Y = y) = P_{X \mid Y=y}(\{x\})\,,$$
 
-and in general
+and in general for RVs $X_1, X_2, \ldots, Y_1, Y_2, \ldots$ we have
 
 $$
 \begin{align}
@@ -256,15 +272,11 @@ $$
 & \quad := P(\mathrm{condition}(X_1, X_2, \ldots) \wedge \mathrm{condition}(Y_1, Y_2, \ldots)) / P(\mathrm{condition}(Y_1, Y_2, \ldots))\,.
 \end{align}$$
 
-> The logic behind this equation is that if the possible outcomes for A and B are restricted to those in which B occurs, this set serves as the new sample space.
-
-https://en.wikipedia.org/wiki/Conditional_probability#Kolmogorov_definition
-![](https://upload.wikimedia.org/wikipedia/commons/9/9c/Probability_tree_diagram.svg)
-
 ## More syntactic sugar: expected value
 
-{% fixme %}TODO: finish this section{% endfixme %}
+TODO: Finish this section.
 
+<!--
 Averages are {% marginnote "heavily used in statistics" "Though maybe dogmatically. See my [earlier post](http://zhat.io/articles/bias-variance#bias-variance-decomposition-for-any-loss)." %}, and so they are given special notation in probability theory. Average typically denotes the sum of values in a finite population divided by the size of the population. Probability theory generalizes the average to probability-weighted average, also called **expected value** or just **expectation**, defined as
 
 $$
@@ -280,7 +292,7 @@ Expected value is not what we expect...
 E[X] does not need to be in the co-domain of X.
 E[X] often drops information about what RV we are taking the expectation over. Sometimes E[x] or E[f(X,Y)] where it is not specified which RV.
 Conditional expectation
-
+-->
 
 # Almost surely
 
@@ -334,7 +346,7 @@ We have two problems:
 The first is an open question. E.T. Jaynes in his [Logic of Science](https://www.cambridge.org/core/books/probability-theory/9CA08E224FF30123304E6D8935CF1A99) argues that i.i.d. is never a reasonable description of physical systems:
 > Such a belief is almost never justified, even for the fairly well-controlled measurements of the physicist or engineer, not only because of unknown systematic error, but because successive measurements lack the logical independence required for these limit theorems to apply.
 
-Consider two coin tosses. What makes them independent outcomes? We have an intuition that they don't share information, i.e. you cannot predict the outcome of one any better given the outcome of the other. There is a sort of paradox at the heart of probability theory, where an event with probability between 0 and 1 necessarily implies lack of understanding of the process behind that event. If you knew completely how a process gives rise to any particular outcome, then you could just model that process without probability (or probability of any event is 0 or 1) [TODO: https://docs.google.com/document/d/1X9d2OBfPcjCPWEjDLUjIrP-LGEvs6VaeMx573RBAy2o/edit]. So then, any model of the two coins that demonstrates why they do not share information would need to reveal their inner workings, thus going inside the physical black box delineated by probability. To understand why they are independent is to make their outcomes determined, and in a sense non-probabilistic.
+Consider two coin tosses. What makes them independent outcomes? We have an intuition that they don't share information, i.e. you cannot predict the outcome of one any better given the outcome of the other. There is a sort of paradox at the heart of probability theory, where an event with probability between 0 and 1 necessarily implies lack of understanding of the process behind that event. If you knew completely how a process gives rise to any particular outcome, then you could just {% marginnote "model that process without probability" "For example, these papers modeling coin tossing:<br/>‣ [DYNAMICAL BIAS IN THE COIN TOSS](https://statweb.stanford.edu/~susan/papers/headswithJ.pdf)<br/>‣ [Probability, geometry, and dynamics in the toss of a thick coin](https://arxiv.org/pdf/1008.4559.pdf)<br/>which move the probabilistic component of the model onto the initial conditions." %}. So then, any model of the two coins that demonstrates why they do not share information would need to reveal their inner workings, thus going inside the physical black box delineated by probability. To understand why they are independent is to make their outcomes determined, and in a sense non-probabilistic.
 
 Regardless of the physical reality of i.i.d. processes, there is the mathematical question of how to represent i.i.d. repetitions of an experiment. Given $(\Omega, E, P)$ for our experiment and identity RV $X : \omega \mapsto \omega$, we can derive a larger distribution representing $n$ trials by taking the cartesian product of the sample space $n$ times, i.e. our probability space is $(\Omega_n, E_n, P_n)$ where $\Omega_n := \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{n\ \mathrm{times}}$, event space $E_n := \underbrace{E \otimes E \otimes \ldots E}_{n\ \mathrm{times}}$, and measure $P_n : (e_1, \ldots, e_n) \mapsto \prod_{i=1}^n P(e_i)$.
 
@@ -370,15 +382,13 @@ There are a few proposed solutions to this conundrum. [One by von Mises](https:/
 
 # Primer to measure theory
 
-{% fixme %}TODO: finish this section{% endfixme %}
-
 Congratulations! You've reached end of this post. <button class='advanced-button'>Click here</button> (or on any {%adv%}purple block{%endadv%}) to unlock the {%adv%}purple text{%endadv%} on measure theory to read this last section. All the previously hidden purple text above will be visible as well. After reading this section, you will be ready to understand it.
 
 Terrence Tao, in [An Introduction to Measure Theory](https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf), motivates measure theory, saying:
 > One of the most fundamental concepts in Euclidean geometry is that of the measure m(E) of a solid body E in one or more dimensions. In one, two, and three dimensions, we refer to this measure as the length, area, or volume of E respectively.
-> ... The physical intuition of defining the measure of a body E to be the sum of the measure of its component “atoms” runs into an immediate problem: a typical solid body would {%marginnote "consist of an infinite (and uncountable) number of points" "He is referring to the mathematical ideal of a body being composed of a set of 0-dimensional points." %}, each of which has a measure of zero; and the product ∞ · 0 is indeterminate. To make matters worse, two bodies that have exactly the same number of points, need not have the same measure. For instance, in one dimension, the intervals A := [0, 1] and B := [0, 2] are in one-to-one correspondence (using the bijection x 7→ 2x from A to B), but of course B is twice as long as A. So one can disassemble A into an uncountable number of points and reassemble them to form a set of twice the length.
+> ... The physical intuition of defining the measure of a body E to be the sum of the measure of its component “atoms” runs into an immediate problem: a typical solid body would {%marginnote "consist of an infinite (and uncountable) number of points" "He is referring to the mathematical ideal of a body being composed of a set of 0-dimensional points." %}, each of which has a measure of zero; and the product $\infty \cdot 0$ is indeterminate. To make matters worse, two bodies that have exactly the same number of points, need not have the same measure. For instance, in one dimension, the intervals $A := [0, 1]$ and $B := [0, 2]$ are in one-to-one correspondence (using the bijection $x \mapsto 2x$ from $A$ to $B$), but of course $B$ is twice as long as $A$. So one can disassemble $A$ into an uncountable number of points and reassemble them to form a set of twice the length.
 
-Terrence also mentions the [Banach-Tarski paradox](https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox) which shows that even finitely many partitions of a sphere (only 5 are needed!) can be rearranged into two spheres. These kinds of non-measure-preserving are always going to be pathological, so the solution is to disallow measurement of these pathological sets. We call those sets *non-measurable*. If you are curious what non-measurable sets are like, Terrence talks about them in section 1.2.3.
+Terrence also mentions the [Banach-Tarski paradox](https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox) which shows that even finitely many partitions of a sphere (only 5 are needed!) can be rearranged into two spheres. These kinds of non-measure-preserving sets are always going to be pathological, so the solution is to disallow measurement of these pathological sets. We call those sets *non-measurable*. If you are curious what non-measurable sets are like, Terrence talks about them in section 1.2.3.
 
 I will not go into how measurable sets can be defined. There are many approaches, the most common of which is due to [Lebesgue](https://en.wikipedia.org/wiki/Lebesgue_measure) (Tao section 1.3). It suffices to say that you cannot have all subsets of $\real$ be measurable without giving up [desirable properties of *measure*](https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability), e.g. that rearranging and rotating disjoint sets does not change their cumulative measure. In what follows, I'm going to assume that for some set $\Omega$ of any cardinality (finite, countable, uncountable, etc.), we just so happen to be in possession of a reasonable set of measurable sets $E \subseteq 2^\Omega$ and the associated measure $P$. Read Terry's book for details on how to construct such things. I'm merely going to run through the important definitions and terminology pertaining to probability theory (using the naming conventions of probability theory rather than measure theory).
 
