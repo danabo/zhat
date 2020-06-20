@@ -49,6 +49,47 @@
     </script>
   
 
+  
+    <script type="text/javascript">
+      function toggle_adv() {
+        var state = localStorage.getItem("advanced");
+        if(state === null || state == "no") {
+          localStorage.setItem("advanced", "yes");
+        } else {
+          localStorage.setItem("advanced", "no");
+        }
+      }
+
+      function refresh_adv() {
+        var state = localStorage.getItem("advanced");
+        var elements = document.getElementsByClassName("advanced");
+        if(state === null || state == "no") {
+          for (let e of elements) e.classList.add("hidden");
+        } else {
+          for (let e of elements) e.classList.remove("hidden");
+        }
+      }
+
+      // https://stackoverflow.com/a/24070373
+      document.addEventListener("DOMContentLoaded", function() {
+        // https://stackoverflow.com/a/31525463
+        for (let e of document.querySelectorAll('.advanced.inner,.advanced-button')) {
+          e.onclick = function() {
+            toggle_adv();
+            refresh_adv();
+          }
+        };
+
+        for (let a of document.querySelectorAll('.advanced a')) {
+          // https://stackoverflow.com/a/14526317
+          a.onclick=function(e){ e.stopPropagation(); };
+        }
+
+        refresh_adv();
+      });
+    </script>
+  
+
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
@@ -86,6 +127,30 @@
 
   <h1 class="content-listing-header sans">Articles</h1>
   <ul class="content-listing ">
+      
+      
+          
+        <li class="listing">
+          <a name="/articles/primer-probability-theory"></a>
+          <div class="index_entry">
+            <hr class="slender">
+            <a href="/articles/primer-probability-theory" style="padding-right:15px;"><h3 class="contrast">Primer to Probability Theory</h3></a><a href="#/articles/primer-probability-theory">🔗</a>
+            <br><span class="category"><span class="category-head" style="padding-right:5px;">Category:</span>Post</span>
+            <br><span class="smaller">June 19, 2020</span>  <br>
+            <div>
+<script type="math/tex; mode=display">\newcommand{\bin}{\mathbb{B}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\bigmid}{\;\middle|\;}</script>
+
+<p>Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).</p>
+
+</div>
+          </div>
+        </li>
       
       
           

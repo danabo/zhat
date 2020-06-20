@@ -185,11 +185,11 @@ html {
 .mathblock, .MathJax_Display {
   font-size: 1.3rem; }
 
-a {
+a, .toc a, .listing a {
   color: #0020a0;
   text-decoration: none; }
 
-p > a, .marginnote-inner > a {
+article a, .marginnote-inner a {
   color: #000266;
   text-decoration: underline; }
 
@@ -512,8 +512,28 @@ span.newthought {
   font-size: 1.2em;
   letter-spacing: 0.05rem; }
 
-span.advanced {
-  color: #d14; }
+.advanced.outer, .advanced-fixed {
+  z-index: -11;
+  color: #7e1194;
+  background-color: #f8eaff;
+  padding: 0.15rem;
+  margin: -0.15rem;
+  padding-top: 0;
+  margin-top: 0;
+  border-radius: 0.5rem; }
+
+.advanced.outer.hidden {
+  color: #f6defb;
+  background-color: #f8eaff; }
+
+.advanced.inner {
+  z-index: unset; }
+
+.advanced.hidden a {
+  color: #f6defb; }
+
+.advanced .marginnote-ref {
+  z-index: 0; }
 
 input.margin-toggle {
   display: none; }
