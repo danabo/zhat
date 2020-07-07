@@ -40,6 +40,8 @@ I believe that having a crisp and exact understanding makes everything easier in
 
 # Definitions
 
+{%fixme%}Have 3 versions of these definitions, each with a dropdown reveal. (1) is just for finite sample spaces to give the gist of the definition without a bunch of complicated conditions, (2) is general but without reference to measure theory, and (3) shows how using measure theory greatly simplifies the definitions.{%endfixme%}
+
 * **Sample set** $\Omega$ is a set of all possible {% marginnote "samples" "Sample is synonymous with [outcome](https://en.wikipedia.org/wiki/Outcome_(probability))." %}.
   - **Sample** $\omega \in \Omega$ (i.e. primitive outcome) is a possible state of the world. Samples are disjoint, meaning only one sample can be the case at a time. Samples can be any kind of mathematical object.
 * **Event space** $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are allowed to assign probability. We require that $\emptyset, \Omega \in E$ {%adv%}and $E$ is required to be a [$\sigma$-algebra](https://en.wikipedia.org/wiki/%CE%A3-algebra) that contains the measurable subsets of $\Omega$. The tuple $(\Omega, E)$ is a [measurable space](https://en.wikipedia.org/wiki/Measurable_space).{%endadv%}  {%fixme%} Give sigma-algebra properties listed in measure theory section? {%endfixme%}
@@ -101,7 +103,7 @@ $$
 
 Note that it does not matter if we define $P$ on open intervals, closed intervals, or half-open intervals, because the value of the integral is identical between these cases. {%adv%}Specifically, we are performing a Lebesgue integral, which is invariant to removing a measure 0 subset from the integral domain. See the [equality almost-everywhere](https://en.wikipedia.org/wiki/Lebesgue_integration#Basic_theorems_of_the_Lebesgue_integral) property.{%endadv%}
 
-Notice that $\frac{\d}{\d x} P((0, x])$ is the [standard normal](https://en.wikipedia.org/wiki/Normal_distribution) (i.e. Gaussian) [probability density function (pdf)](https://en.wikipedia.org/wiki/Probability_density_function). It is common, when working with probability on the reals, to provide a pdf which can be integrated over to derive the {%marginnote "probability measure" "The output of the probability measure is called *probability mass*, to distinguish it from the output of the pdf, which is called *probability density*." %}.
+Notice that $\frac{\d}{\d x} P((0, x])$ is the [standard normal](https://en.wikipedia.org/wiki/Normal_distribution) (i.e. Gaussian) [probability density function (p.d.f.)](https://en.wikipedia.org/wiki/Probability_density_function). It is common, when working with probability on the reals, to provide a p.d.f. which can be integrated over to derive the {%marginnote "probability measure" "The output of the probability measure is called *probability mass*, to distinguish it from the output of the p.d.f., which is called *probability density*." %}. In other words, a p.d.f. $f(x)$ is a function that when integrated produces a probability measure: $P((a, b]) = \int_a^b f(x) \d x$. 
 
 ## Events vs samples
 
@@ -222,7 +224,7 @@ Keeping track of all these probability functions can be confusing, e.g. marginal
 
 #### Abuses of notation
 * {% marginnote "$$P(\omega)$$ denotes $$P(\{\omega\})$$" "Though I said earlier $P(\omega)$ is technically undefined, it is quite common to mix primitive events and samples notationally." %}.
-* $P(X)$ is not a quantity at all, but is a notational stand-in for the marginal distribution $P_X$. Likewise, $P(X, Y)$ is a stand-in for the joint distribution $P_{X,Y}$.
+* $P(X)$ is not a quantity at all, but is a notational stand-in for the marginal distribution $P_X$. Likewise, $P(X, Y)$ is a stand-in for the joint distribution $P_{X,Y}$. Alternatively $P(X)$ can sometimes mean the $$\omega \mapsto P_X(\{X(\omega)\})$$, which is a double abuse because it is using $P$ as a function of single outcome $P_X(X(\omega))$.
 * $P_X(X = x)$ may be used in place of $P(X=x)$. Even though the former is technically nonsensical because the domain of $X$ is $\Omega$ rather than $F$, we can imagine the identity random variable {%marginnote "$\chi : F \to F : x \mapsto x$" "Where $F$ is the range of $X$ and the set for which $P_X$ is a probability measure." %} so that $P_X(\chi = x) = P(X = x)$. In that light, $P_X(X = x)$ is a sort of notational mistake, swapping $\chi$ with $X$. Likewise for joint distributions, e.g. $P_{X,Y}(X=x, Y=y)$.
 * $P_X(x)$ may refer to either $$P_X(\{x\}) = P(X = x)$$ or the function $P_X$. The intended meaning depends on context. Likewise for joint distributions, e.g. $P_{X,Y}(x, y)$.
 * $$h(X)$$ denotes the random variable created by the composition $$h∘X$$, where $h : F \to G$ is any arbitrary {%adv%}measurable{%endadv%} function to arbitrary {%adv%}measurable{%endadv%} set $G$. In other words, functions of random variables are random variables, i.e. $$P(h(X) = g) = P(\{\omega \in \Omega \mid h(X(\omega)) = g\})$$.
@@ -236,71 +238,11 @@ The definition of random variable specifies that the function $X : \Omega \to F$
 
 {%adv%}**Question:** Are arbitrary expressions of random variables, i.e. $\mathrm{condition}(X_1, X_2, \ldots)$, guaranteed measurable?{%endadv%}
 
-## More syntactic sugar: conditional probability
-
-Let $e_1, e_2 \in E$ be events. Define the **conditional probability** of $e_1$ given $e_2$ as
-
-$$
-P(e_1 \mid e_2) := P(e_1 \cap e_2) / p(e_2)\,.
-$$
-
-Quoting [Wikipedia](https://en.wikipedia.org/wiki/Conditional_probability#Kolmogorov_definition):
-> The logic behind this equation is that if the possible outcomes for $e_1$ and $e_2$ are restricted to those in which $e_2$ occurs, this set serves as the new sample space.
-
-Another way to view it is that the probability of both events happening is 
-
-$$
-P(e_1 \cap e_2) = P(e_2)P(e_1 \mid e_2)\,.
-$$
-
-A combinatoric argument for this can be made, as summarized in this diagram:
-{% extfigure "https://upload.wikimedia.org/wikipedia/commons/9/9c/Probability_tree_diagram.svg" "Credit: https://en.wikipedia.org/wiki/File:Probability_tree_diagram.svg" %}
-
-This conditional probability notation is also extended to random variables. Define the **conditional distribution** of RV $X$ given that RV $Y = y$ as
-
-$$P_{X \mid Y=y}(A) := P(X \in A \wedge Y = y) / P(Y = y)\,.$$
-
-Now we can write things like,
-
-$$P(X = x \mid Y = y) = P_{X \mid Y=y}(\{x\})\,,$$
-
-and in general for RVs $X_1, X_2, \ldots, Y_1, Y_2, \ldots$ we have
-
-$$
-\begin{align}
-& P(\mathrm{condition}(X_1, X_2, \ldots) \mid \mathrm{condition}(Y_1, Y_2, \ldots)) \\
-& \quad := P(\mathrm{condition}(X_1, X_2, \ldots) \wedge \mathrm{condition}(Y_1, Y_2, \ldots)) / P(\mathrm{condition}(Y_1, Y_2, \ldots))\,.
-\end{align}$$
-
-## More syntactic sugar: expected value
-
-TODO: Finish this section.
-
-<!--
-Averages are {% marginnote "heavily used in statistics" "Though maybe dogmatically. See my [earlier post](http://zhat.io/articles/bias-variance#bias-variance-decomposition-for-any-loss)." %}, and so they are given special notation in probability theory. Average typically denotes the sum of values in a finite population divided by the size of the population. Probability theory generalizes the average to probability-weighted average, also called **expected value** or just **expectation**, defined as
-
-$$
-\E_X \left[f(X)\right] := \int_\Omega f(X(\omega)) \d P(\omega)
-$$
-
-https://en.wikipedia.org/wiki/Expected_value#General_case
-
-This notation assumes we have a random variable $X : \Omega \to F$. However in many cases we just want to compute the expectation over our sample set, and the identity random variable is often invoked, $I : \Omega \to \Omega : \omega \mapsto \omega$. However, the distinction between random variables and samples can become blurred in many texts, which leads to further confusion. For instance, it is common to notate the sample set as $X$ and samples as $x \in X$, and then write any of $\E[f(X)]$, $\E[f(x)]$, $\E_X[f(X)]$, $\E_{x \sim X}[f(x)]$.
-
-Expected value is not what we expect...
-
-E[X] does not need to be in the co-domain of X.
-E[X] often drops information about what RV we are taking the expectation over. Sometimes E[x] or E[f(X,Y)] where it is not specified which RV.
-Conditional expectation
--->
-
 # Almost surely
-
-See <https://en.wikipedia.org/wiki/Almost_surely>.
 
 We know that $P(\emptyset) = 0$. It is possible (and common) to have non-empty events which have probability zero. Since we are calling $P$ a *measure* of probability (analogous to the size of a set), then we say that a set $e$ where $P(e) = 0$ has measure 0. Such an event is said to occur **almost never**.
 
-We also know that $P(\Omega) = 1$. In the situations where non-empty sets have measure 0, there must be non-$\Omega$ sets with measure 1, because of the additivity of probability measure. Such sets are said to have measure 1, and such events are said to occur **almost surely**.
+We also know that $P(\Omega) = 1$. In the situations where non-empty sets have measure 0, there must be non-$\Omega$ sets with measure 1, because of the additivity of probability measure. Such sets are said to have measure 1, and such events are said to occur [**almost surely**](https://en.wikipedia.org/wiki/Almost_surely).
 
 There is nothing strange about non-empty sets of measure 0. Probability measure is not measuring the number of samples in an event (that would be set cardinality). If $P(e) = 0$, then for any sub-event $e' \subset e$ we have $P(e') = 0$ by additivity of probability measure. So if $\omega \in e$, then $$P(\{\omega\}) = 0$$. We could say informally that sample $\omega$ {%marginnote "has" "While recognizing that formally samples don't have probability, and it is the event $$\{\omega\}$$ which has probability 0." %} 0 probability.
 
@@ -314,11 +256,11 @@ I think there are two follow up questions that naturally fall out of the origina
 
 Naive answers to both are that we may assign measure 0 to events which can never be observed to occur, and if we believe an event has measure 0 then we will never observe it occurring. There are some who will say that nothing is impossible, merely improbable, and all events should be assigned non-zero probability. Clearly "no confirmation ⟹ impossible" is the {% marginnote "[black swan fallacy](https://en.wikipedia.org/wiki/Black_swan_theory)," "Black swans were presumed to not exist by Europeans before the 16th century because only white swans had been observed. \"However, in 1697, Dutch explorers led by Willem de Vlamingh became the first Europeans to see black swans, in Western Australia.\" The fallacy is that lack of confirmation of something being true does not rule out the possibility that it is true. This fallacy amounts to mistaking 'I have not found $x$ s.t. $\mathrm{proposition}(x)$' with '$\not\exists x$ s.t. $\mathrm{proposition}(x)$'." %}. You cannot know something is impossible by lack of observation, so you should not assign 0 probability because of lack of data. However, something may be logically impossible, or you may know something is impossible via other means.
 
-(1) is a special case of the [inverse probability problem](https://en.wikipedia.org/wiki/Inverse_probability), which is the problem of determining the probability measure (distribution) that best describes some physical process (e.g. a game, physical experiment, stock market). Is there a 1-to-1 mapping between physical processes and probability distributions? In other words, is the distribution that best describes a physical process objective and unique, i.e. {%marginnote "independently verifiable." "In the same way that scientific experiments can be reproduced and verified by independent parties. If the reason for selecting measure $P_1$ over measure $P_2$ to describe a physical process is not dogmatic, then that choice should be independently arrived at from first principles by multiple parties." %}
+Question \#1 is a special case of the [inverse probability problem](https://en.wikipedia.org/wiki/Inverse_probability), which is the problem of determining the probability measure (distribution) that best describes some physical process (e.g. a game, physical experiment, stock market). Is there a 1-to-1 mapping between physical processes and probability distributions? In other words, is the distribution that best describes a physical process objective and unique, i.e. {%marginnote "independently verifiable." "In the same way that scientific experiments can be reproduced and verified by independent parties. If the reason for selecting measure $P_1$ over measure $P_2$ to describe a physical process is not dogmatic, then that choice should be independently arrived at from first principles by multiple parties." %}
 
-There is at this time no good answer to the inverse probability problem. Kolmogorov developed his definition of probability to match the mathematical intuitions on probability of his predecessors going back to the {% marginnote "17th century." "Famously the [problem of points](https://en.wikipedia.org/wiki/Problem_of_points) is an example of early probability calculation." %} But what gave rise to this persistent intuition that the world should be described with probability, and that probability values should represent randomness and unpredictability? That I do not have an answer to, but I found Ian Hacking's [The Emergence of Probability](https://en.wikipedia.org/wiki/The_Emergence_of_Probability) to give a good account of the historical emergence of probability theory.
+There is at this time no good answer to the inverse probability problem. Kolmogorov developed his definition of probability to match the mathematical intuitions on probability of his predecessors going back to the {% marginnote "17th century." "Famously the [problem of points](https://en.wikipedia.org/wiki/Problem_of_points) is an example of early probability calculation." %} But what gave rise to this persistent intuition that the whole world should be described with probability, and that probability values should represent randomness and unpredictability? That I do not have an answer to, but I found Ian Hacking's [The Emergence of Probability](https://en.wikipedia.org/wiki/The_Emergence_of_Probability) to give a good account of the historical emergence of probability theory.
 
-Not only is probability theory agnostic on the meaning of 0 probability, it doesn't actually have anything to say about what it means for an outcome to be likely or unlikely, or expected or unexpected in the colloquial sense, at least not in a non-circular way. Kolmogorov's axioms merely ensure that probability behaves correctly when you do the math.
+Not only is probability theory agnostic on the meaning of 0 probability, it doesn't actually have anything to say about what it means for an outcome to be likely or unlikely, or expected or unexpected in the colloquial sense, at least not in a non-circular way. Kolmogorov's axioms merely ensure that probability behaves correctly when you remain within the realm of mathematics. 
 
 Kolmogorov himself tried to fix this shortcoming which led to the development of [algorithmic information theory](http://www.scholarpedia.org/article/Algorithmic_information_theory). In [On tables of random numbers](https://www.sciencedirect.com/science/article/pii/S0304397598000759?via%3Dihub) he writes:
 > ... for a long time I had the following views:
@@ -327,17 +269,17 @@ Kolmogorov himself tried to fix this shortcoming which led to the development of
 
 ## Throwing darts
 
-[Above](#examples) I gave the reals as an example of a sample set. It is not hard to show that [every countable subset of the reals must have measure 0](https://proofwiki.org/wiki/Countable_Sets_Have_Measure_Zero). This gives rise to the classic conundrum that any particular number sampled from the real line (under, say, a Gaussian pdf) will have 0 probability of occurring. Or more poetically, throw a dart at a dart board, and wherever it lands there is 0 probability of it doing so (this is just the 2D version of the real line). 
+[Above](#examples) I gave the reals as an example of a sample set. It is not hard to show that [every countable subset of the reals must have measure 0](https://proofwiki.org/wiki/Countable_Sets_Have_Measure_Zero). This gives rise to the classic conundrum that any particular number sampled from the real line (under, say, a Gaussian pdf) will have 0 probability of occurring. Or {%marginnote "more poetically" "This is just the same thought experiment but in $\real^2$." %}, throw a dart at a dart board, and wherever it lands there is 0 probability of it doing so. 
 
-My response is two-fold. In the case of the dart board, since we are invoking a physical process, I argue that there are only finitely distinguishable places the dart can land, limited by the precision of our measurement apparatus (e.g. a camera). I assert that we can only ever have finite precision on measurements (see my [discussion on mutual information](http://zhat.io/articles/primer-shannon-information#proof-that-mi-is-fininte-for-continuous-distributions)). For this reason, sample spaces for physical processes are functionally finite, even if we model them as infinite.
+My response is two-fold. In the case of the dart board, since we are invoking a physical process, I argue that there are only finitely many distinguishable places the dart can land, limited by the precision of our measurement apparatus (e.g. a camera). I assert that we can only ever have finite precision on measurements (see my [discussion on mutual information](http://zhat.io/articles/primer-shannon-information#proof-that-mi-is-fininte-for-continuous-distributions)). For this reason, event sets for physical processes are functionally finite, even if the sample set is infinite.
 
-Probability theory gives us an elegant way to model a physical process with continuous state while simulating measurements of finite precision. This brings me to the real line example. Assuming we have a pdf with support everywhere, for both the dart board and real line, the measure of intervals that are not just points will be non-zero, because such intervals are uncountable sets. So choosing event intervals which correspond to measurement error bounds will produce events with non-zero probability. In short, you are taking the probability of a physical measurement outcome, not a state of the world (which is not directly accessible)! Countable events on $\real$ have essentially infinite precision, and you are in a sense {%marginnote "\"paying for\" more precision" "There is a direct connection between precision and information. More precision means more bits. Infinite precision means infinite information, and 0 probability. This is why the entropy of most distributions on $\real$ is [infinite](http://zhat.io/articles/primer-shannon-information#shannon-information-for-continuous-distributions)." %} in your events with increasingly small probabilities. At the limit, you pay for infinite precision with 0 probability.
+Probability theory gives us an elegant way to model a physical process with continuous state while simulating measurements of finite precision. This brings me to the real line example. Assuming we have a probability density function with [support everywhere](https://en.wikipedia.org/wiki/Support_(mathematics)), for both the dart board and real line, the measure of intervals that are not just points will be non-zero, because such intervals are uncountable sets. So choosing event intervals which correspond to measurement error bounds will produce events with non-zero probability. In short, you are taking the probability of a physical measurement outcome, not a {%marginnote "state of the world!" "We could say states of the world are not directly accessible, but are only indirectly observable through finite measurement precision." %} {%marginnote "Singleton events" "Really any event containing finite or countably many samples in a sense is an infinite precision measurement, and conveys infinite information." %} on $\real$ have essentially infinite precision, and you are in a sense {%marginnote "\"paying for\" more precision" "There is a direct connection between precision and information. More precision means more bits. Infinite precision means infinite information, and 0 probability. This is why the [entropy of most distributions on $\real$ is infinite](http://zhat.io/articles/primer-shannon-information#shannon-information-for-continuous-distributions)." %} in your events with increasingly small probabilities. At the limit, you pay for infinite precision with 0 probability.
 
 ## Borel's law of large numbers
 
 A classical interpretation of probability is that it represents the frequency of occurrence of some event in a repeatable process as the number of repetitions goes to infinity. This is sometimes called the **frequentist** interpretation of probability.
 
-Repeatable, in probabilistic terms, means **independently and identically distributed** (i.i.d.). That is, for RVs $X_1, X_2, \ldots$ the marginals are equal, $P_{X_1} = P_{X_2} = \ldots$, and their joint is the product of marginals, $P_{X_1, X_2, \ldots}(A) = P_{X_1}(A)\cdot P_{X_2}(A) \cdot \ldots$
+*Repeatable*, in the language of probability theory, means **independently and identically distributed** (i.i.d.). That is, for RVs $X_1, X_2, \ldots$ their marginals are equal, $P_{X_1} = P_{X_2} = \ldots$ (i.e. identical), and their joint distribution is the product of marginals, $P_{X_1, X_2, \ldots}(A) = P_{X_1}(A)\cdot P_{X_2}(A) \cdot \ldots$ (i.e. [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory))).
 
 We have two problems:
 1. What does it mean for a physical process to be i.i.d.?
@@ -346,21 +288,39 @@ We have two problems:
 The first is an open question. E.T. Jaynes in his [Logic of Science](https://www.cambridge.org/core/books/probability-theory/9CA08E224FF30123304E6D8935CF1A99) argues that i.i.d. is never a reasonable description of physical systems:
 > Such a belief is almost never justified, even for the fairly well-controlled measurements of the physicist or engineer, not only because of unknown systematic error, but because successive measurements lack the logical independence required for these limit theorems to apply.
 
-Consider two coin tosses. What makes them independent outcomes? We have an intuition that they don't share information, i.e. you cannot predict the outcome of one any better given the outcome of the other. There is a sort of paradox at the heart of probability theory, where an event with probability between 0 and 1 necessarily implies lack of understanding of the process behind that event. If you knew completely how a process gives rise to any particular outcome, then you could just {% marginnote "model that process without probability" "For example, these papers modeling coin tossing:<br/>‣ [DYNAMICAL BIAS IN THE COIN TOSS](https://statweb.stanford.edu/~susan/papers/headswithJ.pdf)<br/>‣ [Probability, geometry, and dynamics in the toss of a thick coin](https://arxiv.org/pdf/1008.4559.pdf)<br/>which move the probabilistic component of the model onto the initial conditions." %}. So then, any model of the two coins that demonstrates why they do not share information would need to reveal their inner workings, thus going inside the physical black box delineated by probability. To understand why they are independent is to make their outcomes determined, and in a sense non-probabilistic.
+Consider two coin tosses. What makes them independent outcomes? We have an intuition that they are not causally connected and therefor they don't share information, i.e. you cannot predict the outcome of one coin any better given the outcome of the other. There is a sort of paradox at the heart of probability theory, where an event with probability between 0 and 1 necessarily implies lack of understanding of the process behind that event. If you knew completely how a process gives rise to any particular outcome, then you could just {% marginnote "model that process without probability" "For example, these papers modeling coin tossing:<br/>‣ [DYNAMICAL BIAS IN THE COIN TOSS](https://statweb.stanford.edu/~susan/papers/headswithJ.pdf)<br/>‣ [Probability, geometry, and dynamics in the toss of a thick coin](https://arxiv.org/pdf/1008.4559.pdf)<br/>which move the probabilistic component of the model onto the initial conditions." %}. So then, any model of the two coins that demonstrates why they do not share information would need to reveal their inner workings, thus going inside the physical black box delineated by probability. To understand why they are independent is to make their outcomes determined from a physicist's "god-like perspective", and in a sense non-probabilistic.
 
-Regardless of the physical reality of i.i.d. processes, there is the mathematical question of how to represent i.i.d. repetitions of an experiment. Given $(\Omega, E, P)$ for our experiment and identity RV $X : \omega \mapsto \omega$, we can derive a larger distribution representing $n$ trials by taking the cartesian product of the sample space $n$ times, i.e. our probability space is $(\Omega_n, E_n, P_n)$ where $\Omega_n := \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{n\ \mathrm{times}}$, event space $E_n := \underbrace{E \otimes E \otimes \ldots E}_{n\ \mathrm{times}}$, and measure $P_n : (e_1, \ldots, e_n) \mapsto \prod_{i=1}^n P(e_i)$.
-
-Ignoring the mathematical difficulties, we can invoke the sample set over infinite trials $\Omega_\infty$. Let's create a random variable to represent each trial in the infinite series: $X_t : \Omega_\infty \to \Omega : (\omega_1, \omega_2, \ldots, \omega_t, \ldots) \mapsto \omega_t$.
-
-The idea of probability representing the outcome frequency of infinite i.i.d. trials is formally captured by [Borel's law of large numbers (BLLN)](https://en.wikipedia.org/wiki/Law_of_large_numbers#Strong_law). Given some event $e \in E$ (for each trial), we have:
+Regardless of the physical reality of i.i.d. processes, there is the mathematical question of how to represent i.i.d. repetitions of an experiment. Given $(\Omega, E, P)$ for our experiment and identity RV $X : \omega \mapsto \omega$, we can derive a larger distribution representing $n$ trials by taking the cartesian product of the sample space $n$ times, i.e. our probability space is $(\Omega_n, E_n, P_n)$ where
 
 $$
-P_\infty\left(\left\{\omega \in \Omega_\infty \bigmid \lim_{n \to \infty} \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i(\omega) \in e] = P(e)\right\}\right) = 1\,,
+\begin{align}
+\Omega_n &:= \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{n\ \mathrm{times}} \\
+E_n &:= \underbrace{E \otimes E \otimes \ldots E}_{n\ \mathrm{times}} \\
+P_n &: (e_1, \ldots, e_n) \mapsto \prod_{i=1}^n P(e_i)\,.
+\end{align}
 $$
-where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if true, 0 otherwise). $\sum\limits_{i=1}^n 𝟙[X_i(\omega) \in e]$ computes a count: the number of times event $e$ occurs in $\omega$, which is the state of a sequence of trials. Dividing by $n$ gives the frequency, i.e. fraction of times $e$ appears out of the total number of trials.
+
+Ignoring the mathematical difficulties involved, let's invoke the sample set over infinite trials, $\Omega_\infty$. Let's also create a random variable for the outcome of each trial $$t \in \nat\setminus\{0\}$$ in the infinite series:
+
+$$
+X_t : \Omega_\infty \to \Omega : (\omega_1, \omega_2, \ldots, \omega_t, \ldots) \mapsto \omega_t\,.
+$$
+
+The idea of probability representing the outcome frequency of infinite i.i.d. trials is formally captured by {% marginnote "[Borel's law of large numbers (BLLN)](https://en.wikipedia.org/wiki/Law_of_large_numbers#Strong_law)" "This is a special case of the [strong law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers#Strong_law). There are a few variants of the law of large numbers (LLN), e.g. [weak law](https://en.wikipedia.org/wiki/Law_of_large_numbers#Weak_law), but I feel BLLN most straightforwardly expresses the insight I wish to convey." %}. Given any single-trial event $e \in E$, we have:
+
+$$
+P_\infty\left(\left\{\omega_\infty \in \Omega_\infty \bigmid \lim_{n \to \infty} \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i(\omega_\infty) \in e] = P(e)\right\}\right) = 1\,,
+$$
+where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if true, 0 otherwise). The sum
+
+$$
+\sum\limits_{i=1}^n 𝟙[X_i(\omega_\infty) \in e]
+$$
+
+computes a count: the number of times event $e$ occurs in the first $n$ trials, where $\omega_\infty$ is the infinite sequence of trial samples. Dividing by $n$ gives the frequency, i.e. fraction of times $e$ appears out of the first $n$ trials.
 
 
-BLLN can be written more concisely as:
+Borel's law of large numbers (BLLN) can then be written more concisely using our fun RV notation:
 
 $$
 P_\infty\left(\lim_{n \to \infty} \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i \in e] = P(e)\right) = 1\,,
@@ -372,25 +332,37 @@ $$
 \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i \in e] \overset{\mathrm{a.s.}}{\longrightarrow} P(e)\,,
 $$
 
-though this does not make it clear that $P_\infty$ is our measure.
+though the latter does not make it clear that $P_\infty$ is our measure.
 
-This equation is very intriguing, as it directly relates samples from $P_\infty$ to measure $P$. In short, BLLN states that there is a measure 1 set of infinite sequences of i.i.d. trials s.t. the ratio of any event $e \in E$ is exactly $P(e)$. The implication is that almost surely (for a measure 1 subset of samples in $\Omega_\infty$), we can infer $P$ from just one sample (observing the singleton event for that sample), thus solving the inverse probability problem (almost surely).
+This equation is very intriguing, as it directly relates samples from $P_\infty$ to measure $P$. In short, BLLN states that there is a measure 1 set of infinite sequences of i.i.d. trials s.t. the limiting number of occurrences of event $e \in E$ as a fraction of the total number of trails is exactly $P(e)$. The implication is that {%marginnote "almost surely" "For a measure 1 subset of samples in $\Omega_\infty$, of which each sample is itself an infinite sequence of single-trial samples." %} we can infer $P$ from {%marginnote "just one sample" "Technically the singleton event containing just that sample." %} of an infinite sequence of trials, thus solving the inverse probability problem (almost surely). {%fixme%}Give a concrete example using the binary sample set{%endfixme%}
 
-For measures on the reals countable sets are measure 0. $\Omega_\infty$ has the cardinality of $\real$, and there is a {%marginnote "natural bijection to the unit interval" "If the sample space $\Omega$ of each trial is finite, we can think of a sequence $(\omega_1, \omega_2, \ldots)$ as the decimal expansion of a number between 0 and 1 in base $\abs{\Omega}$." %}. Therefore there are countably infinitely many events in $\Omega_\infty$ for which BLLN does not hold. As before we may ask a similar question: can these events happen? We have a similar conundrum that any given singleton event $$\{\omega\}$$ for $\omega \in \Omega_\infty$ has measure 0. In fact, BLLN may start to appear meaningless since for any $\omega \in \Omega_\infty$ we can construct both a measure 0 set and a measure 1 set containing $\omega$. All samples are special, or none are.
+As I mentioned earlier, countable events of real numbers are always measure 0 ([proof](https://proofwiki.org/wiki/Countable_Sets_Have_Measure_Zero)) for probability measures defined on the reals. Sample set $\Omega_\infty$ has the cardinality of $\real$, and there is a {%marginnote "natural bijection to the unit interval" "If the sample space $\Omega$ of each trial is finite, we can think of a sequence $(\omega_1, \omega_2, \ldots)$ as the decimal expansion of a number between 0 and 1 in base $\abs{\Omega}$." %}. Therefore there are potentially an infinity of events in $\Omega_\infty$ (countably many) for which BLLN does not hold. As before we may ask a similar question: can these BLLN-violating events happen?
 
-There are a few proposed solutions to this conundrum. [One by von Mises](https://plato.stanford.edu/entries/probability-interpret/#FreInt) (which has some problems), and [another by Per Martin-Lof](http://www.nieuwarchief.nl/serie5/pdf/naw5-2018-19-1-044.pdf), which {%marginnote "restricts $P$ to be [computable](https://en.wikipedia.org/wiki/Computable_function)" "It can be argued that all feasibly usable probability measures are necessarily computable, and so this is not really a restriction at all."%}.
+Let's step back and ask, what is so special about the BLLN anyway? Why should samples satisfy it? In fact, for any particular sample $\omega_\infty$, I can construct a measure 1 set $$\Omega_\infty \setminus \{\omega_\infty\}$$ which does not contain it, simply because the singleton set $$\{\omega_\infty\}$$ has measure 0. Thus it seems that for any sample, there is a "law" which states that it *amost surely* does not occur. In essence, all samples are special, or none are.
+
+
+
+Ming Li and Paul Vitányi in their [An Introduction to Kolmogorov Complexity and Its Applications](https://link.springer.com/book/10.1007%2F978-3-030-11298-1) summarize this conundrum quite well:
+
+> We call a sequence ‘random’ if it is ‘typical.’ It is not ‘typical,’ say ‘special,’ if it has a particular distinguishing property. An example of such a property is that an infinite sequence contains only finitely many ones. There are infinitely many such sequences. But the probability that such a sequence occurs as the outcome of fair coin tosses is zero. ‘Typical’ infinite sequences will have the converse property, namely, they contain infinitely many ones.
+
+> In fact, one would like to say that ‘typical’ infinite sequences will have all converse properties of the properties that can be enjoyed by ‘special’ infinite sequences. This is formalized as follows: If a particular property, such as containing infinitely many occurrences of ones (or zeros), the law of large numbers, or the law of the iterated logarithm, has been shown to have probability one, then one calls this a law of randomness. A sequence is ‘typical,’ or ‘random,’ if it satisfies all laws of randomness.
+
+> But now we are in trouble. Since all complements of singleton sets in the sample space have probability one, it follows that the intersection of all sets of probability one is empty. Thus, there are no random infinite sequences!
+
+An elegant solution to this conundrum was discovered by [Per Martin-Löf](http://www.nieuwarchief.nl/serie5/pdf/naw5-2018-19-1-044.pdf), which {%marginnote "restricts $P$ to be [computable](https://en.wikipedia.org/wiki/Computable_function)" "It can be argued that all feasibly usable probability measures are necessarily computable, and so this is not really a restriction at all."%}, but that is unfortunately out of scope for this post (I hope to write a future post on Martin-Löf's solution).
 
 # Primer to measure theory
 
-Congratulations! You've reached end of this post. <button class='advanced-button'>Click here</button> (or on any {%adv%}purple block{%endadv%}) to unlock the {%adv%}purple text{%endadv%} on measure theory above. After reading this section, return to the earlier sections and take in the finer precision and details of measure theory in use.
+Congratulations! You've reached end of this post. <button class='advanced-button'>Click here</button> (or on any {%adv%}purple block{%endadv%}) to unlock the {%adv%}purple text{%endadv%} on measure theory above. After reading this section, return to the earlier sections and take in the finer precision and details offered by your new found understanding of measure theory.
 
 Terrence Tao, in [An Introduction to Measure Theory](https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf), motivates measure theory, saying:
-> One of the most fundamental concepts in Euclidean geometry is that of the measure m(E) of a solid body E in one or more dimensions. In one, two, and three dimensions, we refer to this measure as the length, area, or volume of E respectively.
-> ... The physical intuition of defining the measure of a body E to be the sum of the measure of its component “atoms” runs into an immediate problem: a typical solid body would {%marginnote "consist of an infinite (and uncountable) number of points" "He is referring to the mathematical ideal of a body being composed of a set of 0-dimensional points." %}, each of which has a measure of zero; and the product $\infty \cdot 0$ is indeterminate. To make matters worse, two bodies that have exactly the same number of points, need not have the same measure. For instance, in one dimension, the intervals $A := [0, 1]$ and $B := [0, 2]$ are in one-to-one correspondence (using the bijection $x \mapsto 2x$ from $A$ to $B$), but of course $B$ is twice as long as $A$. So one can disassemble $A$ into an uncountable number of points and reassemble them to form a set of twice the length.
+> One of the most fundamental concepts in Euclidean geometry is that of the measure $m(E)$ of a solid body $E$ in one or more dimensions. In one, two, and three dimensions, we refer to this measure as the length, area, or volume of $E$ respectively.
+> ... The physical intuition of defining the measure of a body $E$ to be the sum of the measure of its component “atoms” runs into an immediate problem: a typical solid body would {%marginnote "consist of an infinite (and uncountable) number of points" "He is referring to the mathematical ideal of a body being composed of a set of 0-dimensional points." %}, each of which has a measure of zero; and the product $\infty \cdot 0$ is indeterminate. To make matters worse, two bodies that have exactly the same number of points, need not have the same measure. For instance, in one dimension, the intervals $A := [0, 1]$ and $B := [0, 2]$ are in one-to-one correspondence (using the bijection $x \mapsto 2x$ from $A$ to $B$), but of course $B$ is twice as long as $A$. So one can disassemble $A$ into an uncountable number of points and reassemble them to form a set of twice the length.
 
-Terrence also mentions the [Banach-Tarski paradox](https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox) which shows that even finitely many partitions of a sphere (only 5 are needed!) can be rearranged into two spheres. These kinds of non-measure-preserving sets are always going to be pathological, so the solution is to disallow measurement of these pathological sets. We call those sets *non-measurable*. If you are curious what non-measurable sets are like, Terrence talks about them in section 1.2.3.
+Terrence also mentions the [Banach-Tarski paradox](https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox) which shows that even finitely many partitions of a sphere (only 5 are needed!) can be rearranged into two spheres. These kinds of non-measure-preserving sets are always going to be pathological, so the solution is to disallow measurement of these pathological sets. We call those sets *non-measurable*. If you are curious what non-measurable sets are like, Terrence talks about them in section 1.2.3. In the case of the Banach-Tarski paradox, these sets look like fuzzy balls with infinitely many holes in them. The [video on Banach–Tarski by vsauce](https://www.youtube.com/watch?v=s86-Z-CbaHA) gives a good visual depiction.
 
-I will not go into how measurable sets can be defined. There are many approaches, the most common of which is due to [Lebesgue](https://en.wikipedia.org/wiki/Lebesgue_measure) (Tao section 1.3). It suffices to say that you cannot have all subsets of $\real$ be measurable without giving up [desirable properties of *measure*](https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability), e.g. that rearranging and rotating disjoint sets does not change their cumulative measure. In what follows, I'm going to assume that for some set $\Omega$ of any cardinality (finite, countable, uncountable, etc.), we just so happen to be in possession of a reasonable set of measurable sets $E \subseteq 2^\Omega$ and the associated measure $P$. Read Terry's book for details on how to construct such things. I'm merely going to run through the important definitions and terminology pertaining to probability theory (using the naming conventions of probability theory rather than measure theory).
+I will not go into how measurable sets can be defined. There are many approaches, the most common of which is due to [Lebesgue](https://en.wikipedia.org/wiki/Lebesgue_measure) (Tao section 1.3). It suffices to say that you cannot have all subsets of $\real$ be measurable without giving up [desirable properties of *measure*](https://en.wikipedia.org/wiki/Non-measurable_set#Consistent_definitions_of_measure_and_probability), e.g. that rearranging and rotating disjoint sets does not change their cumulative measure. In what follows, I'm going to assume that for some set $\Omega$ of any cardinality (finite, countable, uncountable, etc.), we just so happen to be in possession of a reasonable set of measurable sets $E \subseteq 2^\Omega$ and the associated measure $P$. Read Terry's book for details on how to construct such things. I'm merely going to run through the important definitions and terminology pertaining to probability theory, using the naming conventions of probability theory rather than measure theory.
 
 Let $\Omega$ be some set of any cardinality (finite, countable, uncountable, etc.). Assume we are in possession of the set of all measurable subsets $E \subseteq 2^\Omega$, and $P$ is a **measure**. The triple $(\Omega, E, P)$ is called a **measure space**. $(\Omega, E)$ is a **measurable space** (where no measure is specified). Any set $e \in E$ is called **measurable** and $e' \notin E$ is called **non-measurable**. The signature of $P$ is $E \to \real$, and so it maps only measurable sets to real numbers representing the measures (sizes) of those sets.
 
@@ -401,7 +373,7 @@ There are a few requirements for $P$ that make it behave like a measure. Repeate
 
 Further, $E$ is required to be a **$\sigma$-algebra**, which means it satisfies (following Tao, section 1.4.2):
   * **Empty set**: $\emptyset \in E$.
-  * **Complement**: If $e \in E$, then the complement $e^c := \Omega \ e$ is also in $E$.
+  * **Complement**: If $e \in E$, then the complement $e^c := \Omega \setminus e$ is also in $E$.
   * **Countable unions**: If $e_1, e_2, \ldots \in E$ then $\bigcup_{n=1}^\infty e_n \in E$.
 
 What this all amounts to is that our measure is always non-negative, the empty set is measurable with a measure of 0, compliments and countable unions of measurable sets are measurable, and measure is additive (i.e. sum of measures of disjoint sets equals the measure of the union of those sets).
