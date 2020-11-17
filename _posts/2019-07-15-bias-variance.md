@@ -73,7 +73,7 @@ I am leaving out the derivation of the BV-decomposition, as it can be easily fou
 
 {% fixme %}Make this digression below collapsible{% endfixme %}
 
-For completion, here is the definition of $\E$ and $\V$. Let $g:\Real \rightarrow \Real$ be an arbitrary (deterministic) function over the reals, and $Z$ be an arbitrary random variable over domain $D_Z \subseteq \Real$. Then
+For completion, here is the definition of $\E$ and $\V$. Let $g:\Real \rightarrow \Real$ be an arbitrary (deterministic and [measurable](http://zhat.io/articles/primer-probability-theory#primer-to-measure-theory)) function over the reals, and $Z$ be an arbitrary random variable over domain $D_Z \subseteq \Real$. Then
 
 $$
 \E_Z[g(Z)] = \int_{D_Z} p_Z(z) g(z) dz

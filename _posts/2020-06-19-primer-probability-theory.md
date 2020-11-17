@@ -20,7 +20,7 @@ $$
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\d}{\mathrm{d}}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
-\newcommand{\bigmid}{\;\middle|\;}
+\newcommand{\bigmid}{\;\middle\vert\;}
 $$
 
 Main references:
@@ -223,11 +223,21 @@ RVs in a joint distribution need not be created from cartesian products of sampl
 Keeping track of all these probability functions can be confusing, e.g. marginals $P_X$ and $P_Y$ and joint $P_{X,Y}$ are in a sense derived from a single probability function $P$, where $P(X=x)$ and $P(Y=y)$ are equivalent to $$P_X(\{x\})$$ and $$P_Y(\{y\})$$. However, it is possible to have two different underlying probability measures that reuse the same random variables, e.g. $Q : \Omega \to [0, 1]$ with expressions like $Q(X=x)$ and $Q(Y=y)$ being possible, and marginals $Q_X$ and $Q_Y$ and joint $Q_{X,Y}$. Keep in mind that calculations with $P$-related and $Q$-related probability functions do not necessarily have anything to do with each other.
 
 #### Abuses of notation
+
+The notation and syntactic sugar of probability theory, as I've laid out so far, is not often followed to the letter (surprise surprise), however at times for good reason. Here are common shortcuts:
+
 * {% marginnote "$$P(\omega)$$ denotes $$P(\{\omega\})$$" "Though I said earlier $P(\omega)$ is technically undefined, it is quite common to mix primitive events and samples notationally." %}.
 * $P(X)$ is not a quantity at all, but is a notational stand-in for the marginal distribution $P_X$. Likewise, $P(X, Y)$ is a stand-in for the joint distribution $P_{X,Y}$. Alternatively $P(X)$ can sometimes mean the $$\omega \mapsto P_X(\{X(\omega)\})$$, which is a double abuse because it is using $P$ as a function of single outcome $P_X(X(\omega))$.
+* $P(x)$ can denote either the quantity $P(X=x)$ or the function $x \mapsto P(X=x)$ which is equivalent to $P_X$. I admit it is compelling to use this shortcut given the alternative correct ways to notate things like $P(X=x, Y=y, Z=z)/Q(Y=y,Z=z)$ vs $P_{X, Y,Z}/Q_{Y,Z}$, whereas $P(x,y,z)/Q(y,z)$ just looks so much cleaner. The problem is that the arguments of these functions are being used by name rather than position. $P(x,y,z)$ and $P(z,x,y)$ are intended to be the same quantity, so that we can also notate $P(x), P(y), P(x,y), P(x,y\mid z)$ as marginals and conditionals. The formal random variable notation $P(X=x,Y=y\mid Z=z)$ works because the random variable is denoting an argument by name, and the arguments are provided (much like [keyword argument syntax in Python](https://www.w3schools.com/python/gloss_python_function_keyword_arguments.asp)). So $P(X=z, Y=x, Z=y)$ is not the same as $P(X=x, Y=y, Z=z)$, though you would be a horrible person if you ever notated such a monstrosity.
 * $P_X(X = x)$ may be used in place of $P(X=x)$. Even though the former is technically nonsensical because the domain of $X$ is $\Omega$ rather than $F$, we can imagine the identity random variable {%marginnote "$\chi : F \to F : x \mapsto x$" "Where $F$ is the range of $X$ and the set for which $P_X$ is a probability measure." %} so that $P_X(\chi = x) = P(X = x)$. In that light, $P_X(X = x)$ is a sort of notational mistake, swapping $\chi$ with $X$. Likewise for joint distributions, e.g. $P_{X,Y}(X=x, Y=y)$.
 * $P_X(x)$ may refer to either $$P_X(\{x\}) = P(X = x)$$ or the function $P_X$. The intended meaning depends on context. Likewise for joint distributions, e.g. $P_{X,Y}(x, y)$.
 * $$h(X)$$ denotes the random variable created by the composition $$h∘X$$, where $h : F \to G$ is any arbitrary {%adv%}measurable{%endadv%} function to arbitrary {%adv%}measurable{%endadv%} set $G$. In other words, functions of random variables are random variables, i.e. $$P(h(X) = g) = P(\{\omega \in \Omega \mid h(X(\omega)) = g\})$$.
+
+I think that between $P(x)$ and $P(X)$, the latter is prefferred and could be made a well defined addition to our available syntax options. $P(X)$ should designate $x \mapsto P(X=x)$, likewise $P(X \mid Y)$ should designate $(x,y) \mapsto P(X=x\mid Y=y)$. In general $P(X_1, \ldots, X_n, X'_1=x'_1, \ldots, X'_m=x'_m \mid Y_1, \ldots, Y_k, Y'_1=y'_1, \ldots, Y'_l=y'_l) := (x_1, \ldots, x_n, y_1, \ldots, y_k) \mapsto P(X_1=x_1, \ldots, X_n=x_n, X'_1=x'_1, \ldots, X'_m=x'_m \mid Y_1=y_1, \ldots, Y_k=y_k, Y'_1=y'_1, \ldots, Y'_l=y'_l)$. Note that we are free to permute the RVs before and after the divider respectively. We could also permit arbitrary expressions of RVs, e.g. $P(\mathrm{expr}(X_1, \ldots, X_n)) := z \mapsto P(\mathrm{expr}(X_1, \ldots, X_n)=z)$, as well as any mixture of this and the RVs assignment notation from above.
+
+Sometimes as a stylistic preference the measure is written as a lowercase variable to contrast the uppercase RVs, e.g. $p(X,Y,Z)$.
+
+TODO: no conditional probability.
 
 ### Motivation 3: Construct events that are guaranteed measurable
 
@@ -334,7 +344,7 @@ $$
 
 though the latter does not make it clear that $P_\infty$ is our measure.
 
-This equation is very intriguing, as it directly relates samples from $P_\infty$ to measure $P$. In short, BLLN states that there is a measure 1 set of infinite sequences of i.i.d. trials s.t. the limiting number of occurrences of event $e \in E$ as a fraction of the total number of trails is exactly $P(e)$. The implication is that {%marginnote "almost surely" "For a measure 1 subset of samples in $\Omega_\infty$, of which each sample is itself an infinite sequence of single-trial samples." %} we can infer $P$ from {%marginnote "just one sample" "Technically the singleton event containing just that sample." %} of an infinite sequence of trials, thus solving the inverse probability problem (almost surely). {%fixme%}Give a concrete example using the binary sample set{%endfixme%}
+This equation is very intriguing, as it directly relates samples from $P_\infty$ to measure $P$. In short, BLLN states that there is a measure 1 set of infinite sequences of i.i.d. trials s.t. the limiting number of occurrences of event $e \in E$ as a fraction of the total number of trails is exactly $P(e)$. The implication is that {%marginnote "almost surely" "For a measure 1 subset of samples in $\Omega_\infty$, of which each sample is itself an infinite sequence of single-trial samples." %} we can infer $P$ from {%marginnote "just one sample" "Technically the singleton event containing just that sample." %} of an infinite sequence of trials, thus apparently solving the inverse probability problem (almost surely) for the i.i.d. case. {%fixme%}Give a concrete example using the binary sample set{%endfixme%}
 
 As I mentioned earlier, countable events of real numbers are always measure 0 ([proof](https://proofwiki.org/wiki/Countable_Sets_Have_Measure_Zero)) for probability measures defined on the reals. Sample set $\Omega_\infty$ has the cardinality of $\real$, and there is a {%marginnote "natural bijection to the unit interval" "If the sample space $\Omega$ of each trial is finite, we can think of a sequence $(\omega_1, \omega_2, \ldots)$ as the decimal expansion of a number between 0 and 1 in base $\abs{\Omega}$." %}. Therefore there are potentially an infinity of events in $\Omega_\infty$ (countably many) for which BLLN does not hold. As before we may ask a similar question: can these BLLN-violating events happen?
 

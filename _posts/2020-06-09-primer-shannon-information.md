@@ -32,6 +32,7 @@ $$
 \newcommand{\rZ}{\bm{Z}}
 \newcommand{\rC}{\bm{C}}
 \newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
+\newcommand{\kl}[2]{K\left[#1\;\middle\|\;#2\right]}
 $$
 
 I'm going to use non-standard notation which I believe avoids some confusion and ambiguities.
@@ -555,16 +556,16 @@ The information contained in $y$ given $x$ is proportional to the information co
 Unlikely everything we've seen so far, these are necessarily functions of probability functions, rather than random variables. Further, these are both comparisons of probability functions over the same support.
 
 $$
-H(P,Q) = -\sum_x P(x)\log Q(x)
+H[P,Q] = -\sum_x P(x)\log Q(x)
 $$
 
 $$
-\mathbb{K}\left(P\,||\,Q\right) = \sum_{x} P(x)\log
+\kl{P}{Q} = \sum_{x} P(x)\log
 {\frac{P(x)}{Q(x)}}
 $$
 
 $$
-\mathbb{K}\left(P\,||\,Q\right) = H(P,Q) - H(P)
+\kl{P}{Q} = H[P,Q] - H[P]
 $$
 
 Sources:
@@ -575,7 +576,7 @@ Sources:
 Mutual information can be [written in terms of KL-divergence](https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence):
 
 $$
-I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right) = \E_{x \sim \rX}\left[\mathbb{K}\left(p_{Y\mid X}\,||\,p_Y\right)\right]\,,
+I[\rX, \rY] = \kl{p_{X,Y}}{p_X \cdot p_Y} = \E_{x \sim \rX}\left[\kl{p_{Y\mid X}}{p_Y}\right]\,,
 $$
 
 where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$ and $p_{Y\mid X}(y \mid x) \mapsto p_{X,Y}(x,y)/p_X(x)$.

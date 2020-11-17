@@ -17,8 +17,7 @@ nav_exclude: true
 @import "../_sass/syntax-highlighting";
 
 // Global Resets
-//
-// * { margin: 0; padding: 0; }
+* { margin: 0; padding: 0; }
 
 /* clearfix hack after Cederholm (group class name) */
 .group:after {
