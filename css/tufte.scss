@@ -454,11 +454,13 @@ body.full-width, .content-listing, ul.content-listing li.listing{ width: 90%;
        padding: 0% 5%;
 
 }
-.full-width article p{
+.full-width article > p{
   width: 90%;
 }
 
-.full-width article ul, .full-width article ol { width: 75%;}
+// Top ul or ol has 75% width, and all ul/ol below the top is 100% of its parent.
+.full-width article ul, .full-width article ol { width: 100%;}
+.full-width article > ul, .full-width article > ol { width: 75%;}  // Higher precedence because it comes second
 
 .full-width article img {
   padding:1px;
