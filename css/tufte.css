@@ -149,6 +149,9 @@
   .highlight .il {
     color: #099; }
 
+* {
+  margin: 0; }
+
 /* clearfix hack after Cederholm (group class name) */
 .group:after {
   content: "";
@@ -355,13 +358,13 @@ section {
   padding-bottom: 1rem; }
 
 ul, ol {
-  width: 45%;
+  width: 55%;
   -webkit-padding-start: 4%;
   -webkit-padding-end: 4%;
   /* list-style-type: decimal;  */ }
 
 ul ul, ul ol, ol ul, ol ol {
-  width: auto; }
+  width: 100%; }
 
 .toc * {
   width: 100%;
@@ -435,9 +438,6 @@ img {
 .marginnote-outer:hover > .marginnote > .marginnote-inner {
   background-color: #e8eeff;
   border: 1px dashed gray; }
-
-li .sidenote, li .marginnote {
-  margin-right: -84.6%; }
 
 blockquote .sidenote, blockquote .marginnote {
   margin-right: -79%; }
@@ -659,10 +659,13 @@ body.full-width, .content-listing, ul.content-listing li.listing {
   margin-right: auto;
   padding: 0% 5%; }
 
-.full-width article p {
+.full-width article > p {
   width: 90%; }
 
 .full-width article ul, .full-width article ol {
+  width: 100%; }
+
+.full-width article > ul, .full-width article > ol {
   width: 75%; }
 
 .full-width article img {
@@ -714,7 +717,7 @@ div#disqus_thread {
   margin-left: calc(0% - 12.5%);
   marign-right: 2%; }
 
-a:target + div.index_entry {
+a:target + div.index_entry, a:target + .jump_to {
   margin-bottom: -1.8rem;
   padding-bottom: 1.8rem;
   animation-name: highlightFade;

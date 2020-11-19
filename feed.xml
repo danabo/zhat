@@ -5,8 +5,8 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 06 Jul 2020 21:57:17 -0700</pubDate>
-    <lastBuildDate>Mon, 06 Jul 2020 21:57:17 -0700</lastBuildDate>
+    <pubDate>Thu, 19 Nov 2020 14:28:55 -0800</pubDate>
+    <lastBuildDate>Thu, 19 Nov 2020 14:28:55 -0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -17,8 +17,11 @@
 
 &lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#definitions&quot; id=&quot;markdown-toc-definitions&quot;&gt;Definitions&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#beginner&quot; id=&quot;markdown-toc-beginner&quot;&gt;Beginner&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#full-definition&quot; id=&quot;markdown-toc-full-definition&quot;&gt;Full Definition&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#kolmogorov-axioms-of-probability&quot; id=&quot;markdown-toc-kolmogorov-axioms-of-probability&quot;&gt;Kolmogorov axioms of probability&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#examples&quot; id=&quot;markdown-toc-examples&quot;&gt;Examples&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pmfs-and-pdfs-and-measures-oh-my&quot; id=&quot;markdown-toc-pmfs-and-pdfs-and-measures-oh-my&quot;&gt;PMFs and PDFs and measures, oh my!&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#events-vs-samples&quot; id=&quot;markdown-toc-events-vs-samples&quot;&gt;Events vs samples&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -30,7 +33,7 @@
           &lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#motivation-2-syntactic-sugar&quot; id=&quot;markdown-toc-motivation-2-syntactic-sugar&quot;&gt;Motivation 2: Syntactic sugar&lt;/a&gt;            &lt;ul&gt;
               &lt;li&gt;&lt;a href=&quot;#probability-distribution-of-a-random-variable&quot; id=&quot;markdown-toc-probability-distribution-of-a-random-variable&quot;&gt;Probability distribution of a random variable&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#abuses-of-notation&quot; id=&quot;markdown-toc-abuses-of-notation&quot;&gt;Abuses of notation&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#notational-confusion&quot; id=&quot;markdown-toc-notational-confusion&quot;&gt;Notational confusion&lt;/a&gt;&lt;/li&gt;
             &lt;/ul&gt;
           &lt;/li&gt;
           &lt;li&gt;&lt;a href=&quot;#motivation-3-construct-events-that-are-guaranteed-measurable&quot; id=&quot;markdown-toc-motivation-3-construct-events-that-are-guaranteed-measurable&quot;&gt;Motivation 3: Construct events that are guaranteed measurable&lt;/a&gt;&lt;/li&gt;
@@ -51,8 +54,9 @@
 \newcommand{\real}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\d}{\mathrm{d}}
+\newcommand{\len}[1]{\ell\left(#1\right)}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
-\newcommand{\bigmid}{\;\middle|\;}&lt;/script&gt;
+\newcommand{\bigmid}{\;\middle\vert\;}&lt;/script&gt;
 
 &lt;p&gt;Main references:&lt;/p&gt;
 &lt;ul&gt;
@@ -71,23 +75,48 @@
 
 &lt;h1 id=&quot;definitions&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#definitions&quot;&gt;Definitions&lt;/a&gt;&lt;/h1&gt;
 
+&lt;h2 id=&quot;beginner&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#beginner&quot;&gt;Beginner&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;The full definition of probability is below, but to avoid overwhelm, you may first look at this &lt;em&gt;attempt&lt;/em&gt; at defining probability. Many people intuitively think of probability this way. Notably, I’ve left out the event space.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Sample set&lt;/strong&gt; $\Omega$ is a set of all possible &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;samples&lt;/span&gt;&lt;label for=&quot;46f0a5784f51b77c385f44317a48bc352dcfb439&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;46f0a5784f51b77c385f44317a48bc352dcfb439&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Sample is synonymous with &lt;a href=&quot;https://en.wikipedia.org/wiki/Outcome_(probability)&quot;&gt;outcome&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; $\omega\in\Omega$. A sample is a possible state of the world, e.g. the outcomes for all coins that will be tossed or all dice that will be thrown, or the ordering of cards in a deck.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Probability function&lt;/strong&gt; $P : 2^\Omega \to [0, 1]$ gives the probability of a &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;set of samples&lt;/span&gt;&lt;label for=&quot;ad8b3af703fafd99caa4527f4b15b75a1975d039&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;ad8b3af703fafd99caa4527f4b15b75a1975d039&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;subset of $\Omega$&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. A set of samples ${\omega_1, \omega_2, \ldots}$ is called an &lt;strong&gt;event&lt;/strong&gt;, which is a set of possible states the world could be in, read as “$\omega_1$ is the case or $\omega_2$ is the case, etc. …”&lt;/p&gt;
+
+&lt;p&gt;$P$ satisfies:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Non-negativity&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;P(e) \geq 0,\ \forall e \in 2^\Omega&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Null empty set&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;P(\emptyset) = 0&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Unit sample set&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;P(\Omega) = 1&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Additivity&lt;/strong&gt;: For all disjoint events &lt;script type=&quot;math/tex&quot;&gt;e_1, e_2 \in 2^\Omega,\ P(e_1 \cup e_2) = P(e_1) + P(e_2)&lt;/script&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The probability of a single sample (outcome) $\omega\in\Omega$ is &lt;script type=&quot;math/tex&quot;&gt;P(\{\omega\})&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;full-definition&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#full-definition&quot;&gt;Full Definition&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;The beginner definition above does not define an event space. This is actually a problem when working with uncountable sample spaces, because not all subsets of an uncountable space can be measured. If that statement confuses you, don’t worry about it and read through this post. Then read my &lt;a href=&quot;#primer-to-measure-theory&quot;&gt;primer to measure theory&lt;/a&gt; at the end which outlines why not every set can be measured. Though this may seem like a minor technicality, specifying what sets can be measured allows probability theory to be &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;a lot more general than it otherwise could be,&lt;/span&gt;&lt;label for=&quot;a0359426bd6a552c43a72d1b7b5e568b41b95f0d&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;a0359426bd6a552c43a72d1b7b5e568b41b95f0d&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;This is Kolmogorov’s achievement. Definitions of probability like my beginner definition had been around for hundreds of years prior.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; specifically when dealing with real numbers.&lt;/p&gt;
+
+&lt;p&gt;Here is a compact but complete definition of probability:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Sample set&lt;/strong&gt; $\Omega$ is a set of all possible &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;samples&lt;/span&gt;&lt;label for=&quot;46f0a5784f51b77c385f44317a48bc352dcfb439&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;46f0a5784f51b77c385f44317a48bc352dcfb439&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Sample is synonymous with &lt;a href=&quot;https://en.wikipedia.org/wiki/Outcome_(probability)&quot;&gt;outcome&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
     &lt;ul&gt;
       &lt;li&gt;&lt;strong&gt;Sample&lt;/strong&gt; $\omega \in \Omega$ (i.e. primitive outcome) is a possible state of the world. Samples are disjoint, meaning only one sample can be the case at a time. Samples can be any kind of mathematical object.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Event space&lt;/strong&gt; $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are allowed to assign probability. We require that $\emptyset, \Omega \in E$ &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;and $E$ is required to be a &lt;a href=&quot;https://en.wikipedia.org/wiki/%CE%A3-algebra&quot;&gt;$\sigma$-algebra&lt;/a&gt; that contains the measurable subsets of $\Omega$. The tuple $(\Omega, E)$ is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Measurable_space&quot;&gt;measurable space&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;
+  &lt;li&gt;&lt;strong&gt;Event space&lt;/strong&gt; $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;allowed to assign probability.&lt;/span&gt;&lt;label for=&quot;f8b43cebd8d878851c96f6b83253241ae0914c18&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;f8b43cebd8d878851c96f6b83253241ae0914c18&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;The sets omitted from $E$ are not measurable, but again if you are not familiar with measure theory don’t worry about why some sets cannot be measured until the end of this post.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; We require that $\emptyset, \Omega \in E$ &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;and $E$ is required to be a &lt;a href=&quot;#sigma-algebra&quot;&gt;$\sigma$-algebra&lt;/a&gt; that contains the measurable subsets of $\Omega$. The tuple $(\Omega, E)$ is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Measurable_space&quot;&gt;measurable space&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;strong&gt;Event&lt;/strong&gt; $e \in E$ is a &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;measurable&lt;/span&gt;&lt;/span&gt; set of samples. Samples $\omega \in e$ are &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;considered identical&lt;/span&gt;&lt;label for=&quot;b69039dc8767a7b19268d3134cd1eccd7a91f7de&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;b69039dc8767a7b19268d3134cd1eccd7a91f7de&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Different samples in $\Omega$ are indeed distinct objects, but their difference does not matter in the context of event $e$.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; w.r.t. $e$.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Probability&lt;/strong&gt; &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$P : E \to [0, 1]$&lt;/span&gt;&lt;label for=&quot;fad8fe03a22e8afa7d64bd20c1dff5d39260663b&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;fad8fe03a22e8afa7d64bd20c1dff5d39260663b&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;In general a measure $Q : E \to \real_{\geq 0}$, but I’m including the restriction of the co-domain to [0, 1] in the definition of &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt; because we are only talking about probability measures here, and there’s no reason to be more general.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is a function that maps allowed subsets of $\Omega$ to the real unit interval. $P$ is required to be a &lt;strong&gt;measure&lt;/strong&gt;, which means it satisfies certain properties that make it behave analogous to length, area, volume, etc. in Euclidean space. A measure is a generalization of size. The properties are:
+  &lt;li&gt;&lt;strong&gt;Probability measure&lt;/strong&gt; &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$P : E \to [0, 1]$&lt;/span&gt;&lt;label for=&quot;4ad9ab16708369ac059ab042be9927eff00636f9&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;4ad9ab16708369ac059ab042be9927eff00636f9&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;In general a measure $Q : E \to \real_{\geq 0}$, but I’m including the restriction of the co-domain to the unit interval $[0, 1]$ in the definition of &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;, because we are only talking about probability measures here, and there’s no reason to be more general.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is a function that maps allowed subsets of $\Omega$ to the real unit interval. $P$ is a &lt;strong&gt;measure&lt;/strong&gt;, which means it satisfies certain properties that make it behave analogous to length, area, volume, etc. in Euclidean space. Essentially, a measure is a generalization of size that satisfies the following properties:
     &lt;ul&gt;
       &lt;li&gt;&lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;&lt;strong&gt;Measurable domain&lt;/strong&gt;: $E$ is a $\sigma$-algebra of measurable sets.&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
       &lt;li&gt;&lt;strong&gt;Non-negativity&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;P(e) \geq 0,\ \forall e \in E&lt;/script&gt;.&lt;/li&gt;
       &lt;li&gt;&lt;strong&gt;Null empty set&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;P(\emptyset) = 0&lt;/script&gt;.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Countable additivity&lt;/strong&gt;: For any countable &lt;script type=&quot;math/tex&quot;&gt;A \subseteq E&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\bigcap A = \emptyset&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;P(\bigcup A) = \sum P(A)&lt;/script&gt;, where &lt;script type=&quot;math/tex&quot;&gt;P(A) = \{P(e) \mid e \in A\}&lt;/script&gt;.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Unit sample set&lt;/strong&gt;: &lt;script type=&quot;math/tex&quot;&gt;P(\Omega) = 1&lt;/script&gt;.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Countable additivity&lt;/strong&gt;: For any countable set of events &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;A \subseteq E&lt;/script&gt;&lt;/span&gt;&lt;label for=&quot;1c4c2f199fe96ef43d1f0b6cc492af4deb8af6af&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;1c4c2f199fe96ef43d1f0b6cc492af4deb8af6af&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Remember that $E$ is the event space, and $A$ is a set of events.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; where &lt;script type=&quot;math/tex&quot;&gt;\bigcap A = \emptyset&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;P(\bigcup A) = \sum_{e\in A} P(e)&lt;/script&gt;.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -96,14 +125,14 @@
 
 &lt;h2 id=&quot;kolmogorov-axioms-of-probability&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#kolmogorov-axioms-of-probability&quot;&gt;Kolmogorov axioms of probability&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;The standard Kolmogorov axioms (as given by &lt;a href=&quot;https://en.wikipedia.org/wiki/Probability_axioms#Axioms&quot;&gt;Wikipedia&lt;/a&gt;) are:&lt;/p&gt;
+&lt;p&gt;You may have heard of the &lt;a href=&quot;https://en.wikipedia.org/wiki/Probability_axioms#Axioms&quot;&gt;Kolmogorov axioms of probability&lt;/a&gt;. Kolmogorov formalized probability as a special case of measure theory. Essentially a probability measure is a normalized measure, i.e. assigns 1 to the entire sample space $\Omega$. Above, I’ve merged the axioms of measure theory with Kolmogorov’s axioms. For reference, here are Kolmogorov’s axioms given separately:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;$P(e) \in [0, 1], \forall e \in E$, where $[0, 1] \subset \real$.&lt;/li&gt;
   &lt;li&gt;$P(\Omega) = 1$, i.e. probability of anything happening is 1.&lt;/li&gt;
   &lt;li&gt;&lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Sigma_additivity&quot;&gt;$\sigma$-additivity&lt;/a&gt; on $E$.&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;However, (1) and (3) are already covered by the definitions given above, so all you need to take away from these axioms is the condition $P(\Omega) = 1$. &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;In fact, using measure theory, we can define probability succinctly by simply stating that $(\Omega, E, P)$ is a measure space where $P(\Omega) = 1$ (see &lt;a href=&quot;https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf&quot;&gt;Terence Tao’s Introduction to Measure Theory&lt;/a&gt;).&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;Given the axioms of measure theory, we can define probability succinctly by simply stating that $(\Omega, E, P)$ is a measure space where $P(\Omega) = 1$ (see &lt;a href=&quot;https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf&quot;&gt;Terence Tao’s Introduction to Measure Theory&lt;/a&gt;).&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;examples&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#examples&quot;&gt;Examples&lt;/a&gt;&lt;/h2&gt;
 
@@ -118,18 +147,20 @@
 &lt;script type=&quot;math/tex&quot;&gt;P(\{⚁,⚃,⚅\}) = 1/2&lt;/script&gt;,&lt;br /&gt;
 &lt;script type=&quot;math/tex&quot;&gt;P(\{⚀,⚁,⚂,⚃,⚄,⚅\}) = 1&lt;/script&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Countable&lt;/strong&gt;: Binary sequences&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Countable&lt;/strong&gt; (event set): Variable length binary sequences&lt;/p&gt;
 
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\bin = \{0, 1\}&lt;/script&gt;&lt;br /&gt;
-Let $x \in \bin^n$ be a binary sequence of length $n$, and &lt;script type=&quot;math/tex&quot;&gt;\abs{x} := n&lt;/script&gt; returns the length of $x$.&lt;/p&gt;
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\bin = \{0, 1\}&lt;/script&gt; is the binary alphabet.&lt;br /&gt;
+Let $x \in \bin^n$ be a binary sequence of any length $n$, and &lt;script type=&quot;math/tex&quot;&gt;\len{x} := n&lt;/script&gt; returns the length of $x$.&lt;/p&gt;
 
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\Omega = \mathbb{B}^\infty&lt;/script&gt;,&lt;br /&gt;
-&lt;script type=&quot;math/tex&quot;&gt;E=\left\{\left\{\omega \in \Omega \bigmid x = \omega_{1:\abs{x}}\right\} \bigmid x \in \mathbb{B}^n, n \in \mathbb{N}\right\} \cup \{\emptyset\}&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\omega_{1:\abs{x}}&lt;/script&gt; is the prefix subsequence of $\omega$ of length $\abs{x}$.&lt;br /&gt;
-Let &lt;script type=&quot;math/tex&quot;&gt;\Gamma_x = \left\{\omega \in \Omega \bigmid x = \omega_{1:\abs{x}}\right\}&lt;/script&gt;.&lt;br /&gt;
-&lt;script type=&quot;math/tex&quot;&gt;P(\Gamma_x) = 2^{-\abs{x}}&lt;/script&gt; is the uniform measure.&lt;/p&gt;
+&lt;p&gt;The sample set is all infinite binary sequences, &lt;script type=&quot;math/tex&quot;&gt;\Omega = \mathbb{B}^\infty&lt;/script&gt;.&lt;br /&gt;
+This let’s us make an event for each finite length $x$.&lt;br /&gt;
+Let &lt;script type=&quot;math/tex&quot;&gt;\Gamma_x = \left\{\omega \in \Omega \bigmid x = \omega_{1:\len{x}}\right\}&lt;/script&gt;, where &lt;script type=&quot;math/tex&quot;&gt;\omega_{1:\len{x}}&lt;/script&gt; is the length $\len{x}$ prefix of $\omega$.&lt;br /&gt;
+The event set is &lt;script type=&quot;math/tex&quot;&gt;E=\left\{\Gamma_x \bigmid x \in \mathbb{B}^n, n \in \mathbb{N}\cup\{0\}\right\}&lt;/script&gt;&lt;/p&gt;
 
-&lt;p&gt;Each &lt;script type=&quot;math/tex&quot;&gt;\Gamma_x \in E&lt;/script&gt; corresponds to the finite binary sequence &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt;.&lt;br /&gt;
-&lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt; can be thought of as a distribution over finite binary sequences where &lt;script type=&quot;math/tex&quot;&gt;P(\Gamma_x) = P(\Gamma_{x0}) + P(\Gamma_{x1})&lt;/script&gt;, where &lt;script type=&quot;math/tex&quot;&gt;x0, x1&lt;/script&gt; are the concatenations of &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt; with 0 or 1.&lt;/p&gt;
+&lt;p&gt;Then &lt;script type=&quot;math/tex&quot;&gt;P(\Gamma_x)&lt;/script&gt; is the probability of $x$, and &lt;script type=&quot;math/tex&quot;&gt;P(\Gamma_{x_1} \cup \Gamma_{x_2} \cup \ldots)&lt;/script&gt; is the probability of the set &lt;script type=&quot;math/tex&quot;&gt;\{x_1, x_2, \ldots\}&lt;/script&gt;.&lt;br /&gt;
+Note that the probability of a finite sequence is always a marginal probability, in the sense that &lt;script type=&quot;math/tex&quot;&gt;P(\Gamma_x) = P(\Gamma_{x`0}) + P(\Gamma_{x`1})&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;x`0&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;x`1&lt;/script&gt; are the concatenations of &lt;script type=&quot;math/tex&quot;&gt;x&lt;/script&gt; with 0 or 1.&lt;/p&gt;
+
+&lt;p&gt;An example of such a measure is the uniform measure, &lt;script type=&quot;math/tex&quot;&gt;P(\Gamma_x) = 2^{-\len{x}}&lt;/script&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Uncountable&lt;/strong&gt;: The reals&lt;/p&gt;
 
@@ -142,13 +173,37 @@ Let &lt;script type=&quot;math/tex&quot;&gt;\Gamma_x = \left\{\omega \in \Omega 
 
 &lt;p&gt;Note that it does not matter if we define $P$ on open intervals, closed intervals, or half-open intervals, because the value of the integral is identical between these cases. &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;Specifically, we are performing a Lebesgue integral, which is invariant to removing a measure 0 subset from the integral domain. See the &lt;a href=&quot;https://en.wikipedia.org/wiki/Lebesgue_integration#Basic_theorems_of_the_Lebesgue_integral&quot;&gt;equality almost-everywhere&lt;/a&gt; property.&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Notice that $\frac{\d}{\d x} P((0, x])$ is the &lt;a href=&quot;https://en.wikipedia.org/wiki/Normal_distribution&quot;&gt;standard normal&lt;/a&gt; (i.e. Gaussian) &lt;a href=&quot;https://en.wikipedia.org/wiki/Probability_density_function&quot;&gt;probability density function (p.d.f.)&lt;/a&gt;. It is common, when working with probability on the reals, to provide a p.d.f. which can be integrated over to derive the &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;probability measure&lt;/span&gt;&lt;label for=&quot;8a73826bf90f94ccb4bb778c1c8dfe616a40703f&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;8a73826bf90f94ccb4bb778c1c8dfe616a40703f&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;The output of the probability measure is called &lt;em&gt;probability mass&lt;/em&gt;, to distinguish it from the output of the p.d.f., which is called &lt;em&gt;probability density&lt;/em&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. In other words, a p.d.f. $f(x)$ is a function that when integrated produces a probability measure: $P((a, b]) = \int_a^b f(x) \d x$.&lt;/p&gt;
+&lt;p&gt;In this particular example, $\frac{\d}{\d x} P((0, x])$ is the &lt;a href=&quot;https://en.wikipedia.org/wiki/Normal_distribution&quot;&gt;standard normal&lt;/a&gt; (i.e. Gaussian) &lt;a href=&quot;https://en.wikipedia.org/wiki/Probability_density_function&quot;&gt;probability density function (PDF)&lt;/a&gt;. It is common, when working with probability on the reals, to provide a PDF which can be integrated over to derive the &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;probability measure&lt;/span&gt;&lt;label for=&quot;4bf04e5f74a071ce2f80b754d2578481d612a33e&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;4bf04e5f74a071ce2f80b754d2578481d612a33e&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;The output of the probability measure is called &lt;em&gt;probability mass&lt;/em&gt;, to distinguish it from the output of the PDF, which is called &lt;em&gt;probability density&lt;/em&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. In other words, a PDF $f(x)$ is a function that when integrated produces a probability measure: $P((a, b]) = \int_a^b f(x) \d x$.&lt;/p&gt;
+
+&lt;h2 id=&quot;pmfs-and-pdfs-and-measures-oh-my&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#pmfs-and-pdfs-and-measures-oh-my&quot;&gt;PMFs and PDFs and measures, oh my!&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;In standard probability textbooks and courses (largely for non-theoreticians), you are told about probability mass functions (PMFs) and probability density functions (PDFs), and their cumulative counterparts: cumulative mass functions (CMFs) and cumulative density functions (CDFs). So you may be wondering where these fit into the definition of probability above. I’ve been talking about probability measures, and only mentioned PDF in the real line example above.&lt;/p&gt;
+
+&lt;p&gt;For finite and countable sample sets, PMFs, CMFs and measures are equivalent, meaning you can derive one from the others. We can convert between PMF $m : \Omega \to [0,1]$ and measure $P: E \to [0,1]$ with the following relations:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{aligned}
+m(\omega) &amp;= P(\{\omega\}) \\
+P(e) &amp;= \sum_{\omega\in e} m(\omega)\,.
+\end{aligned} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;For differentiable continuous sample sets &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;where $E$ is the &lt;a href=&quot;https://en.wikipedia.org/wiki/Borel_set&quot;&gt;Borel algebra&lt;/a&gt;&lt;/span&gt;&lt;/span&gt; (e.g. the reals), PDFs, CDFs and measures are equivalent, meaning you can derive one from the others. We can convert between PDF $f : \Omega \to \real$ and measure $P : E \to [0,1]$ with the following relations:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{aligned}
+f(x) &amp;= \frac{\d}{\d x} P((c, x]) \\
+P((a, b]) &amp;= \int_a^b f(x) \d x\,,
+\end{aligned} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;for some constant $c\in\Omega$.&lt;/p&gt;
+
+&lt;p&gt;The measure-theoretic definition of probability unifies the discrete and continuous cases, and can handle exotic cases, e.g. non-differentiable uncountable sample sets.&lt;/p&gt;
 
 &lt;h2 id=&quot;events-vs-samples&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#events-vs-samples&quot;&gt;Events vs samples&lt;/a&gt;&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;Question:&lt;/strong&gt; Why provide event space $E$? Isn’t this redundant with $\Omega$?&lt;/p&gt;
 
-&lt;p&gt;You may be thinking that given just $\Omega$, we can define $P : 2^\Omega \to [0,1]$ which satisfies the properties of a measure listed earlier, and it is sufficient to define &lt;script type=&quot;math/tex&quot;&gt;P(\{\omega\})&lt;/script&gt; for each $\omega \in \Omega$. That is true for countable $\Omega$ (e.g. the dice example above). The technical reason for basing probability theory on measure theory is that for uncountable $\Omega$, some subsets are not measurable. $E$ tells us which subsets of $\Omega$ are measurable, and are safe to compute the probability of. Perhaps the real reason is to simplify the definition of probability down to one constraint, $P(\Omega) = 1$. The apparent redundancy of $\Omega$ and $E$ is then inherited from measure theory. This kind of information redundancy &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;in mathematical constructions is quite common&lt;/span&gt;&lt;label for=&quot;c22c8ec4bbd7cff33a910671a8fa123d530a95a2&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;c22c8ec4bbd7cff33a910671a8fa123d530a95a2&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;For example, a group is defined as $(G, +)$ where $G$ is a set of objects and $+ : G \times G \to G$ is some binary operator defined over $G$. The definition of $+$ already includes $G$, so technically providing $G$ is not necessary. A group is defined as a tuple $(G, +)$ to distinguish it from the set $G$ and the operator $+$. Another example is a topological space defined as the tuple $(X, \tau)$ where $X$ is a set of objects and $\tau$ is a set of subsets of $X$ ($\tau$ is simply called a topology) and $\tau$ necessarily contains $X$. Technically $X = \bigcup \tau$ so we don’t need to provide $\tau$, but again we want to distinguish a topological space from $X$ and topology $\tau$.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, and is merely a particular notational style. Redundancy is not a high cost to pay for notational clarity.&lt;/p&gt;
+&lt;p&gt;You may be thinking that given just $\Omega$, we can define $P : 2^\Omega \to [0,1]$ which satisfies the properties of a measure listed earlier, and it is sufficient to define &lt;script type=&quot;math/tex&quot;&gt;P(\{\omega\})&lt;/script&gt; for each $\omega \in \Omega$. That is true for countable $\Omega$ (e.g. the dice example above). The technical reason for basing probability theory on measure theory is that for uncountable $\Omega$, some subsets are not measurable. $E$ tells us which subsets of $\Omega$ are measurable, and are safe to compute the probability of. Perhaps the real reason is to simplify the definition of probability down to one constraint, $P(\Omega) = 1$. The apparent redundancy of $\Omega$ and $E$ is then inherited from measure theory. This kind of information redundancy &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;in mathematical constructions is quite common&lt;/span&gt;&lt;label for=&quot;fae4f9d36286bf3dcf9d3f2d43145ea41509157a&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;fae4f9d36286bf3dcf9d3f2d43145ea41509157a&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;For example, a group is defined as $(G, +)$ where $G$ is a set of objects and $+ : G \times G \to G$ is some binary operator defined over $G$. The definition of $+$ already includes $G$, so technically providing $G$ is not necessary. A group is defined as a tuple $(G, +)$ to distinguish it from the set $G$ and the operator $+$. Another example is a topological space defined as the tuple $(X, \tau)$ where $X$ is a set of objects and $\tau$ is a set of subsets of $X$ which contains $X$. Since $X = \bigcup \tau$ so we don’t need to provide $\tau$, but again we want to distinguish the topological space from $X$ and $\tau$ (where $\tau$ is just called the topology).&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, and is merely a particular notational style. Redundancy is not a high cost to pay for notational clarity.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Question:&lt;/strong&gt; Why do I care about events containing multiple samples? Only one sample ever happens at a time.&lt;/p&gt;
 &lt;ol&gt;
@@ -158,7 +213,7 @@ Let &lt;script type=&quot;math/tex&quot;&gt;\Gamma_x = \left\{\omega \in \Omega 
 
 &lt;p&gt;&lt;strong&gt;Question:&lt;/strong&gt; But what about the probability of “one &lt;strong&gt;AND&lt;/strong&gt; the other thing” happening?&lt;/p&gt;
 
-&lt;p&gt;Samples in &lt;script type=&quot;math/tex&quot;&gt;\Omega&lt;/script&gt; each represent exactly one unique state of the world. It may be the case that world-state can be decomposed into two independent parts. Then your sample set is the cartesian product of sets for each independent sub-state, i.e. &lt;script type=&quot;math/tex&quot;&gt;\Omega = \Lambda_1 \times \Lambda_2&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\omega = (\lambda_1, \lambda_2) \in \Lambda_1 \times \Lambda_2&lt;/script&gt;. Thus each sample &lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt; already represents the “and” of two states if you want it to.&lt;/p&gt;
+&lt;p&gt;Samples in &lt;script type=&quot;math/tex&quot;&gt;\Omega&lt;/script&gt; each represent exactly one unique state of the world. To say the world is in state $\omega_i$ AND $\omega_j$ simultaneously is a contradiction, since each states on its own is complete, in the sense that they specify everything. However, it may be the case that world-state can be decomposed into two independent parts. Then your sample set is the cartesian product of sets for each independent sub-state, i.e. &lt;script type=&quot;math/tex&quot;&gt;\Omega = \Lambda_1 \times \Lambda_2&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\omega = (\lambda_1, \lambda_2) \in \Lambda_1 \times \Lambda_2&lt;/script&gt;. Thus each sample &lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt; already represents the “and” of two states if you want it to.&lt;/p&gt;
 
 &lt;h1 id=&quot;constructing-events&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#constructing-events&quot;&gt;Constructing events&lt;/a&gt;&lt;/h1&gt;
 
@@ -242,6 +297,8 @@ The codomain of &lt;script type=&quot;math/tex&quot;&gt;S&lt;/script&gt; is &lt;
   &lt;li&gt;Arbitrary algebraic expressions of random variables, e.g. &lt;script type=&quot;math/tex&quot;&gt;P(c_0 + c_1 X + c_2 X^2 + c_3 X^3 + \ldots = k) = P(\{\omega \in \Omega \mid c_0 + c_1 X(\omega) + c_2 X(\omega)^2 + c_3 X(\omega)^3 + \ldots = k\})&lt;/script&gt; or &lt;script type=&quot;math/tex&quot;&gt;P(\exp(X) = \log(Y)) = P(\{\omega \in \Omega \mid \exp(X(\omega)) = \log(Y(\omega))\})&lt;/script&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;A standard notational convention is that calling a function on a random variable generates a new random variable, i.e. &lt;script type=&quot;math/tex&quot;&gt;h(X) = h∘X&lt;/script&gt;, so that &lt;script type=&quot;math/tex&quot;&gt;P(h(X) = c)&lt;/script&gt; can be parsed either as &lt;script type=&quot;math/tex&quot;&gt;P(Y = c)&lt;/script&gt; where random variable &lt;script type=&quot;math/tex&quot;&gt;Y = h∘X&lt;/script&gt;, or as &lt;script type=&quot;math/tex&quot;&gt;P(\mathrm{condition}(X))&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\mathrm{condition}(x)&lt;/script&gt; is the expression &lt;script type=&quot;math/tex&quot;&gt;h(x) = c&lt;/script&gt;.&lt;/p&gt;
+
 &lt;h4 id=&quot;probability-distribution-of-a-random-variable&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#probability-distribution-of-a-random-variable&quot;&gt;Probability distribution of a random variable&lt;/a&gt;&lt;/h4&gt;
 
 &lt;p&gt;Any random variable $X : \Omega \to F$ &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;to measurable space $(F, \mathcal{F})$&lt;/span&gt;&lt;/span&gt; induces a unique probability measure with $F$ as the sample set, rather than $\Omega$. We call it the &lt;strong&gt;marginal distribution&lt;/strong&gt; w.r.t. $X$, defined as &lt;script type=&quot;math/tex&quot;&gt;P_X: F \to [0, 1]&lt;/script&gt;:&lt;/p&gt;
@@ -267,14 +324,24 @@ P(X &lt; f) = P_X(\{f' \in F \mid f' &lt; f\}) %]]&gt;&lt;/script&gt;, etc.&lt;/
 
 &lt;p&gt;Keeping track of all these probability functions can be confusing, e.g. marginals $P_X$ and $P_Y$ and joint $P_{X,Y}$ are in a sense derived from a single probability function $P$, where $P(X=x)$ and $P(Y=y)$ are equivalent to &lt;script type=&quot;math/tex&quot;&gt;P_X(\{x\})&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;P_Y(\{y\})&lt;/script&gt;. However, it is possible to have two different underlying probability measures that reuse the same random variables, e.g. $Q : \Omega \to [0, 1]$ with expressions like $Q(X=x)$ and $Q(Y=y)$ being possible, and marginals $Q_X$ and $Q_Y$ and joint $Q_{X,Y}$. Keep in mind that calculations with $P$-related and $Q$-related probability functions do not necessarily have anything to do with each other.&lt;/p&gt;
 
-&lt;h4 id=&quot;abuses-of-notation&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#abuses-of-notation&quot;&gt;Abuses of notation&lt;/a&gt;&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;P(\omega)&lt;/script&gt; denotes &lt;script type=&quot;math/tex&quot;&gt;P(\{\omega\})&lt;/script&gt;&lt;/span&gt;&lt;label for=&quot;bf3c7284c1107f9c4d8221a40a04ef4a24db751e&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;bf3c7284c1107f9c4d8221a40a04ef4a24db751e&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Though I said earlier $P(\omega)$ is technically undefined, it is quite common to mix primitive events and samples notationally.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/li&gt;
-  &lt;li&gt;$P(X)$ is not a quantity at all, but is a notational stand-in for the marginal distribution $P_X$. Likewise, $P(X, Y)$ is a stand-in for the joint distribution $P_{X,Y}$. Alternatively $P(X)$ can sometimes mean the &lt;script type=&quot;math/tex&quot;&gt;\omega \mapsto P_X(\{X(\omega)\})&lt;/script&gt;, which is a double abuse because it is using $P$ as a function of single outcome $P_X(X(\omega))$.&lt;/li&gt;
-  &lt;li&gt;$P_X(X = x)$ may be used in place of $P(X=x)$. Even though the former is technically nonsensical because the domain of $X$ is $\Omega$ rather than $F$, we can imagine the identity random variable &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;$\chi : F \to F : x \mapsto x$&lt;/span&gt;&lt;label for=&quot;09a2d5e02150489f00a08bea76799ca572627d11&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;09a2d5e02150489f00a08bea76799ca572627d11&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Where $F$ is the range of $X$ and the set for which $P_X$ is a probability measure.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; so that $P_X(\chi = x) = P(X = x)$. In that light, $P_X(X = x)$ is a sort of notational mistake, swapping $\chi$ with $X$. Likewise for joint distributions, e.g. $P_{X,Y}(X=x, Y=y)$.&lt;/li&gt;
-  &lt;li&gt;$P_X(x)$ may refer to either &lt;script type=&quot;math/tex&quot;&gt;P_X(\{x\}) = P(X = x)&lt;/script&gt; or the function $P_X$. The intended meaning depends on context. Likewise for joint distributions, e.g. $P_{X,Y}(x, y)$.&lt;/li&gt;
-  &lt;li&gt;&lt;script type=&quot;math/tex&quot;&gt;h(X)&lt;/script&gt; denotes the random variable created by the composition &lt;script type=&quot;math/tex&quot;&gt;h∘X&lt;/script&gt;, where $h : F \to G$ is any arbitrary &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;measurable&lt;/span&gt;&lt;/span&gt; function to arbitrary &lt;span class=&quot;advanced outer hidden&quot;&gt;&lt;span class=&quot;advanced inner hidden&quot;&gt;measurable&lt;/span&gt;&lt;/span&gt; set $G$. In other words, functions of random variables are random variables, i.e. &lt;script type=&quot;math/tex&quot;&gt;P(h(X) = g) = P(\{\omega \in \Omega \mid h(X(\omega)) = g\})&lt;/script&gt;.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h4 id=&quot;notational-confusion&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#notational-confusion&quot;&gt;Notational confusion&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;The language of probability may seem simple enough, but notationally it can be quite cumbersome. When it comes to applications in statistics, machine learning and physics just to name a few, there can be a large quantity of random variables and complicated probability distributions. Authors of academic texts tend to take shortcuts for ease of readability, but they pay the price of ambiguity, which especially hurts readers who are not already familiar with the domain. This is not the fault of authors, but a symptom of clunky notation. I will outline a few common shortcuts and notational difficulties. I hope to write a separate post delving deeper into examples where ambiguity occurs in the wild and how to avoid it.&lt;/p&gt;
+
+&lt;p&gt;Generally in texts there is often ambiguity between PMFs, PDFs and measures, and between samples, events, and random variables.&lt;/p&gt;
+
+&lt;p&gt;For example, you may see any of $P(X), p(X), P(x)$ or $p(x)$, where it is not make clear whether $P$ or $p$ is a measure or a PMF/PDF, and whether $X$ or $x$ is a sample, event, or random variable. There is no universal convention on uppercase vs lowercase. Uppercase $X$ can mean a vector or matrix in a lot of contexts, as well as bold $\boldsymbol{X}$. Same situation for marginals, e.g. $p_X(x)$ is common.&lt;/p&gt;
+
+&lt;p&gt;When there are many random variables to juggle, you may see different ways to denote marginal distributions, e.g. $P(X,Y)$ and $P_{X,Y}$. This becomes important when you want to do algebra with probability, e.g.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;$P(W) = P(X, Y, Z)/Q(Y,Z)$&lt;/li&gt;
+  &lt;li&gt;$P_W = P_{X, Y,Z}/Q_{Y,Z}$&lt;/li&gt;
+  &lt;li&gt;$P(W=w) = P(X=f(w), Y=g(w), Z=h(w))/Q(Y=g(w),Z=h(w))$&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The problem with the first case is that it depends on position for variable identity, but the reader expects identity by name, i.e. $P(X, Y, Z)$ is intended to be the same as $P(Y, Z, X)$. The second case fixes this problem because it cleanly separates the meaning of each argument from its value, e.g. $P_{X,Y,Z}(Z,X,Y)$ reads “plug in $Z$ for $X$, $X$ for $Y$, and $Y$ for $Z$.” The last case is equivalent to the second, and much like &lt;a href=&quot;https://www.w3schools.com/python/gloss_python_function_keyword_arguments.asp&quot;&gt;keyword argument syntax in Python&lt;/a&gt;, but with the benefit of being notationally primitive rather than relying on the &lt;em&gt;function factory&lt;/em&gt; convention $f_{X_1,X_2,X_3,\ldots}(x_1, x_2, x_3, \ldots) = f(X_1=x_1, X_2=x_2, X_3=x_3,\ldots)$.&lt;/p&gt;
+
+&lt;p&gt;It is worth noting that probability notation can be used correctly without too much trouble. Theoretical statistics and mathematics texts tend to have good examples of correct usage.&lt;/p&gt;
 
 &lt;h3 id=&quot;motivation-3-construct-events-that-are-guaranteed-measurable&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#motivation-3-construct-events-that-are-guaranteed-measurable&quot;&gt;Motivation 3: Construct events that are guaranteed measurable&lt;/a&gt;&lt;/h3&gt;
 
@@ -377,7 +444,7 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
 
 &lt;p&gt;though the latter does not make it clear that $P_\infty$ is our measure.&lt;/p&gt;
 
-&lt;p&gt;This equation is very intriguing, as it directly relates samples from $P_\infty$ to measure $P$. In short, BLLN states that there is a measure 1 set of infinite sequences of i.i.d. trials s.t. the limiting number of occurrences of event $e \in E$ as a fraction of the total number of trails is exactly $P(e)$. The implication is that &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;almost surely&lt;/span&gt;&lt;label for=&quot;808c2858de3d6d2f40c660f42492fb70f8369082&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;808c2858de3d6d2f40c660f42492fb70f8369082&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;For a measure 1 subset of samples in $\Omega_\infty$, of which each sample is itself an infinite sequence of single-trial samples.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; we can infer $P$ from &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;just one sample&lt;/span&gt;&lt;label for=&quot;298b90b7dd6823ffb37aa5cdbc6eeb109ba14086&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;298b90b7dd6823ffb37aa5cdbc6eeb109ba14086&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Technically the singleton event containing just that sample.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; of an infinite sequence of trials, thus solving the inverse probability problem (almost surely).&lt;/p&gt;
+&lt;p&gt;This equation is very intriguing, as it directly relates samples from $P_\infty$ to measure $P$. In short, BLLN states that there is a measure 1 set of infinite sequences of i.i.d. trials s.t. the limiting number of occurrences of event $e \in E$ as a fraction of the total number of trails is exactly $P(e)$. The implication is that &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;almost surely&lt;/span&gt;&lt;label for=&quot;808c2858de3d6d2f40c660f42492fb70f8369082&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;808c2858de3d6d2f40c660f42492fb70f8369082&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;For a measure 1 subset of samples in $\Omega_\infty$, of which each sample is itself an infinite sequence of single-trial samples.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; we can infer $P$ from &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;just one sample&lt;/span&gt;&lt;label for=&quot;298b90b7dd6823ffb37aa5cdbc6eeb109ba14086&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;298b90b7dd6823ffb37aa5cdbc6eeb109ba14086&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Technically the singleton event containing just that sample.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; of an infinite sequence of trials, thus apparently solving the inverse probability problem (almost surely) for the i.i.d. case.&lt;/p&gt;
 
 &lt;p&gt;As I mentioned earlier, countable events of real numbers are always measure 0 (&lt;a href=&quot;https://proofwiki.org/wiki/Countable_Sets_Have_Measure_Zero&quot;&gt;proof&lt;/a&gt;) for probability measures defined on the reals. Sample set $\Omega_\infty$ has the cardinality of $\real$, and there is a &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;natural bijection to the unit interval&lt;/span&gt;&lt;label for=&quot;3ab93fbd33cfedf7956143fb287aa3dbb5c5101c&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;3ab93fbd33cfedf7956143fb287aa3dbb5c5101c&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;If the sample space $\Omega$ of each trial is finite, we can think of a sequence $(\omega_1, \omega_2, \ldots)$ as the decimal expansion of a number between 0 and 1 in base $\abs{\Omega}$.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. Therefore there are potentially an infinity of events in $\Omega_\infty$ (countably many) for which BLLN does not hold. As before we may ask a similar question: can these BLLN-violating events happen?&lt;/p&gt;
 
@@ -422,7 +489,8 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
   &lt;li&gt;&lt;strong&gt;Countable additivity&lt;/strong&gt;: For any countable &lt;script type=&quot;math/tex&quot;&gt;A \subseteq E&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\bigcap A = \emptyset&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;P(\bigcup A) = \sum P(A)&lt;/script&gt;, where &lt;script type=&quot;math/tex&quot;&gt;P(A) = \{P(e) \mid e \in A\}&lt;/script&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Further, $E$ is required to be a &lt;strong&gt;$\sigma$-algebra&lt;/strong&gt;, which means it satisfies (following Tao, section 1.4.2):&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;sigma-algebra&quot;&gt;&lt;/a&gt;&lt;span class=&quot;jump_to&quot;&gt;
+Further, $E$ is required to be a &lt;span class=&quot;marginnote-outer&quot;&gt;&lt;span class=&quot;marginnote-ref&quot;&gt;&lt;strong&gt;$\sigma$-algebra&lt;/strong&gt;&lt;/span&gt;&lt;label for=&quot;c317d919018120cca3d580ae386d9ab852907363&quot; class=&quot;margin-toggle&quot;&gt; ⊕&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;c317d919018120cca3d580ae386d9ab852907363&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;marginnote&quot;&gt;&lt;span class=&quot;marginnote-inner&quot;&gt;Following following Tao, section 1.4.2. For further information see &lt;a href=&quot;https://en.wikipedia.org/wiki/%CE%A3-algebra&quot;&gt;Wikipedia&lt;/a&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, which means it satisfies:&lt;/span&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Empty set&lt;/strong&gt;: $\emptyset \in E$.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Complement&lt;/strong&gt;: If $e \in E$, then the complement $e^c := \Omega \setminus e$ is also in $E$.&lt;/li&gt;
@@ -1282,7 +1350,8 @@ L(\t, \hat{\t}) = \begin{cases}\tau\cdot(\t - \hat{\t}) &amp; \t - \hat{\t} \geq
 \newcommand{\rY}{\bm{Y}}
 \newcommand{\rZ}{\bm{Z}}
 \newcommand{\rC}{\bm{C}}
-\newcommand{\diff}[1]{\mathop{\mathrm{d}#1}}&lt;/script&gt;
+\newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
+\newcommand{\kl}[2]{K\left[#1\;\middle\|\;#2\right]}&lt;/script&gt;
 
 &lt;p&gt;I’m going to use non-standard notation which I believe avoids some confusion and ambiguities.&lt;/p&gt;
 
@@ -1542,7 +1611,7 @@ Let $X = \{0, 1\}$ and $Y = \{0, 1\}$, then the joint sample space is the cartes
 
 &lt;h2 id=&quot;properties-of-pmi&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#properties-of-pmi&quot;&gt;Properties of PMI&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;Let’s explore some of the properties of PMI. From here on out, I will consider sampling elementary events from a joint distribution, $(x, y) \sim \bm{X}\times\bm{Y}$, where $\bm{X}, \bm{Y}$ are unspecified discrete (possibly infinite) random variables. For notational simplicity I’ll drop the subscripts from distributions, so $p(x), p(y), p(x, y)$ denote the marginals of $\bm{X}, \bm{Y}$ and the joint $\bm{X}\times\bm{Y}$.&lt;/p&gt;
+&lt;p&gt;Let’s explore some of the properties of PMI. From here on out, I will consider sampling elementary events from a joint distribution, $(x, y) \sim (\rX, \rY)$, where $\rX, \rY$ are unspecified discrete (possibly infinite) random variables. For notational simplicity I’ll drop the subscripts from distributions, so $p(x), p(y)$ denote the marginals, $\rX$ and $\rY$ respectively, and $p(x, y)$ denotes the joint $(\rX,\rY)$.&lt;/p&gt;
 
 &lt;p&gt;To recap, PMI measures the difference in bits between the product of marginals $p(x)p(y)$ and the joint $p(x, y)$, as evidenced by&lt;/p&gt;
 
@@ -1554,7 +1623,7 @@ i(x, y) &amp;= \log_2\left(\frac{p(x, y)}{p(x)p(y)}\right) \\
 
 &lt;p&gt;Negative PMI implies synergy, while positive PMI implies redundancy.&lt;/p&gt;
 
-&lt;p&gt;Another way to think about PMI is as a measure of how much $p(y \mid x)$ differs from $p(y)$ (and vice versa). Suppose an oracle sampled $(x, y) \sim \rX\times\rY$, but the outcome $(x, y)$ remains hidden from you. $p(y)$ is the information you stand to gain by having $y$ revealed to you. However, $p(y \mid x)$ is what you stand to gain from seeing $y$ if $x$ is already revealed. You do not know how much information $x$ contains about $y$ without seeing $y$. Only the oracle knows this. However, if you know $p(y \mid x)$, then you can compute your expected information gain (conditional uncertainty), $H[\rY \mid \rX=x]$.&lt;/p&gt;
+&lt;p&gt;Another way to think about PMI is as a measure of how much $p(y \mid x)$ differs from $p(y)$ (and vice versa). Suppose an oracle sampled $(x, y) \sim (\rX,\rY)$, but the outcome $(x, y)$ remains hidden from you. $p(y)$ is the information you stand to gain by having $y$ revealed to you. However, $p(y \mid x)$ is what you stand to gain from seeing $y$ if $x$ is already revealed. You do not know how much information $x$ contains about $y$ without seeing $y$. Only the oracle knows this. However, if you know $p(y \mid x)$, then you can compute your expected information gain (conditional uncertainty), $H[\rY \mid \rX=x]$.&lt;/p&gt;
 
 &lt;p&gt;PMI measures the change in information you will gain about $y$ (from the oracle’s perspective) before and after $x$ is revealed (and vice versa). In this view, it makes sense to rewrite PMI as&lt;/p&gt;
 
@@ -1567,7 +1636,7 @@ i(x, y) &amp;= \log_2\left(\frac{p(y \mid x)}{p(y)}\right) \\
 
 &lt;h3 id=&quot;special-values&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#special-values&quot;&gt;Special Values&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;By definition, $i(x, y) = 0$ iff $\bm{X}, \bm{Y}$ are independent. Verifying, we see that,&lt;/p&gt;
+&lt;p&gt;By definition, $i(x, y) = 0$ iff $\rX, \rY$ are independent. Verifying, we see that,&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
 \begin{align}
@@ -1783,12 +1852,12 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.&lt;/p&gt;
 
 &lt;p&gt;Unlikely everything we’ve seen so far, these are necessarily functions of probability functions, rather than random variables. Further, these are both comparisons of probability functions over the same support.&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;H(P,Q) = -\sum_x P(x)\log Q(x)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;H[P,Q] = -\sum_x P(x)\log Q(x)&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbb{K}\left(P\,||\,Q\right) = \sum_{x} P(x)\log
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\kl{P}{Q} = \sum_{x} P(x)\log
 {\frac{P(x)}{Q(x)}}&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbb{K}\left(P\,||\,Q\right) = H(P,Q) - H(P)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\kl{P}{Q} = H[P,Q] - H[P]&lt;/script&gt;
 
 &lt;p&gt;Sources:&lt;/p&gt;
 &lt;ul&gt;
@@ -1798,7 +1867,7 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.&lt;/p&gt;
 
 &lt;p&gt;Mutual information can be &lt;a href=&quot;https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence&quot;&gt;written in terms of KL-divergence&lt;/a&gt;:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right) = \E_{x \sim \rX}\left[\mathbb{K}\left(p_{Y\mid X}\,||\,p_Y\right)\right]\,,&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I[\rX, \rY] = \kl{p_{X,Y}}{p_X \cdot p_Y} = \E_{x \sim \rX}\left[\kl{p_{Y\mid X}}{p_Y}\right]\,,&lt;/script&gt;
 
 &lt;p&gt;where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$ and $p_{Y\mid X}(y \mid x) \mapsto p_{X,Y}(x,y)/p_X(x)$.&lt;/p&gt;
 

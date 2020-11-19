@@ -205,7 +205,8 @@
 \newcommand{\rY}{\bm{Y}}
 \newcommand{\rZ}{\bm{Z}}
 \newcommand{\rC}{\bm{C}}
-\newcommand{\diff}[1]{\mathop{\mathrm{d}#1}}</script>
+\newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
+\newcommand{\kl}[2]{K\left[#1\;\middle\|\;#2\right]}</script>
 
 <p>I’m going to use non-standard notation which I believe avoids some confusion and ambiguities.</p>
 
@@ -467,7 +468,7 @@ Let $X = \{0, 1\}$ and $Y = \{0, 1\}$, then the joint sample space is the cartes
 
 <h2 id="properties-of-pmi"><a class="header-anchor" href="#properties-of-pmi">Properties of PMI</a></h2>
 
-<p>Let’s explore some of the properties of PMI. From here on out, I will consider sampling elementary events from a joint distribution, $(x, y) \sim \bm{X}\times\bm{Y}$, where $\bm{X}, \bm{Y}$ are unspecified discrete (possibly infinite) random variables. For notational simplicity I’ll drop the subscripts from distributions, so $p(x), p(y), p(x, y)$ denote the marginals of $\bm{X}, \bm{Y}$ and the joint $\bm{X}\times\bm{Y}$.</p>
+<p>Let’s explore some of the properties of PMI. From here on out, I will consider sampling elementary events from a joint distribution, $(x, y) \sim (\rX, \rY)$, where $\rX, \rY$ are unspecified discrete (possibly infinite) random variables. For notational simplicity I’ll drop the subscripts from distributions, so $p(x), p(y)$ denote the marginals, $\rX$ and $\rY$ respectively, and $p(x, y)$ denotes the joint $(\rX,\rY)$.</p>
 
 <p>To recap, PMI measures the difference in bits between the product of marginals $p(x)p(y)$ and the joint $p(x, y)$, as evidenced by</p>
 
@@ -479,7 +480,7 @@ i(x, y) &= \log_2\left(\frac{p(x, y)}{p(x)p(y)}\right) \\
 
 <p>Negative PMI implies synergy, while positive PMI implies redundancy.</p>
 
-<p>Another way to think about PMI is as a measure of how much $p(y \mid x)$ differs from $p(y)$ (and vice versa). Suppose an oracle sampled $(x, y) \sim \rX\times\rY$, but the outcome $(x, y)$ remains hidden from you. $p(y)$ is the information you stand to gain by having $y$ revealed to you. However, $p(y \mid x)$ is what you stand to gain from seeing $y$ if $x$ is already revealed. You do not know how much information $x$ contains about $y$ without seeing $y$. Only the oracle knows this. However, if you know $p(y \mid x)$, then you can compute your expected information gain (conditional uncertainty), $H[\rY \mid \rX=x]$.</p>
+<p>Another way to think about PMI is as a measure of how much $p(y \mid x)$ differs from $p(y)$ (and vice versa). Suppose an oracle sampled $(x, y) \sim (\rX,\rY)$, but the outcome $(x, y)$ remains hidden from you. $p(y)$ is the information you stand to gain by having $y$ revealed to you. However, $p(y \mid x)$ is what you stand to gain from seeing $y$ if $x$ is already revealed. You do not know how much information $x$ contains about $y$ without seeing $y$. Only the oracle knows this. However, if you know $p(y \mid x)$, then you can compute your expected information gain (conditional uncertainty), $H[\rY \mid \rX=x]$.</p>
 
 <p>PMI measures the change in information you will gain about $y$ (from the oracle’s perspective) before and after $x$ is revealed (and vice versa). In this view, it makes sense to rewrite PMI as</p>
 
@@ -492,7 +493,7 @@ i(x, y) &= \log_2\left(\frac{p(y \mid x)}{p(y)}\right) \\
 
 <h3 id="special-values"><a class="header-anchor" href="#special-values">Special Values</a></h3>
 
-<p>By definition, $i(x, y) = 0$ iff $\bm{X}, \bm{Y}$ are independent. Verifying, we see that,</p>
+<p>By definition, $i(x, y) = 0$ iff $\rX, \rY$ are independent. Verifying, we see that,</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
 \begin{align}
@@ -708,12 +709,12 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.</p>
 
 <p>Unlikely everything we’ve seen so far, these are necessarily functions of probability functions, rather than random variables. Further, these are both comparisons of probability functions over the same support.</p>
 
-<script type="math/tex; mode=display">H(P,Q) = -\sum_x P(x)\log Q(x)</script>
+<script type="math/tex; mode=display">H[P,Q] = -\sum_x P(x)\log Q(x)</script>
 
-<script type="math/tex; mode=display">\mathbb{K}\left(P\,||\,Q\right) = \sum_{x} P(x)\log
+<script type="math/tex; mode=display">\kl{P}{Q} = \sum_{x} P(x)\log
 {\frac{P(x)}{Q(x)}}</script>
 
-<script type="math/tex; mode=display">\mathbb{K}\left(P\,||\,Q\right) = H(P,Q) - H(P)</script>
+<script type="math/tex; mode=display">\kl{P}{Q} = H[P,Q] - H[P]</script>
 
 <p>Sources:</p>
 <ul>
@@ -723,7 +724,7 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.</p>
 
 <p>Mutual information can be <a href="https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence" target="_blank" rel="noopener noreferrer">written in terms of KL-divergence</a>:</p>
 
-<script type="math/tex; mode=display">I[\rX, \rY] = \mathbb{K}\left(p_{X,Y}\,||\,p_X \cdot p_Y\right) = \E_{x \sim \rX}\left[\mathbb{K}\left(p_{Y\mid X}\,||\,p_Y\right)\right]\,,</script>
+<script type="math/tex; mode=display">I[\rX, \rY] = \kl{p_{X,Y}}{p_X \cdot p_Y} = \E_{x \sim \rX}\left[\kl{p_{Y\mid X}}{p_Y}\right]\,,</script>
 
 <p>where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$ and $p_{Y\mid X}(y \mid x) \mapsto p_{X,Y}(x,y)/p_X(x)$.</p>
 
