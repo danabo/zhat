@@ -524,7 +524,7 @@ div#disqus_thread {
 
 
 // Post highlighting in list
-a:target+div.index_entry {
+a:target+div.index_entry, a:target+.jump_to {
     margin-bottom: -1.8rem;
     padding-bottom: 1.8rem;
     animation-name: highlightFade;
