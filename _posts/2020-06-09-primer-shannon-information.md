@@ -285,7 +285,7 @@ $i(0,0) = h_X(0) + h_Y(0) - h_{X,Y}(0 \and 0) = -2$, and so $(0,0)$ is synergist
 
 ## Properties of PMI
 
-Let's explore some of the properties of PMI. From here on out, I will consider sampling elementary events from a joint distribution, $(x, y) \sim \bm{X}\times\bm{Y}$, where $\bm{X}, \bm{Y}$ are unspecified discrete (possibly infinite) random variables. For notational simplicity I'll drop the subscripts from distributions, so $p(x), p(y), p(x, y)$ denote the marginals of $\bm{X}, \bm{Y}$ and the joint $\bm{X}\times\bm{Y}$.
+Let's explore some of the properties of PMI. From here on out, I will consider sampling elementary events from a joint distribution, $(x, y) \sim (\rX, \rY)$, where $\rX, \rY$ are unspecified discrete (possibly infinite) random variables. For notational simplicity I'll drop the subscripts from distributions, so $p(x), p(y)$ denote the marginals, $\rX$ and $\rY$ respectively, and $p(x, y)$ denotes the joint $(\rX,\rY)$.
 
 To recap, PMI measures the difference in bits between the product of marginals $p(x)p(y)$ and the joint $p(x, y)$, as evidenced by
 
@@ -298,7 +298,7 @@ $$
 
 Negative PMI implies synergy, while positive PMI implies redundancy.
 
-Another way to think about PMI is as a measure of how much $p(y \mid x)$ differs from $p(y)$ (and vice versa). Suppose an oracle sampled $(x, y) \sim \rX\times\rY$, but the outcome $(x, y)$ remains hidden from you. $p(y)$ is the information you stand to gain by having $y$ revealed to you. However, $p(y \mid x)$ is what you stand to gain from seeing $y$ if $x$ is already revealed. You do not know how much information $x$ contains about $y$ without seeing $y$. Only the oracle knows this. However, if you know $p(y \mid x)$, then you can compute your expected information gain (conditional uncertainty), $H[\rY \mid \rX=x]$.
+Another way to think about PMI is as a measure of how much $p(y \mid x)$ differs from $p(y)$ (and vice versa). Suppose an oracle sampled $(x, y) \sim (\rX,\rY)$, but the outcome $(x, y)$ remains hidden from you. $p(y)$ is the information you stand to gain by having $y$ revealed to you. However, $p(y \mid x)$ is what you stand to gain from seeing $y$ if $x$ is already revealed. You do not know how much information $x$ contains about $y$ without seeing $y$. Only the oracle knows this. However, if you know $p(y \mid x)$, then you can compute your expected information gain (conditional uncertainty), $H[\rY \mid \rX=x]$.
 
 PMI measures the change in information you will gain about $y$ (from the oracle's perspective) before and after $x$ is revealed (and vice versa). In this view, it makes sense to rewrite PMI as
 
@@ -312,7 +312,7 @@ $$
 
 ### Special Values
 
-By definition, $i(x, y) = 0$ iff $\bm{X}, \bm{Y}$ are independent. Verifying, we see that,
+By definition, $i(x, y) = 0$ iff $\rX, \rY$ are independent. Verifying, we see that,
 
 $$
 \begin{align}

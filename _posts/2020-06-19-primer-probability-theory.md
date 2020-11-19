@@ -19,6 +19,7 @@ $$
 \newcommand{\real}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\d}{\mathrm{d}}
+\newcommand{\len}[1]{\ell\left(#1\right)}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 \newcommand{\bigmid}{\;\middle\vert\;}
 $$
@@ -40,29 +41,50 @@ I believe that having a crisp and exact understanding makes everything easier in
 
 # Definitions
 
-{%fixme%}Have 3 versions of these definitions, each with a dropdown reveal. (1) is just for finite sample spaces to give the gist of the definition without a bunch of complicated conditions, (2) is general but without reference to measure theory, and (3) shows how using measure theory greatly simplifies the definitions.{%endfixme%}
+## Beginner
 
+The full definition of probability is below, but to avoid overwhelm, you may first look at this *attempt* at defining probability. Many people intuitively think of probability this way. Notably, I've left out the event space. 
+
+**Sample set** $\Omega$ is a set of all possible {% marginnote "samples" "Sample is synonymous with [outcome](https://en.wikipedia.org/wiki/Outcome_(probability))." %} $\omega\in\Omega$. A sample is a possible state of the world, e.g. the outcomes for all coins that will be tossed or all dice that will be thrown, or the ordering of cards in a deck.
+
+**Probability function** $P : 2^\Omega \to [0, 1]$ gives the probability of a {% marginnote "set of samples" "subset of $\Omega$" %}. A set of samples $\{\omega_1, \omega_2, \ldots\}$ is called an **event**, which is a set of possible states the world could be in, read as "$\omega_1$ is the case or $\omega_2$ is the case, etc. ..."
+
+$P$ satisfies:
+
+* **Non-negativity**: $$P(e) \geq 0,\ \forall e \in 2^\Omega$$.
+* **Null empty set**: $$P(\emptyset) = 0$$.
+* **Unit sample set**: $$P(\Omega) = 1$$.
+* **Additivity**: For all disjoint events $$e_1, e_2 \in 2^\Omega,\ P(e_1 \cup e_2) = P(e_1) + P(e_2)$$
+
+The probability of a single sample (outcome) $\omega\in\Omega$ is $$P(\{\omega\})$$.
+
+## Full Definition
+
+The beginner definition above does not define an event space. This is actually a problem when working with uncountable sample spaces, because not all subsets of an uncountable space can be measured. If that statement confuses you, don't worry about it and read through this post. Then read my [primer to measure theory](#primer-to-measure-theory) at the end which outlines why not every set can be measured. Though this may seem like a minor technicality, specifying what sets can be measured allows probability theory to be {% marginnote "a lot more general than it otherwise could be," "This is Kolmogorov's achievement. Definitions of probability like my beginner definition had been around for hundreds of years prior." %} specifically when dealing with real numbers.
+
+Here is a compact but complete definition of probability:
 * **Sample set** $\Omega$ is a set of all possible {% marginnote "samples" "Sample is synonymous with [outcome](https://en.wikipedia.org/wiki/Outcome_(probability))." %}.
   - **Sample** $\omega \in \Omega$ (i.e. primitive outcome) is a possible state of the world. Samples are disjoint, meaning only one sample can be the case at a time. Samples can be any kind of mathematical object.
-* **Event space** $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are allowed to assign probability. We require that $\emptyset, \Omega \in E$ {%adv%}and $E$ is required to be a [$\sigma$-algebra](https://en.wikipedia.org/wiki/%CE%A3-algebra) that contains the measurable subsets of $\Omega$. The tuple $(\Omega, E)$ is a [measurable space](https://en.wikipedia.org/wiki/Measurable_space).{%endadv%}  {%fixme%} Give sigma-algebra properties listed in measure theory section? {%endfixme%}
+* **Event space** $E \subseteq 2^\Omega$ is the set of subsets of $\Omega$ for which we are {% marginnote "allowed to assign probability." "The sets omitted from $E$ are not measurable, but again if you are not familiar with measure theory don't worry about why some sets cannot be measured until the end of this post." %} We require that $\emptyset, \Omega \in E$ {%adv%}and $E$ is required to be a [$\sigma$-algebra](#sigma-algebra) that contains the measurable subsets of $\Omega$. The tuple $(\Omega, E)$ is a [measurable space](https://en.wikipedia.org/wiki/Measurable_space).{%endadv%}  {%fixme%} Give sigma-algebra properties listed in measure theory section? {%endfixme%}
   - **Event** $e \in E$ is a {%adv%}measurable{%endadv%} set of samples. Samples $\omega \in e$ are {% marginnote "considered identical" "Different samples in $\Omega$ are indeed distinct objects, but their difference does not matter in the context of event $e$." %} w.r.t. $e$.
-* **Probability** {% marginnote "$P : E \to [0, 1]$" "In general a measure $Q : E \to \real_{\geq 0}$, but I'm including the restriction of the co-domain to [0, 1] in the definition of $$P$$ because we are only talking about probability measures here, and there's no reason to be more general." %} is a function that maps allowed subsets of $\Omega$ to the real unit interval. $P$ is required to be a **measure**, which means it satisfies certain properties that make it behave analogous to length, area, volume, etc. in Euclidean space. A measure is a generalization of size. The properties are:
+* **Probability measure** {% marginnote "$P : E \to [0, 1]$" "In general a measure $Q : E \to \real_{\geq 0}$, but I'm including the restriction of the co-domain to the unit interval $[0, 1]$ in the definition of $$P$$, because we are only talking about probability measures here, and there's no reason to be more general." %} is a function that maps allowed subsets of $\Omega$ to the real unit interval. $P$ is a **measure**, which means it satisfies certain properties that make it behave analogous to length, area, volume, etc. in Euclidean space. Essentially, a measure is a generalization of size that satisfies the following properties:
   * {% adv %}**Measurable domain**: $E$ is a $\sigma$-algebra of measurable sets.{% endadv %}
   * **Non-negativity**: $$P(e) \geq 0,\ \forall e \in E$$.
   * **Null empty set**: $$P(\emptyset) = 0$$.
-  * **Countable additivity**: For any countable $$A \subseteq E$$ where $$\bigcap A = \emptyset$$, $$P(\bigcup A) = \sum P(A)$$, where $$P(A) = \{P(e) \mid e \in A\}$$.
+  * **Unit sample set**: $$P(\Omega) = 1$$.
+  * **Countable additivity**: For any countable set of events {% marginnote "$$A \subseteq E$$" "Remember that $E$ is the event space, and $A$ is a set of events." %} where $$\bigcap A = \emptyset$$, $$P(\bigcup A) = \sum_{e\in A} P(e)$$.
 
 
 The triple $(\Omega, E, P)$ defines a [probability space](https://en.wikipedia.org/wiki/Probability_space) {%adv%}which is also a [measure space](https://en.wikipedia.org/wiki/Measure_space).{%endadv%} These three objects are all we need to do probability calculations.
 
 ## Kolmogorov axioms of probability
 
-The standard Kolmogorov axioms (as given by [Wikipedia](https://en.wikipedia.org/wiki/Probability_axioms#Axioms)) are:
+You may have heard of the [Kolmogorov axioms of probability](https://en.wikipedia.org/wiki/Probability_axioms#Axioms). Kolmogorov formalized probability as a special case of measure theory. Essentially a probability measure is a normalized measure, i.e. assigns 1 to the entire sample space $\Omega$. Above, I've merged the axioms of measure theory with Kolmogorov's axioms. For reference, here are Kolmogorov's axioms given separately:
 1. $P(e) \in [0, 1], \forall e \in E$, where $[0, 1] \subset \real$.
 2. $P(\Omega) = 1$, i.e. probability of anything happening is 1.
 3. {% adv %}[$\sigma$-additivity](https://en.wikipedia.org/wiki/Sigma_additivity) on $E$.{% endadv %}
 
-However, (1) and (3) are already covered by the definitions given above, so all you need to take away from these axioms is the condition $P(\Omega) = 1$. {%adv%}In fact, using measure theory, we can define probability succinctly by simply stating that $(\Omega, E, P)$ is a measure space where $P(\Omega) = 1$ (see [Terence Tao's Introduction to Measure Theory](https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf)).{%endadv%}
+{%adv%}Given the axioms of measure theory, we can define probability succinctly by simply stating that $(\Omega, E, P)$ is a measure space where $P(\Omega) = 1$ (see [Terence Tao's Introduction to Measure Theory](https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf)).{%endadv%}
 
 ## Examples
 
@@ -77,18 +99,20 @@ $$P(\{⚀,⚅\}) = 1/3$$,
 $$P(\{⚁,⚃,⚅\}) = 1/2$$,
 $$P(\{⚀,⚁,⚂,⚃,⚄,⚅\}) = 1$$.
 
-**Countable**: Binary sequences
+**Countable** (event set): Variable length binary sequences
 
-$$\bin = \{0, 1\}$$
-Let $x \in \bin^n$ be a binary sequence of length $n$, and $$\abs{x} := n$$ returns the length of $x$.
+$$\bin = \{0, 1\}$$ is the binary alphabet.
+Let $x \in \bin^n$ be a binary sequence of any length $n$, and $$\len{x} := n$$ returns the length of $x$.
 
-$$\Omega = \mathbb{B}^\infty$$,
-$$E=\left\{\left\{\omega \in \Omega \bigmid x = \omega_{1:\abs{x}}\right\} \bigmid x \in \mathbb{B}^n, n \in \mathbb{N}\right\} \cup \{\emptyset\}$$ where $$\omega_{1:\abs{x}}$$ is the prefix subsequence of $\omega$ of length $\abs{x}$.
-Let $$\Gamma_x = \left\{\omega \in \Omega \bigmid x = \omega_{1:\abs{x}}\right\}$$.
-$$P(\Gamma_x) = 2^{-\abs{x}}$$ is the uniform measure.
+The sample set is all infinite binary sequences, $$\Omega = \mathbb{B}^\infty$$.
+This let's us make an event for each finite length $x$.
+Let $$\Gamma_x = \left\{\omega \in \Omega \bigmid x = \omega_{1:\len{x}}\right\}$$, where $$\omega_{1:\len{x}}$$ is the length $\len{x}$ prefix of $\omega$.
+The event set is $$E=\left\{\Gamma_x \bigmid x \in \mathbb{B}^n, n \in \mathbb{N}\cup\{0\}\right\}$$ 
 
-Each $$\Gamma_x \in E$$ corresponds to the finite binary sequence $$x$$.
-$$P$$ can be thought of as a distribution over finite binary sequences where $$P(\Gamma_x) = P(\Gamma_{x0}) + P(\Gamma_{x1})$$, where $$x0, x1$$ are the concatenations of $$x$$ with 0 or 1.
+Then $$P(\Gamma_x)$$ is the probability of $x$, and $$P(\Gamma_{x_1} \cup \Gamma_{x_2} \cup \ldots)$$ is the probability of the set $$\{x_1, x_2, \ldots\}$$.
+Note that the probability of a finite sequence is always a marginal probability, in the sense that $$P(\Gamma_x) = P(\Gamma_{x`0}) + P(\Gamma_{x`1})$$ where $$x`0$$ and $$x`1$$ are the concatenations of $$x$$ with 0 or 1.
+
+An example of such a measure is the uniform measure, $$P(\Gamma_x) = 2^{-\len{x}}$$.
 
 **Uncountable**: The reals
 
@@ -103,7 +127,33 @@ $$
 
 Note that it does not matter if we define $P$ on open intervals, closed intervals, or half-open intervals, because the value of the integral is identical between these cases. {%adv%}Specifically, we are performing a Lebesgue integral, which is invariant to removing a measure 0 subset from the integral domain. See the [equality almost-everywhere](https://en.wikipedia.org/wiki/Lebesgue_integration#Basic_theorems_of_the_Lebesgue_integral) property.{%endadv%}
 
-Notice that $\frac{\d}{\d x} P((0, x])$ is the [standard normal](https://en.wikipedia.org/wiki/Normal_distribution) (i.e. Gaussian) [probability density function (p.d.f.)](https://en.wikipedia.org/wiki/Probability_density_function). It is common, when working with probability on the reals, to provide a p.d.f. which can be integrated over to derive the {%marginnote "probability measure" "The output of the probability measure is called *probability mass*, to distinguish it from the output of the p.d.f., which is called *probability density*." %}. In other words, a p.d.f. $f(x)$ is a function that when integrated produces a probability measure: $P((a, b]) = \int_a^b f(x) \d x$. 
+In this particular example, $\frac{\d}{\d x} P((0, x])$ is the [standard normal](https://en.wikipedia.org/wiki/Normal_distribution) (i.e. Gaussian) [probability density function (PDF)](https://en.wikipedia.org/wiki/Probability_density_function). It is common, when working with probability on the reals, to provide a PDF which can be integrated over to derive the {%marginnote "probability measure" "The output of the probability measure is called *probability mass*, to distinguish it from the output of the PDF, which is called *probability density*." %}. In other words, a PDF $f(x)$ is a function that when integrated produces a probability measure: $P((a, b]) = \int_a^b f(x) \d x$. 
+
+## PMFs and PDFs and measures, oh my!
+
+In standard probability textbooks and courses (largely for non-theoreticians), you are told about probability mass functions (PMFs) and probability density functions (PDFs), and their cumulative counterparts: cumulative mass functions (CMFs) and cumulative density functions (CDFs). So you may be wondering where these fit into the definition of probability above. I've been talking about probability measures, and only mentioned PDF in the real line example above.
+
+For finite and countable sample sets, PMFs, CMFs and measures are equivalent, meaning you can derive one from the others. We can convert between PMF $m : \Omega \to [0,1]$ and measure $P: E \to [0,1]$ with the following relations:
+
+$$
+\begin{aligned}
+m(\omega) &= P(\{\omega\}) \\
+P(e) &= \sum_{\omega\in e} m(\omega)\,.
+\end{aligned}
+$$
+
+For differentiable continuous sample sets {%adv%}where $E$ is the [Borel algebra](https://en.wikipedia.org/wiki/Borel_set){%endadv%} (e.g. the reals), PDFs, CDFs and measures are equivalent, meaning you can derive one from the others. We can convert between PDF $f : \Omega \to \real$ and measure $P : E \to [0,1]$ with the following relations:
+
+$$
+\begin{aligned}
+f(x) &= \frac{\d}{\d x} P((c, x]) \\
+P((a, b]) &= \int_a^b f(x) \d x\,,
+\end{aligned}
+$$
+
+for some constant $c\in\Omega$.
+
+The measure-theoretic definition of probability unifies the discrete and continuous cases, and can handle exotic cases, e.g. non-differentiable uncountable sample sets. {%fixme%}Example of a probability measure not fitting into the above two types?{%endfixme%}
 
 ## Events vs samples
 
@@ -381,7 +431,8 @@ There are a few requirements for $P$ that make it behave like a measure. Repeate
   * **Null empty set**: $$P(\emptyset) = 0$$.
   * **Countable additivity**: For any countable $$A \subseteq E$$ where $$\bigcap A = \emptyset$$, $$P(\bigcup A) = \sum P(A)$$, where $$P(A) = \{P(e) \mid e \in A\}$$.
 
-Further, $E$ is required to be a **$\sigma$-algebra**, which means it satisfies (following Tao, section 1.4.2):
+{%jumpto "sigma-algebra"%}
+Further, $E$ is required to be a {% marginnote "**$\sigma$-algebra**" "Following following Tao, section 1.4.2. For further information see [Wikipedia](https://en.wikipedia.org/wiki/%CE%A3-algebra)." %}, which means it satisfies:{%endjumpto%}
   * **Empty set**: $\emptyset \in E$.
   * **Complement**: If $e \in E$, then the complement $e^c := \Omega \setminus e$ is also in $E$.
   * **Countable unions**: If $e_1, e_2, \ldots \in E$ then $\bigcup_{n=1}^\infty e_n \in E$.
