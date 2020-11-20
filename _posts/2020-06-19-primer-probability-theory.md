@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Primer to Probability Theory"
+title: "Primer to Probability Theory And Its Philosophy"
 date:   2020-06-19
 categories: post
 ---
