@@ -24,6 +24,13 @@ My past self and my future self. I write what I wish existed when I was learning
 
 Anyone similar to my past self in level of knowledge, and perhaps pedagogical aesthetic, can hopefully benefit from my writings. More concretely, I assume my reader has an undergraduate level of math maturity, and is familiar with multivariable calculus, linear algebra and probability theory, as well as some exposure to proofs. I intend my posts to build on each other, and so later posts will assume knowledge of topics outlined in former posts.
 
+# You say this is a pedagogical blog, but your posts are incomprehensible
+
+Pedagogy and learning are dual purposes. I can either invest more time into learning new things, or more time into writing well and making what I write more accessible. I try to strike some kind of middle-ground, though I lean towards prioritizing learning. The articles categorized with the tag *notes* are intended to be raw and a quick recap of something I've recently learned, and they are intended to be a more up-to-date log of my studying. The ones categorized as *post* are intended to be a more comprehensive exposition around a topic, focusing on core insights I've gained. However, even posts are going to be rough around the edges, as I give myself a practical time cut-off on writing and I don't normally get feedback, though it would be most welcome and appreciated.
+
+# What's with the bare look-and-feel?
+
+I deconstructed the beautiful [Tufte theme](https://github.com/clayh53/tufte-jekyll) because I want to keep things simple to make my blog suitable for rapid prototyping. This site is more like a workshop for experimenting with pedagogical tools, such as margin-notes. I'll expand on the functionality and theme on this site as I go.
 
 # What is $\hat{z}$?
 
