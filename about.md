@@ -29,5 +29,5 @@ Anyone similar to my past self in level of knowledge, and perhaps pedagogical ae
 
 In machine learning, the convention is that $x$ is the observed input, $y$ is ground truth (target) output, and $z$ is an unobserved representation or generator of $x$ (or $y$).
 
-$\hat{x}$ is a reconstruction of $x$, $\hat{y}$ is a prediction of $y$, ...
+$\hat{x}$ is a reconstruction of $x$, and $\hat{y}$ is a prediction of $y$, etc. ...
 
