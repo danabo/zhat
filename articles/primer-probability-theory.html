@@ -10,7 +10,7 @@
   <meta property="og:image" content="http://zhat.io/assets/img/zhat.svg">
 
   <title>Primer to Probability Theory</title>
-  <meta name="description" content="Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generaliz...">
+  <meta name="description" content="Probability is a measure defined on events, which are sets of primitive outcomes. Probability theory mostly comes down to constructing events and measuring t...">
 
   <!-- Google Fonts loaded here -->
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
@@ -126,7 +126,7 @@
       <h1>Primer to Probability Theory</h1>
 <p class="subtitle">June 19, 2020</p>
 
-<p>Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).</p>
+<p>Probability is a measure defined on events, which are sets of primitive outcomes. Probability theory mostly comes down to constructing events and measuring them. A measure is a generalization of size which corresponds to length, area, and volume (rather than the bijective mapping definition of cardinality).</p>
 
 <!--more-->
 
@@ -179,6 +179,18 @@
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 \newcommand{\bigmid}{\;\middle\vert\;}</script>
 
+<p>Sections:</p>
+<ol>
+  <li>
+<a href="#definitions">Definitions</a> - explain the definition of probability.</li>
+  <li>
+<a href="#constructing-events">Constructing event</a> - explain random variable notation.</li>
+  <li>
+<a href="#almost-surely">Almost surely</a> - a philosophical excursion into the interpretation of probability.</li>
+  <li>
+<a href="#primer-to-measure-theory">Primer to measure theory</a> - a brief introduction to measure theory.</li>
+</ol>
+
 <p>Main references:</p>
 <ul>
   <li><a href="https://en.wikipedia.org/wiki/Probability_axioms#Axioms" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Probability_axioms#Axioms</a></li>
@@ -188,11 +200,11 @@
   <li><a href="https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf" target="_blank" rel="noopener noreferrer">https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf</a></li>
 </ul>
 
-<p>Kolmogorov’s definition of probability may seem complex and technical, but it is actually very elegant in that it just simply makes use of an already existing mathematical object, the <a href="https://en.wikipedia.org/wiki/Measure_space" target="_blank" rel="noopener noreferrer">measure space</a>. Luckily, we don’t need to understand more than the absolute basics of <a href="https://en.wikipedia.org/wiki/Measure_(mathematics)" target="_blank" rel="noopener noreferrer">measures and measure theory</a> to understand Kolmogorov’s definition and to do most things we want with probability.</p>
+<p>Kolmogorov’s definition of probability can seem complex and technical, but that is because it makes use of a powerful mathematical object, the <a href="https://en.wikipedia.org/wiki/Measure_space" target="_blank" rel="noopener noreferrer">measure space</a>, which is where the technical rabbit hole lay. Luckily, we don’t need to understand more than the absolute basics of <a href="https://en.wikipedia.org/wiki/Measure_(mathematics)" target="_blank" rel="noopener noreferrer">measures and measure theory</a> to understand Kolmogorov’s definition and to do most things we want with probability.</p>
 
-<p>I have yet to come across a primer that explains the measure-theoretic definition of probability without taking a long and unneeded detour into measure theory. I structured this article to be read twice. The first pass is without measure theory, and the second pass is with measure theory. Measure-theory content is hidden by default, e.g. <span class="advanced outer hidden"><span class="advanced inner hidden">like this</span></span>. Simply ignore <span class="advanced outer hidden"><span class="advanced inner hidden">purple text</span></span> the <span class="marginnote-outer"><span class="marginnote-ref">first time</span><label for="796b5f2304883e2b8a1737199bea4fcbd95c2af7" class="margin-toggle"> ⊕</label><input type="checkbox" id="796b5f2304883e2b8a1737199bea4fcbd95c2af7" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Unless you are already acquainted with measure theory, but then you can just look at <a href="https://en.wikipedia.org/wiki/Probability_axioms#Axioms" target="_blank" rel="noopener noreferrer">Wikipedia’s definition of probability</a> to understand the gist of probability theory.</span></span></span> you read this post. Then in the <a href="#primer-to-measure-theory">measure theory section</a> at the end of this post you will see a button to show all the hidden text (and you can just click on <span class="advanced outer hidden"><span class="advanced inner hidden">purple text</span></span> anywhere in the post to show it).</p>
+<p>I see plenty of introductions to probability that leave out measure theory entirely. The problem with them is that a lot of the common probability notation, e.g. random variables, only really makes sense when you understand measures. On the other hand, if you crack open a rigorous text on probability theory (e.g. <a href="https://www.goodreads.com/book/show/383472.Statistical_Inference" target="_blank" rel="noopener noreferrer">Casella &amp; Berger</a> or <a href="https://www.springer.com/gp/book/9780387953823" target="_blank" rel="noopener noreferrer">Shao</a>), it may not be obvious why all this extra complexity with events, sigma-algebras and measure spaces is necessary.</p>
 
-<p>I believe that having a crisp and exact understanding makes everything easier in the long run, and allows for creativity, ingenuity, and heterodox thought. One needs to bite the bullet and do the work up front to understand the formal definitions.</p>
+<p>This post is a pedagogical experiment. I will try to thread a needle between offering intuitions about why things are the case and providing precise definitions. This will allow for discussions about <a href="#constructing-events">notation</a> and <a href="#almost-surely">philosophical underpinnings</a> later. I structured this article to be read twice. The first pass is without measure theory, and the second pass is with measure theory. Measure-theory content is hidden by default, e.g. <span class="advanced outer hidden"><span class="advanced inner hidden">like this</span></span>. Simply ignore <span class="advanced outer hidden"><span class="advanced inner hidden">purple text</span></span> the <span class="marginnote-outer"><span class="marginnote-ref">first time</span><label for="796b5f2304883e2b8a1737199bea4fcbd95c2af7" class="margin-toggle"> ⊕</label><input type="checkbox" id="796b5f2304883e2b8a1737199bea4fcbd95c2af7" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Unless you are already acquainted with measure theory, but then you can just look at <a href="https://en.wikipedia.org/wiki/Probability_axioms#Axioms" target="_blank" rel="noopener noreferrer">Wikipedia’s definition of probability</a> to understand the gist of probability theory.</span></span></span> you read this post. Then in the <a href="#primer-to-measure-theory">measure theory section</a> at the end of this post you will see a button to show all the hidden text (and you can just click on <span class="advanced outer hidden"><span class="advanced inner hidden">purple text</span></span> anywhere in the post to show it).</p>
 
 <h1 id="definitions"><a class="header-anchor" href="#definitions">Definitions</a></h1>
 
@@ -517,7 +529,7 @@ The definition of random variable specifies that the function $X : \Omega \to F$
 
 <p>There is at this time no good answer to the inverse probability problem. Kolmogorov developed his definition of probability to match the mathematical intuitions on probability of his predecessors going back to the <span class="marginnote-outer"><span class="marginnote-ref">17th century.</span><label for="47efecfe1101c6112ef47dad13c7a5d56659bc89" class="margin-toggle"> ⊕</label><input type="checkbox" id="47efecfe1101c6112ef47dad13c7a5d56659bc89" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Famously the <a href="https://en.wikipedia.org/wiki/Problem_of_points" target="_blank" rel="noopener noreferrer">problem of points</a> is an example of early probability calculation.</span></span></span> But what gave rise to this persistent intuition that the whole world should be described with probability, and that probability values should represent randomness and unpredictability? That I do not have an answer to, but I found Ian Hacking’s <a href="https://en.wikipedia.org/wiki/The_Emergence_of_Probability" target="_blank" rel="noopener noreferrer">The Emergence of Probability</a> to give a good account of the historical emergence of probability theory.</p>
 
-<p>Not only is probability theory agnostic on the meaning of 0 probability, it doesn’t actually have anything to say about what it means for an outcome to be likely or unlikely, or expected or unexpected in the colloquial sense, at least not in a non-circular way. Kolmogorov’s axioms merely ensure that probability behaves correctly when you remain within the realm of mathematics.</p>
+<p>Not only is probability theory agnostic on the meaning of 0 probability, it doesn’t actually have anything to say about what it means for an outcome to be likely or unlikely, or expected or unexpected in the colloquial sense, at least not in a non-circular way. If we observe a 100 coin tosses all come up heads, I might say it was a fair coin and the tosser just got lucky/unlucky, and you might say the coin tosses were rigged and the probability of this outcome was clearly close to 1. Whose to say which probabilistic description of the physical setup is correct, unless there is some theory to tell us what probability distributions describe what physical systems, and thus what experiment we could do to see <span class="marginnote-outer"><span class="marginnote-ref">who is correct</span><label for="d98b8bb83b2ec1cfb46d3d878644310d083fb613" class="margin-toggle"> ⊕</label><input type="checkbox" id="d98b8bb83b2ec1cfb46d3d878644310d083fb613" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">We do hold a lot of intuitions about this correspondence between the physical realm and probability. For example, symmetries should correspond to equiprobable outcomes. Most people will agree that if the coin were asymmetric in some way that could be a cause for it to come up one way more often. But how much more often? This is where things get fuzzy. In general, how do you determine the precise probability of heads from a model of coin tossing?</span></span></span>. This is out of scope of probability theory. Kolmogorov’s axioms merely ensure that probability is self-consistent within the realm of mathematics.</p>
 
 <p>Kolmogorov himself tried to fix this shortcoming which led to the development of <a href="http://www.scholarpedia.org/article/Algorithmic_information_theory" target="_blank" rel="noopener noreferrer">algorithmic information theory</a>. In <a href="https://www.sciencedirect.com/science/article/pii/S0304397598000759?via%3Dihub" target="_blank" rel="noopener noreferrer">On tables of random numbers</a> he writes:</p>
 <blockquote>
