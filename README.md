@@ -29,7 +29,8 @@ Modify source in the zhat folder and refresh browser. Server will automatically 
 cd zhat
 JEKYLL_ENV=production bundle exec jekyll build -d ../zhat-pages
 cd ../zhat-pages
-git status
+git status  # Review to make sure these are the changes you want
+git add -A
 git commit -m "build <commit-number>"
 git push
 ```
