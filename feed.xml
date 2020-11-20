@@ -5,12 +5,12 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>pragmanym.github.io/zhat/</link>
     <atom:link href="pragmanym.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 20 Nov 2020 15:22:35 -0800</pubDate>
-    <lastBuildDate>Fri, 20 Nov 2020 15:22:35 -0800</lastBuildDate>
+    <pubDate>Fri, 20 Nov 2020 15:37:17 -0800</pubDate>
+    <lastBuildDate>Fri, 20 Nov 2020 15:37:17 -0800</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
-        <title>Primer to Probability Theory And Its Philosophy</title>
+        <title>Primer to Probability Theory and Its Philosophy</title>
         <description>&lt;p&gt;Probability is a measure defined on events, which are sets of primitive outcomes. Probability theory mostly comes down to constructing events and measuring them. A measure is a generalization of size which corresponds to length, area, and volume (rather than the bijective mapping definition of cardinality).&lt;/p&gt;
 
 &lt;!--more--&gt;
