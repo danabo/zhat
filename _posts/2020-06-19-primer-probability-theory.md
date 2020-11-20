@@ -5,7 +5,7 @@ date:   2020-06-19
 categories: post
 ---
 
-Probability is a measure defined over a set of events, and probabilistic statements are all about constructing such sets to measure. A measure is a generalization of size which corresponds to length, area, and volume (rather than bijective mappings).
+Probability is a measure defined on events, which are sets of primitive outcomes. Probability theory mostly comes down to constructing events and measuring them. A measure is a generalization of size which corresponds to length, area, and volume (rather than the bijective mapping definition of cardinality).
 
 <!--more-->
 
@@ -24,6 +24,12 @@ $$
 \newcommand{\bigmid}{\;\middle\vert\;}
 $$
 
+Sections:
+1. [Definitions](#definitions) - explain the definition of probability.
+2. [Constructing event](#constructing-events) - explain random variable notation.
+3. [Almost surely](#almost-surely) - a philosophical excursion into the interpretation of probability.
+4. [Primer to measure theory](#primer-to-measure-theory) - a brief introduction to measure theory.
+
 Main references:
 * <https://en.wikipedia.org/wiki/Probability_axioms#Axioms>
 * <https://en.wikipedia.org/wiki/Measure_space>
@@ -31,12 +37,11 @@ Main references:
 * <http://statweb.stanford.edu/~souravc/stat310a-lecture-notes.pdf>
 * <https://terrytao.files.wordpress.com/2011/01/measure-book1.pdf>
 
-Kolmogorov's definition of probability may seem complex and technical, but it is actually very elegant in that it just simply makes use of an already existing mathematical object, the [measure space](https://en.wikipedia.org/wiki/Measure_space). Luckily, we don't need to understand more than the absolute basics of [measures and measure theory](https://en.wikipedia.org/wiki/Measure_(mathematics)) to understand Kolmogorov's definition and to do most things we want with probability.
+Kolmogorov's definition of probability can seem complex and technical, but that is because it makes use of a powerful mathematical object, the [measure space](https://en.wikipedia.org/wiki/Measure_space), which is where the technical rabbit hole lay. Luckily, we don't need to understand more than the absolute basics of [measures and measure theory](https://en.wikipedia.org/wiki/Measure_(mathematics)) to understand Kolmogorov's definition and to do most things we want with probability.
 
-I have yet to come across a primer that explains the measure-theoretic definition of probability without taking a long and unneeded detour into measure theory. I structured this article to be read twice. The first pass is without measure theory, and the second pass is with measure theory. Measure-theory content is hidden by default, e.g. {% adv %}like this{% endadv %}. Simply ignore {% adv %}purple text{% endadv %} the {%marginnote "first time" "Unless you are already acquainted with measure theory, but then you can just look at [Wikipedia's definition of probability](https://en.wikipedia.org/wiki/Probability_axioms#Axioms) to understand the gist of probability theory." %} you read this post. Then in the [measure theory section](#primer-to-measure-theory) at the end of this post you will see a button to show all the hidden text (and you can just click on {% adv %}purple text{% endadv %} anywhere in the post to show it).
+I see plenty of introductions to probability that leave out measure theory entirely. The problem with them is that a lot of the common probability notation, e.g. random variables, only really makes sense when you understand measures. On the other hand, if you crack open a rigorous text on probability theory (e.g. [Casella & Berger](https://www.goodreads.com/book/show/383472.Statistical_Inference) or [Shao](https://www.springer.com/gp/book/9780387953823)), it may not be obvious why all this extra complexity with events, sigma-algebras and measure spaces is necessary.
 
-
-I believe that having a crisp and exact understanding makes everything easier in the long run, and allows for creativity, ingenuity, and heterodox thought. One needs to bite the bullet and do the work up front to understand the formal definitions.
+This post is a pedagogical experiment. I will try to thread a needle between offering intuitions about why things are the case and providing precise definitions. This will allow for discussions about [notation](#constructing-events) and [philosophical underpinnings](#almost-surely) later. I structured this article to be read twice. The first pass is without measure theory, and the second pass is with measure theory. Measure-theory content is hidden by default, e.g. {% adv %}like this{% endadv %}. Simply ignore {% adv %}purple text{% endadv %} the {%marginnote "first time" "Unless you are already acquainted with measure theory, but then you can just look at [Wikipedia's definition of probability](https://en.wikipedia.org/wiki/Probability_axioms#Axioms) to understand the gist of probability theory." %} you read this post. Then in the [measure theory section](#primer-to-measure-theory) at the end of this post you will see a button to show all the hidden text (and you can just click on {% adv %}purple text{% endadv %} anywhere in the post to show it).
 
 
 # Definitions
@@ -322,7 +327,7 @@ Question \#1 is a special case of the [inverse probability problem](https://en.w
 
 There is at this time no good answer to the inverse probability problem. Kolmogorov developed his definition of probability to match the mathematical intuitions on probability of his predecessors going back to the {% marginnote "17th century." "Famously the [problem of points](https://en.wikipedia.org/wiki/Problem_of_points) is an example of early probability calculation." %} But what gave rise to this persistent intuition that the whole world should be described with probability, and that probability values should represent randomness and unpredictability? That I do not have an answer to, but I found Ian Hacking's [The Emergence of Probability](https://en.wikipedia.org/wiki/The_Emergence_of_Probability) to give a good account of the historical emergence of probability theory.
 
-Not only is probability theory agnostic on the meaning of 0 probability, it doesn't actually have anything to say about what it means for an outcome to be likely or unlikely, or expected or unexpected in the colloquial sense, at least not in a non-circular way. Kolmogorov's axioms merely ensure that probability behaves correctly when you remain within the realm of mathematics. 
+Not only is probability theory agnostic on the meaning of 0 probability, it doesn't actually have anything to say about what it means for an outcome to be likely or unlikely, or expected or unexpected in the colloquial sense, at least not in a non-circular way. If we observe a 100 coin tosses all come up heads, I might say it was a fair coin and the tosser just got lucky/unlucky, and you might say the coin tosses were rigged and the probability of this outcome was clearly close to 1. Whose to say which probabilistic description of the physical setup is correct, unless there is some theory to tell us what probability distributions describe what physical systems, and thus what experiment we could do to see {% marginnote 'who is correct' 'We do hold a lot of intuitions about this correspondence between the physical realm and probability. For example, symmetries should correspond to equiprobable outcomes. Most people will agree that if the coin were asymmetric in some way that could be a cause for it to come up one way more often. But how much more often? This is where things get fuzzy. In general, how do you determine the precise probability of heads from a model of coin tossing?' %}. This is out of scope of probability theory. Kolmogorov's axioms merely ensure that probability is self-consistent within the realm of mathematics.
 
 Kolmogorov himself tried to fix this shortcoming which led to the development of [algorithmic information theory](http://www.scholarpedia.org/article/Algorithmic_information_theory). In [On tables of random numbers](https://www.sciencedirect.com/science/article/pii/S0304397598000759?via%3Dihub) he writes:
 > ... for a long time I had the following views:
