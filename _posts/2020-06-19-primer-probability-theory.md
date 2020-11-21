@@ -53,7 +53,7 @@ The full definition of probability is below, but to avoid overwhelm, you may fir
 
 **Sample set** $\Omega$ is a set of all possible {% marginnote "samples" "Sample is synonymous with [outcome](https://en.wikipedia.org/wiki/Outcome_(probability))." %} $\omega\in\Omega$. A sample is a possible state of the world, e.g. the outcomes for all coins that will be tossed or all dice that will be thrown, or the ordering of cards in a deck.
 
-**Probability function** $P : 2^\Omega \to [0, 1]$ gives the probability of a {% marginnote "set of samples" "subset of $\Omega$" %}. A set of samples $\{\omega_1, \omega_2, \ldots\}$ is called an **event**, which is a set of possible states the world could be in, read as "$\omega_1$ is the case or $\omega_2$ is the case, etc. ..."
+**Probability function** {% marginnote '$P : 2^\Omega \to [0, 1]$' '$2^\Omega$ is the [power set](https://en.wikipedia.org/wiki/Power_set) of $\Omega$. The notation $2^{(\cdot)}$ is just a shorthand, though set exponentiation could be [defined in general](https://math.stackexchange.com/a/901742), e.g. $A^B$ is the set of all functions $f : B \to A$, and $n^A$, where $n$ is a natural number, generates the set of all $n$-ary indicator functions $$f : A \to \{0, 1, 2, \ldots, n-1\}$$. Then $2^A$ gives us all indicator functions $$A \to \{0,1\}$$ select the elements of every subset of $A$.' %} gives the probability of a {% marginnote "set of samples" "subset of $\Omega$" %}. A set of samples $\{\omega_1, \omega_2, \ldots\}$ is called an **event**, which is a set of possible states the world could be in, read as "$\omega_1$ is the case or $\omega_2$ is the case, etc. ..."
 
 $P$ satisfies:
 
