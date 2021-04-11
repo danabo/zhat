@@ -11,27 +11,6 @@ Chapman provides a few counter-examples that supposedly demonstrate that doing B
 
 <!--more-->
 
-<!--
-display: $math$
-
-\\[
-hello world
-\\]
-
-\$\$
-\int f(x)dx
-\$\$
-
-$$
-\int f(x)dx
-$$
-
-$$ dsdfsd
-
-https://github.com/gettalong/kramdown/issues/342
-https://github.com/gettalong/kramdown/blob/84e305c87c3f9c4926031e83fefde3c883e919cb/lib/kramdown/converter/math_engine/mathjax.rb
-
--->
 
 It's a good exercise to see what would happen if you tried to do Bayesian inference on statements in 1st order logic, but I make no endorsements on what you *should* do. Such constructions, though syntactically valid, are often undecidable (or non-computable), and otherwise intractable to even approximate. It's also not clear that you gain more power from doing so (see my [section on infinite coin tossing](#Interlude-A-parable-of-infinite-coin-tosses)).
 
