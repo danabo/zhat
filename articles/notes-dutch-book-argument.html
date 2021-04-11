@@ -17,7 +17,7 @@
   
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
       MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
       jax: ["input/TeX", "output/HTML-CSS"],
@@ -93,9 +93,9 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="pragmanym.github.io/zhat/articles/notes-dutch-book-argument">
+  <link rel="canonical" href="danabo.github.io/zhat/articles/notes-dutch-book-argument">
 
-  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="danabo.github.io/zhat/feed.xml" />
 
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
 </head>
@@ -245,8 +245,9 @@ Let $\mathrm{True}$ be the proposition <em>True</em>, which is satisfied by all 
 
 <p>Define a bet as a function $B : \Omega \to \mathbb{R}$ from samples to payoffs. A bet on event $E$ with stake $S$ and quotient $q$ has payoffs (w.r.t. buyer):</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-B_E(\omega) = \begin{cases}S-q(E)S & \omega \in E \\ -q(E)S & \omega \notin E\end{cases} %]]></script>
+<div class="kdmath">$$
+B_E(\omega) = \begin{cases}S-q(E)S &amp; \omega \in E \\ -q(E)S &amp; \omega \notin E\end{cases}
+$$</div>
 
 <p>This can be represented as a table:</p>
 
@@ -271,7 +272,9 @@ B_E(\omega) = \begin{cases}S-q(E)S & \omega \in E \\ -q(E)S & \omega \notin E\en
 
 <p>Assuming the stake $S$ is always the same (this argument is invariant to stake, as long as its positive), then a bet is represented by $B_E$. Since this game is zero-sum, from the seller’s perspective, the payoff is $-B_E$. Buying $-B_E$ is equivalent to selling $B_E$. We can also add bets like this</p>
 
-<script type="math/tex; mode=display">\left(B_{E_1} + B_{E_2}\right)(\omega) = B_{E_1}(\omega) + B_{E_2}(\omega)\,,</script>
+<div class="kdmath">$$
+\left(B_{E_1} + B_{E_2}\right)(\omega) = B_{E_1}(\omega) + B_{E_2}(\omega)\,,
+$$</div>
 
 <p>to construct a more complicated multi-outcome bet, denoted as $B_{E_1} + B_{E_2}$.</p>
 
@@ -414,7 +417,7 @@ s.setAttribute('data-timestamp', +new Date());
       
   </ul>
   <div class="credits">
-  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span style="line-height: 3rem;">© 2021   PRAGMANYM</span><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>

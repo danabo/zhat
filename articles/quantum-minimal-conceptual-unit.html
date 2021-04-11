@@ -17,7 +17,7 @@
   
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
       MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
       jax: ["input/TeX", "output/HTML-CSS"],
@@ -93,9 +93,9 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="pragmanym.github.io/zhat/articles/quantum-minimal-conceptual-unit">
+  <link rel="canonical" href="danabo.github.io/zhat/articles/quantum-minimal-conceptual-unit">
 
-  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="danabo.github.io/zhat/feed.xml" />
 
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
 </head>
@@ -132,11 +132,13 @@
   <li>Quantum states are unit vectors residing in a complex Hilbert space, $\mathcal{H}$.</li>
 </ol>
 
-<script type="math/tex; mode=display">\newcommand{\bm}{\boldsymbol}
+<div class="kdmath">$$
+\newcommand{\bm}{\boldsymbol}
 \newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
 \newcommand{\bra}[1]{\langle#1\rvert}
 \newcommand{\ket}[1]{\lvert#1\rangle}
-\newcommand{\braket}[2]{\langle#1\vert#2\rangle}</script>
+\newcommand{\braket}[2]{\langle#1\vert#2\rangle}
+$$</div>
 
 <!--more-->
 
@@ -171,21 +173,27 @@
 
 <p>So to restate, a quantum state is a function,</p>
 
-<script type="math/tex; mode=display">\psi : \mathbb{R}^n \rightarrow \mathbb{C}\,.</script>
+<div class="kdmath">$$
+\psi : \mathbb{R}^n \rightarrow \mathbb{C}\,.
+$$</div>
 
 <p>for $n$-dimensional configuration space such that $\lvert\psi\rvert = 1$, i.e. $\psi$ is $L^2$-normalized.</p>
 
 <p>The $L^2$-norm of a complex-valued function is given as,</p>
 
-<script type="math/tex; mode=display">\lvert\psi\rvert = \sqrt{\int_{\mathbb{R}^n} \psi(x)\bar{\psi}(x)\diff{x
-^n}}\,,</script>
+<div class="kdmath">$$
+\lvert\psi\rvert = \sqrt{\int_{\mathbb{R}^n} \psi(x)\bar{\psi}(x)\diff{x
+^n}}\,,
+$$</div>
 
 <p>where $\bar{f}(x) = \text{Re}[f(x)] - i\,\text{Im}[f(x)]$ is the complex conjugate.</p>
 
 <h2 id="punchline-quantum-states-are-probability-distributions"><a class="header-anchor" href="#punchline-quantum-states-are-probability-distributions">Punchline: quantum states are probability distributions</a></h2>
 <p>You probably already guessed that $\psi$ encodes the probability of finding particles in space. The probability of observing system $\psi$ to be in <span class="marginnote-outer"><span class="marginnote-ref">some region of configuration space</span><label for="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"> ⊕</label><input type="checkbox" id="ec51e042e3a91e03088eeebfa8e927d02ca43c07" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Remember that $n$ is the total number of spatial coordinates that describes the system. We are calculating the probability for all the coordinates together to be in some range.</span></span></span> $D \subseteq \mathbb{R}^n$ is,</p>
 
-<script type="math/tex; mode=display">\int_D  \psi(x) \bar{\psi}(x)\diff{x^n}\,.</script>
+<div class="kdmath">$$
+\int_D  \psi(x) \bar{\psi}(x)\diff{x^n}\,.
+$$</div>
 
 <p>$\psi(x) \bar{\psi}(x) = \lvert\psi(x)\rvert^2$ is the absolute value squared of the complex value $\psi(x)$ (not to be confused with the function-norm $\lvert\psi\rvert$). In other words, $\lvert\psi(x)\rvert^2$ is a probability density. $\psi(x)$ is called a <span class="marginnote-outer"><span class="marginnote-ref"><em>probability amplitude</em></span><label for="8fd9acc0f5baccc0d4f8236ac8210c8d7555b801" class="margin-toggle"> ⊕</label><input type="checkbox" id="8fd9acc0f5baccc0d4f8236ac8210c8d7555b801" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">“Probability amplitude” refers specifically to a complex number whose square is a probability. I don’t think the word “amplitude” makes this apparent and it is rather ambiguous, but it’s handy to have a term to refer to these not-quite-probabilities and that is the convention.</span></span></span></p>
 
@@ -203,28 +211,33 @@
 
 <p>For our purposes, let $\mathcal{H}$ be a Hilbert space of $L^2$-normalized complex-valued functions. That means that every $\psi \in \mathcal{H}$ is a unit-vector according to the inner product $\lvert\psi\rvert^2 = \langle \psi, \psi \rangle = 1$, defined as</p>
 
-<script type="math/tex; mode=display">\langle f, g \rangle = \int_{\mathbb{R}^n} f(x)\bar{g}(x)\diff{x^n}\,.</script>
+<div class="kdmath">$$
+\langle f, g \rangle = \int_{\mathbb{R}^n} f(x)\bar{g}(x)\diff{x^n}\,.
+$$</div>
 
 <h2 id="measurement-bases"><a class="header-anchor" href="#measurement-bases">Measurement Bases</a></h2>
 
-<p>A measurement basis is a basis set <script type="math/tex">\{B_1, B_2, \ldots\}</script> equipped with measurement readings <script type="math/tex">\{f_{B_1}, f_{B_2}, \ldots\}</script> such that each basis element $B_i$ corresponds to the state your system must be in if a measurement device reads $f_{B_i}$. The measurement basis defines what it means to perform a particular measurement, by specifying what physical state each measurement outcome corresponds to.</p>
+<p>A measurement basis is a basis set <span class="kdmath">$\{B_1, B_2, \ldots\}$</span> equipped with measurement readings <span class="kdmath">$\{f_{B_1}, f_{B_2}, \ldots\}$</span> such that each basis element $B_i$ corresponds to the state your system must be in if a measurement device reads $f_{B_i}$. The measurement basis defines what it means to perform a particular measurement, by specifying what physical state each measurement outcome corresponds to.</p>
 
 <p>Under the vector view, the coefficients of a quantum state in some measurement basis are <span class="marginnote-outer"><span class="marginnote-ref">probability amplitudes</span><label for="da0f2680d7f9c26d8d21b75aee55f3fa4e0dbc0d" class="margin-toggle"> ⊕</label><input type="checkbox" id="da0f2680d7f9c26d8d21b75aee55f3fa4e0dbc0d" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Their absolute squares are probabilities or probability densities.</span></span></span>. The basis vectors are called <em>definite</em> states, and their linear combinations are indefinite. So if</p>
 
-<script type="math/tex; mode=display">\psi = c_1 B_1 + c_2 B_2 + \ldots\,</script>
+<div class="kdmath">$$
+\psi = c_1 B_1 + c_2 B_2 + \ldots\,
+$$</div>
 
-<p>for measurement basis <script type="math/tex">\{B_1, B_2, \ldots\}</script>, when the corresponding property of $\psi$ is measured, the system will instantaneously jump to one of $B_i$ with probability $\lvert c_i\rvert^2$. This instantaneous jump is called <a href="https://en.wikipedia.org/wiki/Wave_function_collapse" target="_blank" rel="noopener noreferrer"><em>wave-function collapse</em></a>. The experimenter will also know which of the basis states the system is in because there is a corresponding measurement readout for each (unless the measurement is degenerate). In the position basis, we recover the probability interpretation of states as functions.</p>
+<p>for measurement basis <span class="kdmath">$\{B_1, B_2, \ldots\}$</span>, when the corresponding property of $\psi$ is measured, the system will instantaneously jump to one of $B_i$ with probability $\lvert c_i\rvert^2$. This instantaneous jump is called <a href="https://en.wikipedia.org/wiki/Wave_function_collapse" target="_blank" rel="noopener noreferrer"><em>wave-function collapse</em></a>. The experimenter will also know which of the basis states the system is in because there is a corresponding measurement readout for each (unless the measurement is degenerate). In the position basis, we recover the probability interpretation of states as functions.</p>
 
 <h2 id="position-basis"><a class="header-anchor" href="#position-basis">Position Basis</a></h2>
 
 <p>Given that the elements of $\mathcal{H}$ are functions over $x$, one straightforward way to choose a basis for $\mathcal{H}$ is to think of $\psi \in \mathcal{H}$ as a vector with uncountably many entries, one for each input $x$. This is achieved with a basis of <span class="marginnote-outer"><span class="marginnote-ref"><a href="https://en.wikipedia.org/wiki/Dirac_delta_function" target="_blank" rel="noopener noreferrer">Dirac delta functions</a></span><label for="68625e91f114b5de914c4a1ae96b612e8a90302e" class="margin-toggle"> ⊕</label><input type="checkbox" id="68625e91f114b5de914c4a1ae96b612e8a90302e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">0 everywhere except for the origin. Defined so that its total area is 1. Technically they are not functions, but <a href="https://en.wikipedia.org/wiki/Dirac_delta_function#As_a_distribution" target="_blank" rel="noopener noreferrer">distributions</a>.</span></span></span>. Writing $\psi$ in this basis,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-\psi &= \int_{\mathbb{R}^n} \psi(\chi)\cdot\left[ x \mapsto \delta(x-\chi)\right]\diff{\chi^n} \\
-     &= x \mapsto \int_{\mathbb{R}^n} \psi(\chi)\delta(x-\chi)\diff{\chi^n} \\
-     &= x \mapsto \psi(x)\,.
-\end{align} %]]></script>
+\psi &amp;= \int_{\mathbb{R}^n} \psi(\chi)\cdot\left[ x \mapsto \delta(x-\chi)\right]\diff{\chi^n} \\
+     &amp;= x \mapsto \int_{\mathbb{R}^n} \psi(\chi)\delta(x-\chi)\diff{\chi^n} \\
+     &amp;= x \mapsto \psi(x)\,.
+\end{align}
+$$</div>
 
 <p>This integral is an uncountable linear combination, where <span class="marginnote-outer"><span class="marginnote-ref">$x \mapsto \delta(x-\chi)$</span><label for="6e2c209cbdb6c596f74638233310e8ffd60cc39e" class="margin-toggle"> ⊕</label><input type="checkbox" id="6e2c209cbdb6c596f74638233310e8ffd60cc39e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Note I am using non-standard notation. “$x \mapsto f(x)$” instantiates a function object in-line, just as “$\{f(y) \mid \text{condition}[y]\}$” instantiates a set in-line.</span></span></span> is the $\chi$-th basis element and $\psi(\chi)$ is the corresponding coefficient. Note that we are not integrating over the free variable $x$ in $x \mapsto \delta(x-\chi)$, but over $\chi$ which can be viewed as an index into a continuous set of such functions.</p>
 
@@ -236,14 +249,18 @@
 
 <p>There are plenty of valid orthonormal bases for the Hilbert space of <span class="marginnote-outer"><span class="marginnote-ref">unit vectors</span><label for="a407fae48b39bd45ead1aeb29b1a295c009b4471" class="margin-toggle"> ⊕</label><input type="checkbox" id="a407fae48b39bd45ead1aeb29b1a295c009b4471" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">And also $L^2$-normalized functions.</span></span></span>. You may be surprised to learn that such bases are necessarily countable, as opposed to the uncountable basis of Dirac delta functions. One of the most well known is the <a href="https://en.wikipedia.org/wiki/Quantum_harmonic_oscillator#Hamiltonian_and_energy_eigenstates" target="_blank" rel="noopener noreferrer">measurement basis for the total energy of the harmonic oscillator</a>.</p>
 
-<script type="math/tex; mode=display">\mathcal{B} = \{x \mapsto(-1)^n(2^nn!\sqrt{\pi})^{-\frac{1}{2}}e^{\frac{x^2}{2}}\frac{\diff{^n}}{\diff{x^n}}\left[e^{-x^2}\right]\,\mid\, n \in \mathbb{N}\}\,.</script>
+<div class="kdmath">$$
+\mathcal{B} = \{x \mapsto(-1)^n(2^nn!\sqrt{\pi})^{-\frac{1}{2}}e^{\frac{x^2}{2}}\frac{\diff{^n}}{\diff{x^n}}\left[e^{-x^2}\right]\,\mid\, n \in \mathbb{N}\}\,.
+$$</div>
 
 <p>Symbolically these functions look quite complicated, but you can get a sense for the pattern of what these functions look like as $n$ increases:</p>
 <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Herm5.svg/900px-Herm5.svg.png" alt='Plot of first 6 basis functions: 0 (black), 1 (red), 2 (blue), 3 (yellow), 4 (green), and 5 (magenta). Note that these are real-valued functions. Source: &lt;a href="https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions"&gt;https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions&lt;/a&gt;' width="100%"><figcaption>Plot of first 6 basis functions: 0 (black), 1 (red), 2 (blue), 3 (yellow), 4 (green), and 5 (magenta). Note that these are real-valued functions. Source: <a href="https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Hermite_polynomials#Hermite_functions</a></figcaption></figure>
 
 <p>It’s amazing that can write <span class="marginnote-outer"><span class="marginnote-ref">any function in $\mathcal{H}$</span><label for="20a2eae7d487d08d8cdbd432f9ecc8bba90c46e0" class="margin-toggle"> ⊕</label><input type="checkbox" id="20a2eae7d487d08d8cdbd432f9ecc8bba90c46e0" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Any continuous complex-valued $L^2$-normalized function.</span></span></span> as a countable linear combination of these strange looking functions in $\mathcal{B}$. This is convenient, because we can now explicitly construct our $L^2$-normalized Hilbert space,</p>
 
-<script type="math/tex; mode=display">\mathcal{H} = \left\{c_0H_0(x) + c_1H_1(x) + c_2H_2(x) + \ldots \,\middle\vert\, c_0,c_1,c_2,\ldots\in\mathbb{C}\right\}\,,</script>
+<div class="kdmath">$$
+\mathcal{H} = \left\{c_0H_0(x) + c_1H_1(x) + c_2H_2(x) + \ldots \,\middle\vert\, c_0,c_1,c_2,\ldots\in\mathbb{C}\right\}\,,
+$$</div>
 
 <p>where $H_n(x) \in \mathcal{B}$ is the $n$-th <a href="https://en.wikipedia.org/wiki/Hermite_polynomials#Definition" target="_blank" rel="noopener noreferrer">Hermite function</a>.</p>
 
@@ -253,21 +270,26 @@
 
 <p>A classic example is position and momentum. Both these properties of a particle cannot be known at the same time. We saw that the position (improper) basis for one spatial coordinate is</p>
 
-<script type="math/tex; mode=display">\mathcal{B}_\text{x} = \{x \mapsto \delta(x - \chi) \mid \chi \in \mathbb{R}\}\,.</script>
+<div class="kdmath">$$
+\mathcal{B}_\text{x} = \{x \mapsto \delta(x - \chi) \mid \chi \in \mathbb{R}\}\,.
+$$</div>
 
 <p>The momentum basis is the <a href="https://en.wikipedia.org/wiki/Position_and_momentum_space#Relation_between_space_and_reciprocal_space" target="_blank" rel="noopener noreferrer">Fourier conjugate</a> of the position basis, given as</p>
 
-<script type="math/tex; mode=display">\mathcal{B}_\text{p} = \{x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx} \mid p \in \mathbb{R}\}\,.</script>
+<div class="kdmath">$$
+\mathcal{B}_\text{p} = \{x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx} \mid p \in \mathbb{R}\}\,.
+$$</div>
 
 <p>The real part of these functions are sine waves. An element $[x \mapsto \delta(x - \chi)] \in \mathcal{B}_\text{x}$ of the position basis can be written as a linear combination of momentum basis elements,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
 [x \mapsto \delta(x - \chi)] 
-  &= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \vec{b}_p \diff{p} \\
-  &= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \left[x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx}\right] \diff{p} \\
-  &= x \mapsto \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \frac{1}{\sqrt{2\pi}}e^{ipx} \diff{p}
-\end{align}\,. %]]></script>
+  &amp;= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \vec{b}_p \diff{p} \\
+  &amp;= \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \cdot \left[x \mapsto \frac{1}{\sqrt{2\pi}}e^{ipx}\right] \diff{p} \\
+  &amp;= x \mapsto \int_\mathbb{R} \frac{1}{\sqrt{2\pi}}e^{-ip\chi} \frac{1}{\sqrt{2\pi}}e^{ipx} \diff{p}
+\end{align}\,.
+$$</div>
 
 <p>In the momentum basis, a position basis element becomes a sine wave, i.e. the coefficient of the $p$-th momentum basis element is $\frac{1}{\sqrt{2\pi}}e^{-ip\chi}$.</p>
 
@@ -335,7 +357,7 @@ s.setAttribute('data-timestamp', +new Date());
       
   </ul>
   <div class="credits">
-  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span style="line-height: 3rem;">© 2021   PRAGMANYM</span><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>

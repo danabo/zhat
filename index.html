@@ -17,7 +17,7 @@
   
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
       MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
       jax: ["input/TeX", "output/HTML-CSS"],
@@ -93,9 +93,9 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="pragmanym.github.io/zhat/">
+  <link rel="canonical" href="danabo.github.io/zhat/">
 
-  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="danabo.github.io/zhat/feed.xml" />
 
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
 </head>
@@ -127,6 +127,24 @@
 
   <h1 class="content-listing-header sans">Articles</h1>
   <ul class="content-listing ">
+      
+      
+          
+        <li class="listing">
+          <a name="/articles/bayesian-first-order-logic"></a>
+          <div class="index_entry">
+            <hr class="slender">
+            <a href="/articles/bayesian-first-order-logic" style="padding-right:15px;"><h3 class="contrast">Bayesian Inference On 1st Order Logic</h3></a><a href="#/articles/bayesian-first-order-logic">🔗</a>
+            <br><span class="category"><span class="category-head" style="padding-right:5px;">Category:</span>Post</span>
+            <br><span class="smaller">February 21, 2021</span>  <br>
+            <div>
+<p>David Chapman’s blog post titled <a href="https://meaningness.com/probability-and-logic" target="_blank" rel="noopener noreferrer">Probability theory does not extend logic</a> has stirred up some controversy. In it, Chapman argues that so-called Bayesian logic, as it currently understood, is limited to <a href="https://en.wikipedia.org/wiki/Propositional_calculus" target="_blank" rel="noopener noreferrer">propositional logic</a> (0th order logic), but cannot generalize to <a href="https://en.wikipedia.org/wiki/Higher-order_logic" target="_blank" rel="noopener noreferrer">higher order logics</a> (e.g. <a href="https://en.wikipedia.org/wiki/First-order_logic" target="_blank" rel="noopener noreferrer">predicate logic</a> a.k.a. 1st order logic), and thus cannot be a general foundation for inference from data under uncertainty.</p>
+
+<p>Chapman provides a few counter-examples that supposedly demonstrate that doing Bayesian inference on statements in 1st order logic is incoherent. I think there is a lot of confusion surrounding this point because Chapman does not use proper probability notation. In the following article I show how Chapman’s examples can be properly written and made sense of using random variables. Hopefully this clarifies some things.</p>
+
+</div>
+          </div>
+        </li>
       
       
           
@@ -319,11 +337,13 @@
   <li>Quantum states are unit vectors residing in a complex Hilbert space, $\mathcal{H}$.</li>
 </ol>
 
-<script type="math/tex; mode=display">\newcommand{\bm}{\boldsymbol}
+<div class="kdmath">$$
+\newcommand{\bm}{\boldsymbol}
 \newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
 \newcommand{\bra}[1]{\langle#1\rvert}
 \newcommand{\ket}[1]{\lvert#1\rangle}
-\newcommand{\braket}[2]{\langle#1\vert#2\rangle}</script>
+\newcommand{\braket}[2]{\langle#1\vert#2\rangle}
+$$</div>
 
 </div>
           </div>
@@ -339,7 +359,8 @@
             <br><span class="category"><span class="category-head" style="padding-right:5px;">Category:</span>Post</span>
             <br><span class="smaller">July 14, 2019</span>  <br>
             <div>
-<script type="math/tex; mode=display">\newcommand{\Real}{ {\mathbb{R}} }
+<div class="kdmath">$$
+\newcommand{\Real}{ {\mathbb{R}} }
 \newcommand{\E}{ {\mathbb{E}} }
 \newcommand{\V}{ {\mathbb{V}} }
 \newcommand{\D}{\mathcal{D}}
@@ -349,16 +370,18 @@
 \newcommand{\ep}{ {\boldsymbol{\varepsilon}} }
 \newcommand{\s}{\mathbb{S}}
 \DeclareMathOperator*{\argmax}{argmax}
-\DeclareMathOperator*{\argmin}{argmin}</script>
+\DeclareMathOperator*{\argmin}{argmin}
+$$</div>
 
 <p>All about the bias-variance decomposition as it pertains to machine learning. All you need to know:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
-& \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
-& = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
-&\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
-\end{align*} %]]></script>
+&amp; \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
+&amp; = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
+&amp;\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
+\end{align*}
+$$</div>
 
 </div>
           </div>
@@ -390,7 +413,7 @@
       
   </ul>
   <div class="credits">
-  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span style="line-height: 3rem;">© 2021   PRAGMANYM</span><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>

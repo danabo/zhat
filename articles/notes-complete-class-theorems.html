@@ -17,7 +17,7 @@
   
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
       MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
       jax: ["input/TeX", "output/HTML-CSS"],
@@ -93,9 +93,9 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="pragmanym.github.io/zhat/articles/notes-complete-class-theorems">
+  <link rel="canonical" href="danabo.github.io/zhat/articles/notes-complete-class-theorems">
 
-  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="danabo.github.io/zhat/feed.xml" />
 
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
 </head>
@@ -191,7 +191,8 @@
 
 <h1 id="notes"><a class="header-anchor" href="#notes">Notes</a></h1>
 
-<script type="math/tex; mode=display">\newcommand{\bb}{\mathbb}
+<div class="kdmath">$$
+\newcommand{\bb}{\mathbb}
 \newcommand{\mc}{\mathcal}
 \newcommand{\d}{\delta}
 \newcommand{\p}{\pi}
@@ -202,7 +203,8 @@
 \newcommand{\real}{\bb{R}}
 \newcommand{\E}{\bb{E}}
 \renewcommand{\D}[1]{\operatorname{d}\!{#1}}
-\DeclareMathOperator*{\argmin}{argmin}</script>
+\DeclareMathOperator*{\argmin}{argmin}
+$$</div>
 
 <p>Let $(\mc{X}, \mc{A}, P_\t)$ be a probability space for all $\t \in \T$.<br>
 $\mc{X}$ is the sample space.<br>
@@ -212,18 +214,18 @@ $\mc{P} = \{P_\t : \t \in \T\}$ is the <em>model</em>, i.e. the set of all proba
 <p>We wish to estimate some unknown $g(\t)$ which depends in a known way on $\t$. The text does not tell us what type $g(\t)$ is, and it does not matter for the discussion since it will always be hidden behind our loss function. The text uses $g(\T)$ (the image of $g$) to denote the space of all such $g$, but I find it less confusing and more direct to use $G = g(\T)$.</p>
 
 <p>A <strong>loss function</strong> is a function $L : \T \times G \to \real^+$ which is always 0 for equivalent inputs, i.e.<br>
-<script type="math/tex">L(\t, g(\t)) = 0,\ \fa \t \in \T\,.</script><br>
+<span class="kdmath">$L(\t, g(\t)) = 0,\ \fa \t \in \T\,.$</span><br>
 Note that $L(\t_1, g(\t_2))$ may be 0 when $\t_1 \neq \t_2$.</p>
 
 <p>A <strong>non-randomized estimator</strong> for $g(\t)$ is a function $\d : \mc{X} \to G$ s.t. $x \mapsto L(\t, \d(x))$ is a measurable function (of $x$) for all $\t \in \T$. A <a href="https://en.wikipedia.org/wiki/Measurable_function" target="_blank" rel="noopener noreferrer">function is measurable</a> if the preimage of any measurable set is measurable, i.e. it preserves measurability. Concretely in this case, $\{x : L(\t, \d(x)) \in B\} \in \mc{A}$ for all $B \in \mc{B}(\real)$, where $\mc{A}$ is our event space (set of all subsets of $\mc{X}$ which can be measured by $P_\t$), and $\mc{B}(\real)$ is the <a href="https://mathworld.wolfram.com/BorelSet.html" target="_blank" rel="noopener noreferrer">Borel $\sigma$-algebra</a> over the reals, which is a standard definition of measurable sets of reals (unions and intersections of closed and open intervals are measurable). Presumably $\d$ is non-randomized because it only depends on the ground truth $x$.</p>
 
 <p>The <strong>risk function</strong> of estimator $\d$ is the expected loss:<br>
-<script type="math/tex">R(\t, \d) = \E_{x \sim X}\left[L(\t, \d(x)) \mid \t\right] = \int_\mc{X} L(\t, \d(x))P_\t(x) \D{x}</script></p>
+<span class="kdmath">$R(\t, \d) = \E_{x \sim X}\left[L(\t, \d(x)) \mid \t\right] = \int_\mc{X} L(\t, \d(x))P_\t(x) \D{x}$</span></p>
 
 <p>A <strong>randomized estimator</strong> is a function $\d : \mc{X} \times [0, 1] \to G$ s.t. $(x, u) \mapsto L(\t, \d(x, u))$ is a measurable function (of $x$ and $u$) for all $\t \in \T$. Just like a non-randomized estimator, except it recieves noise from $U \sim \mathrm{uniform}([0, 1])$ as input. Non-randomized estimators are a special case (ignores the random input). Conversely, a randomized estimator can be viewed as a distribution over non-randomized estimators (which are parametrized by $u \in [0, 1]$).</p>
 
 <p>The risk function then integrates over $u$:<br>
-<script type="math/tex">R(\t, \d) = \E_{x \sim X, u \sim U}\left[L(\t, \d(x, u)) \mid \t\right] = \int_0^1 \int_\mc{X} L(\t, \d(x, u))P_\t(x) \D{x} \D{u}</script></p>
+<span class="kdmath">$R(\t, \d) = \E_{x \sim X, u \sim U}\left[L(\t, \d(x, u)) \mid \t\right] = \int_0^1 \int_\mc{X} L(\t, \d(x, u))P_\t(x) \D{x} \D{u}$</span></p>
 
 <p>An estimator $\d_1$ <strong>dominates</strong> another estimator $\d_2$ iff<br>
 \begin{align}<br>
@@ -243,7 +245,9 @@ Here $(\cdot)^c$ is the compliment operator, i.e. $\mc{C}^c = \{\d’ \in \mc{D}
 
 <p>The <strong>Bayes risk</strong> of $\d$ w.r.t. $\p$ is</p>
 
-<script type="math/tex; mode=display">R(\p, \d) = \E_{\p(\t)}[R(\t, \d)] = \int_\T R(\t, \d) \p(\t) \D{\t}\,.</script>
+<div class="kdmath">$$
+R(\p, \d) = \E_{\p(\t)}[R(\t, \d)] = \int_\T R(\t, \d) \p(\t) \D{\t}\,.
+$$</div>
 
 <p>This is the expected risk w.r.t. $\p(\t)$, which is called our <strong>prior</strong>.</p>
 
@@ -251,7 +255,9 @@ Here $(\cdot)^c$ is the compliment operator, i.e. $\mc{C}^c = \{\d’ \in \mc{D}
 
 <p>$\d$ is a <strong>Bayes estimator</strong> w.r.t. $\p$ iff</p>
 
-<script type="math/tex; mode=display">R(\p, \d) \leq R(\p, \d'),\ \fa \d' \in \mc{D}\,.</script>
+<div class="kdmath">$$
+R(\p, \d) \leq R(\p, \d'),\ \fa \d' \in \mc{D}\,.
+$$</div>
 
 <p>Note that a Bayes estimator $\t$ can be dominated if $\pi$ assigns measure 0 to some subsets of $\T$. It is easy to show that if $\t$ is dominated by $\t’$, then $\t’$ is also Bayes and $R(\p, \d) = R(\p, \d’)$.</p>
 
@@ -303,7 +309,9 @@ TODO: limiting Bayes estimator</p>
 <p><strong>Theorem</strong>:<br>
 If $\p(\t)$ is a given prior, then a corresponding Bayes estimator is $\d$ is</p>
 
-<script type="math/tex; mode=display">\d(x) = \argmin_{\hat{\t}} \E_{\t \sim p_\p(\t \mid x)}\left[L(\t, \hat{\t})\right] = \argmin_{\hat{\t}} \int_{\T} L(\t, \hat{\t}) p_\pi(\t \mid x) \D{\t}\,,</script>
+<div class="kdmath">$$
+\d(x) = \argmin_{\hat{\t}} \E_{\t \sim p_\p(\t \mid x)}\left[L(\t, \hat{\t})\right] = \argmin_{\hat{\t}} \int_{\T} L(\t, \hat{\t}) p_\pi(\t \mid x) \D{\t}\,,
+$$</div>
 
 <p>where the posterior is $p_\pi(\t \mid x) = P_\t(x)\pi(\t)/p_\p(x)$ and marginal data distribution is $p_\p(x) = \int P_\t(x)\pi(\t) \D{\t}$.<br>
 In words, the Bayes estimator minimizes the posterior expected loss for every $x$.</p>
@@ -311,27 +319,32 @@ In words, the Bayes estimator minimizes the posterior expected loss for every $x
 <p><em>Proof:</em><br>
 <br>(This proof is my own)</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-\min_{\hat{\d}}R(\p, \hat{\d}) &= \min_{\hat{\d}} \int_\mc{X}\int_\T L(\t, \hat{\d}(x)) P_\t(x)\p(\t) \D{\t}\D{x} \\
-  &= \min_{\hat{\d}} \int_\mc{X}\left(\int_\T L(\t, \hat{\d}(x)) p_\pi(\t \mid x) \D{\t}\right) p_\p(x) \D{x} \\
-  &= \int_\mc{X}\left(\min_{\hat{\d}_x} \int_\T L(\t, \hat{\d}_x) p_\pi(\t \mid x) \D{\t}\right) p_\p(x) \D{x} \\
-  &= \E_{x \sim p_\p(x)}\left[\min_{\hat{\d}_x} \int_\T L(\t, \hat{\d}_x) p_\pi(\t \mid x) \D{\t}\right] \\
-  &= \E_{x \sim p_\p(x)}\left[\min_{\hat{\d}_x} \E_{\t \sim p_\p(\t \mid x)}\left[L(\t, \hat{\d}_x)\right] \right]\,.
-\end{align} %]]></script>
+\min_{\hat{\d}}R(\p, \hat{\d}) &amp;= \min_{\hat{\d}} \int_\mc{X}\int_\T L(\t, \hat{\d}(x)) P_\t(x)\p(\t) \D{\t}\D{x} \\
+  &amp;= \min_{\hat{\d}} \int_\mc{X}\left(\int_\T L(\t, \hat{\d}(x)) p_\pi(\t \mid x) \D{\t}\right) p_\p(x) \D{x} \\
+  &amp;= \int_\mc{X}\left(\min_{\hat{\d}_x} \int_\T L(\t, \hat{\d}_x) p_\pi(\t \mid x) \D{\t}\right) p_\p(x) \D{x} \\
+  &amp;= \E_{x \sim p_\p(x)}\left[\min_{\hat{\d}_x} \int_\T L(\t, \hat{\d}_x) p_\pi(\t \mid x) \D{\t}\right] \\
+  &amp;= \E_{x \sim p_\p(x)}\left[\min_{\hat{\d}_x} \E_{\t \sim p_\p(\t \mid x)}\left[L(\t, \hat{\d}_x)\right] \right]\,.
+\end{align}
+$$</div>
 
 <p>So the min Bayes risk is expected (w.r.t. data) minimum “posterior expected loss”.</p>
 
 <p>Thus if we define $\d(x) := \d^*_x,\ \forall x \in \mc{X}$, where</p>
 
-<script type="math/tex; mode=display">\d^*_x = \argmin_{\hat{\d}_x} \E_{\t \sim p_\p(\t \mid x)}\left[L(\t, \hat{\d}_x)\right]\,,</script>
+<div class="kdmath">$$
+\d^*_x = \argmin_{\hat{\d}_x} \E_{\t \sim p_\p(\t \mid x)}\left[L(\t, \hat{\d}_x)\right]\,,
+$$</div>
 
 <p>then $\d = \argmin_\hat{\d} R(\p, \hat{\d})\,.$<br>
 <em>QED</em></p>
 
 <p>The general form</p>
 
-<script type="math/tex; mode=display">b^* = \argmin_b \E_A \left[L(A, b)\right]</script>
+<div class="kdmath">$$
+b^* = \argmin_b \E_A \left[L(A, b)\right]
+$$</div>
 
 <p>is called the <em>systematic part</em> of random variable $A$. When $L$ is squared difference (i.e. $\ell^2$), then $b^*$ is the mean of $A$. When $L$ is absolute difference  (i.e. $\ell^1$), then $b^*$ is the median of $A$. When $L$ is the indicator loss (i.e. $\ell^0$), then $b^*$ is the mode of $A$. There are also losses corresponding to other distribution statistics like quantile loss. See the definition of <em>systematic part</em> in my post on the <a href="http://zhat.io/articles/bias-variance#bias-variance-decomposition-for-any-loss" target="_blank" rel="noopener noreferrer">generalized bias-variance decomposition</a>.</p>
 
@@ -339,20 +352,27 @@ In words, the Bayes estimator minimizes the posterior expected loss for every $x
 
 <p>If $L(\t, \hat{\t}) = (\t - \hat{\t})^2$, then</p>
 
-<script type="math/tex; mode=display">\d(x) = \mathrm{Mean}_{\t \sim p_\p(\t \mid x)}\left[\t\right] = \E_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,.</script>
+<div class="kdmath">$$
+\d(x) = \mathrm{Mean}_{\t \sim p_\p(\t \mid x)}\left[\t\right] = \E_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,.
+$$</div>
 
 <p>If $L(\t, \hat{\t}) = \lvert\t - \hat{\t}\rvert$, then</p>
 
-<script type="math/tex; mode=display">\d(x) = \mathrm{Median}_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,.</script>
+<div class="kdmath">$$
+\d(x) = \mathrm{Median}_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,.
+$$</div>
 
 <p>If $L(\t, \hat{\t}) = (\t - \hat{\t})^0$, then</p>
 
-<script type="math/tex; mode=display">\d(x) = \mathrm{Mode}_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,.</script>
+<div class="kdmath">$$
+\d(x) = \mathrm{Mode}_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,.
+$$</div>
 
-<p>If <script type="math/tex">% <![CDATA[
-L(\t, \hat{\t}) = \begin{cases}\tau\cdot(\t - \hat{\t}) & \t - \hat{\t} \geq 0 \\ (\tau-1)\cdot(\t - \hat{\t}) & \mathrm{otherwise}\end{cases}, %]]></script>     then</p>
+<p>If <span class="kdmath">$L(\t, \hat{\t}) = \begin{cases}\tau\cdot(\t - \hat{\t}) &amp; \t - \hat{\t} \geq 0 \\ (\tau-1)\cdot(\t - \hat{\t}) &amp; \mathrm{otherwise}\end{cases},$</span>     then</p>
 
-<script type="math/tex; mode=display">\d(x) = \mathrm{Quantile}\{\tau\}_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,,</script>
+<div class="kdmath">$$
+\d(x) = \mathrm{Quantile}\{\tau\}_{\t \sim p_\p(\t \mid x)}\left[\t\right]\,,
+$$</div>
 
 <p>and $\tau=\frac{1}{2}$ gives the median.</p>
 
@@ -419,7 +439,7 @@ s.setAttribute('data-timestamp', +new Date());
       
   </ul>
   <div class="credits">
-  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span style="line-height: 3rem;">© 2021   PRAGMANYM</span><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>

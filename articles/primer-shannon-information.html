@@ -17,7 +17,7 @@
   
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
       MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
       jax: ["input/TeX", "output/HTML-CSS"],
@@ -93,9 +93,9 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="pragmanym.github.io/zhat/articles/primer-shannon-information">
+  <link rel="canonical" href="danabo.github.io/zhat/articles/primer-shannon-information">
 
-  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="danabo.github.io/zhat/feed.xml" />
 
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
 </head>
@@ -196,7 +196,8 @@
 
 <h1 id="self-information"><a class="header-anchor" href="#self-information">Self-Information</a></h1>
 
-<script type="math/tex; mode=display">\newcommand{\and}{\wedge}
+<div class="kdmath">$$
+\newcommand{\and}{\wedge}
 \newcommand{\or}{\vee}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\R}{\mathbb{R}}
@@ -206,7 +207,8 @@
 \newcommand{\rZ}{\bm{Z}}
 \newcommand{\rC}{\bm{C}}
 \newcommand{\diff}[1]{\mathop{\mathrm{d}#1}} 
-\newcommand{\kl}[2]{K\left[#1\;\middle\|\;#2\right]}</script>
+\newcommand{\kl}[2]{K\left[#1\;\middle\|\;#2\right]}
+$$</div>
 
 <p>I’m going to use non-standard notation which I believe avoids some confusion and ambiguities.</p>
 
@@ -233,7 +235,9 @@
 
 <p>Composing $f(p) = -\log_2 p$ with $h(x) = f(p_X(x))$ gives us the full definition of self-information:</p>
 
-<script type="math/tex; mode=display">h(x) = -\log_2 p_X(x)\,.</script>
+<div class="kdmath">$$
+h(x) = -\log_2 p_X(x)\,.
+$$</div>
 
 <!--*Now the magic happens.* Given that we defined self-information as $h(x) = f(p_X(x))$, and given that we've pinned down $f(p) = -\log_2 p$ for a special case, we've done all the work we need to do to define $h(x)$ for all probability distributions, because nothing in our definition of $f(p)$ actually depends on the particular distribution we used.-->
 
@@ -267,18 +271,21 @@ and $f : [0, 1] \to \R^+$ maps from probabilities to information;</p>
 
 <p>Next, we can be more specific about how $h$ goes up as $p_X$ goes down. Recall that $f(p) = -\log_2 p$ and $h(x) = f(p_X(x))$, then</p>
 
-<script type="math/tex; mode=display">f(p/2) = f(p) + 1\,.</script>
+<div class="kdmath">$$
+f(p/2) = f(p) + 1\,.
+$$</div>
 
 <p>If we halve the probability of an event, we add one bit of information to it. That is a nice way to think about our new unit of information. The <em>bit</em> is a halving of probability. Other units can be defined in this way, e.g. the <em>nat</em> is dividing of probability by Euler’s constant e, the <em>trit</em> is a thirding of probability, etc.</p>
 
 <p>Finally, notice that $f(pq) = f(p) + f(q)$. Or to write it another way: $h(x \and y) = h(x) + h(y)$ iff $x$ and $y$ are independent events, because</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-h(x \and y) &= -\log_2 p_{X,Y}(x \and y) \\
-  &= -\log_2 p_X(x)\cdot p_Y(y) \\
-  &= -\log_2 p_X(x) - \log_2 p_Y(y)\,,
-\end{align} %]]></script>
+h(x \and y) &amp;= -\log_2 p_{X,Y}(x \and y) \\
+  &amp;= -\log_2 p_X(x)\cdot p_Y(y) \\
+  &amp;= -\log_2 p_X(x) - \log_2 p_Y(y)\,,
+\end{align}
+$$</div>
 
 <p>where $x \and y$ indicates the composite event <span class="marginnote-outer"><span class="marginnote-ref">“$x$ and $y$”</span><label for="03c34b59dc7fea1cd51e8dbb51bdcfc9754145fd" class="margin-toggle"> ⊕</label><input type="checkbox" id="03c34b59dc7fea1cd51e8dbb51bdcfc9754145fd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">We could either think of $x$ and $y$ as composite events themselves from the same distribution, i.e. $x$ and $y$ are sets of <a href="https://en.wikipedia.org/wiki/Elementary_event" target="_blank" rel="noopener noreferrer">elementary events</a>, or as elementary events from two different random variables which have a joint distribution, i.e, $(x, y) \sim (\rX, \rY)$. I will consider the latter case from here on out, because it is conceptually simpler.</span></span></span>. Hopefully this is also intuitive. If two events are dependent, i.e. they causally affect each other, it makes sense that they might contain redundant information, meaning that you can predict part of one from the other, and so their combined information is less than the sum of their individual information. You may be surprised to learn that the opposite can also be true. The combined information of two events can be greater than the sum of their individual information! This is called <a href="https://en.wikipedia.org/wiki/Interaction_information#Example_of_negative_interaction_information" target="_blank" rel="noopener noreferrer"><em>synergy</em></a>. More on that in the <a href="#pointwise-mutual-information">pointwise mutual information</a> section.</p>
 
@@ -306,11 +313,12 @@ h(x \and y) &= -\log_2 p_{X,Y}(x \and y) \\
 
 <p>In the last section I said that under the view of optimal lossless compression, $h(x)$ is the bit length of the optimal encoding for $x$ averaged over an infinite sample from random variable $\rX$, and <a href="https://en.wikipedia.org/wiki/Arithmetic_coding#Connections_with_other_compression_methods" target="_blank" rel="noopener noreferrer">arithmetic coding</a> can approach this limit. We could also consider the average bit length per message from $\rX$ (averaged across all messages). That is the <strong>entropy</strong> of random variable $\rX$, which is the expected self-information,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-H[\rX] &= \E_{x\sim \rX}[h(x)] \\
-       &= \E_{x\sim \rX}[-\log_2\,p_X(x)]\,.
-\end{align} %]]></script>
+H[\rX] &amp;= \E_{x\sim \rX}[h(x)] \\
+       &amp;= \E_{x\sim \rX}[-\log_2\,p_X(x)]\,.
+\end{align}
+$$</div>
 
 <p>In the quantifying information view, think of entropy $H[\rX]$ as the number of bits you expect to gain by observing an event sampled from $p_X(x)$. In that sense it is a measure of uncertainty, i.e. how much information I do not have, i.e. quantifying what is unknown.</p>
 
@@ -339,12 +347,13 @@ We could have used median or something else. Expectation is a <span class="margi
 
 <p>Conditional self-information, defined as</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-h(y \mid x) &= -\log_2\,p(y \mid x)\\
-  &= -\log_2(p(y \and x) / p(x)) \\
-  &= h(x \and y) - h(x)\,,
-\end{align} %]]></script>
+h(y \mid x) &amp;= -\log_2\,p(y \mid x)\\
+  &amp;= -\log_2(p(y \and x) / p(x)) \\
+  &amp;= h(x \and y) - h(x)\,,
+\end{align}
+$$</div>
 
 <p>is the information you stand to gain by observing $y$ given that you already observed $x$.  I let $x \and y$ denote the observation of $x$ and $y$ together (I could write $(x, y)$, but then $p((y, x))$ would look awkward).</p>
 
@@ -354,21 +363,23 @@ h(y \mid x) &= -\log_2\,p(y \mid x)\\
 
 <p>First is expected conditional self-information,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-H[\rY \mid \rX = x] &= \E_{y\sim \rY \mid \rX=x}[h(y \mid x)] \\
-  &= \E_{y\sim \rY \mid \rX=x}[\log_2\left(\frac{p(x)}{p(x, y)}\right)] \\
-  &= \sum\limits_{y \in Y} p(y \mid x) \log_2\left(\frac{p(x)}{p(x, y)}\right)\,.
-\end{align} %]]></script>
+H[\rY \mid \rX = x] &amp;= \E_{y\sim \rY \mid \rX=x}[h(y \mid x)] \\
+  &amp;= \E_{y\sim \rY \mid \rX=x}[\log_2\left(\frac{p(x)}{p(x, y)}\right)] \\
+  &amp;= \sum\limits_{y \in Y} p(y \mid x) \log_2\left(\frac{p(x)}{p(x, y)}\right)\,.
+\end{align}
+$$</div>
 
 <p>The other is what is most often referred to as <strong>conditional entropy</strong>,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-H[\rY \mid \rX] &= \E_{x,y \sim \rX,\rY}[h(y \mid x)] \\
-  &= \E_{x,y \sim \rX,\rY}[\log_2\left(\frac{p(x)}{p(x, y)}\right)] \\
-  &= \E_{x\sim \rX} H[\rY \mid \rX = x]\,.
-\end{align} %]]></script>
+H[\rY \mid \rX] &amp;= \E_{x,y \sim \rX,\rY}[h(y \mid x)] \\
+  &amp;= \E_{x,y \sim \rX,\rY}[\log_2\left(\frac{p(x)}{p(x, y)}\right)] \\
+  &amp;= \E_{x\sim \rX} H[\rY \mid \rX = x]\,.
+\end{align}
+$$</div>
 
 <p>The intuition behind $H[\rY \mid \rX = x]$ will be the same as of entropy, $H[\rY]$, which we covered in the last section. Let’s gain some intuition for $H[\rY \mid \rX]$. If $H[\rY]$ measures uncertainty of $\rY$, then $H[\rY \mid \rX = x]$ measures conditional uncertainty given $x$, and $H[\rY \mid \rX]$ measures average conditional uncertainty w.r.t. $\rX$.</p>
 
@@ -380,11 +391,12 @@ H[\rY \mid \rX] &= \E_{x,y \sim \rX,\rY}[h(y \mid x)] \\
 
 <p>Because of linearity of expectation, all identities that hold for self-information hold for their entropy counterparts. For example,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-h(y \mid x) &= h(x \and y) - h(x) \\
-\Longrightarrow H[\rY \mid \rX] &= H[(\rX, \rY)] - H[\rX]\,.
-\end{align} %]]></script>
+h(y \mid x) &amp;= h(x \and y) - h(x) \\
+\Longrightarrow H[\rY \mid \rX] &amp;= H[(\rX, \rY)] - H[\rX]\,.
+\end{align}
+$$</div>
 
 <p>This is a nice result. This equation says that the <span class="marginnote-outer"><span class="marginnote-ref">average uncertainty about $\rY$ given $\rX$</span><label for="40b324ca64f32166d198598020cd16fd3a369058" class="margin-toggle"> ⊕</label><input type="checkbox" id="40b324ca64f32166d198598020cd16fd3a369058" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Amount of information left to observe in $\rY$ on average.</span></span></span> equals the total expected information in their joint distribution, $(\rX, \rY)$, minus the average information in $\rX$. In other words, conditional entropy is the total information in $x \and y$ minus information in what you have, $x$, all averaged over all the possible $(x, y)$ you can have.</p>
 
@@ -398,16 +410,19 @@ h(y \mid x) &= h(x \and y) - h(x) \\
 
 <p>When two events $x$ and $y$ are dependent, how do we compute their total information? Previously we said that $h(x \and y) = h(x) + h(y)$ iff $p_X(x \and y) = p_X(x)p_X(y)$. However, the general case is,</p>
 
-<script type="math/tex; mode=display">h(x \and y) = h(x) + h(y) - i(x, y)\,,</script>
+<div class="kdmath">$$
+h(x \and y) = h(x) + h(y) - i(x, y)\,,
+$$</div>
 
 <p>where I am defining $i(x, y)$ such that this equation holds. Rearranging we get</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-i(x, y) &= h(x) + h(y) - h(x \and y) \\
-        &= -\log_2(p_X(x)) - \log_2(p_X(y)) + \log_2(p_X(x \and y)) \\
-        &= \log_2\left(\frac{p_X(x, y)}{p_X(x)p_X(y)}\right)\,.
-\end{align} %]]></script>
+i(x, y) &amp;= h(x) + h(y) - h(x \and y) \\
+        &amp;= -\log_2(p_X(x)) - \log_2(p_X(y)) + \log_2(p_X(x \and y)) \\
+        &amp;= \log_2\left(\frac{p_X(x, y)}{p_X(x)p_X(y)}\right)\,.
+\end{align}
+$$</div>
 
 <p>$i(x, y)$ is called <em>pointwise mutual information</em> (PMI). Informally, PMI measures the amount of bits shared by two events. To say that another way, it measures how much information I have about one event given I only observe the other. Notice that PMI is symmetric, $i(x, y) = i(y, x)$, so any two events contain the same information about each other.</p>
 
@@ -472,11 +487,12 @@ Let $X = \{0, 1\}$ and $Y = \{0, 1\}$, then the joint sample space is the cartes
 
 <p>To recap, PMI measures the difference in bits between the product of marginals $p(x)p(y)$ and the joint $p(x, y)$, as evidenced by</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-i(x, y) &= \log_2\left(\frac{p(x, y)}{p(x)p(y)}\right) \\
-        &= h(x) + h(y) - h(x \and y)\,.
-\end{align} %]]></script>
+i(x, y) &amp;= \log_2\left(\frac{p(x, y)}{p(x)p(y)}\right) \\
+        &amp;= h(x) + h(y) - h(x \and y)\,.
+\end{align}
+$$</div>
 
 <p>Negative PMI implies synergy, while positive PMI implies redundancy.</p>
 
@@ -484,22 +500,24 @@ i(x, y) &= \log_2\left(\frac{p(x, y)}{p(x)p(y)}\right) \\
 
 <p>PMI measures the change in information you will gain about $y$ (from the oracle’s perspective) before and after $x$ is revealed (and vice versa). In this view, it makes sense to rewrite PMI as</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-i(x, y) &= \log_2\left(\frac{p(y \mid x)}{p(y)}\right) \\
-        &= -\log_2\,p(y) + \log_2\,p(y \mid x) \\
-        &= h(y) - h(y \mid x)\,.
-\end{align} %]]></script>
+i(x, y) &amp;= \log_2\left(\frac{p(y \mid x)}{p(y)}\right) \\
+        &amp;= -\log_2\,p(y) + \log_2\,p(y \mid x) \\
+        &amp;= h(y) - h(y \mid x)\,.
+\end{align}
+$$</div>
 
 <h3 id="special-values"><a class="header-anchor" href="#special-values">Special Values</a></h3>
 
 <p>By definition, $i(x, y) = 0$ iff $\rX, \rY$ are independent. Verifying, we see that,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-i(x, y) &= \log_2\left(\frac{p(x)p(y)}{p(x)p(y)}\right) \\
-        &= 0\,.
-\end{align} %]]></script>
+i(x, y) &amp;= \log_2\left(\frac{p(x)p(y)}{p(x)p(y)}\right) \\
+        &amp;= 0\,.
+\end{align}
+$$</div>
 
 <p>The maximum possible PMI happens when $x$ and $y$ are perfectly associated, i,e. $p(y \mid x) = 1$ or $p(x \mid y) = 1$. So $h(y \mid x) = 0$ or vice versa, meaning you know everything about $y$ if you have $x$. Then $i(x, y) = h(y) - h(y \mid x) = h(y)$. In general, the maximum possible PMI is $\min\{h(x), h(y)\}$.</p>
 
@@ -511,11 +529,12 @@ i(x, y) &= \log_2\left(\frac{p(x)p(y)}{p(x)p(y)}\right) \\
 
 <p>Expected mutual information, also just called mutual information (MI), is given as</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-I[\rX, \rY] &= \E_{x\sim X, y\sim Y}[i(x, y)] \\
-        &= \E_{x\sim X, y\sim Y}\left[\log_2\left(\frac{p(x, y)}{p(x)p(y)}\right)\right]\,.
-\end{align} %]]></script>
+I[\rX, \rY] &amp;= \E_{x\sim X, y\sim Y}[i(x, y)] \\
+        &amp;= \E_{x\sim X, y\sim Y}\left[\log_2\left(\frac{p(x, y)}{p(x)p(y)}\right)\right]\,.
+\end{align}
+$$</div>
 
 <p>$I$ is to correlation as $H$ is to variance. While correlation measures to what extent $\rX$ and $\rY$ have a <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank" rel="noopener noreferrer">linear relationship</a>, $I$ measures the strength of their statistical dependency. While variance measures average distance from some critical point, $H$ is distance agnostic, i.e. it measures unordered dispersion. Similarly, while statistical correlation measures deviation of the mapping between $\rX$ and $\rY$ from perfectly linear, $I$ is shape agnostic, i.e. it measures unordered causal dependence.</p>
 
@@ -525,16 +544,19 @@ I[\rX, \rY] &= \E_{x\sim X, y\sim Y}[i(x, y)] \\
 
 <p>Note that by remembering that expectation is linear, some useful identities pop out of the definition above,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-I[\rX, \rY] &= H[\rX] + H[\rY] - H[(\rX,\rY)] \\
-  &= H[\rX] - H[\rX \mid \rY] \\
-  &= H[\rY] - H[\rY \mid \rX]\,.
-\end{align} %]]></script>
+I[\rX, \rY] &amp;= H[\rX] + H[\rY] - H[(\rX,\rY)] \\
+  &amp;= H[\rX] - H[\rX \mid \rY] \\
+  &amp;= H[\rY] - H[\rY \mid \rX]\,.
+\end{align}
+$$</div>
 
 <p>An intuitive way to think about $I$ is as a continuous measure of <em>bijectivity</em> of the stochastic function, $g(x) \sim p(\rY \mid \rX = x)$, where $g : X \rightarrow Y$. This is easier to see if we write</p>
 
-<script type="math/tex; mode=display">I[\rX, \rY] = H[\rY] - H[\rY \mid \rX]\,.</script>
+<div class="kdmath">$$
+I[\rX, \rY] = H[\rY] - H[\rY \mid \rX]\,.
+$$</div>
 
 <p>$H[\rY]$ measures <em>surjectivity</em>, i.e. how much $g$ spreads out over $Y$ (marginalized over $\rX$). <em>surjective</em> (a.k.a. onto) in the set-theory sense means that $g$ maps to every element in $Y$. In the statistical sense, $g$ may map to every element in $Y$ with some probability, but to some elements much more frequently than others. We would say $p(y)$ is <em>peaky</em>, the opposite of spread out. Recall that $H$ measures statistical dispersion. Larger $H[\rY]$ means more even spread of probability mass across all the elements in $Y$. In that sense, it measures how surjective $g$ is.</p>
 
@@ -551,12 +573,13 @@ I[\rX, \rY] &= H[\rX] + H[\rY] - H[(\rX,\rY)] \\
 
 <p>$I$ is determined by $p(x)$ just as much as $p(y \mid x)$, but $g$ has ostensibly nothing to do with $p(x)$. If we want $I$ to measure properties of $g$ in isolation, it should not care about the distribution over its inputs. One solution to this issue is to use the <a href="https://en.wikipedia.org/wiki/Channel_capacity#Formal_definition" target="_blank" rel="noopener noreferrer"><strong>capacity</strong></a> of $g$, defined as</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-C[g] &= \sup_{p_X(x)} I[\rX, \rY] \\
-  &= \sup_{p_X(x)} \E_{y\sim p_{g(x)}, x \sim p_X}[i(x, y)] \\
-  &= \sup_{p_X(x)} \E_{y\sim p_{Y \mid X=x}, x \sim p_X}[-h(y \mid x) + h(x)]\,.
-\end{align} %]]></script>
+C[g] &amp;= \sup_{p_X(x)} I[\rX, \rY] \\
+  &amp;= \sup_{p_X(x)} \E_{y\sim p_{g(x)}, x \sim p_X}[i(x, y)] \\
+  &amp;= \sup_{p_X(x)} \E_{y\sim p_{Y \mid X=x}, x \sim p_X}[-h(y \mid x) + h(x)]\,.
+\end{align}
+$$</div>
 
 <p>In other words, if you don’t have a preference for $p(x)$, choose $p(x)$ which maximizes $I[\rX, \rY]$.</p>
 
@@ -566,13 +589,14 @@ C[g] &= \sup_{p_X(x)} I[\rX, \rY] \\
 
 <p>For this discussion, let’s consider a random variable $\rX$ with <a href="https://en.wikipedia.org/wiki/Support_(mathematics)#Support_of_a_distribution" target="_blank" rel="noopener noreferrer">support</a> over $\R$. Let $f(x)$ be the probability density function (pdf) of $\rX$.</p>
 
-<p>Elementary events $x \in \rX$ <span class="marginnote-outer"><span class="marginnote-ref">do not have probabilities perse</span><label for="81ebfb9082ef06c6091bdf79ef229fe6555037fd" class="margin-toggle"> ⊕</label><input type="checkbox" id="81ebfb9082ef06c6091bdf79ef229fe6555037fd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">you could say their probability mass is 0 in the limit</span></span></span>. Self-information is a function of probability mass, so we should instead compute self-info of events that are intervals (or measurable sets) over $\R$. For example,</p>
+<p>Elementary events $x \in \R$ <span class="marginnote-outer"><span class="marginnote-ref">do not have probabilities perse</span><label for="81ebfb9082ef06c6091bdf79ef229fe6555037fd" class="margin-toggle"> ⊕</label><input type="checkbox" id="81ebfb9082ef06c6091bdf79ef229fe6555037fd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">you could say their probability mass is 0 in the limit</span></span></span>. Self-information is a function of probability mass, so we should instead compute self-info of events that are intervals (or measurable sets) over $\R$. For example,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-h(a < x < b) &= -\log_2\,p(a < \rX < b)\\
-  &= -\log_2\left(\int_a^b f(x) \diff x\right)
-\end{align} %]]></script>
+h(a &lt; x &lt; b) &amp;= -\log_2\,p(a &lt; \rX &lt; b)\\
+  &amp;= -\log_2\left(\int_a^b f(x) \diff x\right)
+\end{align}
+$$</div>
 
 <p>Conjecture: The entropy of any distribution with uncountable support is infinite. This should make sense, as we now have uncountably many possible outcomes. One observation rules out infinitely many alternatives, so it should contain infinite information. We can see this clearly because the entropy of a uniform distribution over $N$ possibilities is $\log_2 N$ which grows to infinity as $N$ does. On the other hand, a one-hot distribution over $N$ possibilities has 0 entropy, because you will <span class="marginnote-outer"><span class="marginnote-ref">always observe</span><label for="2b312968d2ec3765f14ce161dd47e1212e3f03cc" class="margin-toggle"> ⊕</label><input type="checkbox" id="2b312968d2ec3765f14ce161dd47e1212e3f03cc" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Unless you observe an impossible outcome, in which case you gain infinite information!</span></span></span> the probability-1 outcome and gain 0 information. So we expect the Dirac-delta distribution to have 0 entropy.</p>
 
@@ -580,30 +604,37 @@ h(a < x < b) &= -\log_2\,p(a < \rX < b)\\
 
 <p>I’ll show that $H[\rX]$ is infinite when the distribution has continuous support, <span class="marginnote-outer"><span class="marginnote-ref">following a similar proof in <a href="https://www.crmarsh.com/static/pdf/Charles_Marsh_Continuous_Entropy.pdf" target="_blank" rel="noopener noreferrer">Introduction to Continuous Entropy</a></span><label for="6a33d3d476c15c73c5fec235f81ff2c69eec7113" class="margin-toggle"> ⊕</label><input type="checkbox" id="6a33d3d476c15c73c5fec235f81ff2c69eec7113" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">And also in Elements of Information Theory section 8.3.</span></span></span>.  To do that, let’s take a <a href="https://en.wikipedia.org/wiki/Riemann_sum" target="_blank" rel="noopener noreferrer">Riemann sum</a> of $f(x)$. Let $\{x_i\}_{i=-\infty}^\infty$ be a set of points equally spaced by intervals of $\Delta$.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 % \def\u{\Delta x}
 \def\u{\Delta}
 \begin{align}
-H[\rX] &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i) \u\right) \\
-  &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i)\right) - \lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(\u\right)\,.
-\end{align} %]]></script>
+H[\rX] &amp;= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i) \u\right) \\
+  &amp;= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i)\right) - \lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(\u\right)\,.
+\end{align}
+$$</div>
 
 <p>The left term is just the Riemann integral of $f(x)\log_2(f(x))$, which I will define as <span class="marginnote-outer"><span class="marginnote-ref"><strong>differential entropy</strong></span><label for="642b79d7e276fc9865eef223339f4eb4b1a72b14" class="margin-toggle"> ⊕</label><input type="checkbox" id="642b79d7e276fc9865eef223339f4eb4b1a72b14" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Typically $h$ is used to denote differential entropy, but I’ve already used it for self-information, so I’m using $\eta$ instead.</span></span></span>:</p>
 
-<script type="math/tex; mode=display">\eta[f] := -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i)\right) = -\int_{-\infty}^\infty f(x) \log_2\left(f(x)\right) \diff{x}\,.</script>
+<div class="kdmath">$$
+\eta[f] := -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(f(x_i)\right) = -\int_{-\infty}^\infty f(x) \log_2\left(f(x)\right) \diff{x}\,.
+$$</div>
 
 <p>The right term can be simplified using the <a href="https://tutorial.math.lamar.edu/Classes/CalcI/LimitsProperties.aspx" target="_blank" rel="noopener noreferrer">limit product rule</a>:</p>
 
-<script type="math/tex; mode=display">-\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(\u\right) = -\left(\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u\right)\cdot\left(\lim\limits_{\u \to 0}\log_2\left(\u\right)\right)\,.</script>
+<div class="kdmath">$$
+-\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u \log_2\left(\u\right) = -\left(\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u\right)\cdot\left(\lim\limits_{\u \to 0}\log_2\left(\u\right)\right)\,.
+$$</div>
 
 <p>Note that</p>
 
-<p><script type="math/tex">\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u = \int_{-\infty}^\infty f(x) \diff{x} = 1\,,</script><br>
+<p><span class="kdmath">$\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty f(x_i) \u = \int_{-\infty}^\infty f(x) \diff{x} = 1\,,$</span><br>
 because $f(x)$ is a p.d.f.</p>
 
 <p>Putting it all together we have</p>
 
-<script type="math/tex; mode=display">H[\rX] = \eta[f] - \lim\limits_{\u \to 0}\log_2\left(\u\right)\,.</script>
+<div class="kdmath">$$
+H[\rX] = \eta[f] - \lim\limits_{\u \to 0}\log_2\left(\u\right)\,.
+$$</div>
 
 <p>$\log_2(\u) \to -\infty$ as $\u \to 0$, so $H[\rX]$ explodes to infinity when $\eta[f]$ is finite, which it is for most well-behaved functions.</p>
 
@@ -617,12 +648,13 @@ because $f(x)$ is a p.d.f.</p>
 
 <p>The proof follows the same Riemann sum approach from the previous section. I will show that mutual information and differential mutual information are equivalent. Since differential mutual information finite for well behaved functions, so is mutual information!</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-I[\rX, \rY] &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty \sum\limits_{j=-\infty}^\infty f_{XY}(x_i, y_j) \u^2 \log_2\left(\frac{f_{XY}(x_i, y_j)\u^2}{f_X(x_i)\u f_Y(y_i)\u} \right) \\
-  &= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty \sum\limits_{j=-\infty}^\infty f_{XY}(x_i, y_j) \u^2 \log_2\left(\frac{f_{XY}(x_i, y_j)}{f_X(x_i)f_Y(y_i)} \right) \\
-  &= \int_{-\infty}^\infty \int_{-\infty}^\infty f_{XY}(x_i, y_j) \log_2\left(\frac{f_{XY}(x_i, y_j)}{f_X(x_i)f_Y(y_i)} \right) \diff{y}\diff{x}\,
-\end{align} %]]></script>
+I[\rX, \rY] &amp;= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty \sum\limits_{j=-\infty}^\infty f_{XY}(x_i, y_j) \u^2 \log_2\left(\frac{f_{XY}(x_i, y_j)\u^2}{f_X(x_i)\u f_Y(y_i)\u} \right) \\
+  &amp;= -\lim\limits_{\u \to 0} \sum\limits_{i=-\infty}^\infty \sum\limits_{j=-\infty}^\infty f_{XY}(x_i, y_j) \u^2 \log_2\left(\frac{f_{XY}(x_i, y_j)}{f_X(x_i)f_Y(y_i)} \right) \\
+  &amp;= \int_{-\infty}^\infty \int_{-\infty}^\infty f_{XY}(x_i, y_j) \log_2\left(\frac{f_{XY}(x_i, y_j)}{f_X(x_i)f_Y(y_i)} \right) \diff{y}\diff{x}\,
+\end{align}
+$$</div>
 
 <p>because the $\Delta$s cancel inside the log.</p>
 
@@ -697,11 +729,15 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.</p>
 
 <h2 id="bayes-rule"><a class="header-anchor" href="#bayes-rule">Bayes’ Rule</a></h2>
 
-<script type="math/tex; mode=display">p(y \mid x) = p(x \mid y)p(y)/p(x)</script>
+<div class="kdmath">$$
+p(y \mid x) = p(x \mid y)p(y)/p(x)
+$$</div>
 
 <p>can be rewritten in terms of self-information:</p>
 
-<script type="math/tex; mode=display">h(y \mid x) = h(x \mid y) + h(y) - h(x)\,.</script>
+<div class="kdmath">$$
+h(y \mid x) = h(x \mid y) + h(y) - h(x)\,.
+$$</div>
 
 <p>The information contained in $y$ given $x$ is proportional to the information contained in $x$ given $y$ plus the information contained in $y$. This is just Bayes’ rule in log-space, but makes it a bit easier to reason about what Bayes’ rule is doing. Whether $y$ is likely in its own right and whether $x$ is likely given $y$ both contribute to the total information.</p>
 
@@ -709,12 +745,18 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.</p>
 
 <p>Unlikely everything we’ve seen so far, these are necessarily functions of probability functions, rather than random variables. Further, these are both comparisons of probability functions over the same support.</p>
 
-<script type="math/tex; mode=display">H[P,Q] = -\sum_x P(x)\log Q(x)</script>
+<div class="kdmath">$$
+H[P,Q] = -\sum_x P(x)\log Q(x)
+$$</div>
 
-<script type="math/tex; mode=display">\kl{P}{Q} = \sum_{x} P(x)\log
-{\frac{P(x)}{Q(x)}}</script>
+<div class="kdmath">$$
+\kl{P}{Q} = \sum_{x} P(x)\log
+{\frac{P(x)}{Q(x)}}
+$$</div>
 
-<script type="math/tex; mode=display">\kl{P}{Q} = H[P,Q] - H[P]</script>
+<div class="kdmath">$$
+\kl{P}{Q} = H[P,Q] - H[P]
+$$</div>
 
 <p>Sources:</p>
 <ul>
@@ -724,7 +766,9 @@ $H[\rY \mid \rX] = H[\rY]$ when $\rX, \rY$ are independent.</p>
 
 <p>Mutual information can be <a href="https://en.wikipedia.org/wiki/Mutual_information#Relation_to_Kullback%E2%80%93Leibler_divergence" target="_blank" rel="noopener noreferrer">written in terms of KL-divergence</a>:</p>
 
-<script type="math/tex; mode=display">I[\rX, \rY] = \kl{p_{X,Y}}{p_X \cdot p_Y} = \E_{x \sim \rX}\left[\kl{p_{Y\mid X}}{p_Y}\right]\,,</script>
+<div class="kdmath">$$
+I[\rX, \rY] = \kl{p_{X,Y}}{p_X \cdot p_Y} = \E_{x \sim \rX}\left[\kl{p_{Y\mid X}}{p_Y}\right]\,,
+$$</div>
 
 <p>where $(p_X \cdot p_Y)(x, y) \mapsto p_X(x) \cdot p_Y(x)$ and $p_{Y\mid X}(y \mid x) \mapsto p_{X,Y}(x,y)/p_X(x)$.</p>
 
@@ -786,7 +830,7 @@ s.setAttribute('data-timestamp', +new Date());
       
   </ul>
   <div class="credits">
-  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span style="line-height: 3rem;">© 2021   PRAGMANYM</span><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>

@@ -10,14 +10,14 @@
   <meta property="og:image" content="http://zhat.io/assets/img/zhat.svg">
 
   <title>Bias-Variance Decomposition For Machine Learning</title>
-  <meta name="description" content="All about the bias-variance decomposition as it pertains to machine learning. All you need to know:">
+  <meta name="description" content="$$\newcommand{\Real}{ {\mathbb{R}} }\newcommand{\E}{ {\mathbb{E}} }\newcommand{\V}{ {\mathbb{V}} }\newcommand{\D}{\mathcal{D}}\newcommand{\Var}{\mathrm{Var}}...">
 
   <!-- Google Fonts loaded here -->
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans' rel='stylesheet' type='text/css'>
   
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
       MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
       jax: ["input/TeX", "output/HTML-CSS"],
@@ -93,9 +93,9 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="pragmanym.github.io/zhat/articles/bias-variance">
+  <link rel="canonical" href="danabo.github.io/zhat/articles/bias-variance">
 
-  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="danabo.github.io/zhat/feed.xml" />
 
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
 </head>
@@ -126,7 +126,8 @@
       <h1>Bias-Variance Decomposition For Machine Learning</h1>
 <p class="subtitle">July 14, 2019</p>
 
-<script type="math/tex; mode=display">\newcommand{\Real}{ {\mathbb{R}} }
+<div class="kdmath">$$
+\newcommand{\Real}{ {\mathbb{R}} }
 \newcommand{\E}{ {\mathbb{E}} }
 \newcommand{\V}{ {\mathbb{V}} }
 \newcommand{\D}{\mathcal{D}}
@@ -136,16 +137,18 @@
 \newcommand{\ep}{ {\boldsymbol{\varepsilon}} }
 \newcommand{\s}{\mathbb{S}}
 \DeclareMathOperator*{\argmax}{argmax}
-\DeclareMathOperator*{\argmin}{argmin}</script>
+\DeclareMathOperator*{\argmin}{argmin}
+$$</div>
 
 <p>All about the bias-variance decomposition as it pertains to machine learning. All you need to know:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
-& \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
-& = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
-&\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
-\end{align*} %]]></script>
+&amp; \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
+&amp; = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
+&amp;\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
+\end{align*}
+$$</div>
 
 <!--more-->
 
@@ -199,22 +202,27 @@
 
 <p>The bias-variance decomposition comes from statistics, which considers the <a href="https://en.wikipedia.org/wiki/Estimator#Mean_squared_error" target="_blank" rel="noopener noreferrer">error of a parameter estimator</a>. In ML, we are concerned with the error of a model’s prediction (output) and a given target output, which we call the <span class="marginnote-outer"><span class="marginnote-ref">label</span><label for="5720ea25baeabd25f3c70af8dfd57e178177986f" class="margin-toggle"> ⊕</label><input type="checkbox" id="5720ea25baeabd25f3c70af8dfd57e178177986f" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner"><em>label</em> originates from classification where the model is predicting a nominal value, e.g. category/class. Here I use <em>label</em> to mean to anything that is predicted, and I assume the label is real valued. I just need a word that refers to $y$ in $(x, y)$, including the given/observed and model’s prediction.</span></span></span> (a scalar value). The bias-variance decomposition is a mathematical identity stating that expected test loss (prediction error) equals bias-squared plus variance across training datasets. For ℓ2 loss <span class="marginnote-outer"><span class="marginnote-ref">we have,</span><label for="9b941cfe0481999bd29f622bafc5ffa18254b108" class="margin-toggle"> ⊕</label><input type="checkbox" id="9b941cfe0481999bd29f622bafc5ffa18254b108" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Adapted from the equation in <a href="http://www.dam.brown.edu/people/geman/Homepage/Essays%20and%20ideas%20about%20neurobiology/bias-variance.pdf" target="_blank" rel="noopener noreferrer">“Neural networks and the bias/variance dilemma”</a>, Geman, S., Bienenstock, E., and Doursat, R. (1992)</span></span></span>  <!-- citation --></p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
-& \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
-& = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
-&\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
-\end{align*} %]]></script>
+&amp; \E_D[(f(x; D) - y(x))^2] \qquad\quad\ \textrm{Avg. error}\\
+&amp; = (\E_D[f(x; D)] - y(x))^2 \qquad  \textrm{Bias}_y(f)^2\\
+&amp;\phantom{=}\, + \V_D[f(x; D)]     \qquad\qquad\quad\ \, \textrm{Variance}(f)\\
+\end{align*}
+$$</div>
 
 <p>I am leaving out the derivation of the BV-decomposition, as it can be easily found in a number of sources, including <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff#Derivation" target="_blank" rel="noopener noreferrer">Wikipedia</a>. My purpose here is to clear up common points of confusion.</p>
 
 <p>For completion, here is the definition of $\E$ and $\V$. Let $g:\Real \rightarrow \Real$ be an arbitrary (deterministic and <a href="http://zhat.io/articles/primer-probability-theory#primer-to-measure-theory" target="_blank" rel="noopener noreferrer">measurable</a>) function over the reals, and $Z$ be an arbitrary random variable over domain $D_Z \subseteq \Real$. Then</p>
 
-<script type="math/tex; mode=display">\E_Z[g(Z)] = \int_{D_Z} p_Z(z) g(z) dz</script>
+<div class="kdmath">$$
+\E_Z[g(Z)] = \int_{D_Z} p_Z(z) g(z) dz
+$$</div>
 
 <p>is the <a href="https://en.wikipedia.org/wiki/Expected_value" target="_blank" rel="noopener noreferrer">expected value</a> of $g(Z)$, and</p>
 
-<script type="math/tex; mode=display">\V_Z[g(Z)] = \E_X[(g(Z) - \E_X[g(Z)])^2]</script>
+<div class="kdmath">$$
+\V_Z[g(Z)] = \E_X[(g(Z) - \E_X[g(Z)])^2]
+$$</div>
 
 <p>is the <a href="https://en.wikipedia.org/wiki/Variance#Definition" target="_blank" rel="noopener noreferrer">variance</a> of $g(Z)$.</p>
 
@@ -239,13 +247,14 @@
 
 <p>When $Y(x)$ is stochastic, we get an extra term in the decomposition:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-& \E_{Y(x)}[\E_D[(f(x; D) - Y(x))^2]] \\
-& = (\E_D[f(x; D)] - \E_{Y(x)}[Y(x)])^2 \qquad\,   \textrm{Bias}_y(f)^2\\
-&\phantom{=}\, + \V_D[f(x; D)]   \qquad\qquad\qquad\qquad\ \ \,  \textrm{Variance}(f)\\
-&\phantom{=}\, + \V_{Y(x)}[Y(x)]  \qquad\qquad\qquad\qquad\ \ \,   \textrm{Variance}(y)\textrm{, i.e. “noise"}
-\end{align} %]]></script>
+&amp; \E_{Y(x)}[\E_D[(f(x; D) - Y(x))^2]] \\
+&amp; = (\E_D[f(x; D)] - \E_{Y(x)}[Y(x)])^2 \qquad\,   \textrm{Bias}_y(f)^2\\
+&amp;\phantom{=}\, + \V_D[f(x; D)]   \qquad\qquad\qquad\qquad\ \ \,  \textrm{Variance}(f)\\
+&amp;\phantom{=}\, + \V_{Y(x)}[Y(x)]  \qquad\qquad\qquad\qquad\ \ \,   \textrm{Variance}(y)\textrm{, i.e. “noise"}
+\end{align}
+$$</div>
 
 <p>Presumably the human model builder cannot control $\V_{Y(x)}[Y(x)]$, so this is the lower bound on their model’s loss. If bias and variance were reduced to 0, this term would remain.</p>
 
@@ -323,7 +332,9 @@
 
 <p>James et al. defines the systematic part of random variable <span class="marginnote-outer"><span class="marginnote-ref">$Y$</span><label for="c03753b4b933880e5805dbef63e9d2d882c0c904" class="margin-toggle"> ⊕</label><input type="checkbox" id="c03753b4b933880e5805dbef63e9d2d882c0c904" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">In this section, $Y$ is an underlying data distribution, and $\Yh$ is a model. Both are random variables. I am not showing the dependence of the model on training data and input $X$ for simplicity. In other words, I am not specifying why model $\Yh$ has variance, or even that this model has inputs and is supposed to generalize to a test set. However, everything below still holds with those details added back in.</span></span></span> w.r.t. loss $L$,</p>
 
-<script type="math/tex; mode=display">\s[Y] = \argmin_\theta \E_Y L(Y, \theta)</script>
+<div class="kdmath">$$
+\s[Y] = \argmin_\theta \E_Y L(Y, \theta)
+$$</div>
 
 <p>This generalizes mean. Many common statistics (e.g. mean, median, mode) are <span class="marginnote-outer"><span class="marginnote-ref">the systematic parts for common losses</span><label for="90064962dbc49723d0f544518b2c435284bb450b" class="margin-toggle"> ⊕</label><input type="checkbox" id="90064962dbc49723d0f544518b2c435284bb450b" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Source: <a href="http://www.johnmyleswhite.com/notebook/2013/03/22/modes-medians-and-means-an-unifying-perspective/" target="_blank" rel="noopener noreferrer">http://www.johnmyleswhite.com/notebook/2013/03/22/modes-medians-and-means-an-unifying-perspective/</a></span></span></span>.</p>
 
@@ -356,8 +367,7 @@
       <td style="text-align: left">Geometric Mean</td>
     </tr>
     <tr>
-      <td style="text-align: left"><script type="math/tex">% <![CDATA[
-\begin{cases} \tau \cdot (y - \hat{y}) & y - \hat{y} \geq 0 \\ (\tau - 1) \cdot (y - \hat{y}) & \mathrm{otherwise} \end{cases} %]]></script></td>
+      <td style="text-align: left"><span class="kdmath">$\begin{cases} \tau \cdot (y - \hat{y}) &amp; y - \hat{y} \geq 0 \\ (\tau - 1) \cdot (y - \hat{y}) &amp; \mathrm{otherwise} \end{cases}$</span></td>
       <td style="text-align: left">$\tau$-th Quantile</td>
     </tr>
   </tbody>
@@ -368,53 +378,60 @@
 
 <p>James et al. shards the concepts of bias and variance into additional distinct concepts. For ℓ2 variance, we have the notion of <em>typical</em> distance from some reference point of interest. James et al. points out that there are other ways to define variance which become equivalent under ℓ2 loss, but are not the same in general for other losses.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
 \V_\Yh[\Yh]
-& = \E_\Yh(\Yh - \E_\Yh\Yh)^2 \\
-& = \E_{Y,\Yh}(Y - \Yh)^2 - \E_Y(Y - \E_\Yh\Yh)^2 \\
-\end{align*} %]]></script>
+&amp; = \E_\Yh(\Yh - \E_\Yh\Yh)^2 \\
+&amp; = \E_{Y,\Yh}(Y - \Yh)^2 - \E_Y(Y - \E_\Yh\Yh)^2 \\
+\end{align*}
+$$</div>
 
 <p>Likewise, bias squared can be written in two different ways.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
 \Bias[Y, \Yh]^2
-& = (\E_YY-\E_\Yh\Yh)^2 \\
-& = \E_Y(Y-\E_\Yh\Yh)^2 - \E_Y(Y-\E_YY)^2 \\
-\end{align*} %]]></script>
+&amp; = (\E_YY-\E_\Yh\Yh)^2 \\
+&amp; = \E_Y(Y-\E_\Yh\Yh)^2 - \E_Y(Y-\E_YY)^2 \\
+\end{align*}
+$$</div>
 
 <p>When we generalize loss and mean, these alternative ways of writing bias and variance become distinct statistical operations.</p>
 
 <p>The <strong>variance effect</strong>, $\textrm{VE}[Y, \Yh]$, is the expected change in prediction error when using $\Yh$ instead of $\s[\Yh]$ to predict $Y$. In other words, it measures the effect of predicting with a distribution and all its variability, vs the constant systematic part. This contrasts with intrinsic variance, $\V_\Yh[\Yh]$.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
-\V_\Yh[\Yh] &= \E_\Yh L(\Yh, \s[\Yh]) \\
-\textrm{VE}[Y, \Yh] &= \E_{Y,\Yh}[L(Y, \Yh) - L(Y, \s[\Yh])] \\
-\end{align*} %]]></script>
+\V_\Yh[\Yh] &amp;= \E_\Yh L(\Yh, \s[\Yh]) \\
+\textrm{VE}[Y, \Yh] &amp;= \E_{Y,\Yh}[L(Y, \Yh) - L(Y, \s[\Yh])] \\
+\end{align*}
+$$</div>
 
 <p>The <span class="marginnote-outer"><span class="marginnote-ref"><strong>systematic effect</strong></span><label for="5c8e80a5b3081b4f49de63bc6ff8c48d7b853f1f" class="margin-toggle"> ⊕</label><input type="checkbox" id="5c8e80a5b3081b4f49de63bc6ff8c48d7b853f1f" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Not to be confused with systematic part. Not the terminology I would have gone with.</span></span></span>, $\textrm{SE}[Y, \Yh]$, is the expected change in prediction error when using $\s[\Yh]$ instead of $\s[Y]$ to predict $Y$. In other words, it measures the effect of predicting with the systematic part of the model, vs the systematic part of the data distribution. This contrasts with intrinsic bias squared, $\Bias[Y, \Yh]^2$.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
-\Bias[Y, \Yh]^2 &= L(\s[Y], \s[\Yh]) \\
-\textrm{SE}[Y, \Yh] &= \E_Y[L(Y, \s[\Yh]) - L(Y, \s[Y])] \\
-\end{align*} %]]></script>
+\Bias[Y, \Yh]^2 &amp;= L(\s[Y], \s[\Yh]) \\
+\textrm{SE}[Y, \Yh] &amp;= \E_Y[L(Y, \s[\Yh]) - L(Y, \s[Y])] \\
+\end{align*}
+$$</div>
 
 <p>We may now state the generalized decomposition in terms of systematic and variance effect:</p>
 
-<script type="math/tex; mode=display">\E_{Y,\Yh}L(Y, \Yh) = \textrm{SE}[Y, \Yh] + \textrm{VE}[Y, \Yh] + \V_Y[Y]</script>
+<div class="kdmath">$$
+\E_{Y,\Yh}L(Y, \Yh) = \textrm{SE}[Y, \Yh] + \textrm{VE}[Y, \Yh] + \V_Y[Y]
+$$</div>
 
 <p>Plugging in, we get,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align*}
 \E_{Y,\Yh}L(Y, \Yh)
-&= \E_Y[L(Y, \s[\Yh]) - L(Y, \s[Y])] \\
-&\phantom{=}\, + \E_{Y,\Yh}[L(Y, \Yh) - L(Y, \s[\Yh])] \\
-&\phantom{=}\, + \E_YL(Y, \s[Y])
-\end{align*} %]]></script>
+&amp;= \E_Y[L(Y, \s[\Yh]) - L(Y, \s[Y])] \\
+&amp;\phantom{=}\, + \E_{Y,\Yh}[L(Y, \Yh) - L(Y, \s[\Yh])] \\
+&amp;\phantom{=}\, + \E_YL(Y, \s[Y])
+\end{align*}
+$$</div>
 
 <p>Check out James et al. for some application examples of the <span class="marginnote-outer"><span class="marginnote-ref">generalized BV-decomposition</span><label for="347f9f52dcd30e516865dc101e6c5330acc524e4" class="margin-toggle"> ⊕</label><input type="checkbox" id="347f9f52dcd30e516865dc101e6c5330acc524e4" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">There exist more exotic BV-decompositions as well, e.g.
 <a href="https://math.stackexchange.com/questions/3017916/bias-variance-decomposition-for-kl-divergence" target="_blank" rel="noopener noreferrer">KL-divergence</a></span></span></span>.</p>
@@ -483,7 +500,7 @@ s.setAttribute('data-timestamp', +new Date());
       
   </ul>
   <div class="credits">
-  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span style="line-height: 3rem;">© 2021   PRAGMANYM</span><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>

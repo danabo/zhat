@@ -17,7 +17,7 @@
   
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
       MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
       jax: ["input/TeX", "output/HTML-CSS"],
@@ -93,9 +93,9 @@
   <link rel="stylesheet" type="text/css" href="/css/tufte.css">
   <!-- <link rel="stylesheet" type="text/css" href="/css/print.css" media="print"> -->
 
-  <link rel="canonical" href="pragmanym.github.io/zhat/articles/primer-probability-theory">
+  <link rel="canonical" href="danabo.github.io/zhat/articles/primer-probability-theory">
 
-  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="pragmanym.github.io/zhat/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Z-Hat" href="danabo.github.io/zhat/feed.xml" />
 
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon-32x32.png">
 </head>
@@ -170,14 +170,16 @@
   <li><a href="#primer-to-measure-theory" id="markdown-toc-primer-to-measure-theory">Primer to measure theory</a></li>
 </ul>
 
-<script type="math/tex; mode=display">\newcommand{\bin}{\mathbb{B}}
+<div class="kdmath">$$
+\newcommand{\bin}{\mathbb{B}}
 \newcommand{\nat}{\mathbb{N}}
 \newcommand{\real}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\d}{\mathrm{d}}
 \newcommand{\len}[1]{\ell\left(#1\right)}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
-\newcommand{\bigmid}{\;\middle\vert\;}</script>
+\newcommand{\bigmid}{\;\middle\vert\;}
+$$</div>
 
 <p>Sections:</p>
 <ol>
@@ -216,23 +218,23 @@
 
 <p><strong>Sample set</strong> $\Omega$ is a set of all possible <span class="marginnote-outer"><span class="marginnote-ref">samples</span><label for="46f0a5784f51b77c385f44317a48bc352dcfb439" class="margin-toggle"> ⊕</label><input type="checkbox" id="46f0a5784f51b77c385f44317a48bc352dcfb439" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Sample is synonymous with <a href="https://en.wikipedia.org/wiki/Outcome_(probability)" target="_blank" rel="noopener noreferrer">outcome</a>.</span></span></span> $\omega\in\Omega$. A sample is a possible state of the world, e.g. the outcomes for all coins that will be tossed or all dice that will be thrown, or the ordering of cards in a deck.</p>
 
-<p><strong>Probability function</strong> <span class="marginnote-outer"><span class="marginnote-ref">$P : 2^\Omega \to [0, 1]$</span><label for="0574240032f5e0595cbf5977a6d3da50278d4847" class="margin-toggle"> ⊕</label><input type="checkbox" id="0574240032f5e0595cbf5977a6d3da50278d4847" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">$2^\Omega$ is the <a href="https://en.wikipedia.org/wiki/Power_set" target="_blank" rel="noopener noreferrer">power set</a> of $\Omega$. The notation $2^{(\cdot)}$ is just a shorthand, though set exponentiation could be <a href="https://math.stackexchange.com/a/901742" target="_blank" rel="noopener noreferrer">defined in general</a>, e.g. $A^B$ is the set of all functions $f : B \to A$, and $n^A$, where $n$ is a natural number, generates the set of all $n$-ary indicator functions <script type="math/tex">f : A \to \{0, 1, 2, \ldots, n-1\}</script>. Then $2^A$ gives us all indicator functions <script type="math/tex">A \to \{0,1\}</script> select the elements of every subset of $A$.</span></span></span> gives the probability of a <span class="marginnote-outer"><span class="marginnote-ref">set of samples</span><label for="ad8b3af703fafd99caa4527f4b15b75a1975d039" class="margin-toggle"> ⊕</label><input type="checkbox" id="ad8b3af703fafd99caa4527f4b15b75a1975d039" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">subset of $\Omega$</span></span></span>. A set of samples ${\omega_1, \omega_2, \ldots}$ is called an <strong>event</strong>, which is a set of possible states the world could be in, read as “$\omega_1$ is the case or $\omega_2$ is the case, etc. …”</p>
+<p><strong>Probability function</strong> <span class="marginnote-outer"><span class="marginnote-ref">$P : 2^\Omega \to [0, 1]$</span><label for="0574240032f5e0595cbf5977a6d3da50278d4847" class="margin-toggle"> ⊕</label><input type="checkbox" id="0574240032f5e0595cbf5977a6d3da50278d4847" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">$2^\Omega$ is the <a href="https://en.wikipedia.org/wiki/Power_set" target="_blank" rel="noopener noreferrer">power set</a> of $\Omega$. The notation $2^{(\cdot)}$ is just a shorthand, though set exponentiation could be <a href="https://math.stackexchange.com/a/901742" target="_blank" rel="noopener noreferrer">defined in general</a>, e.g. $A^B$ is the set of all functions $f : B \to A$, and $n^A$, where $n$ is a natural number, generates the set of all $n$-ary indicator functions <span class="kdmath">$f : A \to \{0, 1, 2, \ldots, n-1\}$</span>. Then $2^A$ gives us all indicator functions <span class="kdmath">$A \to \{0,1\}$</span> select the elements of every subset of $A$.</span></span></span> gives the probability of a <span class="marginnote-outer"><span class="marginnote-ref">set of samples</span><label for="ad8b3af703fafd99caa4527f4b15b75a1975d039" class="margin-toggle"> ⊕</label><input type="checkbox" id="ad8b3af703fafd99caa4527f4b15b75a1975d039" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">subset of $\Omega$</span></span></span>. A set of samples ${\omega_1, \omega_2, \ldots}$ is called an <strong>event</strong>, which is a set of possible states the world could be in, read as “$\omega_1$ is the case or $\omega_2$ is the case, etc. …”</p>
 
 <p>$P$ satisfies:</p>
 
 <ul>
   <li>
-<strong>Non-negativity</strong>: <script type="math/tex">P(e) \geq 0,\ \forall e \in 2^\Omega</script>.</li>
+<strong>Non-negativity</strong>: <span class="kdmath">$P(e) \geq 0,\ \forall e \in 2^\Omega$</span>.</li>
   <li>
-<strong>Null empty set</strong>: <script type="math/tex">P(\emptyset) = 0</script>.</li>
+<strong>Null empty set</strong>: <span class="kdmath">$P(\emptyset) = 0$</span>.</li>
   <li>
-<strong>Unit sample set</strong>: <script type="math/tex">P(\Omega) = 1</script>.</li>
+<strong>Unit sample set</strong>: <span class="kdmath">$P(\Omega) = 1$</span>.</li>
   <li>
-<strong>Additivity</strong>: For all disjoint events <script type="math/tex">e_1, e_2 \in 2^\Omega,\ P(e_1 \cup e_2) = P(e_1) + P(e_2)</script>
+<strong>Additivity</strong>: For all disjoint events <span class="kdmath">$e_1, e_2 \in 2^\Omega,\ P(e_1 \cup e_2) = P(e_1) + P(e_2)$</span>
 </li>
 </ul>
 
-<p>The probability of a single sample (outcome) $\omega\in\Omega$ is <script type="math/tex">P(\{\omega\})</script>.</p>
+<p>The probability of a single sample (outcome) $\omega\in\Omega$ is <span class="kdmath">$P(\{\omega\})$</span>.</p>
 
 <h2 id="full-definition"><a class="header-anchor" href="#full-definition">Full Definition</a></h2>
 
@@ -255,17 +257,17 @@
     </ul>
   </li>
   <li>
-<strong>Probability measure</strong> <span class="marginnote-outer"><span class="marginnote-ref">$P : E \to [0, 1]$</span><label for="4ad9ab16708369ac059ab042be9927eff00636f9" class="margin-toggle"> ⊕</label><input type="checkbox" id="4ad9ab16708369ac059ab042be9927eff00636f9" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">In general a measure $Q : E \to \real_{\geq 0}$, but I’m including the restriction of the co-domain to the unit interval $[0, 1]$ in the definition of <script type="math/tex">P</script>, because we are only talking about probability measures here, and there’s no reason to be more general.</span></span></span> is a function that maps allowed subsets of $\Omega$ to the real unit interval. $P$ is a <strong>measure</strong>, which means it satisfies certain properties that make it behave analogous to length, area, volume, etc. in Euclidean space. Essentially, a measure is a generalization of size that satisfies the following properties:
+<strong>Probability measure</strong> <span class="marginnote-outer"><span class="marginnote-ref">$P : E \to [0, 1]$</span><label for="4ad9ab16708369ac059ab042be9927eff00636f9" class="margin-toggle"> ⊕</label><input type="checkbox" id="4ad9ab16708369ac059ab042be9927eff00636f9" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">In general a measure $Q : E \to \real_{\geq 0}$, but I’m including the restriction of the co-domain to the unit interval $[0, 1]$ in the definition of <span class="kdmath">$P$</span>, because we are only talking about probability measures here, and there’s no reason to be more general.</span></span></span> is a function that maps allowed subsets of $\Omega$ to the real unit interval. $P$ is a <strong>measure</strong>, which means it satisfies certain properties that make it behave analogous to length, area, volume, etc. in Euclidean space. Essentially, a measure is a generalization of size that satisfies the following properties:
     <ul>
       <li><span class="advanced outer hidden"><span class="advanced inner hidden"><strong>Measurable domain</strong>: $E$ is a $\sigma$-algebra of measurable sets.</span></span></li>
       <li>
-<strong>Non-negativity</strong>: <script type="math/tex">P(e) \geq 0,\ \forall e \in E</script>.</li>
+<strong>Non-negativity</strong>: <span class="kdmath">$P(e) \geq 0,\ \forall e \in E$</span>.</li>
       <li>
-<strong>Null empty set</strong>: <script type="math/tex">P(\emptyset) = 0</script>.</li>
+<strong>Null empty set</strong>: <span class="kdmath">$P(\emptyset) = 0$</span>.</li>
       <li>
-<strong>Unit sample set</strong>: <script type="math/tex">P(\Omega) = 1</script>.</li>
+<strong>Unit sample set</strong>: <span class="kdmath">$P(\Omega) = 1$</span>.</li>
       <li>
-<strong>Countable additivity</strong>: For any countable set of events <span class="marginnote-outer"><span class="marginnote-ref"><script type="math/tex">A \subseteq E</script></span><label for="1c4c2f199fe96ef43d1f0b6cc492af4deb8af6af" class="margin-toggle"> ⊕</label><input type="checkbox" id="1c4c2f199fe96ef43d1f0b6cc492af4deb8af6af" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Remember that $E$ is the event space, and $A$ is a set of events.</span></span></span> where <script type="math/tex">\bigcap A = \emptyset</script>, <script type="math/tex">P(\bigcup A) = \sum_{e\in A} P(e)</script>.</li>
+<strong>Countable additivity</strong>: For any countable set of events <span class="marginnote-outer"><span class="marginnote-ref"><span class="kdmath">$A \subseteq E$</span></span><label for="1c4c2f199fe96ef43d1f0b6cc492af4deb8af6af" class="margin-toggle"> ⊕</label><input type="checkbox" id="1c4c2f199fe96ef43d1f0b6cc492af4deb8af6af" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Remember that $E$ is the event space, and $A$ is a set of events.</span></span></span> where <span class="kdmath">$\bigcap A = \emptyset$</span>, <span class="kdmath">$P(\bigcup A) = \sum_{e\in A} P(e)$</span>.</li>
     </ul>
   </li>
 </ul>
@@ -287,38 +289,40 @@
 
 <p><strong>Finite</strong>: Dice rolls</p>
 
-<p><script type="math/tex">\Omega = \{⚀,⚁,⚂,⚃,⚄,⚅\}</script>,<br>
-<script type="math/tex">E=2^\Omega</script>,<br>
-<script type="math/tex">P(\{⚀\})= P(\{⚁\}) = \ldots = P(\{⚅\}) =1/6</script>.</p>
+<p><span class="kdmath">$\Omega = \{⚀,⚁,⚂,⚃,⚄,⚅\}$</span>,<br>
+<span class="kdmath">$E=2^\Omega$</span>,<br>
+<span class="kdmath">$P(\{⚀\})= P(\{⚁\}) = \ldots = P(\{⚅\}) =1/6$</span>.</p>
 
-<p>Note that <script type="math/tex">P(⚀)</script> is not defined. $P$ measures the “size” of sets. <script type="math/tex">\{⚀\}</script> is the set containing one sample. We can also compute the probability of larger sets, e.g.<br>
-<script type="math/tex">P(\{⚀,⚅\}) = 1/3</script>,<br>
-<script type="math/tex">P(\{⚁,⚃,⚅\}) = 1/2</script>,<br>
-<script type="math/tex">P(\{⚀,⚁,⚂,⚃,⚄,⚅\}) = 1</script>.</p>
+<p>Note that <span class="kdmath">$P(⚀)$</span> is not defined. $P$ measures the “size” of sets. <span class="kdmath">$\{⚀\}$</span> is the set containing one sample. We can also compute the probability of larger sets, e.g.<br>
+<span class="kdmath">$P(\{⚀,⚅\}) = 1/3$</span>,<br>
+<span class="kdmath">$P(\{⚁,⚃,⚅\}) = 1/2$</span>,<br>
+<span class="kdmath">$P(\{⚀,⚁,⚂,⚃,⚄,⚅\}) = 1$</span>.</p>
 
 <p><strong>Countable</strong> (event set): Variable length binary sequences</p>
 
-<p><script type="math/tex">\bin = \{0, 1\}</script> is the binary alphabet.<br>
-Let $x \in \bin^n$ be a binary sequence of any length $n$, and <script type="math/tex">\len{x} := n</script> returns the length of $x$.</p>
+<p><span class="kdmath">$\bin = \{0, 1\}$</span> is the binary alphabet.<br>
+Let $x \in \bin^n$ be a binary sequence of any length $n$, and <span class="kdmath">$\len{x} := n$</span> returns the length of $x$.</p>
 
-<p>The sample set is all infinite binary sequences, <script type="math/tex">\Omega = \mathbb{B}^\infty</script>.<br>
+<p>The sample set is all infinite binary sequences, <span class="kdmath">$\Omega = \mathbb{B}^\infty$</span>.<br>
 This let’s us make an event for each finite length $x$.<br>
-Let <script type="math/tex">\Gamma_x = \left\{\omega \in \Omega \bigmid x = \omega_{1:\len{x}}\right\}</script>, where <script type="math/tex">\omega_{1:\len{x}}</script> is the length $\len{x}$ prefix of $\omega$.<br>
-The event set is <script type="math/tex">E=\left\{\Gamma_x \bigmid x \in \mathbb{B}^n, n \in \mathbb{N}\cup\{0\}\right\}</script></p>
+Let <span class="kdmath">$\Gamma_x = \left\{\omega \in \Omega \bigmid x = \omega_{1:\len{x}}\right\}$</span>, where <span class="kdmath">$\omega_{1:\len{x}}$</span> is the length $\len{x}$ prefix of $\omega$.<br>
+The event set is <span class="kdmath">$E=\left\{\Gamma_x \bigmid x \in \mathbb{B}^n, n \in \mathbb{N}\cup\{0\}\right\}$</span></p>
 
-<p>Then <script type="math/tex">P(\Gamma_x)</script> is the probability of $x$, and <script type="math/tex">P(\Gamma_{x_1} \cup \Gamma_{x_2} \cup \ldots)</script> is the probability of the set <script type="math/tex">\{x_1, x_2, \ldots\}</script>.<br>
-Note that the probability of a finite sequence is always a marginal probability, in the sense that <script type="math/tex">P(\Gamma_x) = P(\Gamma_{x`0}) + P(\Gamma_{x`1})</script> where <script type="math/tex">x`0</script> and <script type="math/tex">x`1</script> are the concatenations of <script type="math/tex">x</script> with 0 or 1.</p>
+<p>Then <span class="kdmath">$P(\Gamma_x)$</span> is the probability of $x$, and <span class="kdmath">$P(\Gamma_{x_1} \cup \Gamma_{x_2} \cup \ldots)$</span> is the probability of the set <span class="kdmath">$\{x_1, x_2, \ldots\}$</span>.<br>
+Note that the probability of a finite sequence is always a marginal probability, in the sense that <span class="kdmath">$P(\Gamma_x) = P(\Gamma_{x`0}) + P(\Gamma_{x`1})$</span> where <span class="kdmath">$x`0$</span> and <span class="kdmath">$x`1$</span> are the concatenations of <span class="kdmath">$x$</span> with 0 or 1.</p>
 
-<p>An example of such a measure is the uniform measure, <script type="math/tex">P(\Gamma_x) = 2^{-\len{x}}</script>.</p>
+<p>An example of such a measure is the uniform measure, <span class="kdmath">$P(\Gamma_x) = 2^{-\len{x}}$</span>.</p>
 
 <p><strong>Uncountable</strong>: The reals</p>
 
-<p><script type="math/tex">\Omega=\real</script>,<br>
-<script type="math/tex">E \subset 2^\real</script> contains sets of reals formed by countable union, intersection, and complement of the open intervals. <span class="advanced outer hidden"><span class="advanced inner hidden">This particular choice of $E$ is called the <a href="https://en.wikipedia.org/wiki/Borel_set" target="_blank" rel="noopener noreferrer">Borel algebra</a>, and is a standard $\sigma$-algebra for $\real$. The reason we don’t use $E = 2^\real$ as our event space is that some subsets of $\real$ are not measurable.</span></span></p>
+<p><span class="kdmath">$\Omega=\real$</span>,<br>
+<span class="kdmath">$E \subset 2^\real$</span> contains sets of reals formed by countable union, intersection, and complement of the open intervals. <span class="advanced outer hidden"><span class="advanced inner hidden">This particular choice of $E$ is called the <a href="https://en.wikipedia.org/wiki/Borel_set" target="_blank" rel="noopener noreferrer">Borel algebra</a>, and is a standard $\sigma$-algebra for $\real$. The reason we don’t use $E = 2^\real$ as our event space is that some subsets of $\real$ are not measurable.</span></span></p>
 
 <p>We only need to define $P$ on single intervals, and because of additivity of probability we can derive $P$ on every set in $E$. <span class="advanced outer hidden"><span class="advanced inner hidden">A measure $P$ defined on intervals is called a <a href="https://en.wikipedia.org/wiki/Borel_measure#On_the_real_line" target="_blank" rel="noopener noreferrer">Borel measure</a>.</span></span> Let</p>
 
-<script type="math/tex; mode=display">P((a,b]) = \int_a^b \frac{1}{\sqrt{2 \pi }} e^{-\frac{x^2}{2}} \d x\,.</script>
+<div class="kdmath">$$
+P((a,b]) = \int_a^b \frac{1}{\sqrt{2 \pi }} e^{-\frac{x^2}{2}} \d x\,.
+$$</div>
 
 <p>Note that it does not matter if we define $P$ on open intervals, closed intervals, or half-open intervals, because the value of the integral is identical between these cases. <span class="advanced outer hidden"><span class="advanced inner hidden">Specifically, we are performing a Lebesgue integral, which is invariant to removing a measure 0 subset from the integral domain. See the <a href="https://en.wikipedia.org/wiki/Lebesgue_integration#Basic_theorems_of_the_Lebesgue_integral" target="_blank" rel="noopener noreferrer">equality almost-everywhere</a> property.</span></span></p>
 
@@ -330,19 +334,21 @@ Note that the probability of a finite sequence is always a marginal probability,
 
 <p>For finite and countable sample sets, PMFs, CMFs and measures are equivalent, meaning you can derive one from the others. We can convert between PMF $m : \Omega \to [0,1]$ and measure $P: E \to [0,1]$ with the following relations:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{aligned}
-m(\omega) &= P(\{\omega\}) \\
-P(e) &= \sum_{\omega\in e} m(\omega)\,.
-\end{aligned} %]]></script>
+m(\omega) &amp;= P(\{\omega\}) \\
+P(e) &amp;= \sum_{\omega\in e} m(\omega)\,.
+\end{aligned}
+$$</div>
 
 <p>For differentiable continuous sample sets <span class="advanced outer hidden"><span class="advanced inner hidden">where $E$ is the <a href="https://en.wikipedia.org/wiki/Borel_set" target="_blank" rel="noopener noreferrer">Borel algebra</a></span></span> (e.g. the reals), PDFs, CDFs and measures are equivalent, meaning you can derive one from the others. We can convert between PDF $f : \Omega \to \real$ and measure $P : E \to [0,1]$ with the following relations:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{aligned}
-f(x) &= \frac{\d}{\d x} P((c, x]) \\
-P((a, b]) &= \int_a^b f(x) \d x\,,
-\end{aligned} %]]></script>
+f(x) &amp;= \frac{\d}{\d x} P((c, x]) \\
+P((a, b]) &amp;= \int_a^b f(x) \d x\,,
+\end{aligned}
+$$</div>
 
 <p>for some constant $c\in\Omega$.</p>
 
@@ -352,42 +358,44 @@ P((a, b]) &= \int_a^b f(x) \d x\,,
 
 <p><strong>Question:</strong> Why provide event space $E$? Isn’t this redundant with $\Omega$?</p>
 
-<p>You may be thinking that given just $\Omega$, we can define $P : 2^\Omega \to [0,1]$ which satisfies the properties of a measure listed earlier, and it is sufficient to define <script type="math/tex">P(\{\omega\})</script> for each $\omega \in \Omega$. That is true for countable $\Omega$ (e.g. the dice example above). The technical reason for basing probability theory on measure theory is that for uncountable $\Omega$, some subsets are not measurable. $E$ tells us which subsets of $\Omega$ are measurable, and are safe to compute the probability of. Perhaps the real reason is to simplify the definition of probability down to one constraint, $P(\Omega) = 1$. The apparent redundancy of $\Omega$ and $E$ is then inherited from measure theory. This kind of information redundancy <span class="marginnote-outer"><span class="marginnote-ref">in mathematical constructions is quite common</span><label for="fae4f9d36286bf3dcf9d3f2d43145ea41509157a" class="margin-toggle"> ⊕</label><input type="checkbox" id="fae4f9d36286bf3dcf9d3f2d43145ea41509157a" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">For example, a group is defined as $(G, +)$ where $G$ is a set of objects and $+ : G \times G \to G$ is some binary operator defined over $G$. The definition of $+$ already includes $G$, so technically providing $G$ is not necessary. A group is defined as a tuple $(G, +)$ to distinguish it from the set $G$ and the operator $+$. Another example is a topological space defined as the tuple $(X, \tau)$ where $X$ is a set of objects and $\tau$ is a set of subsets of $X$ which contains $X$. Since $X = \bigcup \tau$ so we don’t need to provide $\tau$, but again we want to distinguish the topological space from $X$ and $\tau$ (where $\tau$ is just called the topology).</span></span></span>, and is merely a particular notational style. Redundancy is not a high cost to pay for notational clarity.</p>
+<p>You may be thinking that given just $\Omega$, we can define $P : 2^\Omega \to [0,1]$ which satisfies the properties of a measure listed earlier, and it is sufficient to define <span class="kdmath">$P(\{\omega\})$</span> for each $\omega \in \Omega$. That is true for countable $\Omega$ (e.g. the dice example above). The technical reason for basing probability theory on measure theory is that for uncountable $\Omega$, some subsets are not measurable. $E$ tells us which subsets of $\Omega$ are measurable, and are safe to compute the probability of. Perhaps the real reason is to simplify the definition of probability down to one constraint, $P(\Omega) = 1$. The apparent redundancy of $\Omega$ and $E$ is then inherited from measure theory. This kind of information redundancy <span class="marginnote-outer"><span class="marginnote-ref">in mathematical constructions is quite common</span><label for="fae4f9d36286bf3dcf9d3f2d43145ea41509157a" class="margin-toggle"> ⊕</label><input type="checkbox" id="fae4f9d36286bf3dcf9d3f2d43145ea41509157a" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">For example, a group is defined as $(G, +)$ where $G$ is a set of objects and $+ : G \times G \to G$ is some binary operator defined over $G$. The definition of $+$ already includes $G$, so technically providing $G$ is not necessary. A group is defined as a tuple $(G, +)$ to distinguish it from the set $G$ and the operator $+$. Another example is a topological space defined as the tuple $(X, \tau)$ where $X$ is a set of objects and $\tau$ is a set of subsets of $X$ which contains $X$. Since $X = \bigcup \tau$ so we don’t need to provide $\tau$, but again we want to distinguish the topological space from $X$ and $\tau$ (where $\tau$ is just called the topology).</span></span></span>, and is merely a particular notational style. Redundancy is not a high cost to pay for notational clarity.</p>
 
 <p><strong>Question:</strong> Why do I care about events containing multiple samples? Only one sample ever happens at a time.</p>
 <ol>
-  <li>We want to be able to calculate the probability of “one or the other thing” happening. Let <script type="math/tex">\omega_1, \omega_2 \in \Omega</script>. <script type="math/tex">\{\omega_1\}, \{\omega_2\} \in E</script> are the events corresponding to exactly one thing happening.  <script type="math/tex">\{\omega_1, \omega_2\} \in E</script> is the event corresponding to either <script type="math/tex">\omega_1</script> or <script type="math/tex">\omega_2</script> happening.</li>
-  <li>We want to be able to calculate the probability of something not happening. Not-<script type="math/tex">\omega_1</script> is the event <script type="math/tex">\{\omega \in \Omega \mid \omega \neq \omega_1\}</script>.</li>
+  <li>We want to be able to calculate the probability of “one or the other thing” happening. Let <span class="kdmath">$\omega_1, \omega_2 \in \Omega$</span>. <span class="kdmath">$\{\omega_1\}, \{\omega_2\} \in E$</span> are the events corresponding to exactly one thing happening.  <span class="kdmath">$\{\omega_1, \omega_2\} \in E$</span> is the event corresponding to either <span class="kdmath">$\omega_1$</span> or <span class="kdmath">$\omega_2$</span> happening.</li>
+  <li>We want to be able to calculate the probability of something not happening. Not-<span class="kdmath">$\omega_1$</span> is the event <span class="kdmath">$\{\omega \in \Omega \mid \omega \neq \omega_1\}$</span>.</li>
 </ol>
 
 <p><strong>Question:</strong> But what about the probability of “one <strong>AND</strong> the other thing” happening?</p>
 
-<p>Samples in <script type="math/tex">\Omega</script> each represent exactly one unique state of the world. To say the world is in state $\omega_i$ AND $\omega_j$ simultaneously is a contradiction, since each states on its own is complete, in the sense that they specify everything. However, it may be the case that world-state can be decomposed into two independent parts. Then your sample set is the cartesian product of sets for each independent sub-state, i.e. <script type="math/tex">\Omega = \Lambda_1 \times \Lambda_2</script> and <script type="math/tex">\omega = (\lambda_1, \lambda_2) \in \Lambda_1 \times \Lambda_2</script>. Thus each sample <script type="math/tex">\omega</script> already represents the “and” of two states if you want it to.</p>
+<p>Samples in <span class="kdmath">$\Omega$</span> each represent exactly one unique state of the world. To say the world is in state $\omega_i$ AND $\omega_j$ simultaneously is a contradiction, since each states on its own is complete, in the sense that they specify everything. However, it may be the case that world-state can be decomposed into two independent parts. Then your sample set is the cartesian product of sets for each independent sub-state, i.e. <span class="kdmath">$\Omega = \Lambda_1 \times \Lambda_2$</span> and <span class="kdmath">$\omega = (\lambda_1, \lambda_2) \in \Lambda_1 \times \Lambda_2$</span>. Thus each sample <span class="kdmath">$\omega$</span> already represents the “and” of two states if you want it to.</p>
 
 <h1 id="constructing-events"><a class="header-anchor" href="#constructing-events">Constructing events</a></h1>
 
-<p>A primitive event is a <span class="marginnote-outer"><span class="marginnote-ref">singleton set</span><label for="d110d830c28b4b739bdd1217694def459e015af9" class="margin-toggle"> ⊕</label><input type="checkbox" id="d110d830c28b4b739bdd1217694def459e015af9" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The set containing one sample, i.e. <script type="math/tex">e =\{\omega\}</script> where <script type="math/tex">\omega \in \Omega</script></span></span></span>. Events are <span class="marginnote-outer"><span class="marginnote-ref">what get observed, not samples</span><label for="0b2310df56ec7cd2cb22ca9570daf625df84da24" class="margin-toggle"> ⊕</label><input type="checkbox" id="0b2310df56ec7cd2cb22ca9570daf625df84da24" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">See the <a href="#throwing-darts">dart-throwing discussion</a> below for a good reason why this should be the case.</span></span></span>. If an event contains many samples, you don’t know which of them is the case, but only one can be the case since they are disjoint.</p>
+<p>A primitive event is a <span class="marginnote-outer"><span class="marginnote-ref">singleton set</span><label for="d110d830c28b4b739bdd1217694def459e015af9" class="margin-toggle"> ⊕</label><input type="checkbox" id="d110d830c28b4b739bdd1217694def459e015af9" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">The set containing one sample, i.e. <span class="kdmath">$e =\{\omega\}$</span> where <span class="kdmath">$\omega \in \Omega$</span></span></span></span>. Events are <span class="marginnote-outer"><span class="marginnote-ref">what get observed, not samples</span><label for="0b2310df56ec7cd2cb22ca9570daf625df84da24" class="margin-toggle"> ⊕</label><input type="checkbox" id="0b2310df56ec7cd2cb22ca9570daf625df84da24" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">See the <a href="#throwing-darts">dart-throwing discussion</a> below for a good reason why this should be the case.</span></span></span>. If an event contains many samples, you don’t know which of them is the case, but only one can be the case since they are disjoint.</p>
 
 <p>Probability theory has specialized notation that revolves around turning the “define my event and measure its probability” process into one concise notational step. Random variables (RV)s are central to this notation. But before introducing random variables, let’s look at how we would construct events and measure their probability without RVs:</p>
 
 <ul>
   <li>
-<strong>Construct event:</strong> <script type="math/tex">e = \{\omega \in \Omega \mid \mathrm{condition}(\omega)\}</script>, where <script type="math/tex">\mathrm{condition}(\omega)</script> is some boolean valued proposition on $\omega$.</li>
+<strong>Construct event:</strong> <span class="kdmath">$e = \{\omega \in \Omega \mid \mathrm{condition}(\omega)\}$</span>, where <span class="kdmath">$\mathrm{condition}(\omega)$</span> is some boolean valued proposition on $\omega$.</li>
   <li>
-<strong>Measure probability:</strong> $P(e)$. So long as <script type="math/tex">e \in E</script>, then <script type="math/tex">P(e)</script> is defined.</li>
+<strong>Measure probability:</strong> $P(e)$. So long as <span class="kdmath">$e \in E$</span>, then <span class="kdmath">$P(e)$</span> is defined.</li>
 </ul>
 
 <p>Combined we have,</p>
 
-<script type="math/tex; mode=display">P(\{\omega \in \Omega \mid \mathrm{condition}(\omega)\})\,.</script>
+<div class="kdmath">$$
+P(\{\omega \in \Omega \mid \mathrm{condition}(\omega)\})\,.
+$$</div>
 
-<p>For example, if $\Omega = \nat$ and we wanted to compute the probability of getting an even number, then <script type="math/tex">e = \{n \in \nat \mid \mathrm{Remainder}(n/2) = 0\}</script> and <script type="math/tex">P(\{n \in \nat \mid \mathrm{Remainder}(n/2) = 0\})</script> is the probability.</p>
+<p>For example, if $\Omega = \nat$ and we wanted to compute the probability of getting an even number, then <span class="kdmath">$e = \{n \in \nat \mid \mathrm{Remainder}(n/2) = 0\}$</span> and <span class="kdmath">$P(\{n \in \nat \mid \mathrm{Remainder}(n/2) = 0\})$</span> is the probability.</p>
 
 <h2 id="random-variables"><a class="header-anchor" href="#random-variables">Random variables</a></h2>
 
 <p>Random variables are devices for constructing events. That is their purpose. Contrary to their name, there is <span class="marginnote-outer"><span class="marginnote-ref">nothing random about them.</span><label for="250337d20f972049cc956351c6be818ab040f059" class="margin-toggle"> ⊕</label><input type="checkbox" id="250337d20f972049cc956351c6be818ab040f059" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">A random variable is a deterministic function. The word <em><strong>random</strong></em> is due to it being a function of samples which are randomly chosen.</span></span></span></p>
 
-<p>A random variable is a <span class="advanced outer hidden"><span class="advanced inner hidden">measurable</span></span> function <script type="math/tex">X : \Omega \to F</script>, <span class="advanced outer hidden"><span class="advanced inner hidden">where $(F, \mathcal{F})$ is a <a href="https://en.wikipedia.org/wiki/Measurable_space" target="_blank" rel="noopener noreferrer">measurable space</a> with $\sigma$-algebra $\mathcal{F}$ (specifies measurable subsets of $F$),</span></span> and the elements of $F$ can be any type of object.</p>
+<p>A random variable is a <span class="advanced outer hidden"><span class="advanced inner hidden">measurable</span></span> function <span class="kdmath">$X : \Omega \to F$</span>, <span class="advanced outer hidden"><span class="advanced inner hidden">where $(F, \mathcal{F})$ is a <a href="https://en.wikipedia.org/wiki/Measurable_space" target="_blank" rel="noopener noreferrer">measurable space</a> with $\sigma$-algebra $\mathcal{F}$ (specifies measurable subsets of $F$),</span></span> and the elements of $F$ can be any type of object.</p>
 
 <p>There are three main motivations for the random variable formalism…</p>
 
@@ -395,89 +403,97 @@ P((a, b]) &= \int_a^b f(x) \d x\,,
 
 <p>I briefly mentioned <a href="#events-vs-samples">above</a> that samples (world state) can be treated as containing sub-samples (sub-state), e.g. $\omega = (\lambda_1, \lambda_2) \in \Lambda_1 \times \Lambda_2 = \Omega$. Random variables are convenient for dealing with just one sub-sample in isolation, and they allow you to avoid committing to a particular way to divide up $\omega$, e.g. $\omega = (\lambda_1, \lambda_2) = (\kappa_1, \kappa_2, \kappa_3)$ might be two different and incompatible but semantically meaningful ways to divide sample $\omega$ into sub-samples.</p>
 
-<p>A random variable $X : \Omega \to F$ <em>hides information</em> contained in $\omega \in \Omega$ by appropriate choice of $F$. E.g. let $\Omega = \Lambda_1 \times \Lambda_2$ and let <script type="math/tex">X_1 : \Omega \to \Lambda_1 : (\lambda_1, \lambda_2) \mapsto \lambda_1</script> and <script type="math/tex">X_2 : \Omega \to \Lambda_2 : (\lambda_1, \lambda_2) \mapsto \lambda_2</script> be two random variables. $X_1(\Omega) = \Lambda_1$ and $X_2(\Omega)=\Lambda_2$ are smaller sample spaces than $\Omega$, each which hide sub-samples.</p>
+<p>A random variable $X : \Omega \to F$ <em>hides information</em> contained in $\omega \in \Omega$ by appropriate choice of $F$. E.g. let $\Omega = \Lambda_1 \times \Lambda_2$ and let <span class="kdmath">$X_1 : \Omega \to \Lambda_1 : (\lambda_1, \lambda_2) \mapsto \lambda_1$</span> and <span class="kdmath">$X_2 : \Omega \to \Lambda_2 : (\lambda_1, \lambda_2) \mapsto \lambda_2$</span> be two random variables. $X_1(\Omega) = \Lambda_1$ and $X_2(\Omega)=\Lambda_2$ are smaller sample spaces than $\Omega$, each which hide sub-samples.</p>
 
-<p>When multiple random variables are invoked in the same context, they are assumed to be <span class="marginnote-outer"><span class="marginnote-ref">over the same sample space $\Omega$.</span><label for="2d1ff964981aff5411e5b2e1dc946fe1bd3dfccd" class="margin-toggle"> ⊕</label><input type="checkbox" id="2d1ff964981aff5411e5b2e1dc946fe1bd3dfccd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">For RVs $X_1, X_2, \ldots$ it is assumed there is a joint probability distribution <script type="math/tex">P_{X_1, X_2, \ldots}</script>. See the definition of joint distribution <a href="#probability-distribution-of-a-random-variable">below</a>.</span></span></span></p>
+<p>When multiple random variables are invoked in the same context, they are assumed to be <span class="marginnote-outer"><span class="marginnote-ref">over the same sample space $\Omega$.</span><label for="2d1ff964981aff5411e5b2e1dc946fe1bd3dfccd" class="margin-toggle"> ⊕</label><input type="checkbox" id="2d1ff964981aff5411e5b2e1dc946fe1bd3dfccd" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">For RVs $X_1, X_2, \ldots$ it is assumed there is a joint probability distribution <span class="kdmath">$P_{X_1, X_2, \ldots}$</span>. See the definition of joint distribution <a href="#probability-distribution-of-a-random-variable">below</a>.</span></span></span></p>
 
 <h4 id="examples-1"><a class="header-anchor" href="#examples-1">Examples</a></h4>
 
 <p><strong>Toss two coins</strong></p>
 
-<p><script type="math/tex">\Omega = \Lambda_1 \times \Lambda_2</script>.  <script type="math/tex">(\lambda_1, \lambda_2) \in \Omega</script>.  <script type="math/tex">\Lambda_1 = \Lambda_2 = \{H, T\}</script>. <br>
-Define <script type="math/tex">X_1 : (\lambda_1, \lambda_2) \mapsto \lambda_1</script> and <script type="math/tex">X_2 : (\lambda_1, \lambda_2) \mapsto \lambda_2</script>.<br>
-<script type="math/tex">X_1</script> isolates the state of the first coin. <script type="math/tex">X_2</script> isolates the state of the second coin.<br>
+<p><span class="kdmath">$\Omega = \Lambda_1 \times \Lambda_2$</span>.  <span class="kdmath">$(\lambda_1, \lambda_2) \in \Omega$</span>.  <span class="kdmath">$\Lambda_1 = \Lambda_2 = \{H, T\}$</span>. <br>
+Define <span class="kdmath">$X_1 : (\lambda_1, \lambda_2) \mapsto \lambda_1$</span> and <span class="kdmath">$X_2 : (\lambda_1, \lambda_2) \mapsto \lambda_2$</span>.<br>
+<span class="kdmath">$X_1$</span> isolates the state of the first coin. <span class="kdmath">$X_2$</span> isolates the state of the second coin.<br>
 $P(X_1=H) = P(\{\omega \in \Omega \mid X_1(\omega) = H\}) = P(\{(H,H), (H,T)\})$</p>
 
 <p><strong>Toss two dice</strong></p>
 
-<p><script type="math/tex">\Omega = \Lambda_1 \times \Lambda_2</script>.  <script type="math/tex">(\lambda_1, \lambda_2) \in \Omega</script>.   <script type="math/tex">\Lambda_1 = \Lambda_2 = \{1,2,3,4,5,6\}</script>. <br>
-Define <script type="math/tex">S : (\lambda_1, \lambda_2) \mapsto \lambda_1 + \lambda_2</script>.<br>
-<script type="math/tex">S</script> returns the sum of the two die outcomes. <br>
-The codomain of <script type="math/tex">S</script> is <script type="math/tex">\{2, 3, \ldots, 11, 12\}</script><br>
-<script type="math/tex">P(S=4) = P(\{\omega \in \Omega \mid S(\omega) = 4\}) = P(\{(1,3), (2,2), (3, 1)\})</script></p>
+<p><span class="kdmath">$\Omega = \Lambda_1 \times \Lambda_2$</span>.  <span class="kdmath">$(\lambda_1, \lambda_2) \in \Omega$</span>.   <span class="kdmath">$\Lambda_1 = \Lambda_2 = \{1,2,3,4,5,6\}$</span>. <br>
+Define <span class="kdmath">$S : (\lambda_1, \lambda_2) \mapsto \lambda_1 + \lambda_2$</span>.<br>
+<span class="kdmath">$S$</span> returns the sum of the two die outcomes. <br>
+The codomain of <span class="kdmath">$S$</span> is <span class="kdmath">$\{2, 3, \ldots, 11, 12\}$</span><br>
+<span class="kdmath">$P(S=4) = P(\{\omega \in \Omega \mid S(\omega) = 4\}) = P(\{(1,3), (2,2), (3, 1)\})$</span></p>
 
 <p><strong>In the general case…</strong></p>
 
-<p>we might want to represent any number of interacting observables and components in a system. How about modeling the weather or the stock market? Your primitive sample space might be astronomical, but you can identify all sorts of observables like the prices of AAPL and GOOG at time <script type="math/tex">t</script> or the temperatures of Florida and Vermont on Tuesday, which would be convenient to deal with separately. At the same time, you don’t want to lose the rich information about how one particular observable interacts with all the others. We would like to be able to ignore partial information contained in primitive samples (i.e. <a href="#probability-distribution-of-a-random-variable">marginalize</a>).</p>
+<p>we might want to represent any number of interacting observables and components in a system. How about modeling the weather or the stock market? Your primitive sample space might be astronomical, but you can identify all sorts of observables like the prices of AAPL and GOOG at time <span class="kdmath">$t$</span> or the temperatures of Florida and Vermont on Tuesday, which would be convenient to deal with separately. At the same time, you don’t want to lose the rich information about how one particular observable interacts with all the others. We would like to be able to ignore partial information contained in primitive samples (i.e. <a href="#probability-distribution-of-a-random-variable">marginalize</a>).</p>
 
 <h3 id="motivation-2-syntactic-sugar"><a class="header-anchor" href="#motivation-2-syntactic-sugar">Motivation 2: Syntactic sugar</a></h3>
 
-<p>We’ve seen how events can be constructed with set builder notation, i.e. <script type="math/tex">e = \{\omega \in \Omega \mid \mathrm{condition}(\omega)\}</script>, and we’ve seen how a random variable $X : \Omega \to F$ can be used to build events, e.g. <script type="math/tex">e = \{\omega \in \Omega \mid X(\omega) = f\}</script> where $f \in F$ is some object.</p>
+<p>We’ve seen how events can be constructed with set builder notation, i.e. <span class="kdmath">$e = \{\omega \in \Omega \mid \mathrm{condition}(\omega)\}$</span>, and we’ve seen how a random variable $X : \Omega \to F$ can be used to build events, e.g. <span class="kdmath">$e = \{\omega \in \Omega \mid X(\omega) = f\}$</span> where $f \in F$ is some object.</p>
 
-<p>There is a shorthand notation for writing <script type="math/tex">P(\{\omega \in \Omega \mid X(\omega) = f\})</script>, which is</p>
+<p>There is a shorthand notation for writing <span class="kdmath">$P(\{\omega \in \Omega \mid X(\omega) = f\})$</span>, which is</p>
 
-<script type="math/tex; mode=display">P(X=f)\,.</script>
+<div class="kdmath">$$
+P(X=f)\,.
+$$</div>
 
 <p>The general case of this notation is</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-& P(\mathrm{condition}(X_1, X_2, \ldots)) \\
-& \quad = P(\{\omega \in \Omega : \mathrm{condition}(X_1(\omega), X_2(\omega), \ldots)\})\,,
-\end{align} %]]></script>
+&amp; P(\mathrm{condition}(X_1, X_2, \ldots)) \\
+&amp; \quad = P(\{\omega \in \Omega : \mathrm{condition}(X_1(\omega), X_2(\omega), \ldots)\})\,,
+\end{align}
+$$</div>
 
-<p>where $X_1 : \Omega \to F_1,\ \ X_2 : \Omega \to F_2, \ \  \ldots$ are random variables, and <script type="math/tex">\mathrm{condition}(f_1, f_2, \ldots)</script> is some boolean function of inputs <script type="math/tex">f_1 \in F_1, f_2 \in F_2, \ldots</script> <span class="advanced outer hidden"><span class="advanced inner hidden">with measurable spaces $(F_1, \mathcal{F}_1), (F_2, \mathcal{F}_2), \ldots$</span></span></p>
+<p>where $X_1 : \Omega \to F_1,\ \ X_2 : \Omega \to F_2, \ \  \ldots$ are random variables, and <span class="kdmath">$\mathrm{condition}(f_1, f_2, \ldots)$</span> is some boolean function of inputs <span class="kdmath">$f_1 \in F_1, f_2 \in F_2, \ldots$</span> <span class="advanced outer hidden"><span class="advanced inner hidden">with measurable spaces $(F_1, \mathcal{F}_1), (F_2, \mathcal{F}_2), \ldots$</span></span></p>
 
 <p><strong>Examples:</strong></p>
 <ul>
   <li>
-<script type="math/tex">P(X = Y) = P(\{\omega \in \Omega \mid X(\omega) = Y(\omega)\})</script>, where <script type="math/tex">Y : \Omega \to F</script> is a random variable.</li>
+<span class="kdmath">$P(X = Y) = P(\{\omega \in \Omega \mid X(\omega) = Y(\omega)\})$</span>, where <span class="kdmath">$Y : \Omega \to F$</span> is a random variable.</li>
   <li>
-<script type="math/tex">P(X=f, Y=g) = P(\{\omega \in \Omega \mid X(\omega)=f, Y(\omega)=g\})</script> where <script type="math/tex">Y:\Omega \to G</script> and <script type="math/tex">g \in G</script>.</li>
+<span class="kdmath">$P(X=f, Y=g) = P(\{\omega \in \Omega \mid X(\omega)=f, Y(\omega)=g\})$</span> where <span class="kdmath">$Y:\Omega \to G$</span> and <span class="kdmath">$g \in G$</span>.</li>
   <li>
-<script type="math/tex">P(X \in A) = P(\{\omega \in \Omega \mid X(\omega) \in A\})</script>, for <script type="math/tex">A \subseteq F</script> <span class="advanced outer hidden"><span class="advanced inner hidden">(and $A \in \mathcal{F}$ is measurable).</span></span>
+<span class="kdmath">$P(X \in A) = P(\{\omega \in \Omega \mid X(\omega) \in A\})$</span>, for <span class="kdmath">$A \subseteq F$</span> <span class="advanced outer hidden"><span class="advanced inner hidden">(and $A \in \mathcal{F}$ is measurable).</span></span>
 </li>
   <li>$P(X &gt; f) = P(\{\omega \in \Omega \mid X(\omega) &gt; f\})$.</li>
   <li>$P(X &gt; Y) = P(\{\omega \in \Omega \mid X(\omega) &gt; Y(\omega)\})$.</li>
-  <li>Arbitrary algebraic expressions of random variables, e.g. <script type="math/tex">P(c_0 + c_1 X + c_2 X^2 + c_3 X^3 + \ldots = k) = P(\{\omega \in \Omega \mid c_0 + c_1 X(\omega) + c_2 X(\omega)^2 + c_3 X(\omega)^3 + \ldots = k\})</script> or <script type="math/tex">P(\exp(X) = \log(Y)) = P(\{\omega \in \Omega \mid \exp(X(\omega)) = \log(Y(\omega))\})</script>.</li>
+  <li>Arbitrary algebraic expressions of random variables, e.g. <span class="kdmath">$P(c_0 + c_1 X + c_2 X^2 + c_3 X^3 + \ldots = k) = P(\{\omega \in \Omega \mid c_0 + c_1 X(\omega) + c_2 X(\omega)^2 + c_3 X(\omega)^3 + \ldots = k\})$</span> or <span class="kdmath">$P(\exp(X) = \log(Y)) = P(\{\omega \in \Omega \mid \exp(X(\omega)) = \log(Y(\omega))\})$</span>.</li>
 </ul>
 
-<p>A standard notational convention is that calling a function on a random variable generates a new random variable, i.e. <script type="math/tex">h(X) = h∘X</script>, so that <script type="math/tex">P(h(X) = c)</script> can be parsed either as <script type="math/tex">P(Y = c)</script> where random variable <script type="math/tex">Y = h∘X</script>, or as <script type="math/tex">P(\mathrm{condition}(X))</script> where <script type="math/tex">\mathrm{condition}(x)</script> is the expression <script type="math/tex">h(x) = c</script>.</p>
+<p>A standard notational convention is that calling a function on a random variable generates a new random variable, i.e. <span class="kdmath">$h(X) = h∘X$</span>, so that <span class="kdmath">$P(h(X) = c)$</span> can be parsed either as <span class="kdmath">$P(Y = c)$</span> where random variable <span class="kdmath">$Y = h∘X$</span>, or as <span class="kdmath">$P(\mathrm{condition}(X))$</span> where <span class="kdmath">$\mathrm{condition}(x)$</span> is the expression <span class="kdmath">$h(x) = c$</span>.</p>
 
 <h4 id="probability-distribution-of-a-random-variable"><a class="header-anchor" href="#probability-distribution-of-a-random-variable">Probability distribution of a random variable</a></h4>
 
-<p>Any random variable $X : \Omega \to F$ <span class="advanced outer hidden"><span class="advanced inner hidden">to measurable space $(F, \mathcal{F})$</span></span> induces a unique probability measure with $F$ as the sample set, rather than $\Omega$. We call it the <strong>marginal distribution</strong> w.r.t. $X$, defined as <script type="math/tex">P_X: F \to [0, 1]</script>:</p>
+<p>Any random variable $X : \Omega \to F$ <span class="advanced outer hidden"><span class="advanced inner hidden">to measurable space $(F, \mathcal{F})$</span></span> induces a unique probability measure with $F$ as the sample set, rather than $\Omega$. We call it the <strong>marginal distribution</strong> w.r.t. $X$, defined as <span class="kdmath">$P_X: F \to [0, 1]$</span>:</p>
 
-<script type="math/tex; mode=display">P_X(A) := P(X \in A) = P(\{\omega \in \Omega \mid X(\omega) \in  A\})\,,</script>
+<div class="kdmath">$$
+P_X(A) := P(X \in A) = P(\{\omega \in \Omega \mid X(\omega) \in  A\})\,,
+$$</div>
 
-<p>for <span class="advanced outer hidden"><span class="advanced inner hidden">measurable</span></span> $A \subseteq F$. Thus $(F, \mathcal{F}, P_X)$ is the probability space for the marginal distribution of $X$. Note that <script type="math/tex">P(X=f) = P_X(\{f\})</script>, <script type="math/tex">% <![CDATA[
-P(X < f) = P_X(\{f' \in F \mid f' < f\}) %]]></script>, etc.</p>
+<p>for <span class="advanced outer hidden"><span class="advanced inner hidden">measurable</span></span> $A \subseteq F$. Thus $(F, \mathcal{F}, P_X)$ is the probability space for the marginal distribution of $X$. Note that <span class="kdmath">$P(X=f) = P_X(\{f\})$</span>, <span class="kdmath">$P(X &lt; f) = P_X(\{f' \in F \mid f' &lt; f\})$</span>, etc.</p>
 
 <p>We often have more than one random variable of interest. With $X$ defined above and $Y : \Omega \to G$ <span class="advanced outer hidden"><span class="advanced inner hidden">to measurable space $(G, \mathcal{G})$</span></span>, we have the marginal distributions $P_X$ and $P_Y$, and also the <strong>joint distribution</strong> w.r.t. $X$ and $Y$, defined as $P_{X,Y} : F \times G \to [0, 1]$:</p>
 
-<script type="math/tex; mode=display">P_{X,Y}(A, B) := P(X \in A \wedge Y \in B) = P(\{\omega \in \Omega \mid X(\omega) \in A \wedge Y(\omega) \in B\})</script>
+<div class="kdmath">$$
+P_{X,Y}(A, B) := P(X \in A \wedge Y \in B) = P(\{\omega \in \Omega \mid X(\omega) \in A \wedge Y(\omega) \in B\})
+$$</div>
 
 <p>for <span class="advanced outer hidden"><span class="advanced inner hidden">measurable</span></span> $A \subseteq F, B \subseteq G$. Thus <span class="marginnote-outer"><span class="marginnote-ref">$(F \times G, \mathcal{F} \otimes \mathcal{G}, P_{X,Y})$</span><label for="0a155670fb530d756f4f07e993143bde44206b9e" class="margin-toggle"> ⊕</label><input type="checkbox" id="0a155670fb530d756f4f07e993143bde44206b9e" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">$\mathcal{F} \otimes \mathcal{G} := \{A \times B \mid A \in \mathcal{F}, B \in \mathcal{G}\}$.</span></span></span> is the probability space for the joint distribution of $X$ and $Y$.</p>
 
 <p>In general, for RVs $X_1 : \Omega \to F_1,\ \ X_2 : \Omega \to F_2,\ \ \ldots$, we have the joint distribution $P_{X_1,X_2,\ldots} : F_1 \times F_2 \times \ldots \to [0, 1]$:</p>
 
-<script type="math/tex; mode=display">P_{X_1,X_2,\ldots}(A_1, A_2, \ldots) := P(X_1 \in A_1 \wedge X_2 \in A_2 \wedge \ldots)\,.</script>
+<div class="kdmath">$$
+P_{X_1,X_2,\ldots}(A_1, A_2, \ldots) := P(X_1 \in A_1 \wedge X_2 \in A_2 \wedge \ldots)\,.
+$$</div>
 
 <p>A joint distribution may also be a marginal distribution. For example, if I have RVs $X_1, \ldots, X_{10}$ and I consider the probability measure $P_{X_3,X_5,X_7}$.</p>
 
-<p>RVs in a joint distribution need not be created from cartesian products of sample sets, i.e. the output of one RV may partially determine the output of another. Taking the two dice example, my space is <script type="math/tex">\Omega = \{1, \ldots, 6\} \times \{1, \ldots, 6\}</script>. The random variable for the outcome of die 1 is $D_1((n, m)) \mapsto n$, and the random variable for the sum of dice is $S((n, m)) \mapsto n + m$. Choosing $\omega \in \Omega$ to determine $D_1$ may also determine $S$, and vice versa. If I want $S(\omega) = 2$ then $\omega = (1, 1)$ and $D_1(\omega) = 1$ is fully determined. Likewise if we choose $\omega$ so that $D_1(\omega) = 6$ then the possible values of $S(\omega)$ are restricted to $7, 8, 9, 10, 11, 12$. Nevertheless, $P_{D_1, S}$ is a perfectly fine joint distribution.</p>
+<p>RVs in a joint distribution need not be created from cartesian products of sample sets, i.e. the output of one RV may partially determine the output of another. Taking the two dice example, my space is <span class="kdmath">$\Omega = \{1, \ldots, 6\} \times \{1, \ldots, 6\}$</span>. The random variable for the outcome of die 1 is $D_1((n, m)) \mapsto n$, and the random variable for the sum of dice is $S((n, m)) \mapsto n + m$. Choosing $\omega \in \Omega$ to determine $D_1$ may also determine $S$, and vice versa. If I want $S(\omega) = 2$ then $\omega = (1, 1)$ and $D_1(\omega) = 1$ is fully determined. Likewise if we choose $\omega$ so that $D_1(\omega) = 6$ then the possible values of $S(\omega)$ are restricted to $7, 8, 9, 10, 11, 12$. Nevertheless, $P_{D_1, S}$ is a perfectly fine joint distribution.</p>
 
-<p>Keeping track of all these probability functions can be confusing, e.g. marginals $P_X$ and $P_Y$ and joint $P_{X,Y}$ are in a sense derived from a single probability function $P$, where $P(X=x)$ and $P(Y=y)$ are equivalent to <script type="math/tex">P_X(\{x\})</script> and <script type="math/tex">P_Y(\{y\})</script>. However, it is possible to have two different underlying probability measures that reuse the same random variables, e.g. $Q : \Omega \to [0, 1]$ with expressions like $Q(X=x)$ and $Q(Y=y)$ being possible, and marginals $Q_X$ and $Q_Y$ and joint $Q_{X,Y}$. Keep in mind that calculations with $P$-related and $Q$-related probability functions do not necessarily have anything to do with each other.</p>
+<p>Keeping track of all these probability functions can be confusing, e.g. marginals $P_X$ and $P_Y$ and joint $P_{X,Y}$ are in a sense derived from a single probability function $P$, where $P(X=x)$ and $P(Y=y)$ are equivalent to <span class="kdmath">$P_X(\{x\})$</span> and <span class="kdmath">$P_Y(\{y\})$</span>. However, it is possible to have two different underlying probability measures that reuse the same random variables, e.g. $Q : \Omega \to [0, 1]$ with expressions like $Q(X=x)$ and $Q(Y=y)$ being possible, and marginals $Q_X$ and $Q_Y$ and joint $Q_{X,Y}$. Keep in mind that calculations with $P$-related and $Q$-related probability functions do not necessarily have anything to do with each other.</p>
 
 <h4 id="notational-confusion"><a class="header-anchor" href="#notational-confusion">Notational confusion</a></h4>
 
@@ -500,10 +516,10 @@ P(X < f) = P_X(\{f' \in F \mid f' < f\}) %]]></script>, etc.</p>
 
 <h3 id="motivation-3-construct-events-that-are-guaranteed-measurable"><a class="header-anchor" href="#motivation-3-construct-events-that-are-guaranteed-measurable">Motivation 3: Construct events that are guaranteed measurable</a></h3>
 
-<p>Using random variable $X : \Omega \to F$ inside set-builder notation will guarantee that the result is an event, i.e. an element of $E$. For example, <script type="math/tex">\{\omega \in \Omega \mid X(\omega) \in A\} \in E</script> as long as $X^{-1}(A) \in E$. We specified in the definition of random variable that it be a <em>measurable</em> function, which is a fancy way of saying that we restrict ourselves to such $A \subseteq F$ where $X^{-1}(A) \in E$ holds.</p>
+<p>Using random variable $X : \Omega \to F$ inside set-builder notation will guarantee that the result is an event, i.e. an element of $E$. For example, <span class="kdmath">$\{\omega \in \Omega \mid X(\omega) \in A\} \in E$</span> as long as $X^{-1}(A) \in E$. We specified in the definition of random variable that it be a <em>measurable</em> function, which is a fancy way of saying that we restrict ourselves to such $A \subseteq F$ where $X^{-1}(A) \in E$ holds.</p>
 
 <p><span class="advanced outer hidden"><span class="advanced inner hidden">
-The definition of random variable specifies that the function $X : \Omega \to F$ is <em>measurable</em>. That means for measurable spaces $(\Omega, E)$ and $(F, \mathcal{F})$, it is the case that <span class="marginnote-outer"><span class="marginnote-ref"><script type="math/tex">X^{-1}(A) \in E,\ \forall A \in \mathcal{F}</script>.</span><label for="f5bfb7f5110efa973669d06b6cf8443929676dd1" class="margin-toggle"> ⊕</label><input type="checkbox" id="f5bfb7f5110efa973669d06b6cf8443929676dd1" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Where <script type="math/tex">X^{-1}(A) = \{\omega \in \Omega \mid X(\omega) \in A\}</script> is the pre-image of <script type="math/tex">X</script> on <script type="math/tex">A</script>.</span></span></span> In other words, $X$ <span class="marginnote-outer"><span class="marginnote-ref">never maps a non-measurable subset</span><label for="09f5e06fa264194f74f5ebadcfbdeb1baba486aa" class="margin-toggle"> ⊕</label><input type="checkbox" id="09f5e06fa264194f74f5ebadcfbdeb1baba486aa" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">However, $X$ could map a measurable subset of $\Omega$ to a non-measurable subset of $F$.</span></span></span> of $\Omega$ to a measurable subset of $F$. Thus every set of the form <script type="math/tex">\{\omega \in \Omega \mid X(\omega) \in A\} = X^{-1}(A)</script> for measurable <script type="math/tex">A \in \mathcal{F}</script> is guaranteed to be measurable.</span></span></p>
+The definition of random variable specifies that the function $X : \Omega \to F$ is <em>measurable</em>. That means for measurable spaces $(\Omega, E)$ and $(F, \mathcal{F})$, it is the case that <span class="marginnote-outer"><span class="marginnote-ref"><span class="kdmath">$X^{-1}(A) \in E,\ \forall A \in \mathcal{F}$</span>.</span><label for="f5bfb7f5110efa973669d06b6cf8443929676dd1" class="margin-toggle"> ⊕</label><input type="checkbox" id="f5bfb7f5110efa973669d06b6cf8443929676dd1" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Where <span class="kdmath">$X^{-1}(A) = \{\omega \in \Omega \mid X(\omega) \in A\}$</span> is the pre-image of <span class="kdmath">$X$</span> on <span class="kdmath">$A$</span>.</span></span></span> In other words, $X$ <span class="marginnote-outer"><span class="marginnote-ref">never maps a non-measurable subset</span><label for="09f5e06fa264194f74f5ebadcfbdeb1baba486aa" class="margin-toggle"> ⊕</label><input type="checkbox" id="09f5e06fa264194f74f5ebadcfbdeb1baba486aa" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">However, $X$ could map a measurable subset of $\Omega$ to a non-measurable subset of $F$.</span></span></span> of $\Omega$ to a measurable subset of $F$. Thus every set of the form <span class="kdmath">$\{\omega \in \Omega \mid X(\omega) \in A\} = X^{-1}(A)$</span> for measurable <span class="kdmath">$A \in \mathcal{F}$</span> is guaranteed to be measurable.</span></span></p>
 
 <p><span class="advanced outer hidden"><span class="advanced inner hidden"><strong>Question:</strong> Are arbitrary expressions of random variables, i.e. $\mathrm{condition}(X_1, X_2, \ldots)$, guaranteed measurable?</span></span></p>
 
@@ -513,16 +529,16 @@ The definition of random variable specifies that the function $X : \Omega \to F$
 
 <p>We also know that $P(\Omega) = 1$. In the situations where non-empty sets have measure 0, there must be non-$\Omega$ sets with measure 1, because of the additivity of probability measure. Such sets are said to have measure 1, and such events are said to occur <a href="https://en.wikipedia.org/wiki/Almost_surely" target="_blank" rel="noopener noreferrer"><strong>almost surely</strong></a>.</p>
 
-<p>There is nothing strange about non-empty sets of measure 0. Probability measure is not measuring the number of samples in an event (that would be set cardinality). If $P(e) = 0$, then for any sub-event $e’ \subset e$ we have $P(e’) = 0$ by additivity of probability measure. So if $\omega \in e$, then <script type="math/tex">P(\{\omega\}) = 0</script>. We could say informally that sample $\omega$ <span class="marginnote-outer"><span class="marginnote-ref">has</span><label for="8b6a113f6e09785a059e28fd0bd407e1177231b2" class="margin-toggle"> ⊕</label><input type="checkbox" id="8b6a113f6e09785a059e28fd0bd407e1177231b2" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">While recognizing that formally samples don’t have probability, and it is the event <script type="math/tex">\{\omega\}</script> which has probability 0.</span></span></span> 0 probability.</p>
+<p>There is nothing strange about non-empty sets of measure 0. Probability measure is not measuring the number of samples in an event (that would be set cardinality). If $P(e) = 0$, then for any sub-event $e’ \subset e$ we have $P(e’) = 0$ by additivity of probability measure. So if $\omega \in e$, then <span class="kdmath">$P(\{\omega\}) = 0$</span>. We could say informally that sample $\omega$ <span class="marginnote-outer"><span class="marginnote-ref">has</span><label for="8b6a113f6e09785a059e28fd0bd407e1177231b2" class="margin-toggle"> ⊕</label><input type="checkbox" id="8b6a113f6e09785a059e28fd0bd407e1177231b2" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">While recognizing that formally samples don’t have probability, and it is the event <span class="kdmath">$\{\omega\}$</span> which has probability 0.</span></span></span> 0 probability.</p>
 
-<p><strong>Question:</strong> What does <script type="math/tex">P(\{\omega\}) = 0</script> imply about $\omega$? Does it mean that $\omega$ can never be the case, i.e. can never be a state of the world?</p>
+<p><strong>Question:</strong> What does <span class="kdmath">$P(\{\omega\}) = 0$</span> imply about $\omega$? Does it mean that $\omega$ can never be the case, i.e. can never be a state of the world?</p>
 
 <p>This is a question about the interpretation of probability, i.e. how probability theory interfaces with reality, and there is no universally agreed upon answer. The mathematical construction of probability theory is agnostic on the matter.</p>
 
 <p>I think there are two follow up questions that naturally fall out of the original:</p>
 <ol>
-  <li>For what reason would we define a probability measure $P$ such that <script type="math/tex">P(\{\omega\}) = 0</script>  for some $\omega \in \Omega$?</li>
-  <li>If we are told $P$ describes some physical process and <script type="math/tex">P(\{\omega\}) = 0</script>, what will we observe?</li>
+  <li>For what reason would we define a probability measure $P$ such that <span class="kdmath">$P(\{\omega\}) = 0$</span>  for some $\omega \in \Omega$?</li>
+  <li>If we are told $P$ describes some physical process and <span class="kdmath">$P(\{\omega\}) = 0$</span>, what will we observe?</li>
 </ol>
 
 <p>Naive answers to both are that we may assign measure 0 to events which can never be observed to occur, and if we believe an event has measure 0 then we will never observe it occurring. There are some who will say that nothing is impossible, merely improbable, and all events should be assigned non-zero probability. Clearly “no confirmation ⟹ impossible” is the <span class="marginnote-outer"><span class="marginnote-ref"><a href="https://en.wikipedia.org/wiki/Black_swan_theory" target="_blank" rel="noopener noreferrer">black swan fallacy</a>,</span><label for="b1edfaa9f6795859151d1b1f2a83d8d9aa8f7daa" class="margin-toggle"> ⊕</label><input type="checkbox" id="b1edfaa9f6795859151d1b1f2a83d8d9aa8f7daa" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">Black swans were presumed to not exist by Europeans before the 16th century because only white swans had been observed. “However, in 1697, Dutch explorers led by Willem de Vlamingh became the first Europeans to see black swans, in Western Australia.” The fallacy is that lack of confirmation of something being true does not rule out the possibility that it is true. This fallacy amounts to mistaking ‘I have not found $x$ s.t. $\mathrm{proposition}(x)$’ with ‘$\not\exists x$ s.t. $\mathrm{proposition}(x)$’.</span></span></span>. You cannot know something is impossible by lack of observation, so you should not assign 0 probability because of lack of data. However, something may be logically impossible, or you may know something is impossible via other means.</p>
@@ -569,33 +585,42 @@ The definition of random variable specifies that the function $X : \Omega \to F$
 
 <p>Regardless of the physical reality of i.i.d. processes, there is the mathematical question of how to represent i.i.d. repetitions of an experiment. Given $(\Omega, E, P)$ for our experiment and identity RV $X : \omega \mapsto \omega$, we can derive a larger distribution representing $n$ trials by taking the cartesian product of the sample space $n$ times, i.e. our probability space is $(\Omega_n, E_n, P_n)$ where</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="kdmath">$$
 \begin{align}
-\Omega_n &:= \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{n\ \mathrm{times}} \\
-E_n &:= \underbrace{E \otimes E \otimes \ldots E}_{n\ \mathrm{times}} \\
-P_n &: (e_1, \ldots, e_n) \mapsto \prod_{i=1}^n P(e_i)\,.
-\end{align} %]]></script>
+\Omega_n &amp;:= \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{n\ \mathrm{times}} \\
+E_n &amp;:= \underbrace{E \otimes E \otimes \ldots E}_{n\ \mathrm{times}} \\
+P_n &amp;: (e_1, \ldots, e_n) \mapsto \prod_{i=1}^n P(e_i)\,.
+\end{align}
+$$</div>
 
-<p>Ignoring the mathematical difficulties involved, let’s invoke the sample set over infinite trials, $\Omega_\infty$. Let’s also create a random variable for the outcome of each trial <script type="math/tex">t \in \nat\setminus\{0\}</script> in the infinite series:</p>
+<p>Ignoring the mathematical difficulties involved, let’s invoke the sample set over infinite trials, $\Omega_\infty$. Let’s also create a random variable for the outcome of each trial <span class="kdmath">$t \in \nat\setminus\{0\}$</span> in the infinite series:</p>
 
-<script type="math/tex; mode=display">X_t : \Omega_\infty \to \Omega : (\omega_1, \omega_2, \ldots, \omega_t, \ldots) \mapsto \omega_t\,.</script>
+<div class="kdmath">$$
+X_t : \Omega_\infty \to \Omega : (\omega_1, \omega_2, \ldots, \omega_t, \ldots) \mapsto \omega_t\,.
+$$</div>
 
 <p>The idea of probability representing the outcome frequency of infinite i.i.d. trials is formally captured by <span class="marginnote-outer"><span class="marginnote-ref"><a href="https://en.wikipedia.org/wiki/Law_of_large_numbers#Strong_law" target="_blank" rel="noopener noreferrer">Borel’s law of large numbers (BLLN)</a></span><label for="f8c0e2c3419ca4b7592f9b45eebbe3fc48accdc3" class="margin-toggle"> ⊕</label><input type="checkbox" id="f8c0e2c3419ca4b7592f9b45eebbe3fc48accdc3" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">This is a special case of the <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers#Strong_law" target="_blank" rel="noopener noreferrer">strong law of large numbers</a>. There are a few variants of the law of large numbers (LLN), e.g. <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers#Weak_law" target="_blank" rel="noopener noreferrer">weak law</a>, but I feel BLLN most straightforwardly expresses the insight I wish to convey.</span></span></span>. Given any single-trial event $e \in E$, we have:</p>
 
-<p><script type="math/tex">P_\infty\left(\left\{\omega_\infty \in \Omega_\infty \bigmid \lim_{n \to \infty} \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i(\omega_\infty) \in e] = P(e)\right\}\right) = 1\,,</script><br>
+<p><span class="kdmath">$P_\infty\left(\left\{\omega_\infty \in \Omega_\infty \bigmid \lim_{n \to \infty} \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i(\omega_\infty) \in e] = P(e)\right\}\right) = 1\,,$</span><br>
 where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if true, 0 otherwise). The sum</p>
 
-<script type="math/tex; mode=display">\sum\limits_{i=1}^n 𝟙[X_i(\omega_\infty) \in e]</script>
+<div class="kdmath">$$
+\sum\limits_{i=1}^n 𝟙[X_i(\omega_\infty) \in e]
+$$</div>
 
 <p>computes a count: the number of times event $e$ occurs in the first $n$ trials, where $\omega_\infty$ is the infinite sequence of trial samples. Dividing by $n$ gives the frequency, i.e. fraction of times $e$ appears out of the first $n$ trials.</p>
 
 <p>Borel’s law of large numbers (BLLN) can then be written more concisely using our fun RV notation:</p>
 
-<script type="math/tex; mode=display">P_\infty\left(\lim_{n \to \infty} \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i \in e] = P(e)\right) = 1\,,</script>
+<div class="kdmath">$$
+P_\infty\left(\lim_{n \to \infty} \frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i \in e] = P(e)\right) = 1\,,
+$$</div>
 
 <p>or using <a href="https://en.wikipedia.org/wiki/Convergence_of_random_variables#Almost_sure_convergence" target="_blank" rel="noopener noreferrer">almost sure convergence notation</a>:</p>
 
-<script type="math/tex; mode=display">\frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i \in e] \overset{\mathrm{a.s.}}{\longrightarrow} P(e)\,,</script>
+<div class="kdmath">$$
+\frac{1}{n} \sum\limits_{i=1}^n 𝟙[X_i \in e] \overset{\mathrm{a.s.}}{\longrightarrow} P(e)\,,
+$$</div>
 
 <p>though the latter does not make it clear that $P_\infty$ is our measure.</p>
 
@@ -603,7 +628,7 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
 
 <p>As I mentioned earlier, countable events of real numbers are always measure 0 (<a href="https://proofwiki.org/wiki/Countable_Sets_Have_Measure_Zero" target="_blank" rel="noopener noreferrer">proof</a>) for probability measures defined on the reals. Sample set $\Omega_\infty$ has the cardinality of $\real$, and there is a <span class="marginnote-outer"><span class="marginnote-ref">natural bijection to the unit interval</span><label for="3ab93fbd33cfedf7956143fb287aa3dbb5c5101c" class="margin-toggle"> ⊕</label><input type="checkbox" id="3ab93fbd33cfedf7956143fb287aa3dbb5c5101c" class="margin-toggle"><span class="marginnote"><span class="marginnote-inner">If the sample space $\Omega$ of each trial is finite, we can think of a sequence $(\omega_1, \omega_2, \ldots)$ as the decimal expansion of a number between 0 and 1 in base $\abs{\Omega}$.</span></span></span>. Therefore there are potentially an infinity of events in $\Omega_\infty$ (countably many) for which BLLN does not hold. As before we may ask a similar question: can these BLLN-violating events happen?</p>
 
-<p>Let’s step back and ask, what is so special about the BLLN anyway? Why should samples satisfy it? In fact, for any particular sample $\omega_\infty$, I can construct a measure 1 set <script type="math/tex">\Omega_\infty \setminus \{\omega_\infty\}</script> which does not contain it, simply because the singleton set <script type="math/tex">\{\omega_\infty\}</script> has measure 0. Thus it seems that for any sample, there is a “law” which states that it <em>amost surely</em> does not occur. In essence, all samples are special, or none are.</p>
+<p>Let’s step back and ask, what is so special about the BLLN anyway? Why should samples satisfy it? In fact, for any particular sample $\omega_\infty$, I can construct a measure 1 set <span class="kdmath">$\Omega_\infty \setminus \{\omega_\infty\}$</span> which does not contain it, simply because the singleton set <span class="kdmath">$\{\omega_\infty\}$</span> has measure 0. Thus it seems that for any sample, there is a “law” which states that it <em>amost surely</em> does not occur. In essence, all samples are special, or none are.</p>
 
 <p>Ming Li and Paul Vitányi in their <a href="https://link.springer.com/book/10.1007%2F978-3-030-11298-1" target="_blank" rel="noopener noreferrer">An Introduction to Kolmogorov Complexity and Its Applications</a> summarize this conundrum quite well:</p>
 
@@ -640,11 +665,11 @@ where $𝟙[\mathrm{expr}]$ casts boolean $\mathrm{expr}$ to an integer (1 if tr
 <p>There are a few requirements for $P$ that make it behave like a measure. Repeated from <a href="#definitions">above</a>, they are:</p>
 <ul>
   <li>
-<strong>Non-negativity</strong>: <script type="math/tex">P(e) \geq 0,\ \forall e \in E</script>.</li>
+<strong>Non-negativity</strong>: <span class="kdmath">$P(e) \geq 0,\ \forall e \in E$</span>.</li>
   <li>
-<strong>Null empty set</strong>: <script type="math/tex">P(\emptyset) = 0</script>.</li>
+<strong>Null empty set</strong>: <span class="kdmath">$P(\emptyset) = 0$</span>.</li>
   <li>
-<strong>Countable additivity</strong>: For any countable <script type="math/tex">A \subseteq E</script> where <script type="math/tex">\bigcap A = \emptyset</script>, <script type="math/tex">P(\bigcup A) = \sum P(A)</script>, where <script type="math/tex">P(A) = \{P(e) \mid e \in A\}</script>.</li>
+<strong>Countable additivity</strong>: For any countable <span class="kdmath">$A \subseteq E$</span> where <span class="kdmath">$\bigcap A = \emptyset$</span>, <span class="kdmath">$P(\bigcup A) = \sum P(A)$</span>, where <span class="kdmath">$P(A) = \{P(e) \mid e \in A\}$</span>.</li>
 </ul>
 
 <p><a name="sigma-algebra"></a><span class="jump_to">
@@ -662,9 +687,11 @@ Further, $E$ is required to be a <span class="marginnote-outer"><span class="mar
 
 <p>There’s one more kind of object that probability theory makes heavy use of: the measurable function. Recounting the definition I gave <a href="#motivation-3-construct-events-that-are-guaranteed-measurable">earlier</a>, given two measurable spaces $(A, \mathcal{A})$ and $(B, \mathcal{B})$, a <strong>measurable function</strong> $X : A \to B$ satisfies</p>
 
-<script type="math/tex; mode=display">X^{-1}(b) \in \mathcal{A},\ \forall b \in \mathcal{B}\,,</script>
+<div class="kdmath">$$
+X^{-1}(b) \in \mathcal{A},\ \forall b \in \mathcal{B}\,,
+$$</div>
 
-<p>where <script type="math/tex">X^{-1}(b) = \{\alpha \in A \mid X(\alpha) \in B\}</script> is the pre-image of $X$ on $b \subseteq B$. $X$ never maps a non-measurable subset of $A$ to a measurable subset of $B$, but $X$ could map a measurable subset of $A$ to a non-measurable subset of $B$. We only care about the reverse direction, and it becomes apparent why in the <a href="#motivation-3-construct-events-that-are-guaranteed-measurable">section on random variables</a>.</p>
+<p>where <span class="kdmath">$X^{-1}(b) = \{\alpha \in A \mid X(\alpha) \in B\}$</span> is the pre-image of $X$ on $b \subseteq B$. $X$ never maps a non-measurable subset of $A$ to a measurable subset of $B$, but $X$ could map a measurable subset of $A$ to a non-measurable subset of $B$. We only care about the reverse direction, and it becomes apparent why in the <a href="#motivation-3-construct-events-that-are-guaranteed-measurable">section on random variables</a>.</p>
 
 <p>A <strong>probability measure</strong> is a measure s.t. $P(\Omega) = 1$, i.e. the measure of the entire set $\Omega$ is bounded and equals 1.</p>
 
@@ -722,7 +749,7 @@ s.setAttribute('data-timestamp', +new Date());
       
   </ul>
   <div class="credits">
-  <span style="line-height: 3rem;">© 2020   PRAGMANYM</span><br>
+  <span style="line-height: 3rem;">© 2021   PRAGMANYM</span><br>
   <span>This site uses <a href="//jekyllrb.com">Jekyll</a>. Look-and-feel inspired by the <a href="//github.com/clayh53/tufte-jekyll">Tufte theme</a>.</span> 
   </div>  
 </footer>
