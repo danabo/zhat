@@ -1,4 +1,4 @@
-url: pragmanym.github.io/zhat
+url: danabo.github.io/zhat
 title: Z-Hat
 subtitle: Finding better representations
 author: pragmanym
@@ -9,6 +9,7 @@ markdown: kramdown
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 kramdown:
   hard_wrap: true
+  math_engine: null   # See https://github.com/gettalong/kramdown/issues/342 and https://github.com/jekyll/jekyll/issues/6061
 permalink: /articles/:title
 timezone: America/Los_Angeles
 excerpt_separator: <!--more-->  # you can specify your own separator, of course.
