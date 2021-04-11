@@ -398,7 +398,7 @@ Up to now we've only considered discrete distributions. Describing the informati
 
 For this discussion, let's consider a random variable $\rX$ with [support](https://en.wikipedia.org/wiki/Support_(mathematics)#Support_of_a_distribution) over $\R$. Let $f(x)$ be the probability density function (pdf) of $\rX$.
 
-Elementary events $x \in \rX$ {% marginnote "do not have probabilities perse" "you could say their probability mass is 0 in the limit" %}. Self-information is a function of probability mass, so we should instead compute self-info of events that are intervals (or measurable sets) over $\R$. For example,
+Elementary events $x \in \R$ {% marginnote "do not have probabilities perse" "you could say their probability mass is 0 in the limit" %}. Self-information is a function of probability mass, so we should instead compute self-info of events that are intervals (or measurable sets) over $\R$. For example,
 
 $$
 \begin{align}
