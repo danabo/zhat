@@ -5,8 +5,8 @@
     <description>A (we)blog devoted to finding better representations</description>
     <link>danabo.github.io/zhat/</link>
     <atom:link href="danabo.github.io/zhat/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 24 May 2021 10:34:29 -0700</pubDate>
-    <lastBuildDate>Mon, 24 May 2021 10:34:29 -0700</lastBuildDate>
+    <pubDate>Mon, 24 May 2021 10:46:45 -0700</pubDate>
+    <lastBuildDate>Mon, 24 May 2021 10:46:45 -0700</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -17,14 +17,14 @@
 
 &lt;!--more--&gt;
 
-&lt;p&gt;It’s a good exercise to see what would happen if you tried to do Bayesian inference on statements in 1st order logic, but I make no endorsements on what you &lt;em&gt;should&lt;/em&gt; do. Such constructions, though syntactically valid, are often undecidable (or non-computable), and otherwise intractable to even approximate. It’s also not clear that you gain more power from doing so (see my &lt;a href=&quot;#Interlude-A-tale-of-infinite-coin-tosses&quot;&gt;section on infinite coin tossing&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;It’s a good exercise to see what would happen if you tried to do Bayesian inference on statements in 1st order logic, but I make no endorsements on what you &lt;em&gt;should&lt;/em&gt; do. Such constructions, though syntactically valid, are often undecidable (or non-computable), and otherwise intractable to even approximate. It’s also not clear that you gain more power from doing so (see my &lt;a href=&quot;#interlude-a-tale-of-infinite-coin-tosses&quot;&gt;section on infinite coin tossing&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;Admittedly, this article is obnoxiously long. It’s not necessary to read all of it. In summary, I …&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#The-Formalism&quot;&gt;Explain how probability notation is supposed to work.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#Review-of-Bayesian-Propositional-0-th-order-Logic&quot;&gt;Review Bayesian 0th-order logic&lt;/a&gt; and &lt;a href=&quot;#Philosophy-of-Bayesian-Probability&quot;&gt;explain my understanding of Bayesian probability.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#Motivating-examples&quot;&gt;Go through some examples that hopefully demonstrate natural ways that probability and 1st-order logic can interact.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;(then finally) &lt;a href=&quot;#David-Chapman’s-Challenge-Problems&quot;&gt;reinterpret Chapman’s “challenge” problems&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-formalism&quot;&gt;Explain how probability notation is supposed to work.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#review-of-bayesian-propositional-0-th-order-logic&quot;&gt;Review Bayesian 0th-order logic&lt;/a&gt; and &lt;a href=&quot;#philosophy-of-bayesian-probability&quot;&gt;explain my understanding of Bayesian probability.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#motivating-examples&quot;&gt;Go through some examples that hopefully demonstrate natural ways that probability and 1st-order logic can interact.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;(then finally) &lt;a href=&quot;#david-chapmans-challenge-problems&quot;&gt;reinterpret Chapman’s “challenge” problems&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;I also posted a shorter version of this on &lt;a href=&quot;https://www.lesswrong.com/posts/W8YscokXMiDnLKJ96/bayesian-inference-on-1st-order-logic&quot;&gt;LessWrong&lt;/a&gt;.&lt;/p&gt;
