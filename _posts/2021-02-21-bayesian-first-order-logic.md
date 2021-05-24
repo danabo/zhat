@@ -12,7 +12,7 @@ Chapman provides a few counter-examples that supposedly demonstrate that doing B
 <!--more-->
 
 
-It's a good exercise to see what would happen if you tried to do Bayesian inference on statements in 1st order logic, but I make no endorsements on what you *should* do. Such constructions, though syntactically valid, are often undecidable (or non-computable), and otherwise intractable to even approximate. It's also not clear that you gain more power from doing so (see my [section on infinite coin tossing](#Interlude-A-parable-of-infinite-coin-tosses)).
+It's a good exercise to see what would happen if you tried to do Bayesian inference on statements in 1st order logic, but I make no endorsements on what you *should* do. Such constructions, though syntactically valid, are often undecidable (or non-computable), and otherwise intractable to even approximate. It's also not clear that you gain more power from doing so (see my [section on infinite coin tossing](#Interlude-A-tale-of-infinite-coin-tosses)).
 
 Admittedly, this article is obnoxiously long. It's not necessary to read all of it. In summary, I ...
 1. [Explain how probability notation is supposed to work.](#The-Formalism)
@@ -653,7 +653,7 @@ $$
 The short answer is that this depends on $P$. To see exactly how $P$ determines our ability to update our beliefs about generalities, it is instructive to take a detour to talk about coin tossing.
 
 
-## Interlude: A parable of infinite coin tosses
+## Interlude: A tale of infinite coin tosses
 
 A probability distribution on truth tables can be equivalently viewed as a random process that draws a sequence of binary outcomes. It is customary to call such a process a sequence of coin tosses, though these abstract "coins" are not necessarily independent, and can have arbitrary dependencies between their outcomes.
 
