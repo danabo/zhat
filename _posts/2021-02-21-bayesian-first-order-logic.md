@@ -12,13 +12,13 @@ Chapman provides a few counter-examples that supposedly demonstrate that doing B
 <!--more-->
 
 
-It's a good exercise to see what would happen if you tried to do Bayesian inference on statements in 1st order logic, but I make no endorsements on what you *should* do. Such constructions, though syntactically valid, are often undecidable (or non-computable), and otherwise intractable to even approximate. It's also not clear that you gain more power from doing so (see my [section on infinite coin tossing](#Interlude-A-tale-of-infinite-coin-tosses)).
+It's a good exercise to see what would happen if you tried to do Bayesian inference on statements in 1st order logic, but I make no endorsements on what you *should* do. Such constructions, though syntactically valid, are often undecidable (or non-computable), and otherwise intractable to even approximate. It's also not clear that you gain more power from doing so (see my [section on infinite coin tossing](#interlude-a-tale-of-infinite-coin-tosses)).
 
 Admittedly, this article is obnoxiously long. It's not necessary to read all of it. In summary, I ...
-1. [Explain how probability notation is supposed to work.](#The-Formalism)
-2. [Review Bayesian 0th-order logic](#Review-of-Bayesian-Propositional-0-th-order-Logic) and [explain my understanding of Bayesian probability.](#Philosophy-of-Bayesian-Probability)
-3. [Go through some examples that hopefully demonstrate natural ways that probability and 1st-order logic can interact.](#Motivating-examples)
-4. (then finally) [reinterpret Chapman's "challenge" problems](#David-Chapman’s-Challenge-Problems).
+1. [Explain how probability notation is supposed to work.](#the-formalism)
+2. [Review Bayesian 0th-order logic](#review-of-bayesian-propositional-0-th-order-logic) and [explain my understanding of Bayesian probability.](#philosophy-of-bayesian-probability)
+3. [Go through some examples that hopefully demonstrate natural ways that probability and 1st-order logic can interact.](#motivating-examples)
+4. (then finally) [reinterpret Chapman's "challenge" problems](#david-chapmans-challenge-problems).
 
 I also posted a shorter version of this on [LessWrong](https://www.lesswrong.com/posts/W8YscokXMiDnLKJ96/bayesian-inference-on-1st-order-logic).
 
